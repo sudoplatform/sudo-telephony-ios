@@ -1,0 +1,1027 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2EC161921FA6CED5CA1015C6 /* Pods_SudoTelephonyIntegrationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5A7C6DCB0AF0DD922CA319 /* Pods_SudoTelephonyIntegrationTests.framework */; };
+		4E53B147016DC5E6905AD0EA /* Pods_SudoTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050D25F248395500F134D5A1 /* Pods_SudoTelephony.framework */; };
+		B39491069B18B2015A42DEE3 /* Pods_SudoTelephonyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92E9BB8A7001EDCA3EC20584 /* Pods_SudoTelephonyTests.framework */; };
+		CFD525512440E26D008616A9 /* SudoTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD525472440E26C008616A9 /* SudoTelephony.framework */; };
+		CFD525582440E26D008616A9 /* SudoTelephony.h in Headers */ = {isa = PBXBuildFile; fileRef = CFD5254A2440E26C008616A9 /* SudoTelephony.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CFD525672440E2B7008616A9 /* SudoTelephonyClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525622440E2B6008616A9 /* SudoTelephonyClient.swift */; };
+		CFD525682440E2B7008616A9 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525632440E2B6008616A9 /* Logger.swift */; };
+		CFD525692440E2B7008616A9 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525642440E2B7008616A9 /* API.swift */; };
+		CFD5258B2440E552008616A9 /* SudoTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD525472440E26C008616A9 /* SudoTelephony.framework */; };
+		CFD525A22440E777008616A9 /* ListConversationsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD5259E2440E777008616A9 /* ListConversationsOperation.swift */; };
+		CFD525A32440E777008616A9 /* SignedInCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525A02440E777008616A9 /* SignedInCondition.swift */; };
+		CFD525A42440E777008616A9 /* GetMessageOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525A12440E777008616A9 /* GetMessageOperation.swift */; };
+		CFD525A52440E7A3008616A9 /* AvailablePhoneNumberResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525962440E763008616A9 /* AvailablePhoneNumberResult.swift */; };
+		CFD525A62440E7A3008616A9 /* PhoneMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525972440E763008616A9 /* PhoneMessage.swift */; };
+		CFD525A72440E7A3008616A9 /* KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525982440E763008616A9 /* KeyPair.swift */; };
+		CFD525A82440E7A3008616A9 /* PhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525992440E763008616A9 /* PhoneNumber.swift */; };
+		CFD525A92440E7A3008616A9 /* TelephonyListToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD5259A2440E763008616A9 /* TelephonyListToken.swift */; };
+		CFD525AB2440E7A3008616A9 /* PhoneMessageConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD5259C2440E763008616A9 /* PhoneMessageConversation.swift */; };
+		CFD525AE2440E860008616A9 /* DefaultSudoTelephonyClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525AD2440E860008616A9 /* DefaultSudoTelephonyClientTests.swift */; };
+		CFD525B32440E882008616A9 /* TestConfigurationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525AF2440E882008616A9 /* TestConfigurationProvider.swift */; };
+		CFD525B42440E882008616A9 /* TestKeyAuthenticationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525B02440E882008616A9 /* TestKeyAuthenticationProvider.swift */; };
+		CFD525B52440E882008616A9 /* TestKeyAuthenticationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525B12440E882008616A9 /* TestKeyAuthenticationInfo.swift */; };
+		CFD525B62440E882008616A9 /* TelephonyClientIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525B22440E882008616A9 /* TelephonyClientIntegrationTests.swift */; };
+		CFD525B82440EDED008616A9 /* MockSudoProfilesClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525B72440EDED008616A9 /* MockSudoProfilesClient.swift */; };
+		CFD525C32440F613008616A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525C22440F613008616A9 /* AppDelegate.swift */; };
+		CFD525C52440F613008616A9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525C42440F613008616A9 /* SceneDelegate.swift */; };
+		CFD525C72440F613008616A9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525C62440F613008616A9 /* ContentView.swift */; };
+		CFD525C92440F61A008616A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFD525C82440F61A008616A9 /* Assets.xcassets */; };
+		CFD525CC2440F61A008616A9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFD525CB2440F61A008616A9 /* Preview Assets.xcassets */; };
+		CFD525CF2440F61A008616A9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFD525CD2440F61A008616A9 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CFD525522440E26D008616A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CFD5253E2440E26C008616A9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CFD525462440E26C008616A9;
+			remoteInfo = SudoTelephony;
+		};
+		CFD5258C2440E552008616A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CFD5253E2440E26C008616A9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CFD525462440E26C008616A9;
+			remoteInfo = SudoTelephony;
+		};
+		CFD525D42440F64A008616A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CFD5253E2440E26C008616A9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CFD525BF2440F613008616A9;
+			remoteInfo = SudoTelephonyIntegrationTestHost;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		050D25F248395500F134D5A1 /* Pods_SudoTelephony.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SudoTelephony.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5259C65D7CD380A439B9B9E1 /* Pods-SudoTelephonyIntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephonyIntegrationTests.debug.xcconfig"; path = "Target Support Files/Pods-SudoTelephonyIntegrationTests/Pods-SudoTelephonyIntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6FF83A2F6F0CC00CEBF114A3 /* Pods-SudoTelephonyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephonyTests.release.xcconfig"; path = "Target Support Files/Pods-SudoTelephonyTests/Pods-SudoTelephonyTests.release.xcconfig"; sourceTree = "<group>"; };
+		7E5A7C6DCB0AF0DD922CA319 /* Pods_SudoTelephonyIntegrationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SudoTelephonyIntegrationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		84F24D22805EBF8341B7697F /* Pods-SudoTelephonyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephonyTests.debug.xcconfig"; path = "Target Support Files/Pods-SudoTelephonyTests/Pods-SudoTelephonyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		92E9BB8A7001EDCA3EC20584 /* Pods_SudoTelephonyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SudoTelephonyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A223D98032C8E556CD4BF7CA /* Pods-SudoTelephony.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephony.release.xcconfig"; path = "Target Support Files/Pods-SudoTelephony/Pods-SudoTelephony.release.xcconfig"; sourceTree = "<group>"; };
+		C51E4D2F419F88C25257756F /* Pods-SudoTelephonyIntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephonyIntegrationTests.release.xcconfig"; path = "Target Support Files/Pods-SudoTelephonyIntegrationTests/Pods-SudoTelephonyIntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
+		CFD525472440E26C008616A9 /* SudoTelephony.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SudoTelephony.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFD5254A2440E26C008616A9 /* SudoTelephony.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SudoTelephony.h; sourceTree = "<group>"; };
+		CFD5254B2440E26C008616A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CFD525502440E26D008616A9 /* SudoTelephonyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudoTelephonyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFD525572440E26D008616A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CFD525622440E2B6008616A9 /* SudoTelephonyClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SudoTelephonyClient.swift; sourceTree = "<group>"; };
+		CFD525632440E2B6008616A9 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		CFD525642440E2B7008616A9 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		CFD525812440E47B008616A9 /* SudoTelephony.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; path = SudoTelephony.podspec; sourceTree = "<group>"; };
+		CFD525862440E552008616A9 /* SudoTelephonyIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudoTelephonyIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFD5258A2440E552008616A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CFD525962440E763008616A9 /* AvailablePhoneNumberResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailablePhoneNumberResult.swift; sourceTree = "<group>"; };
+		CFD525972440E763008616A9 /* PhoneMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneMessage.swift; sourceTree = "<group>"; };
+		CFD525982440E763008616A9 /* KeyPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPair.swift; sourceTree = "<group>"; };
+		CFD525992440E763008616A9 /* PhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumber.swift; sourceTree = "<group>"; };
+		CFD5259A2440E763008616A9 /* TelephonyListToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelephonyListToken.swift; sourceTree = "<group>"; };
+		CFD5259C2440E763008616A9 /* PhoneMessageConversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneMessageConversation.swift; sourceTree = "<group>"; };
+		CFD5259E2440E777008616A9 /* ListConversationsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListConversationsOperation.swift; sourceTree = "<group>"; };
+		CFD525A02440E777008616A9 /* SignedInCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignedInCondition.swift; sourceTree = "<group>"; };
+		CFD525A12440E777008616A9 /* GetMessageOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMessageOperation.swift; sourceTree = "<group>"; };
+		CFD525AD2440E860008616A9 /* DefaultSudoTelephonyClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSudoTelephonyClientTests.swift; sourceTree = "<group>"; };
+		CFD525AF2440E882008616A9 /* TestConfigurationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestConfigurationProvider.swift; sourceTree = "<group>"; };
+		CFD525B02440E882008616A9 /* TestKeyAuthenticationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestKeyAuthenticationProvider.swift; sourceTree = "<group>"; };
+		CFD525B12440E882008616A9 /* TestKeyAuthenticationInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestKeyAuthenticationInfo.swift; sourceTree = "<group>"; };
+		CFD525B22440E882008616A9 /* TelephonyClientIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TelephonyClientIntegrationTests.swift; sourceTree = "<group>"; };
+		CFD525B72440EDED008616A9 /* MockSudoProfilesClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSudoProfilesClient.swift; sourceTree = "<group>"; };
+		CFD525C02440F613008616A9 /* SudoTelephonyIntegrationTestHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SudoTelephonyIntegrationTestHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFD525C22440F613008616A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CFD525C42440F613008616A9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		CFD525C62440F613008616A9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CFD525C82440F61A008616A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CFD525CB2440F61A008616A9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		CFD525CE2440F61A008616A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CFD525D02440F61B008616A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FF6DF052543DE5465608F47C /* Pods-SudoTelephony.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephony.debug.xcconfig"; path = "Target Support Files/Pods-SudoTelephony/Pods-SudoTelephony.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CFD525442440E26C008616A9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E53B147016DC5E6905AD0EA /* Pods_SudoTelephony.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFD5254D2440E26D008616A9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFD525512440E26D008616A9 /* SudoTelephony.framework in Frameworks */,
+				B39491069B18B2015A42DEE3 /* Pods_SudoTelephonyTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFD525832440E552008616A9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFD5258B2440E552008616A9 /* SudoTelephony.framework in Frameworks */,
+				2EC161921FA6CED5CA1015C6 /* Pods_SudoTelephonyIntegrationTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFD525BD2440F613008616A9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		61A00CB54C8AEFF166B720FF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FF6DF052543DE5465608F47C /* Pods-SudoTelephony.debug.xcconfig */,
+				A223D98032C8E556CD4BF7CA /* Pods-SudoTelephony.release.xcconfig */,
+				5259C65D7CD380A439B9B9E1 /* Pods-SudoTelephonyIntegrationTests.debug.xcconfig */,
+				C51E4D2F419F88C25257756F /* Pods-SudoTelephonyIntegrationTests.release.xcconfig */,
+				84F24D22805EBF8341B7697F /* Pods-SudoTelephonyTests.debug.xcconfig */,
+				6FF83A2F6F0CC00CEBF114A3 /* Pods-SudoTelephonyTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		BB65E8225297C5BF1B0EF3B5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				050D25F248395500F134D5A1 /* Pods_SudoTelephony.framework */,
+				7E5A7C6DCB0AF0DD922CA319 /* Pods_SudoTelephonyIntegrationTests.framework */,
+				92E9BB8A7001EDCA3EC20584 /* Pods_SudoTelephonyTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CFD5253D2440E26C008616A9 = {
+			isa = PBXGroup;
+			children = (
+				CFD525812440E47B008616A9 /* SudoTelephony.podspec */,
+				CFD525492440E26C008616A9 /* SudoTelephony */,
+				CFD525542440E26D008616A9 /* SudoTelephonyTests */,
+				CFD525872440E552008616A9 /* SudoTelephonyIntegrationTests */,
+				CFD525C12440F613008616A9 /* SudoTelephonyIntegrationTestHost */,
+				CFD525482440E26C008616A9 /* Products */,
+				61A00CB54C8AEFF166B720FF /* Pods */,
+				BB65E8225297C5BF1B0EF3B5 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		CFD525482440E26C008616A9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CFD525472440E26C008616A9 /* SudoTelephony.framework */,
+				CFD525502440E26D008616A9 /* SudoTelephonyTests.xctest */,
+				CFD525862440E552008616A9 /* SudoTelephonyIntegrationTests.xctest */,
+				CFD525C02440F613008616A9 /* SudoTelephonyIntegrationTestHost.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CFD525492440E26C008616A9 /* SudoTelephony */ = {
+			isa = PBXGroup;
+			children = (
+				CFD5259D2440E777008616A9 /* Operations */,
+				CFD525952440E763008616A9 /* Model */,
+				CFD5254B2440E26C008616A9 /* Info.plist */,
+				CFD5254A2440E26C008616A9 /* SudoTelephony.h */,
+				CFD525642440E2B7008616A9 /* API.swift */,
+				CFD525632440E2B6008616A9 /* Logger.swift */,
+				CFD525622440E2B6008616A9 /* SudoTelephonyClient.swift */,
+			);
+			path = SudoTelephony;
+			sourceTree = "<group>";
+		};
+		CFD525542440E26D008616A9 /* SudoTelephonyTests */ = {
+			isa = PBXGroup;
+			children = (
+				CFD525572440E26D008616A9 /* Info.plist */,
+				CFD525AD2440E860008616A9 /* DefaultSudoTelephonyClientTests.swift */,
+				CFD525B72440EDED008616A9 /* MockSudoProfilesClient.swift */,
+			);
+			path = SudoTelephonyTests;
+			sourceTree = "<group>";
+		};
+		CFD525872440E552008616A9 /* SudoTelephonyIntegrationTests */ = {
+			isa = PBXGroup;
+			children = (
+				CFD5258A2440E552008616A9 /* Info.plist */,
+				CFD525B22440E882008616A9 /* TelephonyClientIntegrationTests.swift */,
+				CFD525AF2440E882008616A9 /* TestConfigurationProvider.swift */,
+				CFD525B12440E882008616A9 /* TestKeyAuthenticationInfo.swift */,
+				CFD525B02440E882008616A9 /* TestKeyAuthenticationProvider.swift */,
+			);
+			path = SudoTelephonyIntegrationTests;
+			sourceTree = "<group>";
+		};
+		CFD525952440E763008616A9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CFD525962440E763008616A9 /* AvailablePhoneNumberResult.swift */,
+				CFD525972440E763008616A9 /* PhoneMessage.swift */,
+				CFD525982440E763008616A9 /* KeyPair.swift */,
+				CFD525992440E763008616A9 /* PhoneNumber.swift */,
+				CFD5259A2440E763008616A9 /* TelephonyListToken.swift */,
+				CFD5259C2440E763008616A9 /* PhoneMessageConversation.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CFD5259D2440E777008616A9 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				CFD5259F2440E777008616A9 /* Conditions */,
+				CFD5259E2440E777008616A9 /* ListConversationsOperation.swift */,
+				CFD525A12440E777008616A9 /* GetMessageOperation.swift */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		CFD5259F2440E777008616A9 /* Conditions */ = {
+			isa = PBXGroup;
+			children = (
+				CFD525A02440E777008616A9 /* SignedInCondition.swift */,
+			);
+			path = Conditions;
+			sourceTree = "<group>";
+		};
+		CFD525C12440F613008616A9 /* SudoTelephonyIntegrationTestHost */ = {
+			isa = PBXGroup;
+			children = (
+				CFD525C22440F613008616A9 /* AppDelegate.swift */,
+				CFD525C42440F613008616A9 /* SceneDelegate.swift */,
+				CFD525C62440F613008616A9 /* ContentView.swift */,
+				CFD525C82440F61A008616A9 /* Assets.xcassets */,
+				CFD525CD2440F61A008616A9 /* LaunchScreen.storyboard */,
+				CFD525D02440F61B008616A9 /* Info.plist */,
+				CFD525CA2440F61A008616A9 /* Preview Content */,
+			);
+			path = SudoTelephonyIntegrationTestHost;
+			sourceTree = "<group>";
+		};
+		CFD525CA2440F61A008616A9 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				CFD525CB2440F61A008616A9 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		CFD525422440E26C008616A9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFD525582440E26D008616A9 /* SudoTelephony.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		CFD525462440E26C008616A9 /* SudoTelephony */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CFD5255B2440E26D008616A9 /* Build configuration list for PBXNativeTarget "SudoTelephony" */;
+			buildPhases = (
+				CACCEF063A132D14A0A0AE61 /* [CP] Check Pods Manifest.lock */,
+				CFD525422440E26C008616A9 /* Headers */,
+				CFD525432440E26C008616A9 /* Sources */,
+				CFD525442440E26C008616A9 /* Frameworks */,
+				CFD525452440E26C008616A9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SudoTelephony;
+			productName = SudoTelephony;
+			productReference = CFD525472440E26C008616A9 /* SudoTelephony.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		CFD5254F2440E26D008616A9 /* SudoTelephonyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CFD5255E2440E26D008616A9 /* Build configuration list for PBXNativeTarget "SudoTelephonyTests" */;
+			buildPhases = (
+				CD45E2C55736C9B014FF9189 /* [CP] Check Pods Manifest.lock */,
+				CFD5254C2440E26D008616A9 /* Sources */,
+				CFD5254D2440E26D008616A9 /* Frameworks */,
+				CFD5254E2440E26D008616A9 /* Resources */,
+				8BFBFA1AC090ADFF1122E3F6 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CFD525532440E26D008616A9 /* PBXTargetDependency */,
+			);
+			name = SudoTelephonyTests;
+			productName = SudoTelephonyTests;
+			productReference = CFD525502440E26D008616A9 /* SudoTelephonyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CFD525852440E552008616A9 /* SudoTelephonyIntegrationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CFD5258E2440E552008616A9 /* Build configuration list for PBXNativeTarget "SudoTelephonyIntegrationTests" */;
+			buildPhases = (
+				94823CDA79EC2835A8E07843 /* [CP] Check Pods Manifest.lock */,
+				CFD525822440E552008616A9 /* Sources */,
+				CFD525832440E552008616A9 /* Frameworks */,
+				CFD525842440E552008616A9 /* Resources */,
+				D233DC2C6213067111336D29 /* [CP] Embed Pods Frameworks */,
+				CFD525BA2440F0D9008616A9 /* Copy Integration Test Configuration Files */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CFD5258D2440E552008616A9 /* PBXTargetDependency */,
+				CFD525D52440F64A008616A9 /* PBXTargetDependency */,
+			);
+			name = SudoTelephonyIntegrationTests;
+			productName = SudoTelephonyIntegrationTests;
+			productReference = CFD525862440E552008616A9 /* SudoTelephonyIntegrationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CFD525BF2440F613008616A9 /* SudoTelephonyIntegrationTestHost */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CFD525D12440F61B008616A9 /* Build configuration list for PBXNativeTarget "SudoTelephonyIntegrationTestHost" */;
+			buildPhases = (
+				CFD525BC2440F613008616A9 /* Sources */,
+				CFD525BD2440F613008616A9 /* Frameworks */,
+				CFD525BE2440F613008616A9 /* Resources */,
+				CF25719924413C2A0053334E /* Copy Integration Test Configuration Files */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SudoTelephonyIntegrationTestHost;
+			productName = SudoTelephonyIntegrationTestHost;
+			productReference = CFD525C02440F613008616A9 /* SudoTelephonyIntegrationTestHost.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CFD5253E2440E26C008616A9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "Sudo Platform";
+				TargetAttributes = {
+					CFD525462440E26C008616A9 = {
+						CreatedOnToolsVersion = 11.3.1;
+						LastSwiftMigration = 1130;
+					};
+					CFD5254F2440E26D008616A9 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					CFD525852440E552008616A9 = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = CFD525BF2440F613008616A9;
+					};
+					CFD525BF2440F613008616A9 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+				};
+			};
+			buildConfigurationList = CFD525412440E26C008616A9 /* Build configuration list for PBXProject "SudoTelephony" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CFD5253D2440E26C008616A9;
+			productRefGroup = CFD525482440E26C008616A9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CFD525462440E26C008616A9 /* SudoTelephony */,
+				CFD5254F2440E26D008616A9 /* SudoTelephonyTests */,
+				CFD525852440E552008616A9 /* SudoTelephonyIntegrationTests */,
+				CFD525BF2440F613008616A9 /* SudoTelephonyIntegrationTestHost */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CFD525452440E26C008616A9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFD5254E2440E26D008616A9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFD525842440E552008616A9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFD525BE2440F613008616A9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFD525CF2440F61A008616A9 /* LaunchScreen.storyboard in Resources */,
+				CFD525CC2440F61A008616A9 /* Preview Assets.xcassets in Resources */,
+				CFD525C92440F61A008616A9 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8BFBFA1AC090ADFF1122E3F6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SudoTelephonyTests/Pods-SudoTelephonyTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SudoTelephonyTests/Pods-SudoTelephonyTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SudoTelephonyTests/Pods-SudoTelephonyTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		94823CDA79EC2835A8E07843 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SudoTelephonyIntegrationTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CACCEF063A132D14A0A0AE61 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SudoTelephony-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CD45E2C55736C9B014FF9189 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SudoTelephonyTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CF25719924413C2A0053334E /* Copy Integration Test Configuration Files */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Integration Test Configuration Files";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo Copying SSM Keys\ncp -f telephony-system-test-config/anonyome_ssm_parameter_register_key.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\necho Copying Config\ncp -f telephony-system-test-config/sudoplatformconfig.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\necho Copying Test Image\ncp -f telephony-system-test-config/test_image.png \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\necho Files copied:\nls ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n";
+		};
+		CFD525BA2440F0D9008616A9 /* Copy Integration Test Configuration Files */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Integration Test Configuration Files";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo Copying SSM Keys\ncp -f telephony-system-test-config/anonyome_ssm_parameter_register_key.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\necho Copying Config\ncp -f telephony-system-test-config/sudoplatformconfig.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\necho Copying Test Image\ncp -f telephony-system-test-config/test_image.png \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\necho Files copied:\nls ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n";
+		};
+		D233DC2C6213067111336D29 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SudoTelephonyIntegrationTests/Pods-SudoTelephonyIntegrationTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SudoTelephonyIntegrationTests/Pods-SudoTelephonyIntegrationTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SudoTelephonyIntegrationTests/Pods-SudoTelephonyIntegrationTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CFD525432440E26C008616A9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFD525A92440E7A3008616A9 /* TelephonyListToken.swift in Sources */,
+				CFD525A22440E777008616A9 /* ListConversationsOperation.swift in Sources */,
+				CFD525AB2440E7A3008616A9 /* PhoneMessageConversation.swift in Sources */,
+				CFD525672440E2B7008616A9 /* SudoTelephonyClient.swift in Sources */,
+				CFD525A32440E777008616A9 /* SignedInCondition.swift in Sources */,
+				CFD525A62440E7A3008616A9 /* PhoneMessage.swift in Sources */,
+				CFD525A52440E7A3008616A9 /* AvailablePhoneNumberResult.swift in Sources */,
+				CFD525692440E2B7008616A9 /* API.swift in Sources */,
+				CFD525A42440E777008616A9 /* GetMessageOperation.swift in Sources */,
+				CFD525682440E2B7008616A9 /* Logger.swift in Sources */,
+				CFD525A82440E7A3008616A9 /* PhoneNumber.swift in Sources */,
+				CFD525A72440E7A3008616A9 /* KeyPair.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFD5254C2440E26D008616A9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFD525AE2440E860008616A9 /* DefaultSudoTelephonyClientTests.swift in Sources */,
+				CFD525B82440EDED008616A9 /* MockSudoProfilesClient.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFD525822440E552008616A9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFD525B42440E882008616A9 /* TestKeyAuthenticationProvider.swift in Sources */,
+				CFD525B32440E882008616A9 /* TestConfigurationProvider.swift in Sources */,
+				CFD525B52440E882008616A9 /* TestKeyAuthenticationInfo.swift in Sources */,
+				CFD525B62440E882008616A9 /* TelephonyClientIntegrationTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFD525BC2440F613008616A9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFD525C32440F613008616A9 /* AppDelegate.swift in Sources */,
+				CFD525C52440F613008616A9 /* SceneDelegate.swift in Sources */,
+				CFD525C72440F613008616A9 /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CFD525532440E26D008616A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CFD525462440E26C008616A9 /* SudoTelephony */;
+			targetProxy = CFD525522440E26D008616A9 /* PBXContainerItemProxy */;
+		};
+		CFD5258D2440E552008616A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CFD525462440E26C008616A9 /* SudoTelephony */;
+			targetProxy = CFD5258C2440E552008616A9 /* PBXContainerItemProxy */;
+		};
+		CFD525D52440F64A008616A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CFD525BF2440F613008616A9 /* SudoTelephonyIntegrationTestHost */;
+			targetProxy = CFD525D42440F64A008616A9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CFD525CD2440F61A008616A9 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CFD525CE2440F61A008616A9 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CFD525592440E26D008616A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		CFD5255A2440E26D008616A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		CFD5255C2440E26D008616A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FF6DF052543DE5465608F47C /* Pods-SudoTelephony.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = UU2W43R8JA;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = SudoTelephony/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.telephony;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CFD5255D2440E26D008616A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A223D98032C8E556CD4BF7CA /* Pods-SudoTelephony.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = UU2W43R8JA;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = SudoTelephony/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.telephony;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CFD5255F2440E26D008616A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 84F24D22805EBF8341B7697F /* Pods-SudoTelephonyTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SudoTelephonyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.SudoTelephonyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CFD525602440E26D008616A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6FF83A2F6F0CC00CEBF114A3 /* Pods-SudoTelephonyTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SudoTelephonyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.SudoTelephonyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CFD5258F2440E552008616A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5259C65D7CD380A439B9B9E1 /* Pods-SudoTelephonyIntegrationTests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UU2W43R8JA;
+				INFOPLIST_FILE = SudoTelephonyIntegrationTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.SudoTelephonyIntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SudoTelephonyIntegrationTestHost.app/SudoTelephonyIntegrationTestHost";
+			};
+			name = Debug;
+		};
+		CFD525902440E552008616A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C51E4D2F419F88C25257756F /* Pods-SudoTelephonyIntegrationTests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UU2W43R8JA;
+				INFOPLIST_FILE = SudoTelephonyIntegrationTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.SudoTelephonyIntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SudoTelephonyIntegrationTestHost.app/SudoTelephonyIntegrationTestHost";
+			};
+			name = Release;
+		};
+		CFD525D22440F61B008616A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"SudoTelephonyIntegrationTestHost/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = SudoTelephonyIntegrationTestHost/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.SudoTelephonyIntegrationTestHost;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CFD525D32440F61B008616A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"SudoTelephonyIntegrationTestHost/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = SudoTelephonyIntegrationTestHost/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.SudoTelephonyIntegrationTestHost;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CFD525412440E26C008616A9 /* Build configuration list for PBXProject "SudoTelephony" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFD525592440E26D008616A9 /* Debug */,
+				CFD5255A2440E26D008616A9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CFD5255B2440E26D008616A9 /* Build configuration list for PBXNativeTarget "SudoTelephony" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFD5255C2440E26D008616A9 /* Debug */,
+				CFD5255D2440E26D008616A9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CFD5255E2440E26D008616A9 /* Build configuration list for PBXNativeTarget "SudoTelephonyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFD5255F2440E26D008616A9 /* Debug */,
+				CFD525602440E26D008616A9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CFD5258E2440E552008616A9 /* Build configuration list for PBXNativeTarget "SudoTelephonyIntegrationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFD5258F2440E552008616A9 /* Debug */,
+				CFD525902440E552008616A9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CFD525D12440F61B008616A9 /* Build configuration list for PBXNativeTarget "SudoTelephonyIntegrationTestHost" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFD525D22440F61B008616A9 /* Debug */,
+				CFD525D32440F61B008616A9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CFD5253E2440E26C008616A9 /* Project object */;
+}
