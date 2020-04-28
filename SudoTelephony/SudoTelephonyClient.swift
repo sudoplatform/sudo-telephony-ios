@@ -1284,9 +1284,13 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
                 return
             }
             
-            self.logger.info("Data \(s3Key) successfully downloaded from S3")
-            
-            completion(.success(downloadedData))
+            do {
+                let decryptedData = try self.decryptSealedData(data: downloadedData)
+                self.logger.info("Data \(s3Key) successfully downloaded from S3")
+                completion(.success(decryptedData))
+            } catch {
+                completion(.failure(SudoTelephonyClientError.sealedDataDecryptionFailed))
+            }
         }
     }
 
@@ -1461,7 +1465,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
                 $0.latestPhoneMessage?.localPhoneNumber == localNumber.phoneNumber
             }
             
-            completion(.success(TelephonyListToken(items: conversations, nextToken: conversationsOperation.nextToken)))
+            completion(.success(TelephonyListToken(items: filteredConversations, nextToken: conversationsOperation.nextToken)))
             return
         })
         
