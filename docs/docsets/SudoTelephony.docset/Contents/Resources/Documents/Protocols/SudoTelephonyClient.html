@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SudoTelephonyClient Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Protocol/SudoTelephonyClient" class="dashAnchor"></a>
+
+    <a title="SudoTelephonyClient Protocol Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          SudoTelephony 2.0.3 Docs
+        </a>
+        
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">SudoTelephony Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      SudoTelephonyClient Protocol Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DefaultSudoTelephonyClient.html">DefaultSudoTelephonyClient</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DefaultSudoTelephonyClient/CacheType.html">– CacheType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DefaultSudoTelephonyClient.html#/s:13SudoTelephony07DefaultaB6ClientC6ConfigV">– Config</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/SignedInCondition.html">SignedInCondition</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ConversationType.html">ConversationType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MessageDirection.html">MessageDirection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MessageState.html">MessageState</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/PhoneNumberSearchState.html">PhoneNumberSearchState</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/PhoneNumberState.html">PhoneNumberState</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/SudoTelephonyClient.html">SudoTelephonyClient</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/DeprovisionPhoneNumberInput.html">DeprovisionPhoneNumberInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs.html#/s:13SudoTelephony7KeyPairV">KeyPair</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PhoneMessage.html">PhoneMessage</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PhoneMessage.html#/s:13SudoTelephony12PhoneMessageV9DirectionO">– Direction</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PhoneMessage.html#/s:13SudoTelephony12PhoneMessageV5StateO">– State</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PhoneMessageConversation.html">PhoneMessageConversation</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PhoneMessageConversation.html#/s:13SudoTelephony24PhoneMessageConversationV0dE4TypeO">– MessageConversationType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ProvisionPhoneNumberInput.html">ProvisionPhoneNumberInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/S3MediaObjectInput.html">S3MediaObjectInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/SendMessageInput.html">SendMessageInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/TelephonyListToken.html">TelephonyListToken</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:13SudoTelephony0aB20ClientConfigProvidera">SudoTelephonyClientConfigProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:13SudoTelephony0aB12SearchResulta">SudoTelephonySearchResult</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>SudoTelephonyClient</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">SudoTelephonyClient</span></code></pre>
+
+                </div>
+              </div>
+            <p>Protocol encapsulating a library of functions for managing phone numbers and messages in the Sudo Platform Telephony service.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP5resetyyKF"></a>
+                    <a name="//apple_ref/swift/Method/reset()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP5resetyyKF">reset()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes all keys associated with this client, resets any cached data, cleans up subscriptions, and purges any pending operations.</p>
+
+<p>It is important to note that this will clear ALL cached data related to all telephony services.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">reset</span><span class="p">()</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP21getSupportedCountries10completionyys6ResultOySaySSGAA0abC5ErrorOGc_tKF"></a>
+                    <a name="//apple_ref/swift/Method/getSupportedCountries(completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP21getSupportedCountries10completionyys6ResultOySaySSGAA0abC5ErrorOGc_tKF">getSupportedCountries(completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get supported countries for searching available phone numbers. The supported countries are returned in ISO 3166-1 alpha-2 format. For example: US, ND, etc.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getSupportedCountries</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Completion callback that returns supported countries.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbers11countryCode5limit10completionySS_SuSgys6ResultOyAA0ef6NumberL0VAA0abC5ErrorOGctKF"></a>
+                    <a name="//apple_ref/swift/Method/searchAvailablePhoneNumbers(countryCode:limit:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbers11countryCode5limit10completionySS_SuSgys6ResultOyAA0ef6NumberL0VAA0abC5ErrorOGctKF">searchAvailablePhoneNumbers(countryCode:<wbr>limit:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get available phone numbers for the specified country code.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">searchAvailablePhoneNumbers</span><span class="p">(</span><span class="nv">countryCode</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">UInt</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:13SudoTelephony0aB12SearchResulta">SudoTelephonySearchResult</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>countryCode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Supported country code to search on. Code must be formatted in ISO 3166-1 alpha-2 format. For example: US, BR, ND, etc.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional limit on the number of available phone numbers returned in the search result. If the limit is not specified, the default value is 10 and the search result will provide no more than 10 phone numbers.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Completion callback providing a search result containing available phone numbers with the given country code.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbers11countryCode6prefix5limit10completionySS_SSSuSgys6ResultOyAA0ef6NumberM0VAA0abC5ErrorOGctKF"></a>
+                    <a name="//apple_ref/swift/Method/searchAvailablePhoneNumbers(countryCode:prefix:limit:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbers11countryCode6prefix5limit10completionySS_SSSuSgys6ResultOyAA0ef6NumberM0VAA0abC5ErrorOGctKF">searchAvailablePhoneNumbers(countryCode:<wbr>prefix:<wbr>limit:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get available phone numbers for the specified country code and prefix.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">searchAvailablePhoneNumbers</span><span class="p">(</span><span class="nv">countryCode</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">prefix</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">UInt</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:13SudoTelephony0aB12SearchResulta">SudoTelephonySearchResult</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>countryCode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Supported country code to search on. Code must be formatted on the ISO 3166-1 alpha-2 format. For example: US, BR, ND, etc.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>prefix</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Parameter prefix: Optional prefix (area code) used to limit the search results. If nil, only the country code will used for the search. If the country code and area code do not match, the resulting list of available phone numbers might be empty.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional limit on the number of available phone numbers returned in the search result. If the limit is not specified, the default value is 10 and the search result will provide no more than 10 phone numbers.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Completion callback providing a search result containing available phone numbers with the given country code and prefix.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbers11countryCode8latitude9longitude5limit10completionySS_S2dSuSgys6ResultOyAA0ef6NumberN0VAA0abC5ErrorOGctKF"></a>
+                    <a name="//apple_ref/swift/Method/searchAvailablePhoneNumbers(countryCode:latitude:longitude:limit:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbers11countryCode8latitude9longitude5limit10completionySS_S2dSuSgys6ResultOyAA0ef6NumberN0VAA0abC5ErrorOGctKF">searchAvailablePhoneNumbers(countryCode:<wbr>latitude:<wbr>longitude:<wbr>limit:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get available phone numbers for the specified coordinates.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">searchAvailablePhoneNumbers</span><span class="p">(</span><span class="nv">countryCode</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">latitude</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">longitude</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">UInt</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:13SudoTelephony0aB12SearchResulta">SudoTelephonySearchResult</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>countryCode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Supported country code to search on. Code must be formatted on the ISO 3166-1 alpha-2 format. For example: US, BR, ND, etc.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>longitude</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Double value of the longitude of the coordinate to search on.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>latitude</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Double value of the latitude of the coordinate to search on.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional limit on the number of available phone numbers returned in the search result. If the limit is not specified, the default value is 10 and the search result will provide no more than 10 phone numbers.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Completion callback providing a search result containing available phone numbers with the given country code and coordinates.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP20provisionPhoneNumber11countryCode05phoneF06sudoId10completionySS_S2Sys6ResultOyAA0eF0VAA0abC5ErrorOGctKF"></a>
+                    <a name="//apple_ref/swift/Method/provisionPhoneNumber(countryCode:phoneNumber:sudoId:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP20provisionPhoneNumber11countryCode05phoneF06sudoId10completionySS_S2Sys6ResultOyAA0eF0VAA0abC5ErrorOGctKF">provisionPhoneNumber(countryCode:<wbr>phoneNumber:<wbr>sudoId:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Provision a phone number to the signed in account. Searching for available phone numbers should be done before this call, ensuring that the passed in phone number is available.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">provisionPhoneNumber</span><span class="p">(</span><span class="nv">countryCode</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">phoneNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">sudoId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">PhoneNumber</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>countryCode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Supported country of the number to provision. Code must be formatted on the ISO 3166-1 alpha-2 format. For example: US, BR, ND, etc.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>phoneNumber</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The E164 formatted phone number to provision.. For example: &ldquo;+14155552671&rdquo;.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sudoId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the Sudo to provision the phone number for.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Completion callback that provides the provisioned phone number.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP17deletePhoneNumber05phoneF010completionySS_ys6ResultOySSAA0abC5ErrorOGctKF"></a>
+                    <a name="//apple_ref/swift/Method/deletePhoneNumber(phoneNumber:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP17deletePhoneNumber05phoneF010completionySS_ys6ResultOySSAA0abC5ErrorOGctKF">deletePhoneNumber(phoneNumber:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delete an already provisioned from number from the signed in account.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">deletePhoneNumber</span><span class="p">(</span><span class="nv">phoneNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>phoneNumber</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The E164 formatted phone number to delete. For example: &ldquo;+14155552671&rdquo;.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Completion callback that provides the phone number string on success.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP16listPhoneNumbers5limit9nextToken10completionySiSg_SSSgys6ResultOyAA0b4ListI0VyAA0E6NumberVGAA0abC5ErrorOGctKF"></a>
+                    <a name="//apple_ref/swift/Method/listPhoneNumbers(limit:nextToken:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP16listPhoneNumbers5limit9nextToken10completionySiSg_SSSgys6ResultOyAA0b4ListI0VyAA0E6NumberVGAA0abC5ErrorOGctKF">listPhoneNumbers(limit:<wbr>nextToken:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>List all the phone numbers provisioned by the user account. If the user does not have phone numbers associated with the account, an empty list will be returned.
+The list can be queried in batches, where the limit and the next batch token can be specified.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listPhoneNumbers</span><span class="p">(</span><span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span> <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/TelephonyListToken.html">TelephonyListToken</a></span><span class="o">&lt;</span><span class="kt">PhoneNumber</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The limit of the batch to fetch. If none specified, all of them will be returned.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>nextToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The token to use for pagination.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Completion callback that provides a list of phone numbers or an error if there was a failure.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP14getPhoneNumber2id10completionySS_ys6ResultOyAA0eF0VSgAA0abC5ErrorOGctKF"></a>
+                    <a name="//apple_ref/swift/Method/getPhoneNumber(id:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP14getPhoneNumber2id10completionySS_ys6ResultOyAA0eF0VSgAA0abC5ErrorOGctKF">getPhoneNumber(id:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieves the phone number for the provided ID. If the number is not associated/provisioned by the account, <code>nil</code> will be returned.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getPhoneNumber</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">PhoneNumber</span><span class="p">?,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The id of the phone number to retrieve.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Completion callback that provides the phone number or an error if it could not be retrieved.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP14sendSMSMessage11localNumber06remoteG04body10completionyAA05PhoneG0V_S2Sys6ResultOyAA0K7MessageVAA0abC5ErrorOGctKF"></a>
+                    <a name="//apple_ref/swift/Method/sendSMSMessage(localNumber:remoteNumber:body:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP14sendSMSMessage11localNumber06remoteG04body10completionyAA05PhoneG0V_S2Sys6ResultOyAA0K7MessageVAA0abC5ErrorOGctKF">sendSMSMessage(localNumber:<wbr>remoteNumber:<wbr>body:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sends an MMS message from a provisioned phone number to another number.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">sendSMSMessage</span><span class="p">(</span><span class="nv">localNumber</span><span class="p">:</span> <span class="kt">PhoneNumber</span><span class="p">,</span> <span class="nv">remoteNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">body</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>localNumber</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The E164 formatted phone number to send the message from. For example: &ldquo;+14155552671&rdquo;.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>remoteNumber</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The E164 formatted phone number of the recipient. For example: &ldquo;+14155552671&rdquo;.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>body</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The body of the SMS message.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Completion callback providing the sent message or an error if there was a failure.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP14sendMMSMessage11localNumber06remoteG04body0F3Url10completionyAA05PhoneG0V_S2S10Foundation3URLVys6ResultOyAA0L7MessageVAA0abC5ErrorOGctKF"></a>
+                    <a name="//apple_ref/swift/Method/sendMMSMessage(localNumber:remoteNumber:body:localUrl:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP14sendMMSMessage11localNumber06remoteG04body0F3Url10completionyAA05PhoneG0V_S2S10Foundation3URLVys6ResultOyAA0L7MessageVAA0abC5ErrorOGctKF">sendMMSMessage(localNumber:<wbr>remoteNumber:<wbr>body:<wbr>localUrl:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sends an MMS message from a provisioned phone number to another number.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">sendMMSMessage</span><span class="p">(</span><span class="nv">localNumber</span><span class="p">:</span> <span class="kt">PhoneNumber</span><span class="p">,</span> <span class="nv">remoteNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">body</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">localUrl</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>localNumber</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The E164 formatted phone number to send the message from. For example: &ldquo;+14155552671&rdquo;.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>remoteNumber</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The E164 formatted phone number of the recipient. For example: &ldquo;+14155552671&rdquo;.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>body</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The text body of the MMS message.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>localUrl</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The local path of the media to be uploaded to S3.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Completion callback providing the sent message or an error if there was a failure.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP19subscribeToMessages13resultHandler10AWSAppSync11Cancellable_pys6ResultOyAA12PhoneMessageVAA0abC5ErrorOGc_tKF"></a>
+                    <a name="//apple_ref/swift/Method/subscribeToMessages(resultHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP19subscribeToMessages13resultHandler10AWSAppSync11Cancellable_pys6ResultOyAA12PhoneMessageVAA0abC5ErrorOGc_tKF">subscribeToMessages(resultHandler:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Subscribe to new messages and message status updates.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">subscribeToMessages</span><span class="p">(</span><span class="nv">resultHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Cancellable</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resultHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A callback that provides new/updated messages when message events occur.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><code>Cancellable</code> The object used to cancel the subscription. When this object is released, the subscription is canceled.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP10getMessage2id10completionySS_ys6ResultOyAA05PhoneE0VAA0abC5ErrorOGctKF"></a>
+                    <a name="//apple_ref/swift/Method/getMessage(id:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP10getMessage2id10completionySS_ys6ResultOyAA05PhoneE0VAA0abC5ErrorOGctKF">getMessage(id:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieves a message matching the associated id.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getMessage</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The id of the message to retrieve.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Completion callback providing the message or an error if it could not be retrieved.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP11getMessages11localNumber06remoteG05limit9nextToken10completionyAA05PhoneG0V_SSSiSgSSSgys6ResultOyAA0b4ListK0VyAA0M7MessageVGAA0abC5ErrorOGctKF"></a>
+                    <a name="//apple_ref/swift/Method/getMessages(localNumber:remoteNumber:limit:nextToken:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP11getMessages11localNumber06remoteG05limit9nextToken10completionyAA05PhoneG0V_SSSiSgSSSgys6ResultOyAA0b4ListK0VyAA0M7MessageVGAA0abC5ErrorOGctKF">getMessages(localNumber:<wbr>remoteNumber:<wbr>limit:<wbr>nextToken:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieves a list of messages matching the specified criteria.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getMessages</span><span class="p">(</span><span class="nv">localNumber</span><span class="p">:</span> <span class="kt">PhoneNumber</span><span class="p">,</span> <span class="nv">remoteNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span> <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/TelephonyListToken.html">TelephonyListToken</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>localNumber</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The E164 formatted phone number of the participating sudo. For example: &ldquo;+14155552671&rdquo;.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>remoteNumber</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The E164 formatted phone number of the other participant in the phone conversation. For example: &ldquo;+14155552671&rdquo;.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The maximum number of messages to retrieve.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>nextToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The token to use for pagination.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Completion callback providing a list of messages or an error if there was a failure.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP11getMessages14conversationId5limit9nextToken10completionySS_SiSgSSSgys6ResultOyAA0b4ListJ0VyAA12PhoneMessageVGAA0abC5ErrorOGctKF"></a>
+                    <a name="//apple_ref/swift/Method/getMessages(conversationId:limit:nextToken:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP11getMessages14conversationId5limit9nextToken10completionySS_SiSgSSSgys6ResultOyAA0b4ListJ0VyAA12PhoneMessageVGAA0abC5ErrorOGctKF">getMessages(conversationId:<wbr>limit:<wbr>nextToken:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieves a list of messages matching the specified criteria.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getMessages</span><span class="p">(</span><span class="nv">conversationId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span> <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/TelephonyListToken.html">TelephonyListToken</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>conversationId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The id of the conversation associated with the messages to be retrieved.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The maximum number of messages to retrieve.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>nextToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The token to use for pagination.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Completion callback providing a list of messages or an error if there was a failure.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP12downloadData8s3Object10completionyAA07S3MediaG0V_ys6ResultOy10Foundation0E0VAA0abC5ErrorOGctF"></a>
+                    <a name="//apple_ref/swift/Method/downloadData(s3Object:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP12downloadData8s3Object10completionyAA07S3MediaG0V_ys6ResultOy10Foundation0E0VAA0abC5ErrorOGctF">downloadData(s3Object:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Downloads MMS attachments from Amazon S3.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">downloadData</span><span class="p">(</span><span class="nv">s3Object</span><span class="p">:</span> <span class="kt">S3MediaObject</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">Data</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>s3Object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The S3MediaObject that provides the necessary info for retrieving the media object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Completion callback providing the raw data of the retrieved media object or an error if it could not be retrieved.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP13deleteMessage2id10completionySS_ys6ResultOySSAA0abC5ErrorOGctKF"></a>
+                    <a name="//apple_ref/swift/Method/deleteMessage(id:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP13deleteMessage2id10completionySS_ys6ResultOySSAA0abC5ErrorOGctKF">deleteMessage(id:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Deletes a message matching the associated id.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">deleteMessage</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The id of the message to delete.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Completion callback providing the id of the deleted message or an error if the message could not be deleted.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP15getConversation14conversationId10completionySS_ys6ResultOyAA012PhoneMessageE0VAA0abC5ErrorOGctKF"></a>
+                    <a name="//apple_ref/swift/Method/getConversation(conversationId:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP15getConversation14conversationId10completionySS_ys6ResultOyAA012PhoneMessageE0VAA0abC5ErrorOGctKF">getConversation(conversationId:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieves the conversation matching the specified criteria.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getConversation</span><span class="p">(</span><span class="nv">conversationId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessageConversation.html">PhoneMessageConversation</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>conversationId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The id of the conversation to be retrieved.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Completion callback providing the conversation or an error if could not be retrieved.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP15getConversation11localNumber06remoteG010completionyAA05PhoneG0V_SSys6ResultOyAA0j7MessageE0VAA0abC5ErrorOGctKF"></a>
+                    <a name="//apple_ref/swift/Method/getConversation(localNumber:remoteNumber:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP15getConversation11localNumber06remoteG010completionyAA05PhoneG0V_SSys6ResultOyAA0j7MessageE0VAA0abC5ErrorOGctKF">getConversation(localNumber:<wbr>remoteNumber:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieves the conversation matching the specified criteria.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getConversation</span><span class="p">(</span><span class="nv">localNumber</span><span class="p">:</span> <span class="kt">PhoneNumber</span><span class="p">,</span> <span class="nv">remoteNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessageConversation.html">PhoneMessageConversation</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>localNumber</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The E164 formatted phone number of the participating sudo. For example: &ldquo;+14155552671&rdquo;.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>remoteNumber</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The E164 formatted phone number of the other participant in the phone conversation. For example: &ldquo;+14155552671&rdquo;.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Completion callback providing the conversation or an error if could not be retrieved.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP16getConversations11localNumber5limit9nextToken10completionyAA05PhoneG0V_SiSgSSSgys6ResultOyAA0b4ListJ0VyAA0L19MessageConversationVGAA0abC5ErrorOGctKF"></a>
+                    <a name="//apple_ref/swift/Method/getConversations(localNumber:limit:nextToken:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP16getConversations11localNumber5limit9nextToken10completionyAA05PhoneG0V_SiSgSSSgys6ResultOyAA0b4ListJ0VyAA0L19MessageConversationVGAA0abC5ErrorOGctKF">getConversations(localNumber:<wbr>limit:<wbr>nextToken:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieves a list of conversations for provisioned numbers.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getConversations</span><span class="p">(</span><span class="nv">localNumber</span><span class="p">:</span> <span class="kt">PhoneNumber</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span> <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/TelephonyListToken.html">TelephonyListToken</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessageConversation.html">PhoneMessageConversation</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>localNumber</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The E164 formatted phone number of the participating sudo. For example: &ldquo;+14155552671&rdquo;.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The maximum number of conversations to retrieve.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>nextToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The token to use for pagination.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Completion callback providing a list of conversations or an error if there was a failure.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2020 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2020-04-29)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
