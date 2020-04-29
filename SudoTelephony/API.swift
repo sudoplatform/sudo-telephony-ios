@@ -1687,7 +1687,7 @@ public final class AvailablePhoneNumbersForGpsMutation: GraphQLMutation {
 
 public final class SupportedCountriesQuery: GraphQLQuery {
   public static let operationString =
-    "query supportedCountries {\n  getSupportedCountries {\n    __typename\n    countries\n  }\n}"
+    "query supportedCountries {\n  getPhoneNumberCountries {\n    __typename\n    countries\n  }\n}"
 
   public init() {
   }
@@ -1696,7 +1696,7 @@ public final class SupportedCountriesQuery: GraphQLQuery {
     public static let possibleTypes = ["Query"]
 
     public static let selections: [GraphQLSelection] = [
-      GraphQLField("getSupportedCountries", type: .object(GetSupportedCountry.selections)),
+      GraphQLField("getPhoneNumberCountries", type: .object(GetPhoneNumberCountry.selections)),
     ]
 
     public var snapshot: Snapshot
@@ -1705,21 +1705,21 @@ public final class SupportedCountriesQuery: GraphQLQuery {
       self.snapshot = snapshot
     }
 
-    public init(getSupportedCountries: GetSupportedCountry? = nil) {
-      self.init(snapshot: ["__typename": "Query", "getSupportedCountries": getSupportedCountries.flatMap { $0.snapshot }])
+    public init(getPhoneNumberCountries: GetPhoneNumberCountry? = nil) {
+      self.init(snapshot: ["__typename": "Query", "getPhoneNumberCountries": getPhoneNumberCountries.flatMap { $0.snapshot }])
     }
 
     /// Returns an array of ISO country codes.
-    public var getSupportedCountries: GetSupportedCountry? {
+    public var getPhoneNumberCountries: GetPhoneNumberCountry? {
       get {
-        return (snapshot["getSupportedCountries"] as? Snapshot).flatMap { GetSupportedCountry(snapshot: $0) }
+        return (snapshot["getPhoneNumberCountries"] as? Snapshot).flatMap { GetPhoneNumberCountry(snapshot: $0) }
       }
       set {
-        snapshot.updateValue(newValue?.snapshot, forKey: "getSupportedCountries")
+        snapshot.updateValue(newValue?.snapshot, forKey: "getPhoneNumberCountries")
       }
     }
 
-    public struct GetSupportedCountry: GraphQLSelectionSet {
+    public struct GetPhoneNumberCountry: GraphQLSelectionSet {
       public static let possibleTypes = ["SupportedCountries"]
 
       public static let selections: [GraphQLSelection] = [

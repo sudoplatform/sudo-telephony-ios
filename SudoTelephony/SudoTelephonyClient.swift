@@ -725,7 +725,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
                 return
             }
             
-            guard let data = result?.data?.getSupportedCountries else {
+            guard let data = result?.data?.getPhoneNumberCountries else {
                 self.logger.error("Data not received for Supported Countries")
                 completion(.failure(.internalError))
                 return
