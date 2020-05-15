@@ -3,7 +3,6 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 //
-
 import Foundation
 import AWSAppSync
 import AWSS3
@@ -14,133 +13,7 @@ import SudoProfiles
 import SudoConfigManager
 import SudoApiClient
 import MobileCoreServices
-import CommonCrypto
 import SudoOperations
-
-/// List of possible errors thrown by `SudoTelephonyClient`.
-public enum SudoTelephonyClientError: Error, LocalizedError {
-    /// Not signed in to the service
-    case notSignedIn
-    /// Bad configuration, something went wrong setting this up.
-    case invalidConfig
-    /// Authentication failed, meaning the user is not signed in or registered.
-    case authenticationFailed(Error)
-    /// Request to the backend failed for some reason.
-    case requestFailed
-    /// Internal error that could mean data was not returned or parsed properly.
-    case internalError
-    /// Number provisioning Failed
-    case numberProvisioningFailed
-    /// Country provided for the request is not supported.
-    case countryNotSupported(String)
-    /// Message send failed
-    case messageSendFailed
-    /// Message retrieval failed
-    case getMessageFailed
-    /// Message subscription failed
-    case messageSubscriptionFailed
-    /// Conversation retrieval failed
-    case getConversationFailed
-    /// One or more invalid inputs were passed on the request.
-    case invalidInput
-    /// Key Pair failed to be generated for new phone number.
-    case keyGenerationFailed
-    /// Key Pair failed to be deleted for phone number.
-    case keyDeletionFailed
-    /// Failed to get ownership proof when provisioning a number
-    case ownershipProofFailed
-    /// Sealed data decryption failed
-    case sealedDataDecryptionFailed
-    /// File not found at provided path
-    case fileNotFound
-    /// Invalid file format
-    case invalidFileFormat
-    /// MMS file upload failed
-    case fileUploadFailed
-    /// File download failed
-    case fileDownloadFailed
-    /// Message decryption failed
-    case messageDecryptionFailed
-    /// Collective size of message media exceeds limit
-    case messageMediaTooLarge
-    /// Insufficient entitlements to perform the requested action.
-    case insufficientEntitlement
-    /// Unknown Error ocurred
-    case unknown
-
-    public var errorDescription: String? {
-        switch self {
-        case .notSignedIn:
-            return "Not signed in"
-        case .invalidConfig:
-            return "Invalid AWS configuration"
-        case .authenticationFailed(let error):
-            return "Failed to authenticate: \(error.localizedDescription)."
-        case .requestFailed:
-            return "GraphQL request failed"
-        case .internalError:
-            return "An internal error ocurred. Please try again later."
-        case .numberProvisioningFailed:
-            return "Failed to provision a phone number"
-        case .countryNotSupported(let countryCode):
-            return "Unsupported country \(countryCode) used for operation."
-        case .messageSendFailed:
-            return "Failed to send message"
-        case .getMessageFailed:
-            return "Failed to get phone message"
-        case .messageSubscriptionFailed:
-            return "Failed to subscribe to message events"
-        case .getConversationFailed:
-            return "Failed to get conversation"
-        case .invalidInput:
-            return "One or more invalid inputs were passed on the request."
-        case .keyGenerationFailed:
-            return "Key pair failed to be generated on new phone number."
-        case .keyDeletionFailed:
-            return "Key pair failed to be deleted for phone number."
-        case .ownershipProofFailed:
-            return "Failed to get ownership proof for number provisioning."
-        case .sealedDataDecryptionFailed:
-            return "Failed to decrypt the sealed data"
-        case .fileNotFound:
-            return "File not found at provided path"
-        case .invalidFileFormat:
-            return "Invalid file format"
-        case .fileUploadFailed:
-            return "Failed to upload file to S3"
-        case .fileDownloadFailed:
-            return "Failed to download file from S3"
-        case .messageDecryptionFailed:
-            return "Failed to decrypt message data"
-        case .messageMediaTooLarge:
-            return "Message media too large"
-        case .insufficientEntitlement:
-            return "Resource limit exceeded"
-        case .unknown:
-            return "An unknown error has ocurred. Please try again later."
-        }
-    }
-
-    init(internalError: GraphQLError) {
-        guard let errorType = internalError["errorType"] as? String else {
-            self = .unknown
-            return
-        }
-        
-        switch errorType {
-        case "sudoplatform.telephony.UnsupportedCountryError":
-            self = .countryNotSupported("")
-        case "ValidationException", "sudoplatform.DecodingError":
-            self = .invalidInput
-        case "sudoplatform.telephony.NoPhoneNumberEntitlementError":
-            self = .insufficientEntitlement
-        case "sudoplatform.telephony.MessageMediaTooLarge":
-            self = .messageMediaTooLarge
-        default:
-            self = .unknown
-        }
-    }
-}
 
 /// The type of a `SudoTelephonyClient` search callback.
 public typealias SudoTelephonySearchResult = (Swift.Result<AvailablePhoneNumberResult, SudoTelephonyClientError>) -> Void
@@ -201,10 +74,11 @@ public protocol SudoTelephonyClient {
     /// List all the phone numbers provisioned by the user account. If the user does not have phone numbers associated with the account, an empty list will be returned.
     /// The list can be queried in batches, where the limit and the next batch token can be specified.
     ///
+    /// - Parameter sudoId: The sudo id to fetch for.
     /// - Parameter limit: The limit of the batch to fetch. If none specified, all of them will be returned.
-    /// - Parameter nextToken: The token to use for pagination.
+    /// - Parameter nextToken: The token to use for pagination. Must pass same parameters as the previous call or unexpected results may be returned.
     /// - Parameter completion: Completion callback that provides a list of phone numbers or an error if there was a failure.
-    func listPhoneNumbers(limit: Int?, nextToken: String?, completion: @escaping (Swift.Result<TelephonyListToken<PhoneNumber>, SudoTelephonyClientError>) -> Void) throws
+    func listPhoneNumbers(sudoId: String?, limit: Int?, nextToken: String?, completion: @escaping (Swift.Result<TelephonyListToken<PhoneNumber>, SudoTelephonyClientError>) -> Void) throws
     
     /// Retrieves the phone number for the provided ID. If the number is not associated/provisioned by the account, `nil` will be returned.
     ///
@@ -225,15 +99,15 @@ public protocol SudoTelephonyClient {
     /// - Parameter localNumber: The E164 formatted phone number to send the message from. For example: "+14155552671".
     /// - Parameter remoteNumber: The E164 formatted phone number of the recipient. For example: "+14155552671".
     /// - Parameter body: The text body of the MMS message.
-    /// - Parameter localUrl: The local path of the media to be uploaded to S3.
+    /// - Parameter localUrl: The local path of the media to be uploaded.
     /// - Parameter completion: Completion callback providing the sent message or an error if there was a failure.
     func sendMMSMessage(localNumber: PhoneNumber, remoteNumber: String, body: String, localUrl: URL, completion: @escaping (Swift.Result<PhoneMessage, SudoTelephonyClientError>) -> Void) throws
     
     /// Subscribe to new messages and message status updates.
     ///
     /// - Parameter resultHandler: A callback that provides new/updated messages when message events occur.
-    /// - Returns: `Cancellable` The object used to cancel the subscription. When this object is released, the subscription is canceled.
-    func subscribeToMessages(resultHandler: @escaping (Swift.Result<PhoneMessage, SudoTelephonyClientError>) -> Void) throws -> Cancellable
+    /// - Returns: `SubscriptionToken` The object used to cancel the subscription. When this object is released, the subscription is canceled.
+    func subscribeToMessages(resultHandler: @escaping (Swift.Result<PhoneMessage, SudoTelephonyClientError>) -> Void) throws -> SubscriptionToken
 
     /// Retrieves a message matching the associated id.
     ///
@@ -258,11 +132,11 @@ public protocol SudoTelephonyClient {
     /// - Parameter completion: Completion callback providing a list of messages or an error if there was a failure.
     func getMessages(conversationId: String, limit: Int?, nextToken: String?, completion: @escaping (Swift.Result<TelephonyListToken<PhoneMessage>, SudoTelephonyClientError>) -> Void) throws
     
-    /// Downloads MMS attachments from Amazon S3.
+    /// Downloads MMS attachments.
     ///
-    /// - Parameter s3Object: The S3MediaObject that provides the necessary info for retrieving the media object.
+    /// - Parameter media: The MediaObject that provides the necessary info for retrieving the media data.
     /// - Parameter completion: Completion callback providing the raw data of the retrieved media object or an error if it could not be retrieved.
-    func downloadData(s3Object: S3MediaObject, completion: @escaping (Swift.Result<Data, SudoTelephonyClientError>) -> Void)
+    func downloadData(for media: MediaObject, completion: @escaping (Swift.Result<Data, SudoTelephonyClientError>) -> Void)
     
     /// Deletes a message matching the associated id.
     ///
@@ -290,19 +164,6 @@ public protocol SudoTelephonyClient {
     /// - Parameter nextToken: The token to use for pagination.
     /// - Parameter completion: Completion callback providing a list of conversations or an error if there was a failure.
     func getConversations(localNumber: PhoneNumber, limit: Int?, nextToken: String?, completion: @escaping (Swift.Result<TelephonyListToken<PhoneMessageConversation>, SudoTelephonyClientError>) -> Void) throws
-}
-
-private struct MMSUpload : AWSS3InputObjectProtocol, AWSS3ObjectProtocol {
-    let key: String
-    let bucket: String
-    let region: String
-    let mimeType: String
-    let localUri: URL
-    func getLocalSourceFileURL() -> URL? { return localUri }
-    func getMimeType() -> String { return mimeType }
-    func getBucketName() -> String { return bucket }
-    func getKeyName() -> String { return key }
-    func getRegion() -> String { return region }
 }
 
 /// Default implementation of `SudoTelephonyClient`.
@@ -990,22 +851,28 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         }
     }
     
-    public func listPhoneNumbers(limit: Int?, nextToken: String?, completion: @escaping (Swift.Result<TelephonyListToken<PhoneNumber>, SudoTelephonyClientError>) -> Void) throws {
+    public func listPhoneNumbers(sudoId: String?, limit: Int?, nextToken: String?, completion: @escaping (Swift.Result<TelephonyListToken<PhoneNumber>, SudoTelephonyClientError>) -> Void) throws {
         self.logger.info("Listing phone numbers")
-        
-        let query = PhoneNumbersQuery(filter: nil, limit: limit, nextToken: nextToken)
+
+        var filter: PhoneNumberFilterInput? = nil
+        if let sudoId = sudoId {
+            filter = PhoneNumberFilterInput(sudoOwner: IDFilterInput(eq: sudoId))
+        }
+
+        let query = PhoneNumbersQuery(filter: filter, limit: limit, nextToken: nextToken)
         
         self.graphQLClient.fetch(query: query, cachePolicy: .returnCacheDataAndFetch, queue: self.apiResultQueue) { (result, error) in
             guard error == nil else {
                 completion(.failure(self.handleAppSyncError(error!)))
                 return
             }
-            
+
             guard let data = result?.data?.listPhoneNumbers else {
                 completion(.failure(.internalError))
                 return
             }
-            
+
+
             let token = TelephonyListToken(items: data.items?.map {
                 PhoneNumber(id: $0.id, phoneNumber: $0.phoneNumber, state: PhoneNumber.State(internalState: $0.state), version: $0.version, created: Date(timeIntervalSince1970: $0.createdAtEpochMs / 1000), updated: Date(timeIntervalSince1970: $0.updatedAtEpochMs / 1000))
                 } ?? [], nextToken: data.nextToken)
@@ -1088,7 +955,8 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
             self.graphQLClient.perform(mutation: mutation, queue: self.apiResultQueue, optimisticUpdate: nil, conflictResolutionBlock: nil) { (result, error) in
                 let containerError = result?.errors?.first
                 guard error == nil, containerError == nil else {
-                    completion(.failure(self.handleAppSyncError(error ?? containerError ?? SudoTelephonyClientError.messageSendFailed)))
+                    let e = self.handleAppSyncError(error ?? containerError ?? SudoTelephonyClientError.messageSendFailed)
+                    completion(.failure(e))
                     return
                 }
                 guard let messageId = result?.data?.sendMessage else {
@@ -1125,38 +993,18 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
                 completion(.failure(.getMessageFailed))
                 return
             }
-            
+
             do {
-                guard let sealedBody = data.body,
-                    let sealedBodyData = Data(base64Encoded: sealedBody, options: .ignoreUnknownCharacters),
-                    let sealedRemoteData = Data(base64Encoded: data.remotePhoneNumber, options: .ignoreUnknownCharacters),
-                    let sealedLocalData = Data(base64Encoded: data.localPhoneNumber, options: .ignoreUnknownCharacters) else {
-                        completion(.failure(.messageDecryptionFailed))
-                        return
-                }
-                
-                let decryptedBody = try self.decryptSealedData(data: sealedBodyData)
-                let decryptedRemote = try self.decryptSealedData(data: sealedRemoteData)
-                let decryptedLocal = try self.decryptSealedData(data: sealedLocalData)
-                let bodyText = String(decoding: decryptedBody, as: UTF8.self)
-                let remote = String(decoding: decryptedRemote, as: UTF8.self)
-                let local = String(decoding: decryptedLocal, as: UTF8.self)
-                
-                let phoneMessage = PhoneMessage(id: data.id,
-                                                    owner: data.owner,
-                                                    conversation: data.conversation,
-                                                    updated: Date(timeIntervalSince1970: data.updatedAtEpochMs / 1000),
-                                                    created: Date(timeIntervalSince1970: data.createdAtEpochMs / 1000),
-                                                    localPhoneNumber: local,
-                                                    remotePhoneNumber: remote,
-                                                    body: bodyText,
-                                                    direction: PhoneMessage.Direction(internalDirection: data.direction),
-                                                    state: PhoneMessage.State(internalState: data.state),
-                                                    media: data.media?.map { $0.fragments.s3MediaObject } ?? [])
-                
+                let phoneMessage = try PhoneMessage.createFrom(data: data, client: self)
                 completion(.success(phoneMessage))
-            } catch {
-                completion(.failure(.messageDecryptionFailed))
+            }
+            catch {
+                if error is SudoTelephonyClientError {
+                    completion(.failure(error as! SudoTelephonyClientError))
+                }
+                else {
+                    completion(.failure(.messageDecryptionFailed))
+                }
                 return
             }
         }
@@ -1197,6 +1045,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
             do {
                 let messages = try results.items?.map { data in
                     let sealedBody = data.body ?? ""
+
                     let sealedBodyData = Data(base64Encoded: sealedBody, options: .ignoreUnknownCharacters) ?? Data()
                     let sealedRemoteData = Data(base64Encoded: data.remotePhoneNumber, options: .ignoreUnknownCharacters) ?? Data()
                     let sealedLocalData = Data(base64Encoded: data.localPhoneNumber, options: .ignoreUnknownCharacters) ?? Data()
@@ -1218,7 +1067,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
                                             body: bodyText,
                                             direction: PhoneMessage.Direction(internalDirection: data.direction),
                                             state: PhoneMessage.State(internalState: data.state),
-                                            media: data.media?.map { $0.fragments.s3MediaObject } ?? [])
+                                            media: data.media?.map { MediaObject(media: $0.fragments.s3MediaObject) } ?? [])
                     } ?? [PhoneMessage]()
                 
                 let listToken = TelephonyListToken<PhoneMessage>(items: messages, nextToken: results.nextToken)
@@ -1255,6 +1104,11 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
             return
         }
 
+        guard mimeType == "image/jpeg" || mimeType == "image/png" || mimeType == "image/gif" else {
+            completion(SudoTelephonyClientError.unsupportedMediaContentType)
+            return
+        }
+
         let fileData = fileManager.contents(atPath: localUrl.path)!
 
         self.s3TransferUtility.uploadData(fileData, bucket: s3Bucket, key: s3KeyPath, contentType: mimeType, expression: nil) { (task, error) in
@@ -1266,16 +1120,16 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
                 return
             }
             
-            self.logger.info("File \(localUrl.lastPathComponent) successfully uploaded to S3")
+            self.logger.info("File \(localUrl.lastPathComponent) successfully uploaded")
             completion(nil)
         }
     }
     
-    public func downloadData(s3Object: S3MediaObject, completion: @escaping (Swift.Result<Data, SudoTelephonyClientError>) -> Void) {
-        let s3Key = s3Object.key
-        self.logger.info("Downloading data \(s3Key) from S3")
+    public func downloadData(for media: MediaObject, completion: @escaping (Swift.Result<Data, SudoTelephonyClientError>) -> Void) {
+        let s3Key = media.key
+        self.logger.info("Downloading data \(s3Key)")
 
-        self.s3TransferUtility.downloadData(fromBucket: s3Object.bucket, key: s3Key, expression: nil) { (task, _, data, error) in
+        self.s3TransferUtility.downloadData(fromBucket: media.bucket, key: s3Key, expression: nil) { (task, _, data, error) in
             guard error == nil, let downloadedData = data else {
                 if let e = error { self.logger.error(e.localizedDescription) }
                 let taskResult = task.response.debugDescription
@@ -1286,7 +1140,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
             
             do {
                 let decryptedData = try self.decryptSealedData(data: downloadedData)
-                self.logger.info("Data \(s3Key) successfully downloaded from S3")
+                self.logger.info("Data \(s3Key) successfully downloaded")
                 completion(.success(decryptedData))
             } catch {
                 completion(.failure(SudoTelephonyClientError.sealedDataDecryptionFailed))
@@ -1294,7 +1148,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         }
     }
 
-    public func subscribeToMessages(resultHandler: @escaping (Swift.Result<PhoneMessage, SudoTelephonyClientError>) -> Void) throws -> Cancellable {
+    public func subscribeToMessages(resultHandler: @escaping (Swift.Result<PhoneMessage, SudoTelephonyClientError>) -> Void) throws -> SubscriptionToken {
         guard let ownerId = try? self.sudoUserClient.getSubject() else {
             throw SudoTelephonyClientError.notSignedIn
         }
@@ -1338,7 +1192,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
                                                 body: bodyText,
                                                 direction: PhoneMessage.Direction(internalDirection: sealedMessage.direction),
                                                 state: PhoneMessage.State(internalState: sealedMessage.state),
-                                                media: sealedMessage.media?.map { $0.fragments.s3MediaObject } ?? [])
+                                                media: sealedMessage.media?.map { MediaObject(media: $0.fragments.s3MediaObject) } ?? [])
 
                 resultHandler(.success(phoneMessage))
             } catch {
@@ -1429,15 +1283,15 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
     public func getConversations(localNumber: PhoneNumber, limit: Int?, nextToken: String?, completion: @escaping (Swift.Result<TelephonyListToken<PhoneMessageConversation>, SudoTelephonyClientError>) -> Void) throws {
         self.logger.info("Fetching conversations")
 
-        // Create a filter that fetches all conversations.
-        let input: ConversationFilterInput = ConversationFilterInput(createdAtEpochMs: FloatFilterInput(ge: 0), updatedAtEpochMs: nil, and: nil, or: nil, not: nil)
+        let numberFilter = IDFilterInput(eq: localNumber.id)
+        let input: ConversationFilterInput = ConversationFilterInput(phoneNumberId: numberFilter, createdAtEpochMs: FloatFilterInput(ge: 0), updatedAtEpochMs: nil, and: nil, or: nil, not: nil)
 
         guard let keyId = self.getKeyId() else {
             completion(.failure(.getConversationFailed))
             return
         }
         
-        let conversationsOperation = ListConversationsOperation(input: input, keyId: keyId, appSyncClient: self.graphQLClient, telephonyClient: self, logger: self.logger)
+        let conversationsOperation = ListConversationsOperation(input: input, keyId: keyId, limit: limit, nextToken: nextToken, appSyncClient: self.graphQLClient, telephonyClient: self, logger: self.logger)
         let completionObserver = PlatformBlockObserver(finishHandler: { [weak self] operation, errors in
             guard !operation.isCancelled else {
                 return
@@ -1455,82 +1309,18 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
                 return
             }
             
-            guard conversations.count > 0 else {
+            guard conversations.items.count > 0 else {
                 self?.logger.error("Get conversations call succeeded, but no results were available")
-                completion(.success(TelephonyListToken(items: conversations, nextToken: nil)))
+                completion(.success(conversations))
                 return
             }
 
-            let filteredConversations = conversations.filter {
-                $0.latestPhoneMessage?.localPhoneNumber == localNumber.phoneNumber
-            }
-            
-            completion(.success(TelephonyListToken(items: filteredConversations, nextToken: conversationsOperation.nextToken)))
+            completion(.success(TelephonyListToken(items: conversations.items, nextToken: conversations.nextToken)))
             return
         })
         
         conversationsOperation.addObserver(completionObserver)
         conversationsOperation.addCondition(SignedInCondition(userClient: self.sudoUserClient))
         self.queue.addOperation(conversationsOperation)
-    }
-}
-
-
-extension UUID {
-    init(v5WithNameSpace nameSpace: String, name: String) {
-        // Get UUID bytes from namespace
-        let newUUID = UUID(uuidString: nameSpace)
-        let spaceUID = newUUID!.uuid
-        var localVar = spaceUID
-        var data = withUnsafePointer(to: &localVar) {
-            Data(bytes: $0, count: MemoryLayout.size(ofValue: spaceUID))
-        }
-        
-        // Append name string in UTF-8 encoding:
-        data.append(contentsOf: name.utf8)
-        
-        // Compute digest
-        var digest = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
-        data.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) -> Void in CC_SHA1(ptr, CC_LONG(data.count), &digest) }
-        
-        // Set version bits:
-        digest[6] &= 0x0F
-        digest[6] |= UInt8(5) << 4
-        // Set variant bits:
-        digest[8] &= 0x3F
-        digest[8] |= 0x80
-        
-        // Create UUID from digest:
-        self = NSUUID(uuidBytes: digest) as UUID
-    }
-}
-
-extension AWSRegionType {
-    static func regionTypeForString(regionString: String) -> AWSRegionType {
-        switch regionString {
-        case "us-east-1": return .USEast1
-        case "us-east-2": return .USEast2
-        case "us-west-1": return .USWest1
-        case "us-west-2": return .USWest2
-        case "eu-west-1": return .EUWest1
-        case "eu-west-2": return .EUWest2
-        case "eu-west-3": return .EUWest3
-        case "eu-north-1": return .EUNorth1
-        case "eu-central-1": return .EUCentral1
-        case "ap-northeast-1": return .APNortheast1
-        case "ap-northeast-2": return .APNortheast2
-        case "ap-southeast-1": return .APSoutheast1
-        case "ap-southeast-2": return .APSoutheast2
-        case "ap-south-1": return .APSouth1
-        case "ap-east-1": return .APEast1
-        case "sa-east-1": return .SAEast1
-        case "cn-north-1": return .CNNorth1
-        case "cn-northwest-1": return .CNNorthWest1
-        case "ca-central-1": return .CACentral1
-        case "me-south-1": return .MESouth1
-        case "us-gov-east-1": return .USGovEast1
-        case "us-gov-west-1": return .USGovWest1
-        default: return .Unknown
-        }
     }
 }

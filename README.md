@@ -3,7 +3,7 @@
 ## Overview
 The Sudo Platform makes it effortless to integrate phone numbers, messaging and calling within your existing or new products.
 
-Please see the [Sudo Platform Developer Docs](https://sudoplatform.com/docs) for an overview of Telephony in the Sudo Platform.
+Please see the [Sudo Platform Developer Docs](https://docs.sudoplatform.com) for an overview of Telephony in the Sudo Platform.
 
 ## Version Support
 | Technology             | Supported version |
@@ -13,7 +13,7 @@ Please see the [Sudo Platform Developer Docs](https://sudoplatform.com/docs) for
 | Xcode version          | 11.0+             |
 
 ## Integration Instructions
-Visit the [Telephony section](https://sudoplatform.com/docs) of the Sudo Platform Developer Docs for SDK integration instructions.
+Visit the [Telephony section](https://docs.sudoplatform.com/guides/telephony) of the Sudo Platform Developer Docs for SDK integration instructions.
 
 ## Questions and Support
 File any issues you find on the project's GitHub repository. Be careful not to share any Personally Identifiable Information (PII) or sensitive account information (API keys, credentials, etc.) when reporting an issue.

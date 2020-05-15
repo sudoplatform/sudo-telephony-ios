@@ -43,3 +43,4 @@ public struct PhoneMessageConversation {
     /// The date of the last modification to the conversation
     public let updated: Date
 }
+

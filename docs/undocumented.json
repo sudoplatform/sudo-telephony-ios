@@ -1,447 +1,6 @@
 {
   "warnings": [
     {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 7,
-      "symbol": "ProvisionPhoneNumberInput.graphQLMap",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 9,
-      "symbol": "ProvisionPhoneNumberInput.init(phoneNumber:country:keyRingId:clientRefId:ownerProofs:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 66,
-      "symbol": "DeprovisionPhoneNumberInput.graphQLMap",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 68,
-      "symbol": "DeprovisionPhoneNumberInput.init(phoneNumber:expectedVersion:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 93,
-      "symbol": "PhoneNumberFilterInput",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 173,
-      "symbol": "IDFilterInput",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 235,
-      "symbol": "StringFilterInput",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 333,
-      "symbol": "PhoneNumberStateFilterInput",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 380,
-      "symbol": "PhoneNumberState.provisioning",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 381,
-      "symbol": "PhoneNumberState.failed",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 382,
-      "symbol": "PhoneNumberState.complete",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 383,
-      "symbol": "PhoneNumberState.deprovisioning",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 419,
-      "symbol": "FloatFilterInput",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 511,
-      "symbol": "PhoneNumberSearchState.searching",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 512,
-      "symbol": "PhoneNumberSearchState.complete",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 513,
-      "symbol": "PhoneNumberSearchState.failed",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 546,
-      "symbol": "CreatePublicKeyInput",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 590,
-      "symbol": "DeletePublicKeyInput",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 609,
-      "symbol": "SendMessageInput.graphQLMap",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 611,
-      "symbol": "SendMessageInput.init(from:to:body:media:clientRefId:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 668,
-      "symbol": "S3MediaObjectInput.graphQLMap",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 670,
-      "symbol": "S3MediaObjectInput.init(key:bucket:region:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 705,
-      "symbol": "MessageFilterInput",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 776,
-      "symbol": "ConversationFilterInput",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 832,
-      "symbol": "MessageDirection.inbound",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 833,
-      "symbol": "MessageDirection.outbound",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 872,
-      "symbol": "MessageState.queued",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 873,
-      "symbol": "MessageState.sent",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 874,
-      "symbol": "MessageState.delivered",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 875,
-      "symbol": "MessageState.undelivered",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 876,
-      "symbol": "MessageState.failed",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 877,
-      "symbol": "MessageState.received",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 922,
-      "symbol": "ConversationType.individual",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 923,
-      "symbol": "ConversationType.group",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 953,
-      "symbol": "AvailablePhoneNumbersForCountryCodeMutation",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 1196,
-      "symbol": "AvailablePhoneNumbersForPrefixMutation",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 1441,
-      "symbol": "AvailablePhoneNumbersForGpsMutation",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 1688,
-      "symbol": "SupportedCountriesQuery",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 1761,
-      "symbol": "AvailablePhoneNumberResultQuery",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 2002,
-      "symbol": "AvailablePhoneNumbersFinishedSubscription",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 2246,
-      "symbol": "ProvisionPhoneNumberMutation",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 2440,
-      "symbol": "ProvisionPhoneNumberChangedSubscription",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 2637,
-      "symbol": "DeprovisionPhoneNumberMutation",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 2831,
-      "symbol": "PhoneNumbersQuery",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 3076,
-      "symbol": "PhoneNumberQuery",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 3270,
-      "symbol": "CreatePublicKeyMutation",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 3444,
-      "symbol": "DeletePublicKeyMutation",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 3618,
-      "symbol": "GetPublicKeyQuery",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 3792,
-      "symbol": "GetPublicKeysQuery",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 4015,
-      "symbol": "GetKeyRingQuery",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 4240,
-      "symbol": "SendMessageMutation",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 4283,
-      "symbol": "GetMessageQuery",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 4631,
-      "symbol": "DeleteMessageMutation",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 4674,
-      "symbol": "ListMessagesQuery",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 5071,
-      "symbol": "OnMessageReceivedSubscription",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 5418,
-      "symbol": "GetConversationQuery",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 5582,
-      "symbol": "ListConversationsQuery",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 5797,
-      "symbol": "SudoPhoneNumber",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 5926,
-      "symbol": "SudoAvailablePhoneNumberResult",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 6102,
-      "symbol": "PublicKey",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 6212,
-      "symbol": "SealedMessage",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 6493,
-      "symbol": "Conversation",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/API.swift",
-      "line": 6592,
-      "symbol": "S3MediaObject",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/Model/AvailablePhoneNumberResult.swift",
       "line": 10,
       "symbol": "AvailablePhoneNumberResult",
@@ -519,6 +78,27 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/Model/PhoneMessage.swift",
+      "line": 86,
+      "symbol": "MediaObject.key",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/Model/PhoneMessage.swift",
+      "line": 87,
+      "symbol": "MediaObject.bucket",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/Model/PhoneMessage.swift",
+      "line": 88,
+      "symbol": "MediaObject.region",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/Model/PhoneMessageConversation.swift",
       "line": 15,
       "symbol": "PhoneMessageConversation.MessageConversationType.individual",
@@ -555,21 +135,21 @@
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/SudoTelephonyClient.swift",
-      "line": 655,
+      "line": 516,
       "symbol": "DefaultSudoTelephonyClient.getKeyPair()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/SudoTelephonyClient.swift",
-      "line": 668,
+      "line": 529,
       "symbol": "DefaultSudoTelephonyClient.getKeyId()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/SudoTelephonyClient.swift",
-      "line": 679,
+      "line": 540,
       "symbol": "DefaultSudoTelephonyClient.getKeyRingId()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

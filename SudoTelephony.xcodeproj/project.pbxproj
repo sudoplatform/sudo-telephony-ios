@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		2EC161921FA6CED5CA1015C6 /* Pods_SudoTelephonyIntegrationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5A7C6DCB0AF0DD922CA319 /* Pods_SudoTelephonyIntegrationTests.framework */; };
+		3202683D245C75E900F18E66 /* SynchronizedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3202683C245C75E900F18E66 /* SynchronizedArray.swift */; };
+		3225AEDF246B4B3C00AF27BD /* SubscriptionToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3225AEDE246B4B3C00AF27BD /* SubscriptionToken.swift */; };
+		3225AEE1246B4B8100AF27BD /* UUIDExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3225AEE0246B4B8100AF27BD /* UUIDExtensions.swift */; };
+		3225AEE3246B4BBE00AF27BD /* AWSRegionTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3225AEE2246B4BBE00AF27BD /* AWSRegionTypeExtensions.swift */; };
+		3225AEE5246B4D1A00AF27BD /* SudoTelephonyClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3225AEE4246B4D1A00AF27BD /* SudoTelephonyClientError.swift */; };
+		3225AEE7246B4DC600AF27BD /* MMSUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3225AEE6246B4DC600AF27BD /* MMSUpload.swift */; };
+		327E5A74246318EB00B78DEE /* InternalUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327E5A73246318EB00B78DEE /* InternalUtility.swift */; };
 		4E53B147016DC5E6905AD0EA /* Pods_SudoTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050D25F248395500F134D5A1 /* Pods_SudoTelephony.framework */; };
 		B39491069B18B2015A42DEE3 /* Pods_SudoTelephonyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92E9BB8A7001EDCA3EC20584 /* Pods_SudoTelephonyTests.framework */; };
 		CFD525512440E26D008616A9 /* SudoTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD525472440E26C008616A9 /* SudoTelephony.framework */; };
@@ -18,7 +25,6 @@
 		CFD5258B2440E552008616A9 /* SudoTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD525472440E26C008616A9 /* SudoTelephony.framework */; };
 		CFD525A22440E777008616A9 /* ListConversationsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD5259E2440E777008616A9 /* ListConversationsOperation.swift */; };
 		CFD525A32440E777008616A9 /* SignedInCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525A02440E777008616A9 /* SignedInCondition.swift */; };
-		CFD525A42440E777008616A9 /* GetMessageOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525A12440E777008616A9 /* GetMessageOperation.swift */; };
 		CFD525A52440E7A3008616A9 /* AvailablePhoneNumberResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525962440E763008616A9 /* AvailablePhoneNumberResult.swift */; };
 		CFD525A62440E7A3008616A9 /* PhoneMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525972440E763008616A9 /* PhoneMessage.swift */; };
 		CFD525A72440E7A3008616A9 /* KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525982440E763008616A9 /* KeyPair.swift */; };
@@ -65,6 +71,13 @@
 
 /* Begin PBXFileReference section */
 		050D25F248395500F134D5A1 /* Pods_SudoTelephony.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SudoTelephony.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3202683C245C75E900F18E66 /* SynchronizedArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizedArray.swift; sourceTree = "<group>"; };
+		3225AEDE246B4B3C00AF27BD /* SubscriptionToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionToken.swift; sourceTree = "<group>"; };
+		3225AEE0246B4B8100AF27BD /* UUIDExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUIDExtensions.swift; sourceTree = "<group>"; };
+		3225AEE2246B4BBE00AF27BD /* AWSRegionTypeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSRegionTypeExtensions.swift; sourceTree = "<group>"; };
+		3225AEE4246B4D1A00AF27BD /* SudoTelephonyClientError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoTelephonyClientError.swift; sourceTree = "<group>"; };
+		3225AEE6246B4DC600AF27BD /* MMSUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMSUpload.swift; sourceTree = "<group>"; };
+		327E5A73246318EB00B78DEE /* InternalUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUtility.swift; sourceTree = "<group>"; };
 		5259C65D7CD380A439B9B9E1 /* Pods-SudoTelephonyIntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephonyIntegrationTests.debug.xcconfig"; path = "Target Support Files/Pods-SudoTelephonyIntegrationTests/Pods-SudoTelephonyIntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6FF83A2F6F0CC00CEBF114A3 /* Pods-SudoTelephonyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephonyTests.release.xcconfig"; path = "Target Support Files/Pods-SudoTelephonyTests/Pods-SudoTelephonyTests.release.xcconfig"; sourceTree = "<group>"; };
 		7E5A7C6DCB0AF0DD922CA319 /* Pods_SudoTelephonyIntegrationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SudoTelephonyIntegrationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,7 +104,6 @@
 		CFD5259C2440E763008616A9 /* PhoneMessageConversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneMessageConversation.swift; sourceTree = "<group>"; };
 		CFD5259E2440E777008616A9 /* ListConversationsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListConversationsOperation.swift; sourceTree = "<group>"; };
 		CFD525A02440E777008616A9 /* SignedInCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignedInCondition.swift; sourceTree = "<group>"; };
-		CFD525A12440E777008616A9 /* GetMessageOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMessageOperation.swift; sourceTree = "<group>"; };
 		CFD525AD2440E860008616A9 /* DefaultSudoTelephonyClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSudoTelephonyClientTests.swift; sourceTree = "<group>"; };
 		CFD525AF2440E882008616A9 /* TestConfigurationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestConfigurationProvider.swift; sourceTree = "<group>"; };
 		CFD525B02440E882008616A9 /* TestKeyAuthenticationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestKeyAuthenticationProvider.swift; sourceTree = "<group>"; };
@@ -146,6 +158,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3202683B245C75D900F18E66 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				3202683C245C75E900F18E66 /* SynchronizedArray.swift */,
+				3225AEE0246B4B8100AF27BD /* UUIDExtensions.swift */,
+				3225AEE2246B4BBE00AF27BD /* AWSRegionTypeExtensions.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		61A00CB54C8AEFF166B720FF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +219,7 @@
 		CFD525492440E26C008616A9 /* SudoTelephony */ = {
 			isa = PBXGroup;
 			children = (
+				3202683B245C75D900F18E66 /* Utility */,
 				CFD5259D2440E777008616A9 /* Operations */,
 				CFD525952440E763008616A9 /* Model */,
 				CFD5254B2440E26C008616A9 /* Info.plist */,
@@ -204,6 +227,7 @@
 				CFD525642440E2B7008616A9 /* API.swift */,
 				CFD525632440E2B6008616A9 /* Logger.swift */,
 				CFD525622440E2B6008616A9 /* SudoTelephonyClient.swift */,
+				3225AEE4246B4D1A00AF27BD /* SudoTelephonyClientError.swift */,
 			);
 			path = SudoTelephony;
 			sourceTree = "<group>";
@@ -226,6 +250,7 @@
 				CFD525AF2440E882008616A9 /* TestConfigurationProvider.swift */,
 				CFD525B12440E882008616A9 /* TestKeyAuthenticationInfo.swift */,
 				CFD525B02440E882008616A9 /* TestKeyAuthenticationProvider.swift */,
+				327E5A73246318EB00B78DEE /* InternalUtility.swift */,
 			);
 			path = SudoTelephonyIntegrationTests;
 			sourceTree = "<group>";
@@ -239,6 +264,8 @@
 				CFD525992440E763008616A9 /* PhoneNumber.swift */,
 				CFD5259A2440E763008616A9 /* TelephonyListToken.swift */,
 				CFD5259C2440E763008616A9 /* PhoneMessageConversation.swift */,
+				3225AEDE246B4B3C00AF27BD /* SubscriptionToken.swift */,
+				3225AEE6246B4DC600AF27BD /* MMSUpload.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -248,7 +275,6 @@
 			children = (
 				CFD5259F2440E777008616A9 /* Conditions */,
 				CFD5259E2440E777008616A9 /* ListConversationsOperation.swift */,
-				CFD525A12440E777008616A9 /* GetMessageOperation.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -557,7 +583,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo Copying SSM Keys\ncp -f telephony-system-test-config/anonyome_ssm_parameter_register_key.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\necho Copying Config\ncp -f telephony-system-test-config/sudoplatformconfig.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\necho Copying Test Image\ncp -f telephony-system-test-config/test_image.png \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\necho Files copied:\nls ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n";
+			shellScript = "echo Copying SSM Keys\ncp -f telephony-system-test-config/anonyome_ssm_parameter_register_key.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\necho Copying Config\ncp -f telephony-system-test-config/sudoplatformconfig.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\n\necho Files copied:\nls ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n";
 		};
 		CFD525BA2440F0D9008616A9 /* Copy Integration Test Configuration Files */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -575,7 +601,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo Copying SSM Keys\ncp -f telephony-system-test-config/anonyome_ssm_parameter_register_key.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\necho Copying Config\ncp -f telephony-system-test-config/sudoplatformconfig.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\necho Copying Test Image\ncp -f telephony-system-test-config/test_image.png \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\necho Files copied:\nls ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n";
+			shellScript = "echo Copying SSM Keys\ncp -f telephony-system-test-config/anonyome_ssm_parameter_register_key.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\necho Copying Config\ncp -f telephony-system-test-config/sudoplatformconfig.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\n\necho Files copied:\nls ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n";
 		};
 		D233DC2C6213067111336D29 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -602,15 +628,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFD525A92440E7A3008616A9 /* TelephonyListToken.swift in Sources */,
+				3202683D245C75E900F18E66 /* SynchronizedArray.swift in Sources */,
+				3225AEE7246B4DC600AF27BD /* MMSUpload.swift in Sources */,
+				3225AEDF246B4B3C00AF27BD /* SubscriptionToken.swift in Sources */,
 				CFD525A22440E777008616A9 /* ListConversationsOperation.swift in Sources */,
 				CFD525AB2440E7A3008616A9 /* PhoneMessageConversation.swift in Sources */,
+				3225AEE5246B4D1A00AF27BD /* SudoTelephonyClientError.swift in Sources */,
 				CFD525672440E2B7008616A9 /* SudoTelephonyClient.swift in Sources */,
+				3225AEE1246B4B8100AF27BD /* UUIDExtensions.swift in Sources */,
 				CFD525A32440E777008616A9 /* SignedInCondition.swift in Sources */,
 				CFD525A62440E7A3008616A9 /* PhoneMessage.swift in Sources */,
 				CFD525A52440E7A3008616A9 /* AvailablePhoneNumberResult.swift in Sources */,
 				CFD525692440E2B7008616A9 /* API.swift in Sources */,
-				CFD525A42440E777008616A9 /* GetMessageOperation.swift in Sources */,
 				CFD525682440E2B7008616A9 /* Logger.swift in Sources */,
+				3225AEE3246B4BBE00AF27BD /* AWSRegionTypeExtensions.swift in Sources */,
 				CFD525A82440E7A3008616A9 /* PhoneNumber.swift in Sources */,
 				CFD525A72440E7A3008616A9 /* KeyPair.swift in Sources */,
 			);
@@ -629,6 +660,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				327E5A74246318EB00B78DEE /* InternalUtility.swift in Sources */,
 				CFD525B42440E882008616A9 /* TestKeyAuthenticationProvider.swift in Sources */,
 				CFD525B32440E882008616A9 /* TestConfigurationProvider.swift in Sources */,
 				CFD525B52440E882008616A9 /* TestKeyAuthenticationInfo.swift in Sources */,

@@ -9,86 +9,138 @@ import AWSAppSync
 import SudoLogging
 import SudoOperations
 
-class ListConversationsOperation: PlatformGroupOperation {
+class ListConversationsOperation: PlatformOperation {
     
-    var result: [PhoneMessageConversation]?
-    var nextToken: String?
+    var result: TelephonyListToken<PhoneMessageConversation>?
     
     // MARK: - Properties: Private
     
     private let input: ConversationFilterInput
     
     private let keyId: String
+
+    private let nextToken: String?
+
+    private let limit: Int?
     
     private unowned let telephonyClient: DefaultSudoTelephonyClient
     
     private unowned let appSyncClient: AWSAppSyncClient
-    
+
+    let queue: DispatchQueue = DispatchQueue.global(qos: .userInitiated)
     
     // MARK: - Lifecycle
     
     init(input: ConversationFilterInput,
          keyId: String,
+         limit: Int?,
+         nextToken: String?,
          appSyncClient: AWSAppSyncClient,
          telephonyClient: DefaultSudoTelephonyClient,
          logger: Logger) {
         
         self.input = input
         self.keyId = keyId
+        self.limit = limit
+        self.nextToken = nextToken
         self.appSyncClient = appSyncClient
         self.telephonyClient = telephonyClient
-        self.result = [PhoneMessageConversation]()
-        super.init(logger: logger, operations: [])
+        super.init(logger: logger)
     }
     
     override func execute() {
         logger.debug("Getting conversations")
-        
-        let listQuery = ListConversationsQuery(filter: self.input)
-        let queryOperation = PlatformQueryOperation(appSyncClient: self.appSyncClient,
-                                                    query: listQuery,
-                                                    cachePolicy: .useOnline,
-                                                    logger: self.logger)
-        
-        let completionOperation = PlatformBlockOperation(logger: self.logger) {
-            guard let data = queryOperation.result?.listConversations?.items else {
+
+        let listQuery = ListConversationsQuery(filter: self.input, limit: self.limit, nextToken: self.nextToken)
+
+        self.appSyncClient.fetch(query: listQuery, cachePolicy: .fetchIgnoringCacheData, queue: self.queue) { (result, error) in
+
+            guard error == nil else {
+                self.finishWithError(error)
                 return
             }
 
-            self.nextToken = queryOperation.result?.listConversations?.nextToken
-            
-            data.forEach() { item in
-                let messageId = item.lastMessage
-                let fetchOp = GetMessageOperation(messageId: messageId,
-                                                  keyId: self.keyId,
-                                                  appSyncClient: self.appSyncClient,
-                                                  telephonyClient: self.telephonyClient,
-                                                  logger: self.logger)
+            guard result?.errors?.first == nil else {
+                self.finishWithError(result?.errors?.first)
+                return
+            }
 
-                let conversationOp = PlatformBlockOperation(logger: self.logger) { [weak self] in
-                    guard let self = self else { return }
-                    
+            guard let items = result?.data?.listConversations?.items else {
+                self.finishWithError(SudoTelephonyClientError.internalError)
+                return
+            }
+
+            // The next page of data
+            let nextPage = result?.data?.listConversations?.nextToken
+
+            // now we need to go through each item and make an api call to fetch the message.
+            // The plan is to create a dispatch group so we know when they are all complete.
+            // for thread safety we also need a dispatchqueue here to run things async
+
+            // An array to hold the converations as they are finalized
+            let conversations = SynchronizedArray<PhoneMessageConversation>()
+
+            // A dispatch group to make sure all messages are downloaded for the different conversations returned
+            let group = DispatchGroup()
+
+            // Loop through all of the conversations and fetch the last message for each.
+            for item in items {
+
+                //Enter the group before fetching the message
+                group.enter()
+
+                let messageId = item.lastMessage
+                self.logger.debug("Getting message: \(messageId)")
+
+                // Create the message query and fetch the message
+                let query = GetMessageQuery(id: messageId, keyId: self.keyId)
+                self.appSyncClient.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, queue: self.queue) { (fetchMessageResult, error) in
+
+                    if let error = error {
+                        //Log an error.  Failure to fetch the latest message doesn't affect return of the conversations
+                        self.logger.error("Error fetching message id: \(messageId) for conversation: \(item.id), error: \(error)")
+                    }
+
+                    if let error = fetchMessageResult?.errors?.first {
+                        //Log an error.  Failure to fetch the latest message doesn't affect return of the conversations
+                        self.logger.error("Error fetching message id: \(messageId) for conversation: \(item.id), error: \(error)")
+                    }
+
+                    var latestPhoneMessage: PhoneMessage? = nil
+                    if let message = fetchMessageResult?.data?.getMessage {
+                        do {
+                            try latestPhoneMessage = PhoneMessage.createFrom(data: message, client: self.telephonyClient)
+                        }
+                        catch {
+                            self.logger.error("Error creating PhoneMessage \(messageId) from provided data: \(error)")
+                        }
+                    }
+
+                    // Conversation and message data fetch finished. Finalize creating the PhoneMessage and the PhoneMessageConveration.
+                    // Append to the results arrray using the async queue for thread safety.
                     let type = PhoneMessageConversation.MessageConversationType(internalType: item.type)
                     let conversation = PhoneMessageConversation(id: item.id,
                                                                     owner: item.owner,
                                                                     type: type,
                                                                     latestMessageId: messageId,
-                                                                    latestPhoneMessage: fetchOp.result,
+                                                                    latestPhoneMessage: latestPhoneMessage,
                                                                     created: Date(timeIntervalSinceNow: TimeInterval(item.updatedAtEpochMs)),
                                                                     updated: Date(timeIntervalSinceNow: TimeInterval(item.updatedAtEpochMs)))
-                    self.result?.append(conversation)
-                    return
+                    conversations.append(conversation)
+
+                    // All done.  Leave the dispatch group.
+                    group.leave()
                 }
-                
-                conversationOp.addDependency(fetchOp)
-                self.addOperations([fetchOp, conversationOp])
             }
+
+            // Wait for all results to come in.
+            group.wait()
+
+            self.result = TelephonyListToken(items: conversations.contents, nextToken: nextPage)
+            self.finish()
         }
-        
-        completionOperation.addDependency(queryOperation)
-        self.addOperations([queryOperation, completionOperation])
-        
-        super.execute()
     }
 }
+
+
 

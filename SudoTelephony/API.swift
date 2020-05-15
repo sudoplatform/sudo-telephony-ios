@@ -3,15 +3,15 @@
 import AWSAppSync
 
 /// Input definition to provision a phone number.
-public struct ProvisionPhoneNumberInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
+internal struct ProvisionPhoneNumberInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
 
-  public init(phoneNumber: String, country: String, keyRingId: String, clientRefId: Optional<String?> = nil, ownerProofs: [String]) {
+  internal init(phoneNumber: String, country: String, keyRingId: String, clientRefId: Optional<String?> = nil, ownerProofs: [String]) {
     graphQLMap = ["phoneNumber": phoneNumber, "country": country, "keyRingId": keyRingId, "clientRefId": clientRefId, "ownerProofs": ownerProofs]
   }
 
   /// E164 formatted phone number.
-  public var phoneNumber: String {
+  internal var phoneNumber: String {
     get {
       return graphQLMap["phoneNumber"] as! String
     }
@@ -21,7 +21,7 @@ public struct ProvisionPhoneNumberInput: GraphQLMapConvertible {
   }
 
   /// ISO country code of phone number e.g. 'US' 'ZZ'.
-  public var country: String {
+  internal var country: String {
     get {
       return graphQLMap["country"] as! String
     }
@@ -31,7 +31,7 @@ public struct ProvisionPhoneNumberInput: GraphQLMapConvertible {
   }
 
   /// Key ring ID that dictates which keys the child resources of this phone number will be encrypted with.
-  public var keyRingId: String {
+  internal var keyRingId: String {
     get {
       return graphQLMap["keyRingId"] as! String
     }
@@ -41,7 +41,7 @@ public struct ProvisionPhoneNumberInput: GraphQLMapConvertible {
   }
 
   /// ID used for the client to subscribe to specific events.
-  public var clientRefId: Optional<String?> {
+  internal var clientRefId: Optional<String?> {
     get {
       return graphQLMap["clientRefId"] as! Optional<String?>
     }
@@ -51,7 +51,7 @@ public struct ProvisionPhoneNumberInput: GraphQLMapConvertible {
   }
 
   /// Ownership proof tokens
-  public var ownerProofs: [String] {
+  internal var ownerProofs: [String] {
     get {
       return graphQLMap["ownerProofs"] as! [String]
     }
@@ -62,15 +62,15 @@ public struct ProvisionPhoneNumberInput: GraphQLMapConvertible {
 }
 
 /// Input definition to delete a phone number.
-public struct DeprovisionPhoneNumberInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
+internal struct DeprovisionPhoneNumberInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
 
-  public init(phoneNumber: String, expectedVersion: Int) {
+  internal init(phoneNumber: String, expectedVersion: Int) {
     graphQLMap = ["phoneNumber": phoneNumber, "expectedVersion": expectedVersion]
   }
 
   /// Sudo phone number in E164 format.
-  public var phoneNumber: String {
+  internal var phoneNumber: String {
     get {
       return graphQLMap["phoneNumber"] as! String
     }
@@ -80,7 +80,7 @@ public struct DeprovisionPhoneNumberInput: GraphQLMapConvertible {
   }
 
   /// Expected version of the phone number.
-  public var expectedVersion: Int {
+  internal var expectedVersion: Int {
     get {
       return graphQLMap["expectedVersion"] as! Int
     }
@@ -90,14 +90,14 @@ public struct DeprovisionPhoneNumberInput: GraphQLMapConvertible {
   }
 }
 
-public struct PhoneNumberFilterInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
+internal struct PhoneNumberFilterInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
 
-  public init(id: Optional<IDFilterInput?> = nil, country: Optional<StringFilterInput?> = nil, state: Optional<PhoneNumberStateFilterInput?> = nil, createdAtEpochMs: Optional<FloatFilterInput?> = nil, updatedAtEpochMs: Optional<FloatFilterInput?> = nil, and: Optional<[PhoneNumberFilterInput?]?> = nil, or: Optional<[PhoneNumberFilterInput?]?> = nil, not: Optional<PhoneNumberFilterInput?> = nil) {
-    graphQLMap = ["id": id, "country": country, "state": state, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "and": and, "or": or, "not": not]
+  internal init(id: Optional<IDFilterInput?> = nil, country: Optional<StringFilterInput?> = nil, sudoOwner: Optional<IDFilterInput?> = nil, state: Optional<PhoneNumberStateFilterInput?> = nil, createdAtEpochMs: Optional<FloatFilterInput?> = nil, updatedAtEpochMs: Optional<FloatFilterInput?> = nil, and: Optional<[PhoneNumberFilterInput?]?> = nil, or: Optional<[PhoneNumberFilterInput?]?> = nil, not: Optional<PhoneNumberFilterInput?> = nil) {
+    graphQLMap = ["id": id, "country": country, "sudoOwner": sudoOwner, "state": state, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "and": and, "or": or, "not": not]
   }
 
-  public var id: Optional<IDFilterInput?> {
+  internal var id: Optional<IDFilterInput?> {
     get {
       return graphQLMap["id"] as! Optional<IDFilterInput?>
     }
@@ -106,7 +106,7 @@ public struct PhoneNumberFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var country: Optional<StringFilterInput?> {
+  internal var country: Optional<StringFilterInput?> {
     get {
       return graphQLMap["country"] as! Optional<StringFilterInput?>
     }
@@ -115,7 +115,16 @@ public struct PhoneNumberFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var state: Optional<PhoneNumberStateFilterInput?> {
+  internal var sudoOwner: Optional<IDFilterInput?> {
+    get {
+      return graphQLMap["sudoOwner"] as! Optional<IDFilterInput?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "sudoOwner")
+    }
+  }
+
+  internal var state: Optional<PhoneNumberStateFilterInput?> {
     get {
       return graphQLMap["state"] as! Optional<PhoneNumberStateFilterInput?>
     }
@@ -124,7 +133,7 @@ public struct PhoneNumberFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var createdAtEpochMs: Optional<FloatFilterInput?> {
+  internal var createdAtEpochMs: Optional<FloatFilterInput?> {
     get {
       return graphQLMap["createdAtEpochMs"] as! Optional<FloatFilterInput?>
     }
@@ -133,7 +142,7 @@ public struct PhoneNumberFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var updatedAtEpochMs: Optional<FloatFilterInput?> {
+  internal var updatedAtEpochMs: Optional<FloatFilterInput?> {
     get {
       return graphQLMap["updatedAtEpochMs"] as! Optional<FloatFilterInput?>
     }
@@ -142,7 +151,7 @@ public struct PhoneNumberFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var and: Optional<[PhoneNumberFilterInput?]?> {
+  internal var and: Optional<[PhoneNumberFilterInput?]?> {
     get {
       return graphQLMap["and"] as! Optional<[PhoneNumberFilterInput?]?>
     }
@@ -151,7 +160,7 @@ public struct PhoneNumberFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var or: Optional<[PhoneNumberFilterInput?]?> {
+  internal var or: Optional<[PhoneNumberFilterInput?]?> {
     get {
       return graphQLMap["or"] as! Optional<[PhoneNumberFilterInput?]?>
     }
@@ -160,7 +169,7 @@ public struct PhoneNumberFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var not: Optional<PhoneNumberFilterInput?> {
+  internal var not: Optional<PhoneNumberFilterInput?> {
     get {
       return graphQLMap["not"] as! Optional<PhoneNumberFilterInput?>
     }
@@ -170,14 +179,14 @@ public struct PhoneNumberFilterInput: GraphQLMapConvertible {
   }
 }
 
-public struct IDFilterInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
+internal struct IDFilterInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
 
-  public init(ne: Optional<GraphQLID?> = nil, eq: Optional<GraphQLID?> = nil, contains: Optional<GraphQLID?> = nil, notContains: Optional<GraphQLID?> = nil, between: Optional<[GraphQLID?]?> = nil, beginsWith: Optional<GraphQLID?> = nil) {
+  internal init(ne: Optional<GraphQLID?> = nil, eq: Optional<GraphQLID?> = nil, contains: Optional<GraphQLID?> = nil, notContains: Optional<GraphQLID?> = nil, between: Optional<[GraphQLID?]?> = nil, beginsWith: Optional<GraphQLID?> = nil) {
     graphQLMap = ["ne": ne, "eq": eq, "contains": contains, "notContains": notContains, "between": between, "beginsWith": beginsWith]
   }
 
-  public var ne: Optional<GraphQLID?> {
+  internal var ne: Optional<GraphQLID?> {
     get {
       return graphQLMap["ne"] as! Optional<GraphQLID?>
     }
@@ -186,7 +195,7 @@ public struct IDFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var eq: Optional<GraphQLID?> {
+  internal var eq: Optional<GraphQLID?> {
     get {
       return graphQLMap["eq"] as! Optional<GraphQLID?>
     }
@@ -195,7 +204,7 @@ public struct IDFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var contains: Optional<GraphQLID?> {
+  internal var contains: Optional<GraphQLID?> {
     get {
       return graphQLMap["contains"] as! Optional<GraphQLID?>
     }
@@ -204,7 +213,7 @@ public struct IDFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var notContains: Optional<GraphQLID?> {
+  internal var notContains: Optional<GraphQLID?> {
     get {
       return graphQLMap["notContains"] as! Optional<GraphQLID?>
     }
@@ -213,7 +222,7 @@ public struct IDFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var between: Optional<[GraphQLID?]?> {
+  internal var between: Optional<[GraphQLID?]?> {
     get {
       return graphQLMap["between"] as! Optional<[GraphQLID?]?>
     }
@@ -222,7 +231,7 @@ public struct IDFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var beginsWith: Optional<GraphQLID?> {
+  internal var beginsWith: Optional<GraphQLID?> {
     get {
       return graphQLMap["beginsWith"] as! Optional<GraphQLID?>
     }
@@ -232,14 +241,14 @@ public struct IDFilterInput: GraphQLMapConvertible {
   }
 }
 
-public struct StringFilterInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
+internal struct StringFilterInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
 
-  public init(ne: Optional<String?> = nil, eq: Optional<String?> = nil, le: Optional<String?> = nil, lt: Optional<String?> = nil, ge: Optional<String?> = nil, gt: Optional<String?> = nil, contains: Optional<String?> = nil, notContains: Optional<String?> = nil, between: Optional<[String?]?> = nil, beginsWith: Optional<String?> = nil) {
+  internal init(ne: Optional<String?> = nil, eq: Optional<String?> = nil, le: Optional<String?> = nil, lt: Optional<String?> = nil, ge: Optional<String?> = nil, gt: Optional<String?> = nil, contains: Optional<String?> = nil, notContains: Optional<String?> = nil, between: Optional<[String?]?> = nil, beginsWith: Optional<String?> = nil) {
     graphQLMap = ["ne": ne, "eq": eq, "le": le, "lt": lt, "ge": ge, "gt": gt, "contains": contains, "notContains": notContains, "between": between, "beginsWith": beginsWith]
   }
 
-  public var ne: Optional<String?> {
+  internal var ne: Optional<String?> {
     get {
       return graphQLMap["ne"] as! Optional<String?>
     }
@@ -248,7 +257,7 @@ public struct StringFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var eq: Optional<String?> {
+  internal var eq: Optional<String?> {
     get {
       return graphQLMap["eq"] as! Optional<String?>
     }
@@ -257,7 +266,7 @@ public struct StringFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var le: Optional<String?> {
+  internal var le: Optional<String?> {
     get {
       return graphQLMap["le"] as! Optional<String?>
     }
@@ -266,7 +275,7 @@ public struct StringFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var lt: Optional<String?> {
+  internal var lt: Optional<String?> {
     get {
       return graphQLMap["lt"] as! Optional<String?>
     }
@@ -275,7 +284,7 @@ public struct StringFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var ge: Optional<String?> {
+  internal var ge: Optional<String?> {
     get {
       return graphQLMap["ge"] as! Optional<String?>
     }
@@ -284,7 +293,7 @@ public struct StringFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var gt: Optional<String?> {
+  internal var gt: Optional<String?> {
     get {
       return graphQLMap["gt"] as! Optional<String?>
     }
@@ -293,7 +302,7 @@ public struct StringFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var contains: Optional<String?> {
+  internal var contains: Optional<String?> {
     get {
       return graphQLMap["contains"] as! Optional<String?>
     }
@@ -302,7 +311,7 @@ public struct StringFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var notContains: Optional<String?> {
+  internal var notContains: Optional<String?> {
     get {
       return graphQLMap["notContains"] as! Optional<String?>
     }
@@ -311,7 +320,7 @@ public struct StringFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var between: Optional<[String?]?> {
+  internal var between: Optional<[String?]?> {
     get {
       return graphQLMap["between"] as! Optional<[String?]?>
     }
@@ -320,7 +329,7 @@ public struct StringFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var beginsWith: Optional<String?> {
+  internal var beginsWith: Optional<String?> {
     get {
       return graphQLMap["beginsWith"] as! Optional<String?>
     }
@@ -330,14 +339,14 @@ public struct StringFilterInput: GraphQLMapConvertible {
   }
 }
 
-public struct PhoneNumberStateFilterInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
+internal struct PhoneNumberStateFilterInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
 
-  public init(ne: Optional<PhoneNumberState?> = nil, eq: Optional<PhoneNumberState?> = nil, `in`: Optional<[PhoneNumberState?]?> = nil, notIn: Optional<[PhoneNumberState?]?> = nil) {
+  internal init(ne: Optional<PhoneNumberState?> = nil, eq: Optional<PhoneNumberState?> = nil, `in`: Optional<[PhoneNumberState?]?> = nil, notIn: Optional<[PhoneNumberState?]?> = nil) {
     graphQLMap = ["ne": ne, "eq": eq, "in": `in`, "notIn": notIn]
   }
 
-  public var ne: Optional<PhoneNumberState?> {
+  internal var ne: Optional<PhoneNumberState?> {
     get {
       return graphQLMap["ne"] as! Optional<PhoneNumberState?>
     }
@@ -346,7 +355,7 @@ public struct PhoneNumberStateFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var eq: Optional<PhoneNumberState?> {
+  internal var eq: Optional<PhoneNumberState?> {
     get {
       return graphQLMap["eq"] as! Optional<PhoneNumberState?>
     }
@@ -355,7 +364,7 @@ public struct PhoneNumberStateFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var `in`: Optional<[PhoneNumberState?]?> {
+  internal var `in`: Optional<[PhoneNumberState?]?> {
     get {
       return graphQLMap["in"] as! Optional<[PhoneNumberState?]?>
     }
@@ -364,7 +373,7 @@ public struct PhoneNumberStateFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var notIn: Optional<[PhoneNumberState?]?> {
+  internal var notIn: Optional<[PhoneNumberState?]?> {
     get {
       return graphQLMap["notIn"] as! Optional<[PhoneNumberState?]?>
     }
@@ -375,8 +384,8 @@ public struct PhoneNumberStateFilterInput: GraphQLMapConvertible {
 }
 
 /// Phone number provisioning states.
-public enum PhoneNumberState: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
-  public typealias RawValue = String
+internal enum PhoneNumberState: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
+  internal typealias RawValue = String
   case provisioning
   case failed
   case complete
@@ -384,7 +393,7 @@ public enum PhoneNumberState: RawRepresentable, Equatable, JSONDecodable, JSONEn
   /// Auto generated constant for unknown enum values
   case unknown(RawValue)
 
-  public init?(rawValue: RawValue) {
+  internal init?(rawValue: RawValue) {
     switch rawValue {
       case "PROVISIONING": self = .provisioning
       case "FAILED": self = .failed
@@ -394,7 +403,7 @@ public enum PhoneNumberState: RawRepresentable, Equatable, JSONDecodable, JSONEn
     }
   }
 
-  public var rawValue: RawValue {
+  internal var rawValue: RawValue {
     switch self {
       case .provisioning: return "PROVISIONING"
       case .failed: return "FAILED"
@@ -404,7 +413,7 @@ public enum PhoneNumberState: RawRepresentable, Equatable, JSONDecodable, JSONEn
     }
   }
 
-  public static func == (lhs: PhoneNumberState, rhs: PhoneNumberState) -> Bool {
+  internal static func == (lhs: PhoneNumberState, rhs: PhoneNumberState) -> Bool {
     switch (lhs, rhs) {
       case (.provisioning, .provisioning): return true
       case (.failed, .failed): return true
@@ -416,14 +425,14 @@ public enum PhoneNumberState: RawRepresentable, Equatable, JSONDecodable, JSONEn
   }
 }
 
-public struct FloatFilterInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
+internal struct FloatFilterInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
 
-  public init(ne: Optional<Double?> = nil, eq: Optional<Double?> = nil, le: Optional<Double?> = nil, lt: Optional<Double?> = nil, ge: Optional<Double?> = nil, gt: Optional<Double?> = nil, contains: Optional<Double?> = nil, notContains: Optional<Double?> = nil, between: Optional<[Double?]?> = nil) {
+  internal init(ne: Optional<Double?> = nil, eq: Optional<Double?> = nil, le: Optional<Double?> = nil, lt: Optional<Double?> = nil, ge: Optional<Double?> = nil, gt: Optional<Double?> = nil, contains: Optional<Double?> = nil, notContains: Optional<Double?> = nil, between: Optional<[Double?]?> = nil) {
     graphQLMap = ["ne": ne, "eq": eq, "le": le, "lt": lt, "ge": ge, "gt": gt, "contains": contains, "notContains": notContains, "between": between]
   }
 
-  public var ne: Optional<Double?> {
+  internal var ne: Optional<Double?> {
     get {
       return graphQLMap["ne"] as! Optional<Double?>
     }
@@ -432,7 +441,7 @@ public struct FloatFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var eq: Optional<Double?> {
+  internal var eq: Optional<Double?> {
     get {
       return graphQLMap["eq"] as! Optional<Double?>
     }
@@ -441,7 +450,7 @@ public struct FloatFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var le: Optional<Double?> {
+  internal var le: Optional<Double?> {
     get {
       return graphQLMap["le"] as! Optional<Double?>
     }
@@ -450,7 +459,7 @@ public struct FloatFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var lt: Optional<Double?> {
+  internal var lt: Optional<Double?> {
     get {
       return graphQLMap["lt"] as! Optional<Double?>
     }
@@ -459,7 +468,7 @@ public struct FloatFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var ge: Optional<Double?> {
+  internal var ge: Optional<Double?> {
     get {
       return graphQLMap["ge"] as! Optional<Double?>
     }
@@ -468,7 +477,7 @@ public struct FloatFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var gt: Optional<Double?> {
+  internal var gt: Optional<Double?> {
     get {
       return graphQLMap["gt"] as! Optional<Double?>
     }
@@ -477,7 +486,7 @@ public struct FloatFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var contains: Optional<Double?> {
+  internal var contains: Optional<Double?> {
     get {
       return graphQLMap["contains"] as! Optional<Double?>
     }
@@ -486,7 +495,7 @@ public struct FloatFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var notContains: Optional<Double?> {
+  internal var notContains: Optional<Double?> {
     get {
       return graphQLMap["notContains"] as! Optional<Double?>
     }
@@ -495,7 +504,7 @@ public struct FloatFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var between: Optional<[Double?]?> {
+  internal var between: Optional<[Double?]?> {
     get {
       return graphQLMap["between"] as! Optional<[Double?]?>
     }
@@ -506,15 +515,15 @@ public struct FloatFilterInput: GraphQLMapConvertible {
 }
 
 /// Phone number search states.
-public enum PhoneNumberSearchState: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
-  public typealias RawValue = String
+internal enum PhoneNumberSearchState: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
+  internal typealias RawValue = String
   case searching
   case complete
   case failed
   /// Auto generated constant for unknown enum values
   case unknown(RawValue)
 
-  public init?(rawValue: RawValue) {
+  internal init?(rawValue: RawValue) {
     switch rawValue {
       case "SEARCHING": self = .searching
       case "COMPLETE": self = .complete
@@ -523,7 +532,7 @@ public enum PhoneNumberSearchState: RawRepresentable, Equatable, JSONDecodable, 
     }
   }
 
-  public var rawValue: RawValue {
+  internal var rawValue: RawValue {
     switch self {
       case .searching: return "SEARCHING"
       case .complete: return "COMPLETE"
@@ -532,7 +541,7 @@ public enum PhoneNumberSearchState: RawRepresentable, Equatable, JSONDecodable, 
     }
   }
 
-  public static func == (lhs: PhoneNumberSearchState, rhs: PhoneNumberSearchState) -> Bool {
+  internal static func == (lhs: PhoneNumberSearchState, rhs: PhoneNumberSearchState) -> Bool {
     switch (lhs, rhs) {
       case (.searching, .searching): return true
       case (.complete, .complete): return true
@@ -543,14 +552,14 @@ public enum PhoneNumberSearchState: RawRepresentable, Equatable, JSONDecodable, 
   }
 }
 
-public struct CreatePublicKeyInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
+internal struct CreatePublicKeyInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
 
-  public init(keyId: String, keyRingId: String, algorithm: String, publicKey: String) {
+  internal init(keyId: String, keyRingId: String, algorithm: String, publicKey: String) {
     graphQLMap = ["keyId": keyId, "keyRingId": keyRingId, "algorithm": algorithm, "publicKey": publicKey]
   }
 
-  public var keyId: String {
+  internal var keyId: String {
     get {
       return graphQLMap["keyId"] as! String
     }
@@ -559,7 +568,7 @@ public struct CreatePublicKeyInput: GraphQLMapConvertible {
     }
   }
 
-  public var keyRingId: String {
+  internal var keyRingId: String {
     get {
       return graphQLMap["keyRingId"] as! String
     }
@@ -568,7 +577,7 @@ public struct CreatePublicKeyInput: GraphQLMapConvertible {
     }
   }
 
-  public var algorithm: String {
+  internal var algorithm: String {
     get {
       return graphQLMap["algorithm"] as! String
     }
@@ -577,7 +586,7 @@ public struct CreatePublicKeyInput: GraphQLMapConvertible {
     }
   }
 
-  public var publicKey: String {
+  internal var publicKey: String {
     get {
       return graphQLMap["publicKey"] as! String
     }
@@ -587,14 +596,14 @@ public struct CreatePublicKeyInput: GraphQLMapConvertible {
   }
 }
 
-public struct DeletePublicKeyInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
+internal struct DeletePublicKeyInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
 
-  public init(keyId: String) {
+  internal init(keyId: String) {
     graphQLMap = ["keyId": keyId]
   }
 
-  public var keyId: String {
+  internal var keyId: String {
     get {
       return graphQLMap["keyId"] as! String
     }
@@ -605,15 +614,15 @@ public struct DeletePublicKeyInput: GraphQLMapConvertible {
 }
 
 /// Input definition to send a message.
-public struct SendMessageInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
+internal struct SendMessageInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
 
-  public init(from: String, to: String, body: Optional<String?> = nil, media: Optional<[S3MediaObjectInput]?> = nil, clientRefId: Optional<String?> = nil) {
+  internal init(from: String, to: String, body: Optional<String?> = nil, media: Optional<[S3MediaObjectInput]?> = nil, clientRefId: Optional<String?> = nil) {
     graphQLMap = ["from": from, "to": to, "body": body, "media": media, "clientRefId": clientRefId]
   }
 
   /// Source phone number in E164 format.
-  public var from: String {
+  internal var from: String {
     get {
       return graphQLMap["from"] as! String
     }
@@ -623,7 +632,7 @@ public struct SendMessageInput: GraphQLMapConvertible {
   }
 
   /// Recipient phone number in E164 format.
-  public var to: String {
+  internal var to: String {
     get {
       return graphQLMap["to"] as! String
     }
@@ -633,7 +642,7 @@ public struct SendMessageInput: GraphQLMapConvertible {
   }
 
   /// Message body to send to recipient.
-  public var body: Optional<String?> {
+  internal var body: Optional<String?> {
     get {
       return graphQLMap["body"] as! Optional<String?>
     }
@@ -643,7 +652,7 @@ public struct SendMessageInput: GraphQLMapConvertible {
   }
 
   /// Pointer to MMS Media object posted to S3 by client.
-  public var media: Optional<[S3MediaObjectInput]?> {
+  internal var media: Optional<[S3MediaObjectInput]?> {
     get {
       return graphQLMap["media"] as! Optional<[S3MediaObjectInput]?>
     }
@@ -653,7 +662,7 @@ public struct SendMessageInput: GraphQLMapConvertible {
   }
 
   /// ID used for the client to subscribe to specific events.
-  public var clientRefId: Optional<String?> {
+  internal var clientRefId: Optional<String?> {
     get {
       return graphQLMap["clientRefId"] as! Optional<String?>
     }
@@ -664,15 +673,15 @@ public struct SendMessageInput: GraphQLMapConvertible {
 }
 
 /// Representation of the S3 Object containing telephony media (i.e. MMS and Voicemails).
-public struct S3MediaObjectInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
+internal struct S3MediaObjectInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
 
-  public init(key: String, bucket: String, region: String) {
+  internal init(key: String, bucket: String, region: String) {
     graphQLMap = ["key": key, "bucket": bucket, "region": region]
   }
 
   /// Key of object in S3.
-  public var key: String {
+  internal var key: String {
     get {
       return graphQLMap["key"] as! String
     }
@@ -682,7 +691,7 @@ public struct S3MediaObjectInput: GraphQLMapConvertible {
   }
 
   /// Name of S3 bucket.
-  public var bucket: String {
+  internal var bucket: String {
     get {
       return graphQLMap["bucket"] as! String
     }
@@ -692,7 +701,7 @@ public struct S3MediaObjectInput: GraphQLMapConvertible {
   }
 
   /// Region S3 bucket is located in.
-  public var region: String {
+  internal var region: String {
     get {
       return graphQLMap["region"] as! String
     }
@@ -702,14 +711,14 @@ public struct S3MediaObjectInput: GraphQLMapConvertible {
   }
 }
 
-public struct MessageFilterInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
+internal struct MessageFilterInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
 
-  public init(conversation: IDFilterInput, keyId: Optional<IDFilterInput?> = nil, createdAtEpochMs: Optional<FloatFilterInput?> = nil, updatedAtEpochMs: Optional<FloatFilterInput?> = nil, and: Optional<[MessageFilterInput?]?> = nil, or: Optional<[MessageFilterInput?]?> = nil, not: Optional<MessageFilterInput?> = nil) {
+  internal init(conversation: IDFilterInput, keyId: Optional<IDFilterInput?> = nil, createdAtEpochMs: Optional<FloatFilterInput?> = nil, updatedAtEpochMs: Optional<FloatFilterInput?> = nil, and: Optional<[MessageFilterInput?]?> = nil, or: Optional<[MessageFilterInput?]?> = nil, not: Optional<MessageFilterInput?> = nil) {
     graphQLMap = ["conversation": conversation, "keyId": keyId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "and": and, "or": or, "not": not]
   }
 
-  public var conversation: IDFilterInput {
+  internal var conversation: IDFilterInput {
     get {
       return graphQLMap["conversation"] as! IDFilterInput
     }
@@ -718,7 +727,7 @@ public struct MessageFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var keyId: Optional<IDFilterInput?> {
+  internal var keyId: Optional<IDFilterInput?> {
     get {
       return graphQLMap["keyId"] as! Optional<IDFilterInput?>
     }
@@ -727,7 +736,7 @@ public struct MessageFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var createdAtEpochMs: Optional<FloatFilterInput?> {
+  internal var createdAtEpochMs: Optional<FloatFilterInput?> {
     get {
       return graphQLMap["createdAtEpochMs"] as! Optional<FloatFilterInput?>
     }
@@ -736,7 +745,7 @@ public struct MessageFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var updatedAtEpochMs: Optional<FloatFilterInput?> {
+  internal var updatedAtEpochMs: Optional<FloatFilterInput?> {
     get {
       return graphQLMap["updatedAtEpochMs"] as! Optional<FloatFilterInput?>
     }
@@ -745,7 +754,7 @@ public struct MessageFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var and: Optional<[MessageFilterInput?]?> {
+  internal var and: Optional<[MessageFilterInput?]?> {
     get {
       return graphQLMap["and"] as! Optional<[MessageFilterInput?]?>
     }
@@ -754,7 +763,7 @@ public struct MessageFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var or: Optional<[MessageFilterInput?]?> {
+  internal var or: Optional<[MessageFilterInput?]?> {
     get {
       return graphQLMap["or"] as! Optional<[MessageFilterInput?]?>
     }
@@ -763,7 +772,7 @@ public struct MessageFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var not: Optional<MessageFilterInput?> {
+  internal var not: Optional<MessageFilterInput?> {
     get {
       return graphQLMap["not"] as! Optional<MessageFilterInput?>
     }
@@ -773,14 +782,32 @@ public struct MessageFilterInput: GraphQLMapConvertible {
   }
 }
 
-public struct ConversationFilterInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
+internal struct ConversationFilterInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
 
-  public init(createdAtEpochMs: Optional<FloatFilterInput?> = nil, updatedAtEpochMs: Optional<FloatFilterInput?> = nil, and: Optional<[MessageFilterInput?]?> = nil, or: Optional<[MessageFilterInput?]?> = nil, not: Optional<MessageFilterInput?> = nil) {
-    graphQLMap = ["createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "and": and, "or": or, "not": not]
+  internal init(sudoOwner: Optional<IDFilterInput?> = nil, phoneNumberId: Optional<IDFilterInput?> = nil, createdAtEpochMs: Optional<FloatFilterInput?> = nil, updatedAtEpochMs: Optional<FloatFilterInput?> = nil, and: Optional<[MessageFilterInput?]?> = nil, or: Optional<[MessageFilterInput?]?> = nil, not: Optional<MessageFilterInput?> = nil) {
+    graphQLMap = ["sudoOwner": sudoOwner, "phoneNumberId": phoneNumberId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "and": and, "or": or, "not": not]
   }
 
-  public var createdAtEpochMs: Optional<FloatFilterInput?> {
+  internal var sudoOwner: Optional<IDFilterInput?> {
+    get {
+      return graphQLMap["sudoOwner"] as! Optional<IDFilterInput?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "sudoOwner")
+    }
+  }
+
+  internal var phoneNumberId: Optional<IDFilterInput?> {
+    get {
+      return graphQLMap["phoneNumberId"] as! Optional<IDFilterInput?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "phoneNumberId")
+    }
+  }
+
+  internal var createdAtEpochMs: Optional<FloatFilterInput?> {
     get {
       return graphQLMap["createdAtEpochMs"] as! Optional<FloatFilterInput?>
     }
@@ -789,7 +816,7 @@ public struct ConversationFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var updatedAtEpochMs: Optional<FloatFilterInput?> {
+  internal var updatedAtEpochMs: Optional<FloatFilterInput?> {
     get {
       return graphQLMap["updatedAtEpochMs"] as! Optional<FloatFilterInput?>
     }
@@ -798,7 +825,7 @@ public struct ConversationFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var and: Optional<[MessageFilterInput?]?> {
+  internal var and: Optional<[MessageFilterInput?]?> {
     get {
       return graphQLMap["and"] as! Optional<[MessageFilterInput?]?>
     }
@@ -807,7 +834,7 @@ public struct ConversationFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var or: Optional<[MessageFilterInput?]?> {
+  internal var or: Optional<[MessageFilterInput?]?> {
     get {
       return graphQLMap["or"] as! Optional<[MessageFilterInput?]?>
     }
@@ -816,7 +843,7 @@ public struct ConversationFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var not: Optional<MessageFilterInput?> {
+  internal var not: Optional<MessageFilterInput?> {
     get {
       return graphQLMap["not"] as! Optional<MessageFilterInput?>
     }
@@ -827,14 +854,14 @@ public struct ConversationFilterInput: GraphQLMapConvertible {
 }
 
 /// Possible directions for a SMS/MMS message.
-public enum MessageDirection: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
-  public typealias RawValue = String
+internal enum MessageDirection: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
+  internal typealias RawValue = String
   case inbound
   case outbound
   /// Auto generated constant for unknown enum values
   case unknown(RawValue)
 
-  public init?(rawValue: RawValue) {
+  internal init?(rawValue: RawValue) {
     switch rawValue {
       case "INBOUND": self = .inbound
       case "OUTBOUND": self = .outbound
@@ -842,7 +869,7 @@ public enum MessageDirection: RawRepresentable, Equatable, JSONDecodable, JSONEn
     }
   }
 
-  public var rawValue: RawValue {
+  internal var rawValue: RawValue {
     switch self {
       case .inbound: return "INBOUND"
       case .outbound: return "OUTBOUND"
@@ -850,7 +877,7 @@ public enum MessageDirection: RawRepresentable, Equatable, JSONDecodable, JSONEn
     }
   }
 
-  public static func == (lhs: MessageDirection, rhs: MessageDirection) -> Bool {
+  internal static func == (lhs: MessageDirection, rhs: MessageDirection) -> Bool {
     switch (lhs, rhs) {
       case (.inbound, .inbound): return true
       case (.outbound, .outbound): return true
@@ -867,8 +894,8 @@ public enum MessageDirection: RawRepresentable, Equatable, JSONDecodable, JSONEn
 /// UNDELIVERED - Outbound message acknowledged as undelivered by carrier.
 /// FAILED      - Outbound message acknowledged as failed by carrier.
 /// RECEIVED    - Inbound message stored at telephony vendor.
-public enum MessageState: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
-  public typealias RawValue = String
+internal enum MessageState: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
+  internal typealias RawValue = String
   case queued
   case sent
   case delivered
@@ -878,7 +905,7 @@ public enum MessageState: RawRepresentable, Equatable, JSONDecodable, JSONEncoda
   /// Auto generated constant for unknown enum values
   case unknown(RawValue)
 
-  public init?(rawValue: RawValue) {
+  internal init?(rawValue: RawValue) {
     switch rawValue {
       case "QUEUED": self = .queued
       case "SENT": self = .sent
@@ -890,7 +917,7 @@ public enum MessageState: RawRepresentable, Equatable, JSONDecodable, JSONEncoda
     }
   }
 
-  public var rawValue: RawValue {
+  internal var rawValue: RawValue {
     switch self {
       case .queued: return "QUEUED"
       case .sent: return "SENT"
@@ -902,7 +929,7 @@ public enum MessageState: RawRepresentable, Equatable, JSONDecodable, JSONEncoda
     }
   }
 
-  public static func == (lhs: MessageState, rhs: MessageState) -> Bool {
+  internal static func == (lhs: MessageState, rhs: MessageState) -> Bool {
     switch (lhs, rhs) {
       case (.queued, .queued): return true
       case (.sent, .sent): return true
@@ -917,14 +944,14 @@ public enum MessageState: RawRepresentable, Equatable, JSONDecodable, JSONEncoda
 }
 
 /// Indicates if this is a 1x1 SMS conversation or a group conversation.
-public enum ConversationType: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
-  public typealias RawValue = String
+internal enum ConversationType: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
+  internal typealias RawValue = String
   case individual
   case group
   /// Auto generated constant for unknown enum values
   case unknown(RawValue)
 
-  public init?(rawValue: RawValue) {
+  internal init?(rawValue: RawValue) {
     switch rawValue {
       case "INDIVIDUAL": self = .individual
       case "GROUP": self = .group
@@ -932,7 +959,7 @@ public enum ConversationType: RawRepresentable, Equatable, JSONDecodable, JSONEn
     }
   }
 
-  public var rawValue: RawValue {
+  internal var rawValue: RawValue {
     switch self {
       case .individual: return "INDIVIDUAL"
       case .group: return "GROUP"
@@ -940,7 +967,7 @@ public enum ConversationType: RawRepresentable, Equatable, JSONDecodable, JSONEn
     }
   }
 
-  public static func == (lhs: ConversationType, rhs: ConversationType) -> Bool {
+  internal static func == (lhs: ConversationType, rhs: ConversationType) -> Bool {
     switch (lhs, rhs) {
       case (.individual, .individual): return true
       case (.group, .group): return true
@@ -950,43 +977,43 @@ public enum ConversationType: RawRepresentable, Equatable, JSONDecodable, JSONEn
   }
 }
 
-public final class AvailablePhoneNumbersForCountryCodeMutation: GraphQLMutation {
-  public static let operationString =
+internal final class AvailablePhoneNumbersForCountryCodeMutation: GraphQLMutation {
+  internal static let operationString =
     "mutation availablePhoneNumbersForCountryCode($country: String!, $limit: Int = 10) {\n  searchPhoneNumbers(input: {country: $country, limit: $limit}) {\n    __typename\n    ...SudoAvailablePhoneNumberResult\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(SudoAvailablePhoneNumberResult.fragmentString) }
+  internal static var requestString: String { return operationString.appending(SudoAvailablePhoneNumberResult.fragmentString) }
 
-  public var country: String
-  public var limit: Int?
+  internal var country: String
+  internal var limit: Int?
 
-  public init(country: String, limit: Int? = nil) {
+  internal init(country: String, limit: Int? = nil) {
     self.country = country
     self.limit = limit
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["country": country, "limit": limit]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Mutation"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Mutation"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("searchPhoneNumbers", arguments: ["input": ["country": GraphQLVariable("country"), "limit": GraphQLVariable("limit")]], type: .object(SearchPhoneNumber.selections)),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(searchPhoneNumbers: SearchPhoneNumber? = nil) {
+    internal init(searchPhoneNumbers: SearchPhoneNumber? = nil) {
       self.init(snapshot: ["__typename": "Mutation", "searchPhoneNumbers": searchPhoneNumbers.flatMap { $0.snapshot }])
     }
 
     /// Search for available phone numbers for given criteria.
-    public var searchPhoneNumbers: SearchPhoneNumber? {
+    internal var searchPhoneNumbers: SearchPhoneNumber? {
       get {
         return (snapshot["searchPhoneNumbers"] as? Snapshot).flatMap { SearchPhoneNumber(snapshot: $0) }
       }
@@ -995,10 +1022,10 @@ public final class AvailablePhoneNumbersForCountryCodeMutation: GraphQLMutation 
       }
     }
 
-    public struct SearchPhoneNumber: GraphQLSelectionSet {
-      public static let possibleTypes = ["PhoneNumberSearch"]
+    internal struct SearchPhoneNumber: GraphQLSelectionSet {
+      internal static let possibleTypes = ["PhoneNumberSearch"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
@@ -1012,17 +1039,17 @@ public final class AvailablePhoneNumbersForCountryCodeMutation: GraphQLMutation 
         GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, country: String, gps: Gp? = nil, `prefix`: String? = nil, state: PhoneNumberSearchState, results: [String]? = nil, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+      internal init(id: GraphQLID, country: String, gps: Gp? = nil, `prefix`: String? = nil, state: PhoneNumberSearchState, results: [String]? = nil, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
         self.init(snapshot: ["__typename": "PhoneNumberSearch", "id": id, "country": country, "gps": gps.flatMap { $0.snapshot }, "prefix": `prefix`, "state": state, "results": results, "clientRefId": clientRefId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -1032,7 +1059,7 @@ public final class AvailablePhoneNumbersForCountryCodeMutation: GraphQLMutation 
       }
 
       /// v4 UUID assigned to the phone number search.
-      public var id: GraphQLID {
+      internal var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
         }
@@ -1042,7 +1069,7 @@ public final class AvailablePhoneNumbersForCountryCodeMutation: GraphQLMutation 
       }
 
       /// ISO country code of phone number e.g. 'US' 'ZZ'.
-      public var country: String {
+      internal var country: String {
         get {
           return snapshot["country"]! as! String
         }
@@ -1052,7 +1079,7 @@ public final class AvailablePhoneNumbersForCountryCodeMutation: GraphQLMutation 
       }
 
       /// GPS coordinates to scope phone number search.
-      public var gps: Gp? {
+      internal var gps: Gp? {
         get {
           return (snapshot["gps"] as? Snapshot).flatMap { Gp(snapshot: $0) }
         }
@@ -1062,7 +1089,7 @@ public final class AvailablePhoneNumbersForCountryCodeMutation: GraphQLMutation 
       }
 
       /// Area code of phone number e.g. 801, 555.
-      public var `prefix`: String? {
+      internal var `prefix`: String? {
         get {
           return snapshot["prefix"] as? String
         }
@@ -1072,7 +1099,7 @@ public final class AvailablePhoneNumbersForCountryCodeMutation: GraphQLMutation 
       }
 
       /// Current state of phone number search request.
-      public var state: PhoneNumberSearchState {
+      internal var state: PhoneNumberSearchState {
         get {
           return snapshot["state"]! as! PhoneNumberSearchState
         }
@@ -1082,7 +1109,7 @@ public final class AvailablePhoneNumbersForCountryCodeMutation: GraphQLMutation 
       }
 
       /// Array of available phone numbers.
-      public var results: [String]? {
+      internal var results: [String]? {
         get {
           return snapshot["results"] as? [String]
         }
@@ -1092,7 +1119,7 @@ public final class AvailablePhoneNumbersForCountryCodeMutation: GraphQLMutation 
       }
 
       /// ID used for the client to subscribe to specific events.
-      public var clientRefId: String? {
+      internal var clientRefId: String? {
         get {
           return snapshot["clientRefId"] as? String
         }
@@ -1102,7 +1129,7 @@ public final class AvailablePhoneNumbersForCountryCodeMutation: GraphQLMutation 
       }
 
       /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
-      public var createdAtEpochMs: Double {
+      internal var createdAtEpochMs: Double {
         get {
           return snapshot["createdAtEpochMs"]! as! Double
         }
@@ -1112,7 +1139,7 @@ public final class AvailablePhoneNumbersForCountryCodeMutation: GraphQLMutation 
       }
 
       /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
-      public var updatedAtEpochMs: Double {
+      internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
         }
@@ -1121,7 +1148,7 @@ public final class AvailablePhoneNumbersForCountryCodeMutation: GraphQLMutation 
         }
       }
 
-      public var fragments: Fragments {
+      internal var fragments: Fragments {
         get {
           return Fragments(snapshot: snapshot)
         }
@@ -1130,10 +1157,10 @@ public final class AvailablePhoneNumbersForCountryCodeMutation: GraphQLMutation 
         }
       }
 
-      public struct Fragments {
-        public var snapshot: Snapshot
+      internal struct Fragments {
+        internal var snapshot: Snapshot
 
-        public var sudoAvailablePhoneNumberResult: SudoAvailablePhoneNumberResult {
+        internal var sudoAvailablePhoneNumberResult: SudoAvailablePhoneNumberResult {
           get {
             return SudoAvailablePhoneNumberResult(snapshot: snapshot)
           }
@@ -1143,26 +1170,26 @@ public final class AvailablePhoneNumbersForCountryCodeMutation: GraphQLMutation 
         }
       }
 
-      public struct Gp: GraphQLSelectionSet {
-        public static let possibleTypes = ["GpsCoordinates"]
+      internal struct Gp: GraphQLSelectionSet {
+        internal static let possibleTypes = ["GpsCoordinates"]
 
-        public static let selections: [GraphQLSelection] = [
+        internal static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("latitude", type: .nonNull(.scalar(String.self))),
           GraphQLField("longitude", type: .nonNull(.scalar(String.self))),
         ]
 
-        public var snapshot: Snapshot
+        internal var snapshot: Snapshot
 
-        public init(snapshot: Snapshot) {
+        internal init(snapshot: Snapshot) {
           self.snapshot = snapshot
         }
 
-        public init(latitude: String, longitude: String) {
+        internal init(latitude: String, longitude: String) {
           self.init(snapshot: ["__typename": "GpsCoordinates", "latitude": latitude, "longitude": longitude])
         }
 
-        public var __typename: String {
+        internal var __typename: String {
           get {
             return snapshot["__typename"]! as! String
           }
@@ -1171,7 +1198,7 @@ public final class AvailablePhoneNumbersForCountryCodeMutation: GraphQLMutation 
           }
         }
 
-        public var latitude: String {
+        internal var latitude: String {
           get {
             return snapshot["latitude"]! as! String
           }
@@ -1180,7 +1207,7 @@ public final class AvailablePhoneNumbersForCountryCodeMutation: GraphQLMutation 
           }
         }
 
-        public var longitude: String {
+        internal var longitude: String {
           get {
             return snapshot["longitude"]! as! String
           }
@@ -1193,45 +1220,45 @@ public final class AvailablePhoneNumbersForCountryCodeMutation: GraphQLMutation 
   }
 }
 
-public final class AvailablePhoneNumbersForPrefixMutation: GraphQLMutation {
-  public static let operationString =
+internal final class AvailablePhoneNumbersForPrefixMutation: GraphQLMutation {
+  internal static let operationString =
     "mutation availablePhoneNumbersForPrefix($country: String!, $prefix: String!, $limit: Int = 10) {\n  searchPhoneNumbers(input: {country: $country, prefix: $prefix, limit: $limit}) {\n    __typename\n    ...SudoAvailablePhoneNumberResult\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(SudoAvailablePhoneNumberResult.fragmentString) }
+  internal static var requestString: String { return operationString.appending(SudoAvailablePhoneNumberResult.fragmentString) }
 
-  public var country: String
-  public var `prefix`: String
-  public var limit: Int?
+  internal var country: String
+  internal var `prefix`: String
+  internal var limit: Int?
 
-  public init(country: String, `prefix`: String, limit: Int? = nil) {
+  internal init(country: String, `prefix`: String, limit: Int? = nil) {
     self.country = country
     self.prefix = `prefix`
     self.limit = limit
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["country": country, "prefix": `prefix`, "limit": limit]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Mutation"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Mutation"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("searchPhoneNumbers", arguments: ["input": ["country": GraphQLVariable("country"), "prefix": GraphQLVariable("prefix"), "limit": GraphQLVariable("limit")]], type: .object(SearchPhoneNumber.selections)),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(searchPhoneNumbers: SearchPhoneNumber? = nil) {
+    internal init(searchPhoneNumbers: SearchPhoneNumber? = nil) {
       self.init(snapshot: ["__typename": "Mutation", "searchPhoneNumbers": searchPhoneNumbers.flatMap { $0.snapshot }])
     }
 
     /// Search for available phone numbers for given criteria.
-    public var searchPhoneNumbers: SearchPhoneNumber? {
+    internal var searchPhoneNumbers: SearchPhoneNumber? {
       get {
         return (snapshot["searchPhoneNumbers"] as? Snapshot).flatMap { SearchPhoneNumber(snapshot: $0) }
       }
@@ -1240,10 +1267,10 @@ public final class AvailablePhoneNumbersForPrefixMutation: GraphQLMutation {
       }
     }
 
-    public struct SearchPhoneNumber: GraphQLSelectionSet {
-      public static let possibleTypes = ["PhoneNumberSearch"]
+    internal struct SearchPhoneNumber: GraphQLSelectionSet {
+      internal static let possibleTypes = ["PhoneNumberSearch"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
@@ -1257,17 +1284,17 @@ public final class AvailablePhoneNumbersForPrefixMutation: GraphQLMutation {
         GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, country: String, gps: Gp? = nil, `prefix`: String? = nil, state: PhoneNumberSearchState, results: [String]? = nil, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+      internal init(id: GraphQLID, country: String, gps: Gp? = nil, `prefix`: String? = nil, state: PhoneNumberSearchState, results: [String]? = nil, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
         self.init(snapshot: ["__typename": "PhoneNumberSearch", "id": id, "country": country, "gps": gps.flatMap { $0.snapshot }, "prefix": `prefix`, "state": state, "results": results, "clientRefId": clientRefId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -1277,7 +1304,7 @@ public final class AvailablePhoneNumbersForPrefixMutation: GraphQLMutation {
       }
 
       /// v4 UUID assigned to the phone number search.
-      public var id: GraphQLID {
+      internal var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
         }
@@ -1287,7 +1314,7 @@ public final class AvailablePhoneNumbersForPrefixMutation: GraphQLMutation {
       }
 
       /// ISO country code of phone number e.g. 'US' 'ZZ'.
-      public var country: String {
+      internal var country: String {
         get {
           return snapshot["country"]! as! String
         }
@@ -1297,7 +1324,7 @@ public final class AvailablePhoneNumbersForPrefixMutation: GraphQLMutation {
       }
 
       /// GPS coordinates to scope phone number search.
-      public var gps: Gp? {
+      internal var gps: Gp? {
         get {
           return (snapshot["gps"] as? Snapshot).flatMap { Gp(snapshot: $0) }
         }
@@ -1307,7 +1334,7 @@ public final class AvailablePhoneNumbersForPrefixMutation: GraphQLMutation {
       }
 
       /// Area code of phone number e.g. 801, 555.
-      public var `prefix`: String? {
+      internal var `prefix`: String? {
         get {
           return snapshot["prefix"] as? String
         }
@@ -1317,7 +1344,7 @@ public final class AvailablePhoneNumbersForPrefixMutation: GraphQLMutation {
       }
 
       /// Current state of phone number search request.
-      public var state: PhoneNumberSearchState {
+      internal var state: PhoneNumberSearchState {
         get {
           return snapshot["state"]! as! PhoneNumberSearchState
         }
@@ -1327,7 +1354,7 @@ public final class AvailablePhoneNumbersForPrefixMutation: GraphQLMutation {
       }
 
       /// Array of available phone numbers.
-      public var results: [String]? {
+      internal var results: [String]? {
         get {
           return snapshot["results"] as? [String]
         }
@@ -1337,7 +1364,7 @@ public final class AvailablePhoneNumbersForPrefixMutation: GraphQLMutation {
       }
 
       /// ID used for the client to subscribe to specific events.
-      public var clientRefId: String? {
+      internal var clientRefId: String? {
         get {
           return snapshot["clientRefId"] as? String
         }
@@ -1347,7 +1374,7 @@ public final class AvailablePhoneNumbersForPrefixMutation: GraphQLMutation {
       }
 
       /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
-      public var createdAtEpochMs: Double {
+      internal var createdAtEpochMs: Double {
         get {
           return snapshot["createdAtEpochMs"]! as! Double
         }
@@ -1357,7 +1384,7 @@ public final class AvailablePhoneNumbersForPrefixMutation: GraphQLMutation {
       }
 
       /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
-      public var updatedAtEpochMs: Double {
+      internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
         }
@@ -1366,7 +1393,7 @@ public final class AvailablePhoneNumbersForPrefixMutation: GraphQLMutation {
         }
       }
 
-      public var fragments: Fragments {
+      internal var fragments: Fragments {
         get {
           return Fragments(snapshot: snapshot)
         }
@@ -1375,10 +1402,10 @@ public final class AvailablePhoneNumbersForPrefixMutation: GraphQLMutation {
         }
       }
 
-      public struct Fragments {
-        public var snapshot: Snapshot
+      internal struct Fragments {
+        internal var snapshot: Snapshot
 
-        public var sudoAvailablePhoneNumberResult: SudoAvailablePhoneNumberResult {
+        internal var sudoAvailablePhoneNumberResult: SudoAvailablePhoneNumberResult {
           get {
             return SudoAvailablePhoneNumberResult(snapshot: snapshot)
           }
@@ -1388,26 +1415,26 @@ public final class AvailablePhoneNumbersForPrefixMutation: GraphQLMutation {
         }
       }
 
-      public struct Gp: GraphQLSelectionSet {
-        public static let possibleTypes = ["GpsCoordinates"]
+      internal struct Gp: GraphQLSelectionSet {
+        internal static let possibleTypes = ["GpsCoordinates"]
 
-        public static let selections: [GraphQLSelection] = [
+        internal static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("latitude", type: .nonNull(.scalar(String.self))),
           GraphQLField("longitude", type: .nonNull(.scalar(String.self))),
         ]
 
-        public var snapshot: Snapshot
+        internal var snapshot: Snapshot
 
-        public init(snapshot: Snapshot) {
+        internal init(snapshot: Snapshot) {
           self.snapshot = snapshot
         }
 
-        public init(latitude: String, longitude: String) {
+        internal init(latitude: String, longitude: String) {
           self.init(snapshot: ["__typename": "GpsCoordinates", "latitude": latitude, "longitude": longitude])
         }
 
-        public var __typename: String {
+        internal var __typename: String {
           get {
             return snapshot["__typename"]! as! String
           }
@@ -1416,7 +1443,7 @@ public final class AvailablePhoneNumbersForPrefixMutation: GraphQLMutation {
           }
         }
 
-        public var latitude: String {
+        internal var latitude: String {
           get {
             return snapshot["latitude"]! as! String
           }
@@ -1425,7 +1452,7 @@ public final class AvailablePhoneNumbersForPrefixMutation: GraphQLMutation {
           }
         }
 
-        public var longitude: String {
+        internal var longitude: String {
           get {
             return snapshot["longitude"]! as! String
           }
@@ -1438,47 +1465,47 @@ public final class AvailablePhoneNumbersForPrefixMutation: GraphQLMutation {
   }
 }
 
-public final class AvailablePhoneNumbersForGpsMutation: GraphQLMutation {
-  public static let operationString =
+internal final class AvailablePhoneNumbersForGpsMutation: GraphQLMutation {
+  internal static let operationString =
     "mutation availablePhoneNumbersForGPS($country: String!, $latitude: String!, $longitude: String!, $limit: Int = 10) {\n  searchPhoneNumbers(input: {country: $country, gps: {latitude: $latitude, longitude: $longitude}, limit: $limit}) {\n    __typename\n    ...SudoAvailablePhoneNumberResult\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(SudoAvailablePhoneNumberResult.fragmentString) }
+  internal static var requestString: String { return operationString.appending(SudoAvailablePhoneNumberResult.fragmentString) }
 
-  public var country: String
-  public var latitude: String
-  public var longitude: String
-  public var limit: Int?
+  internal var country: String
+  internal var latitude: String
+  internal var longitude: String
+  internal var limit: Int?
 
-  public init(country: String, latitude: String, longitude: String, limit: Int? = nil) {
+  internal init(country: String, latitude: String, longitude: String, limit: Int? = nil) {
     self.country = country
     self.latitude = latitude
     self.longitude = longitude
     self.limit = limit
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["country": country, "latitude": latitude, "longitude": longitude, "limit": limit]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Mutation"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Mutation"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("searchPhoneNumbers", arguments: ["input": ["country": GraphQLVariable("country"), "gps": ["latitude": GraphQLVariable("latitude"), "longitude": GraphQLVariable("longitude")], "limit": GraphQLVariable("limit")]], type: .object(SearchPhoneNumber.selections)),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(searchPhoneNumbers: SearchPhoneNumber? = nil) {
+    internal init(searchPhoneNumbers: SearchPhoneNumber? = nil) {
       self.init(snapshot: ["__typename": "Mutation", "searchPhoneNumbers": searchPhoneNumbers.flatMap { $0.snapshot }])
     }
 
     /// Search for available phone numbers for given criteria.
-    public var searchPhoneNumbers: SearchPhoneNumber? {
+    internal var searchPhoneNumbers: SearchPhoneNumber? {
       get {
         return (snapshot["searchPhoneNumbers"] as? Snapshot).flatMap { SearchPhoneNumber(snapshot: $0) }
       }
@@ -1487,10 +1514,10 @@ public final class AvailablePhoneNumbersForGpsMutation: GraphQLMutation {
       }
     }
 
-    public struct SearchPhoneNumber: GraphQLSelectionSet {
-      public static let possibleTypes = ["PhoneNumberSearch"]
+    internal struct SearchPhoneNumber: GraphQLSelectionSet {
+      internal static let possibleTypes = ["PhoneNumberSearch"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
@@ -1504,17 +1531,17 @@ public final class AvailablePhoneNumbersForGpsMutation: GraphQLMutation {
         GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, country: String, gps: Gp? = nil, `prefix`: String? = nil, state: PhoneNumberSearchState, results: [String]? = nil, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+      internal init(id: GraphQLID, country: String, gps: Gp? = nil, `prefix`: String? = nil, state: PhoneNumberSearchState, results: [String]? = nil, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
         self.init(snapshot: ["__typename": "PhoneNumberSearch", "id": id, "country": country, "gps": gps.flatMap { $0.snapshot }, "prefix": `prefix`, "state": state, "results": results, "clientRefId": clientRefId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -1524,7 +1551,7 @@ public final class AvailablePhoneNumbersForGpsMutation: GraphQLMutation {
       }
 
       /// v4 UUID assigned to the phone number search.
-      public var id: GraphQLID {
+      internal var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
         }
@@ -1534,7 +1561,7 @@ public final class AvailablePhoneNumbersForGpsMutation: GraphQLMutation {
       }
 
       /// ISO country code of phone number e.g. 'US' 'ZZ'.
-      public var country: String {
+      internal var country: String {
         get {
           return snapshot["country"]! as! String
         }
@@ -1544,7 +1571,7 @@ public final class AvailablePhoneNumbersForGpsMutation: GraphQLMutation {
       }
 
       /// GPS coordinates to scope phone number search.
-      public var gps: Gp? {
+      internal var gps: Gp? {
         get {
           return (snapshot["gps"] as? Snapshot).flatMap { Gp(snapshot: $0) }
         }
@@ -1554,7 +1581,7 @@ public final class AvailablePhoneNumbersForGpsMutation: GraphQLMutation {
       }
 
       /// Area code of phone number e.g. 801, 555.
-      public var `prefix`: String? {
+      internal var `prefix`: String? {
         get {
           return snapshot["prefix"] as? String
         }
@@ -1564,7 +1591,7 @@ public final class AvailablePhoneNumbersForGpsMutation: GraphQLMutation {
       }
 
       /// Current state of phone number search request.
-      public var state: PhoneNumberSearchState {
+      internal var state: PhoneNumberSearchState {
         get {
           return snapshot["state"]! as! PhoneNumberSearchState
         }
@@ -1574,7 +1601,7 @@ public final class AvailablePhoneNumbersForGpsMutation: GraphQLMutation {
       }
 
       /// Array of available phone numbers.
-      public var results: [String]? {
+      internal var results: [String]? {
         get {
           return snapshot["results"] as? [String]
         }
@@ -1584,7 +1611,7 @@ public final class AvailablePhoneNumbersForGpsMutation: GraphQLMutation {
       }
 
       /// ID used for the client to subscribe to specific events.
-      public var clientRefId: String? {
+      internal var clientRefId: String? {
         get {
           return snapshot["clientRefId"] as? String
         }
@@ -1594,7 +1621,7 @@ public final class AvailablePhoneNumbersForGpsMutation: GraphQLMutation {
       }
 
       /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
-      public var createdAtEpochMs: Double {
+      internal var createdAtEpochMs: Double {
         get {
           return snapshot["createdAtEpochMs"]! as! Double
         }
@@ -1604,7 +1631,7 @@ public final class AvailablePhoneNumbersForGpsMutation: GraphQLMutation {
       }
 
       /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
-      public var updatedAtEpochMs: Double {
+      internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
         }
@@ -1613,7 +1640,7 @@ public final class AvailablePhoneNumbersForGpsMutation: GraphQLMutation {
         }
       }
 
-      public var fragments: Fragments {
+      internal var fragments: Fragments {
         get {
           return Fragments(snapshot: snapshot)
         }
@@ -1622,10 +1649,10 @@ public final class AvailablePhoneNumbersForGpsMutation: GraphQLMutation {
         }
       }
 
-      public struct Fragments {
-        public var snapshot: Snapshot
+      internal struct Fragments {
+        internal var snapshot: Snapshot
 
-        public var sudoAvailablePhoneNumberResult: SudoAvailablePhoneNumberResult {
+        internal var sudoAvailablePhoneNumberResult: SudoAvailablePhoneNumberResult {
           get {
             return SudoAvailablePhoneNumberResult(snapshot: snapshot)
           }
@@ -1635,26 +1662,26 @@ public final class AvailablePhoneNumbersForGpsMutation: GraphQLMutation {
         }
       }
 
-      public struct Gp: GraphQLSelectionSet {
-        public static let possibleTypes = ["GpsCoordinates"]
+      internal struct Gp: GraphQLSelectionSet {
+        internal static let possibleTypes = ["GpsCoordinates"]
 
-        public static let selections: [GraphQLSelection] = [
+        internal static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("latitude", type: .nonNull(.scalar(String.self))),
           GraphQLField("longitude", type: .nonNull(.scalar(String.self))),
         ]
 
-        public var snapshot: Snapshot
+        internal var snapshot: Snapshot
 
-        public init(snapshot: Snapshot) {
+        internal init(snapshot: Snapshot) {
           self.snapshot = snapshot
         }
 
-        public init(latitude: String, longitude: String) {
+        internal init(latitude: String, longitude: String) {
           self.init(snapshot: ["__typename": "GpsCoordinates", "latitude": latitude, "longitude": longitude])
         }
 
-        public var __typename: String {
+        internal var __typename: String {
           get {
             return snapshot["__typename"]! as! String
           }
@@ -1663,7 +1690,7 @@ public final class AvailablePhoneNumbersForGpsMutation: GraphQLMutation {
           }
         }
 
-        public var latitude: String {
+        internal var latitude: String {
           get {
             return snapshot["latitude"]! as! String
           }
@@ -1672,7 +1699,7 @@ public final class AvailablePhoneNumbersForGpsMutation: GraphQLMutation {
           }
         }
 
-        public var longitude: String {
+        internal var longitude: String {
           get {
             return snapshot["longitude"]! as! String
           }
@@ -1685,32 +1712,32 @@ public final class AvailablePhoneNumbersForGpsMutation: GraphQLMutation {
   }
 }
 
-public final class SupportedCountriesQuery: GraphQLQuery {
-  public static let operationString =
+internal final class SupportedCountriesQuery: GraphQLQuery {
+  internal static let operationString =
     "query supportedCountries {\n  getPhoneNumberCountries {\n    __typename\n    countries\n  }\n}"
 
-  public init() {
+  internal init() {
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Query"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("getPhoneNumberCountries", type: .object(GetPhoneNumberCountry.selections)),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(getPhoneNumberCountries: GetPhoneNumberCountry? = nil) {
+    internal init(getPhoneNumberCountries: GetPhoneNumberCountry? = nil) {
       self.init(snapshot: ["__typename": "Query", "getPhoneNumberCountries": getPhoneNumberCountries.flatMap { $0.snapshot }])
     }
 
     /// Returns an array of ISO country codes.
-    public var getPhoneNumberCountries: GetPhoneNumberCountry? {
+    internal var getPhoneNumberCountries: GetPhoneNumberCountry? {
       get {
         return (snapshot["getPhoneNumberCountries"] as? Snapshot).flatMap { GetPhoneNumberCountry(snapshot: $0) }
       }
@@ -1719,25 +1746,25 @@ public final class SupportedCountriesQuery: GraphQLQuery {
       }
     }
 
-    public struct GetPhoneNumberCountry: GraphQLSelectionSet {
-      public static let possibleTypes = ["SupportedCountries"]
+    internal struct GetPhoneNumberCountry: GraphQLSelectionSet {
+      internal static let possibleTypes = ["SupportedCountries"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("countries", type: .nonNull(.list(.nonNull(.scalar(String.self))))),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(countries: [String]) {
+      internal init(countries: [String]) {
         self.init(snapshot: ["__typename": "SupportedCountries", "countries": countries])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -1746,7 +1773,7 @@ public final class SupportedCountriesQuery: GraphQLQuery {
         }
       }
 
-      public var countries: [String] {
+      internal var countries: [String] {
         get {
           return snapshot["countries"]! as! [String]
         }
@@ -1758,41 +1785,41 @@ public final class SupportedCountriesQuery: GraphQLQuery {
   }
 }
 
-public final class AvailablePhoneNumberResultQuery: GraphQLQuery {
-  public static let operationString =
+internal final class AvailablePhoneNumberResultQuery: GraphQLQuery {
+  internal static let operationString =
     "query availablePhoneNumberResult($id: ID!) {\n  getPhoneNumberSearch(id: $id) {\n    __typename\n    ...SudoAvailablePhoneNumberResult\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(SudoAvailablePhoneNumberResult.fragmentString) }
+  internal static var requestString: String { return operationString.appending(SudoAvailablePhoneNumberResult.fragmentString) }
 
-  public var id: GraphQLID
+  internal var id: GraphQLID
 
-  public init(id: GraphQLID) {
+  internal init(id: GraphQLID) {
     self.id = id
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["id": id]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Query"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("getPhoneNumberSearch", arguments: ["id": GraphQLVariable("id")], type: .object(GetPhoneNumberSearch.selections)),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(getPhoneNumberSearch: GetPhoneNumberSearch? = nil) {
+    internal init(getPhoneNumberSearch: GetPhoneNumberSearch? = nil) {
       self.init(snapshot: ["__typename": "Query", "getPhoneNumberSearch": getPhoneNumberSearch.flatMap { $0.snapshot }])
     }
 
     /// Returns a phone number search record.
-    public var getPhoneNumberSearch: GetPhoneNumberSearch? {
+    internal var getPhoneNumberSearch: GetPhoneNumberSearch? {
       get {
         return (snapshot["getPhoneNumberSearch"] as? Snapshot).flatMap { GetPhoneNumberSearch(snapshot: $0) }
       }
@@ -1801,10 +1828,10 @@ public final class AvailablePhoneNumberResultQuery: GraphQLQuery {
       }
     }
 
-    public struct GetPhoneNumberSearch: GraphQLSelectionSet {
-      public static let possibleTypes = ["PhoneNumberSearch"]
+    internal struct GetPhoneNumberSearch: GraphQLSelectionSet {
+      internal static let possibleTypes = ["PhoneNumberSearch"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
@@ -1818,17 +1845,17 @@ public final class AvailablePhoneNumberResultQuery: GraphQLQuery {
         GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, country: String, gps: Gp? = nil, `prefix`: String? = nil, state: PhoneNumberSearchState, results: [String]? = nil, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+      internal init(id: GraphQLID, country: String, gps: Gp? = nil, `prefix`: String? = nil, state: PhoneNumberSearchState, results: [String]? = nil, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
         self.init(snapshot: ["__typename": "PhoneNumberSearch", "id": id, "country": country, "gps": gps.flatMap { $0.snapshot }, "prefix": `prefix`, "state": state, "results": results, "clientRefId": clientRefId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -1838,7 +1865,7 @@ public final class AvailablePhoneNumberResultQuery: GraphQLQuery {
       }
 
       /// v4 UUID assigned to the phone number search.
-      public var id: GraphQLID {
+      internal var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
         }
@@ -1848,7 +1875,7 @@ public final class AvailablePhoneNumberResultQuery: GraphQLQuery {
       }
 
       /// ISO country code of phone number e.g. 'US' 'ZZ'.
-      public var country: String {
+      internal var country: String {
         get {
           return snapshot["country"]! as! String
         }
@@ -1858,7 +1885,7 @@ public final class AvailablePhoneNumberResultQuery: GraphQLQuery {
       }
 
       /// GPS coordinates to scope phone number search.
-      public var gps: Gp? {
+      internal var gps: Gp? {
         get {
           return (snapshot["gps"] as? Snapshot).flatMap { Gp(snapshot: $0) }
         }
@@ -1868,7 +1895,7 @@ public final class AvailablePhoneNumberResultQuery: GraphQLQuery {
       }
 
       /// Area code of phone number e.g. 801, 555.
-      public var `prefix`: String? {
+      internal var `prefix`: String? {
         get {
           return snapshot["prefix"] as? String
         }
@@ -1878,7 +1905,7 @@ public final class AvailablePhoneNumberResultQuery: GraphQLQuery {
       }
 
       /// Current state of phone number search request.
-      public var state: PhoneNumberSearchState {
+      internal var state: PhoneNumberSearchState {
         get {
           return snapshot["state"]! as! PhoneNumberSearchState
         }
@@ -1888,7 +1915,7 @@ public final class AvailablePhoneNumberResultQuery: GraphQLQuery {
       }
 
       /// Array of available phone numbers.
-      public var results: [String]? {
+      internal var results: [String]? {
         get {
           return snapshot["results"] as? [String]
         }
@@ -1898,7 +1925,7 @@ public final class AvailablePhoneNumberResultQuery: GraphQLQuery {
       }
 
       /// ID used for the client to subscribe to specific events.
-      public var clientRefId: String? {
+      internal var clientRefId: String? {
         get {
           return snapshot["clientRefId"] as? String
         }
@@ -1908,7 +1935,7 @@ public final class AvailablePhoneNumberResultQuery: GraphQLQuery {
       }
 
       /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
-      public var createdAtEpochMs: Double {
+      internal var createdAtEpochMs: Double {
         get {
           return snapshot["createdAtEpochMs"]! as! Double
         }
@@ -1918,7 +1945,7 @@ public final class AvailablePhoneNumberResultQuery: GraphQLQuery {
       }
 
       /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
-      public var updatedAtEpochMs: Double {
+      internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
         }
@@ -1927,7 +1954,7 @@ public final class AvailablePhoneNumberResultQuery: GraphQLQuery {
         }
       }
 
-      public var fragments: Fragments {
+      internal var fragments: Fragments {
         get {
           return Fragments(snapshot: snapshot)
         }
@@ -1936,10 +1963,10 @@ public final class AvailablePhoneNumberResultQuery: GraphQLQuery {
         }
       }
 
-      public struct Fragments {
-        public var snapshot: Snapshot
+      internal struct Fragments {
+        internal var snapshot: Snapshot
 
-        public var sudoAvailablePhoneNumberResult: SudoAvailablePhoneNumberResult {
+        internal var sudoAvailablePhoneNumberResult: SudoAvailablePhoneNumberResult {
           get {
             return SudoAvailablePhoneNumberResult(snapshot: snapshot)
           }
@@ -1949,26 +1976,26 @@ public final class AvailablePhoneNumberResultQuery: GraphQLQuery {
         }
       }
 
-      public struct Gp: GraphQLSelectionSet {
-        public static let possibleTypes = ["GpsCoordinates"]
+      internal struct Gp: GraphQLSelectionSet {
+        internal static let possibleTypes = ["GpsCoordinates"]
 
-        public static let selections: [GraphQLSelection] = [
+        internal static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("latitude", type: .nonNull(.scalar(String.self))),
           GraphQLField("longitude", type: .nonNull(.scalar(String.self))),
         ]
 
-        public var snapshot: Snapshot
+        internal var snapshot: Snapshot
 
-        public init(snapshot: Snapshot) {
+        internal init(snapshot: Snapshot) {
           self.snapshot = snapshot
         }
 
-        public init(latitude: String, longitude: String) {
+        internal init(latitude: String, longitude: String) {
           self.init(snapshot: ["__typename": "GpsCoordinates", "latitude": latitude, "longitude": longitude])
         }
 
-        public var __typename: String {
+        internal var __typename: String {
           get {
             return snapshot["__typename"]! as! String
           }
@@ -1977,7 +2004,7 @@ public final class AvailablePhoneNumberResultQuery: GraphQLQuery {
           }
         }
 
-        public var latitude: String {
+        internal var latitude: String {
           get {
             return snapshot["latitude"]! as! String
           }
@@ -1986,7 +2013,7 @@ public final class AvailablePhoneNumberResultQuery: GraphQLQuery {
           }
         }
 
-        public var longitude: String {
+        internal var longitude: String {
           get {
             return snapshot["longitude"]! as! String
           }
@@ -1999,44 +2026,44 @@ public final class AvailablePhoneNumberResultQuery: GraphQLQuery {
   }
 }
 
-public final class AvailablePhoneNumbersFinishedSubscription: GraphQLSubscription {
-  public static let operationString =
+internal final class AvailablePhoneNumbersFinishedSubscription: GraphQLSubscription {
+  internal static let operationString =
     "subscription availablePhoneNumbersFinished($owner: String!, $clientRefId: String!) {\n  OnSearch(owner: $owner, clientRefId: $clientRefId) {\n    __typename\n    ...SudoAvailablePhoneNumberResult\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(SudoAvailablePhoneNumberResult.fragmentString) }
+  internal static var requestString: String { return operationString.appending(SudoAvailablePhoneNumberResult.fragmentString) }
 
-  public var owner: String
-  public var clientRefId: String
+  internal var owner: String
+  internal var clientRefId: String
 
-  public init(owner: String, clientRefId: String) {
+  internal init(owner: String, clientRefId: String) {
     self.owner = owner
     self.clientRefId = clientRefId
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["owner": owner, "clientRefId": clientRefId]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Subscription"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Subscription"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("OnSearch", arguments: ["owner": GraphQLVariable("owner"), "clientRefId": GraphQLVariable("clientRefId")], type: .object(OnSearch.selections)),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(onSearch: OnSearch? = nil) {
+    internal init(onSearch: OnSearch? = nil) {
       self.init(snapshot: ["__typename": "Subscription", "OnSearch": onSearch.flatMap { $0.snapshot }])
     }
 
     /// Owner id for the current logged in user.
     /// ID used for the client to subscribe to specific search events.
-    public var onSearch: OnSearch? {
+    internal var onSearch: OnSearch? {
       get {
         return (snapshot["OnSearch"] as? Snapshot).flatMap { OnSearch(snapshot: $0) }
       }
@@ -2045,10 +2072,10 @@ public final class AvailablePhoneNumbersFinishedSubscription: GraphQLSubscriptio
       }
     }
 
-    public struct OnSearch: GraphQLSelectionSet {
-      public static let possibleTypes = ["PhoneNumberSearch"]
+    internal struct OnSearch: GraphQLSelectionSet {
+      internal static let possibleTypes = ["PhoneNumberSearch"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
@@ -2062,17 +2089,17 @@ public final class AvailablePhoneNumbersFinishedSubscription: GraphQLSubscriptio
         GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, country: String, gps: Gp? = nil, `prefix`: String? = nil, state: PhoneNumberSearchState, results: [String]? = nil, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+      internal init(id: GraphQLID, country: String, gps: Gp? = nil, `prefix`: String? = nil, state: PhoneNumberSearchState, results: [String]? = nil, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
         self.init(snapshot: ["__typename": "PhoneNumberSearch", "id": id, "country": country, "gps": gps.flatMap { $0.snapshot }, "prefix": `prefix`, "state": state, "results": results, "clientRefId": clientRefId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -2082,7 +2109,7 @@ public final class AvailablePhoneNumbersFinishedSubscription: GraphQLSubscriptio
       }
 
       /// v4 UUID assigned to the phone number search.
-      public var id: GraphQLID {
+      internal var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
         }
@@ -2092,7 +2119,7 @@ public final class AvailablePhoneNumbersFinishedSubscription: GraphQLSubscriptio
       }
 
       /// ISO country code of phone number e.g. 'US' 'ZZ'.
-      public var country: String {
+      internal var country: String {
         get {
           return snapshot["country"]! as! String
         }
@@ -2102,7 +2129,7 @@ public final class AvailablePhoneNumbersFinishedSubscription: GraphQLSubscriptio
       }
 
       /// GPS coordinates to scope phone number search.
-      public var gps: Gp? {
+      internal var gps: Gp? {
         get {
           return (snapshot["gps"] as? Snapshot).flatMap { Gp(snapshot: $0) }
         }
@@ -2112,7 +2139,7 @@ public final class AvailablePhoneNumbersFinishedSubscription: GraphQLSubscriptio
       }
 
       /// Area code of phone number e.g. 801, 555.
-      public var `prefix`: String? {
+      internal var `prefix`: String? {
         get {
           return snapshot["prefix"] as? String
         }
@@ -2122,7 +2149,7 @@ public final class AvailablePhoneNumbersFinishedSubscription: GraphQLSubscriptio
       }
 
       /// Current state of phone number search request.
-      public var state: PhoneNumberSearchState {
+      internal var state: PhoneNumberSearchState {
         get {
           return snapshot["state"]! as! PhoneNumberSearchState
         }
@@ -2132,7 +2159,7 @@ public final class AvailablePhoneNumbersFinishedSubscription: GraphQLSubscriptio
       }
 
       /// Array of available phone numbers.
-      public var results: [String]? {
+      internal var results: [String]? {
         get {
           return snapshot["results"] as? [String]
         }
@@ -2142,7 +2169,7 @@ public final class AvailablePhoneNumbersFinishedSubscription: GraphQLSubscriptio
       }
 
       /// ID used for the client to subscribe to specific events.
-      public var clientRefId: String? {
+      internal var clientRefId: String? {
         get {
           return snapshot["clientRefId"] as? String
         }
@@ -2152,7 +2179,7 @@ public final class AvailablePhoneNumbersFinishedSubscription: GraphQLSubscriptio
       }
 
       /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
-      public var createdAtEpochMs: Double {
+      internal var createdAtEpochMs: Double {
         get {
           return snapshot["createdAtEpochMs"]! as! Double
         }
@@ -2162,7 +2189,7 @@ public final class AvailablePhoneNumbersFinishedSubscription: GraphQLSubscriptio
       }
 
       /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
-      public var updatedAtEpochMs: Double {
+      internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
         }
@@ -2171,7 +2198,7 @@ public final class AvailablePhoneNumbersFinishedSubscription: GraphQLSubscriptio
         }
       }
 
-      public var fragments: Fragments {
+      internal var fragments: Fragments {
         get {
           return Fragments(snapshot: snapshot)
         }
@@ -2180,10 +2207,10 @@ public final class AvailablePhoneNumbersFinishedSubscription: GraphQLSubscriptio
         }
       }
 
-      public struct Fragments {
-        public var snapshot: Snapshot
+      internal struct Fragments {
+        internal var snapshot: Snapshot
 
-        public var sudoAvailablePhoneNumberResult: SudoAvailablePhoneNumberResult {
+        internal var sudoAvailablePhoneNumberResult: SudoAvailablePhoneNumberResult {
           get {
             return SudoAvailablePhoneNumberResult(snapshot: snapshot)
           }
@@ -2193,26 +2220,26 @@ public final class AvailablePhoneNumbersFinishedSubscription: GraphQLSubscriptio
         }
       }
 
-      public struct Gp: GraphQLSelectionSet {
-        public static let possibleTypes = ["GpsCoordinates"]
+      internal struct Gp: GraphQLSelectionSet {
+        internal static let possibleTypes = ["GpsCoordinates"]
 
-        public static let selections: [GraphQLSelection] = [
+        internal static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("latitude", type: .nonNull(.scalar(String.self))),
           GraphQLField("longitude", type: .nonNull(.scalar(String.self))),
         ]
 
-        public var snapshot: Snapshot
+        internal var snapshot: Snapshot
 
-        public init(snapshot: Snapshot) {
+        internal init(snapshot: Snapshot) {
           self.snapshot = snapshot
         }
 
-        public init(latitude: String, longitude: String) {
+        internal init(latitude: String, longitude: String) {
           self.init(snapshot: ["__typename": "GpsCoordinates", "latitude": latitude, "longitude": longitude])
         }
 
-        public var __typename: String {
+        internal var __typename: String {
           get {
             return snapshot["__typename"]! as! String
           }
@@ -2221,7 +2248,7 @@ public final class AvailablePhoneNumbersFinishedSubscription: GraphQLSubscriptio
           }
         }
 
-        public var latitude: String {
+        internal var latitude: String {
           get {
             return snapshot["latitude"]! as! String
           }
@@ -2230,7 +2257,7 @@ public final class AvailablePhoneNumbersFinishedSubscription: GraphQLSubscriptio
           }
         }
 
-        public var longitude: String {
+        internal var longitude: String {
           get {
             return snapshot["longitude"]! as! String
           }
@@ -2243,41 +2270,41 @@ public final class AvailablePhoneNumbersFinishedSubscription: GraphQLSubscriptio
   }
 }
 
-public final class ProvisionPhoneNumberMutation: GraphQLMutation {
-  public static let operationString =
+internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
+  internal static let operationString =
     "mutation provisionPhoneNumber($input: ProvisionPhoneNumberInput!) {\n  provisionPhoneNumber(input: $input) {\n    __typename\n    ...SudoPhoneNumber\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(SudoPhoneNumber.fragmentString) }
+  internal static var requestString: String { return operationString.appending(SudoPhoneNumber.fragmentString) }
 
-  public var input: ProvisionPhoneNumberInput
+  internal var input: ProvisionPhoneNumberInput
 
-  public init(input: ProvisionPhoneNumberInput) {
+  internal init(input: ProvisionPhoneNumberInput) {
     self.input = input
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["input": input]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Mutation"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Mutation"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("provisionPhoneNumber", arguments: ["input": GraphQLVariable("input")], type: .object(ProvisionPhoneNumber.selections)),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(provisionPhoneNumber: ProvisionPhoneNumber? = nil) {
+    internal init(provisionPhoneNumber: ProvisionPhoneNumber? = nil) {
       self.init(snapshot: ["__typename": "Mutation", "provisionPhoneNumber": provisionPhoneNumber.flatMap { $0.snapshot }])
     }
 
     /// Provision phone number.
-    public var provisionPhoneNumber: ProvisionPhoneNumber? {
+    internal var provisionPhoneNumber: ProvisionPhoneNumber? {
       get {
         return (snapshot["provisionPhoneNumber"] as? Snapshot).flatMap { ProvisionPhoneNumber(snapshot: $0) }
       }
@@ -2286,10 +2313,10 @@ public final class ProvisionPhoneNumberMutation: GraphQLMutation {
       }
     }
 
-    public struct ProvisionPhoneNumber: GraphQLSelectionSet {
-      public static let possibleTypes = ["PhoneNumber"]
+    internal struct ProvisionPhoneNumber: GraphQLSelectionSet {
+      internal static let possibleTypes = ["PhoneNumber"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
@@ -2303,17 +2330,17 @@ public final class ProvisionPhoneNumberMutation: GraphQLMutation {
         GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, phoneNumber: String, country: String, keyRingId: String, state: PhoneNumberState, version: Int, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+      internal init(id: GraphQLID, phoneNumber: String, country: String, keyRingId: String, state: PhoneNumberState, version: Int, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
         self.init(snapshot: ["__typename": "PhoneNumber", "id": id, "phoneNumber": phoneNumber, "country": country, "keyRingId": keyRingId, "state": state, "version": version, "clientRefId": clientRefId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -2323,7 +2350,7 @@ public final class ProvisionPhoneNumberMutation: GraphQLMutation {
       }
 
       /// v4 UUID of phone number record.
-      public var id: GraphQLID {
+      internal var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
         }
@@ -2333,7 +2360,7 @@ public final class ProvisionPhoneNumberMutation: GraphQLMutation {
       }
 
       /// E164 formatted phone number.
-      public var phoneNumber: String {
+      internal var phoneNumber: String {
         get {
           return snapshot["phoneNumber"]! as! String
         }
@@ -2343,7 +2370,7 @@ public final class ProvisionPhoneNumberMutation: GraphQLMutation {
       }
 
       /// ISO country code of phone number e.g. 'US' 'ZZ'.
-      public var country: String {
+      internal var country: String {
         get {
           return snapshot["country"]! as! String
         }
@@ -2353,7 +2380,7 @@ public final class ProvisionPhoneNumberMutation: GraphQLMutation {
       }
 
       /// Key ring ID that dictates which keys the child resources of this phone number will be encrypted with.
-      public var keyRingId: String {
+      internal var keyRingId: String {
         get {
           return snapshot["keyRingId"]! as! String
         }
@@ -2363,7 +2390,7 @@ public final class ProvisionPhoneNumberMutation: GraphQLMutation {
       }
 
       /// State of phone number.
-      public var state: PhoneNumberState {
+      internal var state: PhoneNumberState {
         get {
           return snapshot["state"]! as! PhoneNumberState
         }
@@ -2373,7 +2400,7 @@ public final class ProvisionPhoneNumberMutation: GraphQLMutation {
       }
 
       /// Version of this phone number record, increments on update.
-      public var version: Int {
+      internal var version: Int {
         get {
           return snapshot["version"]! as! Int
         }
@@ -2383,7 +2410,7 @@ public final class ProvisionPhoneNumberMutation: GraphQLMutation {
       }
 
       /// ID used for the client to subscribe to specific events.
-      public var clientRefId: String? {
+      internal var clientRefId: String? {
         get {
           return snapshot["clientRefId"] as? String
         }
@@ -2393,7 +2420,7 @@ public final class ProvisionPhoneNumberMutation: GraphQLMutation {
       }
 
       /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
-      public var createdAtEpochMs: Double {
+      internal var createdAtEpochMs: Double {
         get {
           return snapshot["createdAtEpochMs"]! as! Double
         }
@@ -2403,7 +2430,7 @@ public final class ProvisionPhoneNumberMutation: GraphQLMutation {
       }
 
       /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
-      public var updatedAtEpochMs: Double {
+      internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
         }
@@ -2412,7 +2439,7 @@ public final class ProvisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
-      public var fragments: Fragments {
+      internal var fragments: Fragments {
         get {
           return Fragments(snapshot: snapshot)
         }
@@ -2421,10 +2448,10 @@ public final class ProvisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
-      public struct Fragments {
-        public var snapshot: Snapshot
+      internal struct Fragments {
+        internal var snapshot: Snapshot
 
-        public var sudoPhoneNumber: SudoPhoneNumber {
+        internal var sudoPhoneNumber: SudoPhoneNumber {
           get {
             return SudoPhoneNumber(snapshot: snapshot)
           }
@@ -2437,44 +2464,44 @@ public final class ProvisionPhoneNumberMutation: GraphQLMutation {
   }
 }
 
-public final class ProvisionPhoneNumberChangedSubscription: GraphQLSubscription {
-  public static let operationString =
+internal final class ProvisionPhoneNumberChangedSubscription: GraphQLSubscription {
+  internal static let operationString =
     "subscription provisionPhoneNumberChanged($owner: String!, $clientRefId: String!) {\n  OnProvision(owner: $owner, clientRefId: $clientRefId) {\n    __typename\n    ...SudoPhoneNumber\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(SudoPhoneNumber.fragmentString) }
+  internal static var requestString: String { return operationString.appending(SudoPhoneNumber.fragmentString) }
 
-  public var owner: String
-  public var clientRefId: String
+  internal var owner: String
+  internal var clientRefId: String
 
-  public init(owner: String, clientRefId: String) {
+  internal init(owner: String, clientRefId: String) {
     self.owner = owner
     self.clientRefId = clientRefId
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["owner": owner, "clientRefId": clientRefId]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Subscription"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Subscription"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("OnProvision", arguments: ["owner": GraphQLVariable("owner"), "clientRefId": GraphQLVariable("clientRefId")], type: .object(OnProvision.selections)),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(onProvision: OnProvision? = nil) {
+    internal init(onProvision: OnProvision? = nil) {
       self.init(snapshot: ["__typename": "Subscription", "OnProvision": onProvision.flatMap { $0.snapshot }])
     }
 
     /// Owner id for the current logged in user.
     /// ID used for the client to subscribe to specific provision events.
-    public var onProvision: OnProvision? {
+    internal var onProvision: OnProvision? {
       get {
         return (snapshot["OnProvision"] as? Snapshot).flatMap { OnProvision(snapshot: $0) }
       }
@@ -2483,10 +2510,10 @@ public final class ProvisionPhoneNumberChangedSubscription: GraphQLSubscription 
       }
     }
 
-    public struct OnProvision: GraphQLSelectionSet {
-      public static let possibleTypes = ["PhoneNumber"]
+    internal struct OnProvision: GraphQLSelectionSet {
+      internal static let possibleTypes = ["PhoneNumber"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
@@ -2500,17 +2527,17 @@ public final class ProvisionPhoneNumberChangedSubscription: GraphQLSubscription 
         GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, phoneNumber: String, country: String, keyRingId: String, state: PhoneNumberState, version: Int, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+      internal init(id: GraphQLID, phoneNumber: String, country: String, keyRingId: String, state: PhoneNumberState, version: Int, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
         self.init(snapshot: ["__typename": "PhoneNumber", "id": id, "phoneNumber": phoneNumber, "country": country, "keyRingId": keyRingId, "state": state, "version": version, "clientRefId": clientRefId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -2520,7 +2547,7 @@ public final class ProvisionPhoneNumberChangedSubscription: GraphQLSubscription 
       }
 
       /// v4 UUID of phone number record.
-      public var id: GraphQLID {
+      internal var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
         }
@@ -2530,7 +2557,7 @@ public final class ProvisionPhoneNumberChangedSubscription: GraphQLSubscription 
       }
 
       /// E164 formatted phone number.
-      public var phoneNumber: String {
+      internal var phoneNumber: String {
         get {
           return snapshot["phoneNumber"]! as! String
         }
@@ -2540,7 +2567,7 @@ public final class ProvisionPhoneNumberChangedSubscription: GraphQLSubscription 
       }
 
       /// ISO country code of phone number e.g. 'US' 'ZZ'.
-      public var country: String {
+      internal var country: String {
         get {
           return snapshot["country"]! as! String
         }
@@ -2550,7 +2577,7 @@ public final class ProvisionPhoneNumberChangedSubscription: GraphQLSubscription 
       }
 
       /// Key ring ID that dictates which keys the child resources of this phone number will be encrypted with.
-      public var keyRingId: String {
+      internal var keyRingId: String {
         get {
           return snapshot["keyRingId"]! as! String
         }
@@ -2560,7 +2587,7 @@ public final class ProvisionPhoneNumberChangedSubscription: GraphQLSubscription 
       }
 
       /// State of phone number.
-      public var state: PhoneNumberState {
+      internal var state: PhoneNumberState {
         get {
           return snapshot["state"]! as! PhoneNumberState
         }
@@ -2570,7 +2597,7 @@ public final class ProvisionPhoneNumberChangedSubscription: GraphQLSubscription 
       }
 
       /// Version of this phone number record, increments on update.
-      public var version: Int {
+      internal var version: Int {
         get {
           return snapshot["version"]! as! Int
         }
@@ -2580,7 +2607,7 @@ public final class ProvisionPhoneNumberChangedSubscription: GraphQLSubscription 
       }
 
       /// ID used for the client to subscribe to specific events.
-      public var clientRefId: String? {
+      internal var clientRefId: String? {
         get {
           return snapshot["clientRefId"] as? String
         }
@@ -2590,7 +2617,7 @@ public final class ProvisionPhoneNumberChangedSubscription: GraphQLSubscription 
       }
 
       /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
-      public var createdAtEpochMs: Double {
+      internal var createdAtEpochMs: Double {
         get {
           return snapshot["createdAtEpochMs"]! as! Double
         }
@@ -2600,7 +2627,7 @@ public final class ProvisionPhoneNumberChangedSubscription: GraphQLSubscription 
       }
 
       /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
-      public var updatedAtEpochMs: Double {
+      internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
         }
@@ -2609,7 +2636,7 @@ public final class ProvisionPhoneNumberChangedSubscription: GraphQLSubscription 
         }
       }
 
-      public var fragments: Fragments {
+      internal var fragments: Fragments {
         get {
           return Fragments(snapshot: snapshot)
         }
@@ -2618,10 +2645,10 @@ public final class ProvisionPhoneNumberChangedSubscription: GraphQLSubscription 
         }
       }
 
-      public struct Fragments {
-        public var snapshot: Snapshot
+      internal struct Fragments {
+        internal var snapshot: Snapshot
 
-        public var sudoPhoneNumber: SudoPhoneNumber {
+        internal var sudoPhoneNumber: SudoPhoneNumber {
           get {
             return SudoPhoneNumber(snapshot: snapshot)
           }
@@ -2634,41 +2661,41 @@ public final class ProvisionPhoneNumberChangedSubscription: GraphQLSubscription 
   }
 }
 
-public final class DeprovisionPhoneNumberMutation: GraphQLMutation {
-  public static let operationString =
+internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
+  internal static let operationString =
     "mutation deprovisionPhoneNumber($input: DeprovisionPhoneNumberInput!) {\n  deprovisionPhoneNumber(input: $input) {\n    __typename\n    ...SudoPhoneNumber\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(SudoPhoneNumber.fragmentString) }
+  internal static var requestString: String { return operationString.appending(SudoPhoneNumber.fragmentString) }
 
-  public var input: DeprovisionPhoneNumberInput
+  internal var input: DeprovisionPhoneNumberInput
 
-  public init(input: DeprovisionPhoneNumberInput) {
+  internal init(input: DeprovisionPhoneNumberInput) {
     self.input = input
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["input": input]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Mutation"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Mutation"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("deprovisionPhoneNumber", arguments: ["input": GraphQLVariable("input")], type: .object(DeprovisionPhoneNumber.selections)),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(deprovisionPhoneNumber: DeprovisionPhoneNumber? = nil) {
+    internal init(deprovisionPhoneNumber: DeprovisionPhoneNumber? = nil) {
       self.init(snapshot: ["__typename": "Mutation", "deprovisionPhoneNumber": deprovisionPhoneNumber.flatMap { $0.snapshot }])
     }
 
     /// Deprovision phone number.
-    public var deprovisionPhoneNumber: DeprovisionPhoneNumber? {
+    internal var deprovisionPhoneNumber: DeprovisionPhoneNumber? {
       get {
         return (snapshot["deprovisionPhoneNumber"] as? Snapshot).flatMap { DeprovisionPhoneNumber(snapshot: $0) }
       }
@@ -2677,10 +2704,10 @@ public final class DeprovisionPhoneNumberMutation: GraphQLMutation {
       }
     }
 
-    public struct DeprovisionPhoneNumber: GraphQLSelectionSet {
-      public static let possibleTypes = ["PhoneNumber"]
+    internal struct DeprovisionPhoneNumber: GraphQLSelectionSet {
+      internal static let possibleTypes = ["PhoneNumber"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
@@ -2694,17 +2721,17 @@ public final class DeprovisionPhoneNumberMutation: GraphQLMutation {
         GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, phoneNumber: String, country: String, keyRingId: String, state: PhoneNumberState, version: Int, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+      internal init(id: GraphQLID, phoneNumber: String, country: String, keyRingId: String, state: PhoneNumberState, version: Int, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
         self.init(snapshot: ["__typename": "PhoneNumber", "id": id, "phoneNumber": phoneNumber, "country": country, "keyRingId": keyRingId, "state": state, "version": version, "clientRefId": clientRefId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -2714,7 +2741,7 @@ public final class DeprovisionPhoneNumberMutation: GraphQLMutation {
       }
 
       /// v4 UUID of phone number record.
-      public var id: GraphQLID {
+      internal var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
         }
@@ -2724,7 +2751,7 @@ public final class DeprovisionPhoneNumberMutation: GraphQLMutation {
       }
 
       /// E164 formatted phone number.
-      public var phoneNumber: String {
+      internal var phoneNumber: String {
         get {
           return snapshot["phoneNumber"]! as! String
         }
@@ -2734,7 +2761,7 @@ public final class DeprovisionPhoneNumberMutation: GraphQLMutation {
       }
 
       /// ISO country code of phone number e.g. 'US' 'ZZ'.
-      public var country: String {
+      internal var country: String {
         get {
           return snapshot["country"]! as! String
         }
@@ -2744,7 +2771,7 @@ public final class DeprovisionPhoneNumberMutation: GraphQLMutation {
       }
 
       /// Key ring ID that dictates which keys the child resources of this phone number will be encrypted with.
-      public var keyRingId: String {
+      internal var keyRingId: String {
         get {
           return snapshot["keyRingId"]! as! String
         }
@@ -2754,7 +2781,7 @@ public final class DeprovisionPhoneNumberMutation: GraphQLMutation {
       }
 
       /// State of phone number.
-      public var state: PhoneNumberState {
+      internal var state: PhoneNumberState {
         get {
           return snapshot["state"]! as! PhoneNumberState
         }
@@ -2764,7 +2791,7 @@ public final class DeprovisionPhoneNumberMutation: GraphQLMutation {
       }
 
       /// Version of this phone number record, increments on update.
-      public var version: Int {
+      internal var version: Int {
         get {
           return snapshot["version"]! as! Int
         }
@@ -2774,7 +2801,7 @@ public final class DeprovisionPhoneNumberMutation: GraphQLMutation {
       }
 
       /// ID used for the client to subscribe to specific events.
-      public var clientRefId: String? {
+      internal var clientRefId: String? {
         get {
           return snapshot["clientRefId"] as? String
         }
@@ -2784,7 +2811,7 @@ public final class DeprovisionPhoneNumberMutation: GraphQLMutation {
       }
 
       /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
-      public var createdAtEpochMs: Double {
+      internal var createdAtEpochMs: Double {
         get {
           return snapshot["createdAtEpochMs"]! as! Double
         }
@@ -2794,7 +2821,7 @@ public final class DeprovisionPhoneNumberMutation: GraphQLMutation {
       }
 
       /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
-      public var updatedAtEpochMs: Double {
+      internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
         }
@@ -2803,7 +2830,7 @@ public final class DeprovisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
-      public var fragments: Fragments {
+      internal var fragments: Fragments {
         get {
           return Fragments(snapshot: snapshot)
         }
@@ -2812,10 +2839,10 @@ public final class DeprovisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
-      public struct Fragments {
-        public var snapshot: Snapshot
+      internal struct Fragments {
+        internal var snapshot: Snapshot
 
-        public var sudoPhoneNumber: SudoPhoneNumber {
+        internal var sudoPhoneNumber: SudoPhoneNumber {
           get {
             return SudoPhoneNumber(snapshot: snapshot)
           }
@@ -2828,45 +2855,45 @@ public final class DeprovisionPhoneNumberMutation: GraphQLMutation {
   }
 }
 
-public final class PhoneNumbersQuery: GraphQLQuery {
-  public static let operationString =
+internal final class PhoneNumbersQuery: GraphQLQuery {
+  internal static let operationString =
     "query phoneNumbers($filter: PhoneNumberFilterInput, $limit: Int, $nextToken: String) {\n  listPhoneNumbers(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      ...SudoPhoneNumber\n    }\n    nextToken\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(SudoPhoneNumber.fragmentString) }
+  internal static var requestString: String { return operationString.appending(SudoPhoneNumber.fragmentString) }
 
-  public var filter: PhoneNumberFilterInput?
-  public var limit: Int?
-  public var nextToken: String?
+  internal var filter: PhoneNumberFilterInput?
+  internal var limit: Int?
+  internal var nextToken: String?
 
-  public init(filter: PhoneNumberFilterInput? = nil, limit: Int? = nil, nextToken: String? = nil) {
+  internal init(filter: PhoneNumberFilterInput? = nil, limit: Int? = nil, nextToken: String? = nil) {
     self.filter = filter
     self.limit = limit
     self.nextToken = nextToken
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["filter": filter, "limit": limit, "nextToken": nextToken]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Query"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("listPhoneNumbers", arguments: ["filter": GraphQLVariable("filter"), "limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .object(ListPhoneNumber.selections)),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(listPhoneNumbers: ListPhoneNumber? = nil) {
+    internal init(listPhoneNumbers: ListPhoneNumber? = nil) {
       self.init(snapshot: ["__typename": "Query", "listPhoneNumbers": listPhoneNumbers.flatMap { $0.snapshot }])
     }
 
     /// Returns a list of phone numbers.
-    public var listPhoneNumbers: ListPhoneNumber? {
+    internal var listPhoneNumbers: ListPhoneNumber? {
       get {
         return (snapshot["listPhoneNumbers"] as? Snapshot).flatMap { ListPhoneNumber(snapshot: $0) }
       }
@@ -2875,26 +2902,26 @@ public final class PhoneNumbersQuery: GraphQLQuery {
       }
     }
 
-    public struct ListPhoneNumber: GraphQLSelectionSet {
-      public static let possibleTypes = ["PhoneNumberConnection"]
+    internal struct ListPhoneNumber: GraphQLSelectionSet {
+      internal static let possibleTypes = ["PhoneNumberConnection"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("items", type: .list(.nonNull(.object(Item.selections)))),
         GraphQLField("nextToken", type: .scalar(String.self)),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(items: [Item]? = nil, nextToken: String? = nil) {
+      internal init(items: [Item]? = nil, nextToken: String? = nil) {
         self.init(snapshot: ["__typename": "PhoneNumberConnection", "items": items.flatMap { $0.map { $0.snapshot } }, "nextToken": nextToken])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -2903,7 +2930,7 @@ public final class PhoneNumbersQuery: GraphQLQuery {
         }
       }
 
-      public var items: [Item]? {
+      internal var items: [Item]? {
         get {
           return (snapshot["items"] as? [Snapshot]).flatMap { $0.map { Item(snapshot: $0) } }
         }
@@ -2912,7 +2939,7 @@ public final class PhoneNumbersQuery: GraphQLQuery {
         }
       }
 
-      public var nextToken: String? {
+      internal var nextToken: String? {
         get {
           return snapshot["nextToken"] as? String
         }
@@ -2921,10 +2948,10 @@ public final class PhoneNumbersQuery: GraphQLQuery {
         }
       }
 
-      public struct Item: GraphQLSelectionSet {
-        public static let possibleTypes = ["PhoneNumber"]
+      internal struct Item: GraphQLSelectionSet {
+        internal static let possibleTypes = ["PhoneNumber"]
 
-        public static let selections: [GraphQLSelection] = [
+        internal static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
@@ -2938,17 +2965,17 @@ public final class PhoneNumbersQuery: GraphQLQuery {
           GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
         ]
 
-        public var snapshot: Snapshot
+        internal var snapshot: Snapshot
 
-        public init(snapshot: Snapshot) {
+        internal init(snapshot: Snapshot) {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, phoneNumber: String, country: String, keyRingId: String, state: PhoneNumberState, version: Int, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+        internal init(id: GraphQLID, phoneNumber: String, country: String, keyRingId: String, state: PhoneNumberState, version: Int, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
           self.init(snapshot: ["__typename": "PhoneNumber", "id": id, "phoneNumber": phoneNumber, "country": country, "keyRingId": keyRingId, "state": state, "version": version, "clientRefId": clientRefId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
         }
 
-        public var __typename: String {
+        internal var __typename: String {
           get {
             return snapshot["__typename"]! as! String
           }
@@ -2958,7 +2985,7 @@ public final class PhoneNumbersQuery: GraphQLQuery {
         }
 
         /// v4 UUID of phone number record.
-        public var id: GraphQLID {
+        internal var id: GraphQLID {
           get {
             return snapshot["id"]! as! GraphQLID
           }
@@ -2968,7 +2995,7 @@ public final class PhoneNumbersQuery: GraphQLQuery {
         }
 
         /// E164 formatted phone number.
-        public var phoneNumber: String {
+        internal var phoneNumber: String {
           get {
             return snapshot["phoneNumber"]! as! String
           }
@@ -2978,7 +3005,7 @@ public final class PhoneNumbersQuery: GraphQLQuery {
         }
 
         /// ISO country code of phone number e.g. 'US' 'ZZ'.
-        public var country: String {
+        internal var country: String {
           get {
             return snapshot["country"]! as! String
           }
@@ -2988,7 +3015,7 @@ public final class PhoneNumbersQuery: GraphQLQuery {
         }
 
         /// Key ring ID that dictates which keys the child resources of this phone number will be encrypted with.
-        public var keyRingId: String {
+        internal var keyRingId: String {
           get {
             return snapshot["keyRingId"]! as! String
           }
@@ -2998,7 +3025,7 @@ public final class PhoneNumbersQuery: GraphQLQuery {
         }
 
         /// State of phone number.
-        public var state: PhoneNumberState {
+        internal var state: PhoneNumberState {
           get {
             return snapshot["state"]! as! PhoneNumberState
           }
@@ -3008,7 +3035,7 @@ public final class PhoneNumbersQuery: GraphQLQuery {
         }
 
         /// Version of this phone number record, increments on update.
-        public var version: Int {
+        internal var version: Int {
           get {
             return snapshot["version"]! as! Int
           }
@@ -3018,7 +3045,7 @@ public final class PhoneNumbersQuery: GraphQLQuery {
         }
 
         /// ID used for the client to subscribe to specific events.
-        public var clientRefId: String? {
+        internal var clientRefId: String? {
           get {
             return snapshot["clientRefId"] as? String
           }
@@ -3028,7 +3055,7 @@ public final class PhoneNumbersQuery: GraphQLQuery {
         }
 
         /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
-        public var createdAtEpochMs: Double {
+        internal var createdAtEpochMs: Double {
           get {
             return snapshot["createdAtEpochMs"]! as! Double
           }
@@ -3038,7 +3065,7 @@ public final class PhoneNumbersQuery: GraphQLQuery {
         }
 
         /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
-        public var updatedAtEpochMs: Double {
+        internal var updatedAtEpochMs: Double {
           get {
             return snapshot["updatedAtEpochMs"]! as! Double
           }
@@ -3047,7 +3074,7 @@ public final class PhoneNumbersQuery: GraphQLQuery {
           }
         }
 
-        public var fragments: Fragments {
+        internal var fragments: Fragments {
           get {
             return Fragments(snapshot: snapshot)
           }
@@ -3056,10 +3083,10 @@ public final class PhoneNumbersQuery: GraphQLQuery {
           }
         }
 
-        public struct Fragments {
-          public var snapshot: Snapshot
+        internal struct Fragments {
+          internal var snapshot: Snapshot
 
-          public var sudoPhoneNumber: SudoPhoneNumber {
+          internal var sudoPhoneNumber: SudoPhoneNumber {
             get {
               return SudoPhoneNumber(snapshot: snapshot)
             }
@@ -3073,41 +3100,41 @@ public final class PhoneNumbersQuery: GraphQLQuery {
   }
 }
 
-public final class PhoneNumberQuery: GraphQLQuery {
-  public static let operationString =
+internal final class PhoneNumberQuery: GraphQLQuery {
+  internal static let operationString =
     "query phoneNumber($id: ID!) {\n  getPhoneNumber(id: $id) {\n    __typename\n    ...SudoPhoneNumber\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(SudoPhoneNumber.fragmentString) }
+  internal static var requestString: String { return operationString.appending(SudoPhoneNumber.fragmentString) }
 
-  public var id: GraphQLID
+  internal var id: GraphQLID
 
-  public init(id: GraphQLID) {
+  internal init(id: GraphQLID) {
     self.id = id
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["id": id]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Query"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("getPhoneNumber", arguments: ["id": GraphQLVariable("id")], type: .object(GetPhoneNumber.selections)),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(getPhoneNumber: GetPhoneNumber? = nil) {
+    internal init(getPhoneNumber: GetPhoneNumber? = nil) {
       self.init(snapshot: ["__typename": "Query", "getPhoneNumber": getPhoneNumber.flatMap { $0.snapshot }])
     }
 
     /// Get a phone number record by ID.
-    public var getPhoneNumber: GetPhoneNumber? {
+    internal var getPhoneNumber: GetPhoneNumber? {
       get {
         return (snapshot["getPhoneNumber"] as? Snapshot).flatMap { GetPhoneNumber(snapshot: $0) }
       }
@@ -3116,10 +3143,10 @@ public final class PhoneNumberQuery: GraphQLQuery {
       }
     }
 
-    public struct GetPhoneNumber: GraphQLSelectionSet {
-      public static let possibleTypes = ["PhoneNumber"]
+    internal struct GetPhoneNumber: GraphQLSelectionSet {
+      internal static let possibleTypes = ["PhoneNumber"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
@@ -3133,17 +3160,17 @@ public final class PhoneNumberQuery: GraphQLQuery {
         GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, phoneNumber: String, country: String, keyRingId: String, state: PhoneNumberState, version: Int, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+      internal init(id: GraphQLID, phoneNumber: String, country: String, keyRingId: String, state: PhoneNumberState, version: Int, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
         self.init(snapshot: ["__typename": "PhoneNumber", "id": id, "phoneNumber": phoneNumber, "country": country, "keyRingId": keyRingId, "state": state, "version": version, "clientRefId": clientRefId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -3153,7 +3180,7 @@ public final class PhoneNumberQuery: GraphQLQuery {
       }
 
       /// v4 UUID of phone number record.
-      public var id: GraphQLID {
+      internal var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
         }
@@ -3163,7 +3190,7 @@ public final class PhoneNumberQuery: GraphQLQuery {
       }
 
       /// E164 formatted phone number.
-      public var phoneNumber: String {
+      internal var phoneNumber: String {
         get {
           return snapshot["phoneNumber"]! as! String
         }
@@ -3173,7 +3200,7 @@ public final class PhoneNumberQuery: GraphQLQuery {
       }
 
       /// ISO country code of phone number e.g. 'US' 'ZZ'.
-      public var country: String {
+      internal var country: String {
         get {
           return snapshot["country"]! as! String
         }
@@ -3183,7 +3210,7 @@ public final class PhoneNumberQuery: GraphQLQuery {
       }
 
       /// Key ring ID that dictates which keys the child resources of this phone number will be encrypted with.
-      public var keyRingId: String {
+      internal var keyRingId: String {
         get {
           return snapshot["keyRingId"]! as! String
         }
@@ -3193,7 +3220,7 @@ public final class PhoneNumberQuery: GraphQLQuery {
       }
 
       /// State of phone number.
-      public var state: PhoneNumberState {
+      internal var state: PhoneNumberState {
         get {
           return snapshot["state"]! as! PhoneNumberState
         }
@@ -3203,7 +3230,7 @@ public final class PhoneNumberQuery: GraphQLQuery {
       }
 
       /// Version of this phone number record, increments on update.
-      public var version: Int {
+      internal var version: Int {
         get {
           return snapshot["version"]! as! Int
         }
@@ -3213,7 +3240,7 @@ public final class PhoneNumberQuery: GraphQLQuery {
       }
 
       /// ID used for the client to subscribe to specific events.
-      public var clientRefId: String? {
+      internal var clientRefId: String? {
         get {
           return snapshot["clientRefId"] as? String
         }
@@ -3223,7 +3250,7 @@ public final class PhoneNumberQuery: GraphQLQuery {
       }
 
       /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
-      public var createdAtEpochMs: Double {
+      internal var createdAtEpochMs: Double {
         get {
           return snapshot["createdAtEpochMs"]! as! Double
         }
@@ -3233,7 +3260,7 @@ public final class PhoneNumberQuery: GraphQLQuery {
       }
 
       /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
-      public var updatedAtEpochMs: Double {
+      internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
         }
@@ -3242,7 +3269,7 @@ public final class PhoneNumberQuery: GraphQLQuery {
         }
       }
 
-      public var fragments: Fragments {
+      internal var fragments: Fragments {
         get {
           return Fragments(snapshot: snapshot)
         }
@@ -3251,10 +3278,10 @@ public final class PhoneNumberQuery: GraphQLQuery {
         }
       }
 
-      public struct Fragments {
-        public var snapshot: Snapshot
+      internal struct Fragments {
+        internal var snapshot: Snapshot
 
-        public var sudoPhoneNumber: SudoPhoneNumber {
+        internal var sudoPhoneNumber: SudoPhoneNumber {
           get {
             return SudoPhoneNumber(snapshot: snapshot)
           }
@@ -3267,40 +3294,40 @@ public final class PhoneNumberQuery: GraphQLQuery {
   }
 }
 
-public final class CreatePublicKeyMutation: GraphQLMutation {
-  public static let operationString =
+internal final class CreatePublicKeyMutation: GraphQLMutation {
+  internal static let operationString =
     "mutation createPublicKey($input: CreatePublicKeyInput!) {\n  createPublicKeyForTelephony(input: $input) {\n    __typename\n    ...publicKey\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(PublicKey.fragmentString) }
+  internal static var requestString: String { return operationString.appending(PublicKey.fragmentString) }
 
-  public var input: CreatePublicKeyInput
+  internal var input: CreatePublicKeyInput
 
-  public init(input: CreatePublicKeyInput) {
+  internal init(input: CreatePublicKeyInput) {
     self.input = input
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["input": input]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Mutation"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Mutation"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("createPublicKeyForTelephony", arguments: ["input": GraphQLVariable("input")], type: .nonNull(.object(CreatePublicKeyForTelephony.selections))),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(createPublicKeyForTelephony: CreatePublicKeyForTelephony) {
+    internal init(createPublicKeyForTelephony: CreatePublicKeyForTelephony) {
       self.init(snapshot: ["__typename": "Mutation", "createPublicKeyForTelephony": createPublicKeyForTelephony.snapshot])
     }
 
-    public var createPublicKeyForTelephony: CreatePublicKeyForTelephony {
+    internal var createPublicKeyForTelephony: CreatePublicKeyForTelephony {
       get {
         return CreatePublicKeyForTelephony(snapshot: snapshot["createPublicKeyForTelephony"]! as! Snapshot)
       }
@@ -3309,10 +3336,10 @@ public final class CreatePublicKeyMutation: GraphQLMutation {
       }
     }
 
-    public struct CreatePublicKeyForTelephony: GraphQLSelectionSet {
-      public static let possibleTypes = ["PublicKey"]
+    internal struct CreatePublicKeyForTelephony: GraphQLSelectionSet {
+      internal static let possibleTypes = ["PublicKey"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("keyId", type: .nonNull(.scalar(String.self))),
@@ -3325,17 +3352,17 @@ public final class CreatePublicKeyMutation: GraphQLMutation {
         GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(keyId: String, keyRingId: String, algorithm: String, publicKey: String, owner: GraphQLID, version: Int, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+      internal init(keyId: String, keyRingId: String, algorithm: String, publicKey: String, owner: GraphQLID, version: Int, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
         self.init(snapshot: ["__typename": "PublicKey", "keyId": keyId, "keyRingId": keyRingId, "algorithm": algorithm, "publicKey": publicKey, "owner": owner, "version": version, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -3344,7 +3371,7 @@ public final class CreatePublicKeyMutation: GraphQLMutation {
         }
       }
 
-      public var keyId: String {
+      internal var keyId: String {
         get {
           return snapshot["keyId"]! as! String
         }
@@ -3353,7 +3380,7 @@ public final class CreatePublicKeyMutation: GraphQLMutation {
         }
       }
 
-      public var keyRingId: String {
+      internal var keyRingId: String {
         get {
           return snapshot["keyRingId"]! as! String
         }
@@ -3362,7 +3389,7 @@ public final class CreatePublicKeyMutation: GraphQLMutation {
         }
       }
 
-      public var algorithm: String {
+      internal var algorithm: String {
         get {
           return snapshot["algorithm"]! as! String
         }
@@ -3371,7 +3398,7 @@ public final class CreatePublicKeyMutation: GraphQLMutation {
         }
       }
 
-      public var publicKey: String {
+      internal var publicKey: String {
         get {
           return snapshot["publicKey"]! as! String
         }
@@ -3380,7 +3407,7 @@ public final class CreatePublicKeyMutation: GraphQLMutation {
         }
       }
 
-      public var owner: GraphQLID {
+      internal var owner: GraphQLID {
         get {
           return snapshot["owner"]! as! GraphQLID
         }
@@ -3389,7 +3416,7 @@ public final class CreatePublicKeyMutation: GraphQLMutation {
         }
       }
 
-      public var version: Int {
+      internal var version: Int {
         get {
           return snapshot["version"]! as! Int
         }
@@ -3398,7 +3425,7 @@ public final class CreatePublicKeyMutation: GraphQLMutation {
         }
       }
 
-      public var createdAtEpochMs: Double {
+      internal var createdAtEpochMs: Double {
         get {
           return snapshot["createdAtEpochMs"]! as! Double
         }
@@ -3407,7 +3434,7 @@ public final class CreatePublicKeyMutation: GraphQLMutation {
         }
       }
 
-      public var updatedAtEpochMs: Double {
+      internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
         }
@@ -3416,7 +3443,7 @@ public final class CreatePublicKeyMutation: GraphQLMutation {
         }
       }
 
-      public var fragments: Fragments {
+      internal var fragments: Fragments {
         get {
           return Fragments(snapshot: snapshot)
         }
@@ -3425,10 +3452,10 @@ public final class CreatePublicKeyMutation: GraphQLMutation {
         }
       }
 
-      public struct Fragments {
-        public var snapshot: Snapshot
+      internal struct Fragments {
+        internal var snapshot: Snapshot
 
-        public var publicKey: PublicKey {
+        internal var publicKey: PublicKey {
           get {
             return PublicKey(snapshot: snapshot)
           }
@@ -3441,40 +3468,40 @@ public final class CreatePublicKeyMutation: GraphQLMutation {
   }
 }
 
-public final class DeletePublicKeyMutation: GraphQLMutation {
-  public static let operationString =
+internal final class DeletePublicKeyMutation: GraphQLMutation {
+  internal static let operationString =
     "mutation deletePublicKey($input: DeletePublicKeyInput!) {\n  deletePublicKeyForTelephony(input: $input) {\n    __typename\n    ...publicKey\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(PublicKey.fragmentString) }
+  internal static var requestString: String { return operationString.appending(PublicKey.fragmentString) }
 
-  public var input: DeletePublicKeyInput
+  internal var input: DeletePublicKeyInput
 
-  public init(input: DeletePublicKeyInput) {
+  internal init(input: DeletePublicKeyInput) {
     self.input = input
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["input": input]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Mutation"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Mutation"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("deletePublicKeyForTelephony", arguments: ["input": GraphQLVariable("input")], type: .object(DeletePublicKeyForTelephony.selections)),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(deletePublicKeyForTelephony: DeletePublicKeyForTelephony? = nil) {
+    internal init(deletePublicKeyForTelephony: DeletePublicKeyForTelephony? = nil) {
       self.init(snapshot: ["__typename": "Mutation", "deletePublicKeyForTelephony": deletePublicKeyForTelephony.flatMap { $0.snapshot }])
     }
 
-    public var deletePublicKeyForTelephony: DeletePublicKeyForTelephony? {
+    internal var deletePublicKeyForTelephony: DeletePublicKeyForTelephony? {
       get {
         return (snapshot["deletePublicKeyForTelephony"] as? Snapshot).flatMap { DeletePublicKeyForTelephony(snapshot: $0) }
       }
@@ -3483,10 +3510,10 @@ public final class DeletePublicKeyMutation: GraphQLMutation {
       }
     }
 
-    public struct DeletePublicKeyForTelephony: GraphQLSelectionSet {
-      public static let possibleTypes = ["PublicKey"]
+    internal struct DeletePublicKeyForTelephony: GraphQLSelectionSet {
+      internal static let possibleTypes = ["PublicKey"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("keyId", type: .nonNull(.scalar(String.self))),
@@ -3499,17 +3526,17 @@ public final class DeletePublicKeyMutation: GraphQLMutation {
         GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(keyId: String, keyRingId: String, algorithm: String, publicKey: String, owner: GraphQLID, version: Int, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+      internal init(keyId: String, keyRingId: String, algorithm: String, publicKey: String, owner: GraphQLID, version: Int, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
         self.init(snapshot: ["__typename": "PublicKey", "keyId": keyId, "keyRingId": keyRingId, "algorithm": algorithm, "publicKey": publicKey, "owner": owner, "version": version, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -3518,7 +3545,7 @@ public final class DeletePublicKeyMutation: GraphQLMutation {
         }
       }
 
-      public var keyId: String {
+      internal var keyId: String {
         get {
           return snapshot["keyId"]! as! String
         }
@@ -3527,7 +3554,7 @@ public final class DeletePublicKeyMutation: GraphQLMutation {
         }
       }
 
-      public var keyRingId: String {
+      internal var keyRingId: String {
         get {
           return snapshot["keyRingId"]! as! String
         }
@@ -3536,7 +3563,7 @@ public final class DeletePublicKeyMutation: GraphQLMutation {
         }
       }
 
-      public var algorithm: String {
+      internal var algorithm: String {
         get {
           return snapshot["algorithm"]! as! String
         }
@@ -3545,7 +3572,7 @@ public final class DeletePublicKeyMutation: GraphQLMutation {
         }
       }
 
-      public var publicKey: String {
+      internal var publicKey: String {
         get {
           return snapshot["publicKey"]! as! String
         }
@@ -3554,7 +3581,7 @@ public final class DeletePublicKeyMutation: GraphQLMutation {
         }
       }
 
-      public var owner: GraphQLID {
+      internal var owner: GraphQLID {
         get {
           return snapshot["owner"]! as! GraphQLID
         }
@@ -3563,7 +3590,7 @@ public final class DeletePublicKeyMutation: GraphQLMutation {
         }
       }
 
-      public var version: Int {
+      internal var version: Int {
         get {
           return snapshot["version"]! as! Int
         }
@@ -3572,7 +3599,7 @@ public final class DeletePublicKeyMutation: GraphQLMutation {
         }
       }
 
-      public var createdAtEpochMs: Double {
+      internal var createdAtEpochMs: Double {
         get {
           return snapshot["createdAtEpochMs"]! as! Double
         }
@@ -3581,7 +3608,7 @@ public final class DeletePublicKeyMutation: GraphQLMutation {
         }
       }
 
-      public var updatedAtEpochMs: Double {
+      internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
         }
@@ -3590,7 +3617,7 @@ public final class DeletePublicKeyMutation: GraphQLMutation {
         }
       }
 
-      public var fragments: Fragments {
+      internal var fragments: Fragments {
         get {
           return Fragments(snapshot: snapshot)
         }
@@ -3599,10 +3626,10 @@ public final class DeletePublicKeyMutation: GraphQLMutation {
         }
       }
 
-      public struct Fragments {
-        public var snapshot: Snapshot
+      internal struct Fragments {
+        internal var snapshot: Snapshot
 
-        public var publicKey: PublicKey {
+        internal var publicKey: PublicKey {
           get {
             return PublicKey(snapshot: snapshot)
           }
@@ -3615,40 +3642,40 @@ public final class DeletePublicKeyMutation: GraphQLMutation {
   }
 }
 
-public final class GetPublicKeyQuery: GraphQLQuery {
-  public static let operationString =
+internal final class GetPublicKeyQuery: GraphQLQuery {
+  internal static let operationString =
     "query getPublicKey($keyId: String!) {\n  getPublicKeyForTelephony(keyId: $keyId) {\n    __typename\n    ...publicKey\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(PublicKey.fragmentString) }
+  internal static var requestString: String { return operationString.appending(PublicKey.fragmentString) }
 
-  public var keyId: String
+  internal var keyId: String
 
-  public init(keyId: String) {
+  internal init(keyId: String) {
     self.keyId = keyId
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["keyId": keyId]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Query"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("getPublicKeyForTelephony", arguments: ["keyId": GraphQLVariable("keyId")], type: .object(GetPublicKeyForTelephony.selections)),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(getPublicKeyForTelephony: GetPublicKeyForTelephony? = nil) {
+    internal init(getPublicKeyForTelephony: GetPublicKeyForTelephony? = nil) {
       self.init(snapshot: ["__typename": "Query", "getPublicKeyForTelephony": getPublicKeyForTelephony.flatMap { $0.snapshot }])
     }
 
-    public var getPublicKeyForTelephony: GetPublicKeyForTelephony? {
+    internal var getPublicKeyForTelephony: GetPublicKeyForTelephony? {
       get {
         return (snapshot["getPublicKeyForTelephony"] as? Snapshot).flatMap { GetPublicKeyForTelephony(snapshot: $0) }
       }
@@ -3657,10 +3684,10 @@ public final class GetPublicKeyQuery: GraphQLQuery {
       }
     }
 
-    public struct GetPublicKeyForTelephony: GraphQLSelectionSet {
-      public static let possibleTypes = ["PublicKey"]
+    internal struct GetPublicKeyForTelephony: GraphQLSelectionSet {
+      internal static let possibleTypes = ["PublicKey"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("keyId", type: .nonNull(.scalar(String.self))),
@@ -3673,17 +3700,17 @@ public final class GetPublicKeyQuery: GraphQLQuery {
         GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(keyId: String, keyRingId: String, algorithm: String, publicKey: String, owner: GraphQLID, version: Int, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+      internal init(keyId: String, keyRingId: String, algorithm: String, publicKey: String, owner: GraphQLID, version: Int, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
         self.init(snapshot: ["__typename": "PublicKey", "keyId": keyId, "keyRingId": keyRingId, "algorithm": algorithm, "publicKey": publicKey, "owner": owner, "version": version, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -3692,7 +3719,7 @@ public final class GetPublicKeyQuery: GraphQLQuery {
         }
       }
 
-      public var keyId: String {
+      internal var keyId: String {
         get {
           return snapshot["keyId"]! as! String
         }
@@ -3701,7 +3728,7 @@ public final class GetPublicKeyQuery: GraphQLQuery {
         }
       }
 
-      public var keyRingId: String {
+      internal var keyRingId: String {
         get {
           return snapshot["keyRingId"]! as! String
         }
@@ -3710,7 +3737,7 @@ public final class GetPublicKeyQuery: GraphQLQuery {
         }
       }
 
-      public var algorithm: String {
+      internal var algorithm: String {
         get {
           return snapshot["algorithm"]! as! String
         }
@@ -3719,7 +3746,7 @@ public final class GetPublicKeyQuery: GraphQLQuery {
         }
       }
 
-      public var publicKey: String {
+      internal var publicKey: String {
         get {
           return snapshot["publicKey"]! as! String
         }
@@ -3728,7 +3755,7 @@ public final class GetPublicKeyQuery: GraphQLQuery {
         }
       }
 
-      public var owner: GraphQLID {
+      internal var owner: GraphQLID {
         get {
           return snapshot["owner"]! as! GraphQLID
         }
@@ -3737,7 +3764,7 @@ public final class GetPublicKeyQuery: GraphQLQuery {
         }
       }
 
-      public var version: Int {
+      internal var version: Int {
         get {
           return snapshot["version"]! as! Int
         }
@@ -3746,7 +3773,7 @@ public final class GetPublicKeyQuery: GraphQLQuery {
         }
       }
 
-      public var createdAtEpochMs: Double {
+      internal var createdAtEpochMs: Double {
         get {
           return snapshot["createdAtEpochMs"]! as! Double
         }
@@ -3755,7 +3782,7 @@ public final class GetPublicKeyQuery: GraphQLQuery {
         }
       }
 
-      public var updatedAtEpochMs: Double {
+      internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
         }
@@ -3764,7 +3791,7 @@ public final class GetPublicKeyQuery: GraphQLQuery {
         }
       }
 
-      public var fragments: Fragments {
+      internal var fragments: Fragments {
         get {
           return Fragments(snapshot: snapshot)
         }
@@ -3773,10 +3800,10 @@ public final class GetPublicKeyQuery: GraphQLQuery {
         }
       }
 
-      public struct Fragments {
-        public var snapshot: Snapshot
+      internal struct Fragments {
+        internal var snapshot: Snapshot
 
-        public var publicKey: PublicKey {
+        internal var publicKey: PublicKey {
           get {
             return PublicKey(snapshot: snapshot)
           }
@@ -3789,42 +3816,42 @@ public final class GetPublicKeyQuery: GraphQLQuery {
   }
 }
 
-public final class GetPublicKeysQuery: GraphQLQuery {
-  public static let operationString =
+internal final class GetPublicKeysQuery: GraphQLQuery {
+  internal static let operationString =
     "query getPublicKeys($limit: Int, $nextToken: String) {\n  getPublicKeysForTelephony(limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      ...publicKey\n    }\n    nextToken\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(PublicKey.fragmentString) }
+  internal static var requestString: String { return operationString.appending(PublicKey.fragmentString) }
 
-  public var limit: Int?
-  public var nextToken: String?
+  internal var limit: Int?
+  internal var nextToken: String?
 
-  public init(limit: Int? = nil, nextToken: String? = nil) {
+  internal init(limit: Int? = nil, nextToken: String? = nil) {
     self.limit = limit
     self.nextToken = nextToken
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["limit": limit, "nextToken": nextToken]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Query"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("getPublicKeysForTelephony", arguments: ["limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .nonNull(.object(GetPublicKeysForTelephony.selections))),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(getPublicKeysForTelephony: GetPublicKeysForTelephony) {
+    internal init(getPublicKeysForTelephony: GetPublicKeysForTelephony) {
       self.init(snapshot: ["__typename": "Query", "getPublicKeysForTelephony": getPublicKeysForTelephony.snapshot])
     }
 
-    public var getPublicKeysForTelephony: GetPublicKeysForTelephony {
+    internal var getPublicKeysForTelephony: GetPublicKeysForTelephony {
       get {
         return GetPublicKeysForTelephony(snapshot: snapshot["getPublicKeysForTelephony"]! as! Snapshot)
       }
@@ -3833,26 +3860,26 @@ public final class GetPublicKeysQuery: GraphQLQuery {
       }
     }
 
-    public struct GetPublicKeysForTelephony: GraphQLSelectionSet {
-      public static let possibleTypes = ["PaginatedPublicKey"]
+    internal struct GetPublicKeysForTelephony: GraphQLSelectionSet {
+      internal static let possibleTypes = ["PaginatedPublicKey"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("items", type: .nonNull(.list(.nonNull(.object(Item.selections))))),
         GraphQLField("nextToken", type: .scalar(String.self)),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(items: [Item], nextToken: String? = nil) {
+      internal init(items: [Item], nextToken: String? = nil) {
         self.init(snapshot: ["__typename": "PaginatedPublicKey", "items": items.map { $0.snapshot }, "nextToken": nextToken])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -3861,7 +3888,7 @@ public final class GetPublicKeysQuery: GraphQLQuery {
         }
       }
 
-      public var items: [Item] {
+      internal var items: [Item] {
         get {
           return (snapshot["items"] as! [Snapshot]).map { Item(snapshot: $0) }
         }
@@ -3870,7 +3897,7 @@ public final class GetPublicKeysQuery: GraphQLQuery {
         }
       }
 
-      public var nextToken: String? {
+      internal var nextToken: String? {
         get {
           return snapshot["nextToken"] as? String
         }
@@ -3879,10 +3906,10 @@ public final class GetPublicKeysQuery: GraphQLQuery {
         }
       }
 
-      public struct Item: GraphQLSelectionSet {
-        public static let possibleTypes = ["PublicKey"]
+      internal struct Item: GraphQLSelectionSet {
+        internal static let possibleTypes = ["PublicKey"]
 
-        public static let selections: [GraphQLSelection] = [
+        internal static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("keyId", type: .nonNull(.scalar(String.self))),
@@ -3895,17 +3922,17 @@ public final class GetPublicKeysQuery: GraphQLQuery {
           GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
         ]
 
-        public var snapshot: Snapshot
+        internal var snapshot: Snapshot
 
-        public init(snapshot: Snapshot) {
+        internal init(snapshot: Snapshot) {
           self.snapshot = snapshot
         }
 
-        public init(keyId: String, keyRingId: String, algorithm: String, publicKey: String, owner: GraphQLID, version: Int, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+        internal init(keyId: String, keyRingId: String, algorithm: String, publicKey: String, owner: GraphQLID, version: Int, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
           self.init(snapshot: ["__typename": "PublicKey", "keyId": keyId, "keyRingId": keyRingId, "algorithm": algorithm, "publicKey": publicKey, "owner": owner, "version": version, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
         }
 
-        public var __typename: String {
+        internal var __typename: String {
           get {
             return snapshot["__typename"]! as! String
           }
@@ -3914,7 +3941,7 @@ public final class GetPublicKeysQuery: GraphQLQuery {
           }
         }
 
-        public var keyId: String {
+        internal var keyId: String {
           get {
             return snapshot["keyId"]! as! String
           }
@@ -3923,7 +3950,7 @@ public final class GetPublicKeysQuery: GraphQLQuery {
           }
         }
 
-        public var keyRingId: String {
+        internal var keyRingId: String {
           get {
             return snapshot["keyRingId"]! as! String
           }
@@ -3932,7 +3959,7 @@ public final class GetPublicKeysQuery: GraphQLQuery {
           }
         }
 
-        public var algorithm: String {
+        internal var algorithm: String {
           get {
             return snapshot["algorithm"]! as! String
           }
@@ -3941,7 +3968,7 @@ public final class GetPublicKeysQuery: GraphQLQuery {
           }
         }
 
-        public var publicKey: String {
+        internal var publicKey: String {
           get {
             return snapshot["publicKey"]! as! String
           }
@@ -3950,7 +3977,7 @@ public final class GetPublicKeysQuery: GraphQLQuery {
           }
         }
 
-        public var owner: GraphQLID {
+        internal var owner: GraphQLID {
           get {
             return snapshot["owner"]! as! GraphQLID
           }
@@ -3959,7 +3986,7 @@ public final class GetPublicKeysQuery: GraphQLQuery {
           }
         }
 
-        public var version: Int {
+        internal var version: Int {
           get {
             return snapshot["version"]! as! Int
           }
@@ -3968,7 +3995,7 @@ public final class GetPublicKeysQuery: GraphQLQuery {
           }
         }
 
-        public var createdAtEpochMs: Double {
+        internal var createdAtEpochMs: Double {
           get {
             return snapshot["createdAtEpochMs"]! as! Double
           }
@@ -3977,7 +4004,7 @@ public final class GetPublicKeysQuery: GraphQLQuery {
           }
         }
 
-        public var updatedAtEpochMs: Double {
+        internal var updatedAtEpochMs: Double {
           get {
             return snapshot["updatedAtEpochMs"]! as! Double
           }
@@ -3986,7 +4013,7 @@ public final class GetPublicKeysQuery: GraphQLQuery {
           }
         }
 
-        public var fragments: Fragments {
+        internal var fragments: Fragments {
           get {
             return Fragments(snapshot: snapshot)
           }
@@ -3995,10 +4022,10 @@ public final class GetPublicKeysQuery: GraphQLQuery {
           }
         }
 
-        public struct Fragments {
-          public var snapshot: Snapshot
+        internal struct Fragments {
+          internal var snapshot: Snapshot
 
-          public var publicKey: PublicKey {
+          internal var publicKey: PublicKey {
             get {
               return PublicKey(snapshot: snapshot)
             }
@@ -4012,44 +4039,44 @@ public final class GetPublicKeysQuery: GraphQLQuery {
   }
 }
 
-public final class GetKeyRingQuery: GraphQLQuery {
-  public static let operationString =
+internal final class GetKeyRingQuery: GraphQLQuery {
+  internal static let operationString =
     "query getKeyRing($keyRingId: String!, $limit: Int, $nextToken: String) {\n  getKeyRingForTelephony(keyRingId: $keyRingId, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      ...publicKey\n    }\n    nextToken\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(PublicKey.fragmentString) }
+  internal static var requestString: String { return operationString.appending(PublicKey.fragmentString) }
 
-  public var keyRingId: String
-  public var limit: Int?
-  public var nextToken: String?
+  internal var keyRingId: String
+  internal var limit: Int?
+  internal var nextToken: String?
 
-  public init(keyRingId: String, limit: Int? = nil, nextToken: String? = nil) {
+  internal init(keyRingId: String, limit: Int? = nil, nextToken: String? = nil) {
     self.keyRingId = keyRingId
     self.limit = limit
     self.nextToken = nextToken
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["keyRingId": keyRingId, "limit": limit, "nextToken": nextToken]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Query"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("getKeyRingForTelephony", arguments: ["keyRingId": GraphQLVariable("keyRingId"), "limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .nonNull(.object(GetKeyRingForTelephony.selections))),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(getKeyRingForTelephony: GetKeyRingForTelephony) {
+    internal init(getKeyRingForTelephony: GetKeyRingForTelephony) {
       self.init(snapshot: ["__typename": "Query", "getKeyRingForTelephony": getKeyRingForTelephony.snapshot])
     }
 
-    public var getKeyRingForTelephony: GetKeyRingForTelephony {
+    internal var getKeyRingForTelephony: GetKeyRingForTelephony {
       get {
         return GetKeyRingForTelephony(snapshot: snapshot["getKeyRingForTelephony"]! as! Snapshot)
       }
@@ -4058,26 +4085,26 @@ public final class GetKeyRingQuery: GraphQLQuery {
       }
     }
 
-    public struct GetKeyRingForTelephony: GraphQLSelectionSet {
-      public static let possibleTypes = ["PaginatedPublicKey"]
+    internal struct GetKeyRingForTelephony: GraphQLSelectionSet {
+      internal static let possibleTypes = ["PaginatedPublicKey"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("items", type: .nonNull(.list(.nonNull(.object(Item.selections))))),
         GraphQLField("nextToken", type: .scalar(String.self)),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(items: [Item], nextToken: String? = nil) {
+      internal init(items: [Item], nextToken: String? = nil) {
         self.init(snapshot: ["__typename": "PaginatedPublicKey", "items": items.map { $0.snapshot }, "nextToken": nextToken])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -4086,7 +4113,7 @@ public final class GetKeyRingQuery: GraphQLQuery {
         }
       }
 
-      public var items: [Item] {
+      internal var items: [Item] {
         get {
           return (snapshot["items"] as! [Snapshot]).map { Item(snapshot: $0) }
         }
@@ -4095,7 +4122,7 @@ public final class GetKeyRingQuery: GraphQLQuery {
         }
       }
 
-      public var nextToken: String? {
+      internal var nextToken: String? {
         get {
           return snapshot["nextToken"] as? String
         }
@@ -4104,10 +4131,10 @@ public final class GetKeyRingQuery: GraphQLQuery {
         }
       }
 
-      public struct Item: GraphQLSelectionSet {
-        public static let possibleTypes = ["PublicKey"]
+      internal struct Item: GraphQLSelectionSet {
+        internal static let possibleTypes = ["PublicKey"]
 
-        public static let selections: [GraphQLSelection] = [
+        internal static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("keyId", type: .nonNull(.scalar(String.self))),
@@ -4120,17 +4147,17 @@ public final class GetKeyRingQuery: GraphQLQuery {
           GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
         ]
 
-        public var snapshot: Snapshot
+        internal var snapshot: Snapshot
 
-        public init(snapshot: Snapshot) {
+        internal init(snapshot: Snapshot) {
           self.snapshot = snapshot
         }
 
-        public init(keyId: String, keyRingId: String, algorithm: String, publicKey: String, owner: GraphQLID, version: Int, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+        internal init(keyId: String, keyRingId: String, algorithm: String, publicKey: String, owner: GraphQLID, version: Int, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
           self.init(snapshot: ["__typename": "PublicKey", "keyId": keyId, "keyRingId": keyRingId, "algorithm": algorithm, "publicKey": publicKey, "owner": owner, "version": version, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
         }
 
-        public var __typename: String {
+        internal var __typename: String {
           get {
             return snapshot["__typename"]! as! String
           }
@@ -4139,7 +4166,7 @@ public final class GetKeyRingQuery: GraphQLQuery {
           }
         }
 
-        public var keyId: String {
+        internal var keyId: String {
           get {
             return snapshot["keyId"]! as! String
           }
@@ -4148,7 +4175,7 @@ public final class GetKeyRingQuery: GraphQLQuery {
           }
         }
 
-        public var keyRingId: String {
+        internal var keyRingId: String {
           get {
             return snapshot["keyRingId"]! as! String
           }
@@ -4157,7 +4184,7 @@ public final class GetKeyRingQuery: GraphQLQuery {
           }
         }
 
-        public var algorithm: String {
+        internal var algorithm: String {
           get {
             return snapshot["algorithm"]! as! String
           }
@@ -4166,7 +4193,7 @@ public final class GetKeyRingQuery: GraphQLQuery {
           }
         }
 
-        public var publicKey: String {
+        internal var publicKey: String {
           get {
             return snapshot["publicKey"]! as! String
           }
@@ -4175,7 +4202,7 @@ public final class GetKeyRingQuery: GraphQLQuery {
           }
         }
 
-        public var owner: GraphQLID {
+        internal var owner: GraphQLID {
           get {
             return snapshot["owner"]! as! GraphQLID
           }
@@ -4184,7 +4211,7 @@ public final class GetKeyRingQuery: GraphQLQuery {
           }
         }
 
-        public var version: Int {
+        internal var version: Int {
           get {
             return snapshot["version"]! as! Int
           }
@@ -4193,7 +4220,7 @@ public final class GetKeyRingQuery: GraphQLQuery {
           }
         }
 
-        public var createdAtEpochMs: Double {
+        internal var createdAtEpochMs: Double {
           get {
             return snapshot["createdAtEpochMs"]! as! Double
           }
@@ -4202,7 +4229,7 @@ public final class GetKeyRingQuery: GraphQLQuery {
           }
         }
 
-        public var updatedAtEpochMs: Double {
+        internal var updatedAtEpochMs: Double {
           get {
             return snapshot["updatedAtEpochMs"]! as! Double
           }
@@ -4211,7 +4238,7 @@ public final class GetKeyRingQuery: GraphQLQuery {
           }
         }
 
-        public var fragments: Fragments {
+        internal var fragments: Fragments {
           get {
             return Fragments(snapshot: snapshot)
           }
@@ -4220,10 +4247,10 @@ public final class GetKeyRingQuery: GraphQLQuery {
           }
         }
 
-        public struct Fragments {
-          public var snapshot: Snapshot
+        internal struct Fragments {
+          internal var snapshot: Snapshot
 
-          public var publicKey: PublicKey {
+          internal var publicKey: PublicKey {
             get {
               return PublicKey(snapshot: snapshot)
             }
@@ -4237,39 +4264,39 @@ public final class GetKeyRingQuery: GraphQLQuery {
   }
 }
 
-public final class SendMessageMutation: GraphQLMutation {
-  public static let operationString =
+internal final class SendMessageMutation: GraphQLMutation {
+  internal static let operationString =
     "mutation sendMessage($input: SendMessageInput!) {\n  sendMessage(input: $input)\n}"
 
-  public var input: SendMessageInput
+  internal var input: SendMessageInput
 
-  public init(input: SendMessageInput) {
+  internal init(input: SendMessageInput) {
     self.input = input
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["input": input]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Mutation"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Mutation"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("sendMessage", arguments: ["input": GraphQLVariable("input")], type: .nonNull(.scalar(GraphQLID.self))),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(sendMessage: GraphQLID) {
+    internal init(sendMessage: GraphQLID) {
       self.init(snapshot: ["__typename": "Mutation", "sendMessage": sendMessage])
     }
 
     /// Send SMS/MMS message.
-    public var sendMessage: GraphQLID {
+    internal var sendMessage: GraphQLID {
       get {
         return snapshot["sendMessage"]! as! GraphQLID
       }
@@ -4280,43 +4307,43 @@ public final class SendMessageMutation: GraphQLMutation {
   }
 }
 
-public final class GetMessageQuery: GraphQLQuery {
-  public static let operationString =
+internal final class GetMessageQuery: GraphQLQuery {
+  internal static let operationString =
     "query getMessage($id: ID!, $keyId: String!) {\n  getMessage(id: $id, keyId: $keyId) {\n    __typename\n    ...sealedMessage\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(SealedMessage.fragmentString).appending(S3MediaObject.fragmentString) }
+  internal static var requestString: String { return operationString.appending(SealedMessage.fragmentString).appending(S3MediaObject.fragmentString) }
 
-  public var id: GraphQLID
-  public var keyId: String
+  internal var id: GraphQLID
+  internal var keyId: String
 
-  public init(id: GraphQLID, keyId: String) {
+  internal init(id: GraphQLID, keyId: String) {
     self.id = id
     self.keyId = keyId
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["id": id, "keyId": keyId]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Query"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("getMessage", arguments: ["id": GraphQLVariable("id"), "keyId": GraphQLVariable("keyId")], type: .object(GetMessage.selections)),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(getMessage: GetMessage? = nil) {
+    internal init(getMessage: GetMessage? = nil) {
       self.init(snapshot: ["__typename": "Query", "getMessage": getMessage.flatMap { $0.snapshot }])
     }
 
     /// Get a message record by ID.
-    public var getMessage: GetMessage? {
+    internal var getMessage: GetMessage? {
       get {
         return (snapshot["getMessage"] as? Snapshot).flatMap { GetMessage(snapshot: $0) }
       }
@@ -4325,10 +4352,10 @@ public final class GetMessageQuery: GraphQLQuery {
       }
     }
 
-    public struct GetMessage: GraphQLSelectionSet {
-      public static let possibleTypes = ["SealedMessage"]
+    internal struct GetMessage: GraphQLSelectionSet {
+      internal static let possibleTypes = ["SealedMessage"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
@@ -4348,17 +4375,17 @@ public final class GetMessageQuery: GraphQLQuery {
         GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, conversation: GraphQLID, remotePhoneNumber: String, localPhoneNumber: String, body: String? = nil, media: [Medium]? = nil, direction: MessageDirection, seen: Bool, state: MessageState, owner: GraphQLID, algorithm: String, keyId: String, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+      internal init(id: GraphQLID, conversation: GraphQLID, remotePhoneNumber: String, localPhoneNumber: String, body: String? = nil, media: [Medium]? = nil, direction: MessageDirection, seen: Bool, state: MessageState, owner: GraphQLID, algorithm: String, keyId: String, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
         self.init(snapshot: ["__typename": "SealedMessage", "id": id, "conversation": conversation, "remotePhoneNumber": remotePhoneNumber, "localPhoneNumber": localPhoneNumber, "body": body, "media": media.flatMap { $0.map { $0.snapshot } }, "direction": direction, "seen": seen, "state": state, "owner": owner, "algorithm": algorithm, "keyId": keyId, "clientRefId": clientRefId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -4368,7 +4395,7 @@ public final class GetMessageQuery: GraphQLQuery {
       }
 
       /// UNSEALED: v4 UUID assigned to message record.
-      public var id: GraphQLID {
+      internal var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
         }
@@ -4381,7 +4408,7 @@ public final class GetMessageQuery: GraphQLQuery {
       /// result when provided with identical inputs, a fixed namespace UUID is included to
       /// further reduce collision.  Conversation IDs should be calculated as follows:
       /// v5(owner, localPhoneNumber + remotePhoneNumber)
-      public var conversation: GraphQLID {
+      internal var conversation: GraphQLID {
         get {
           return snapshot["conversation"]! as! GraphQLID
         }
@@ -4391,7 +4418,7 @@ public final class GetMessageQuery: GraphQLQuery {
       }
 
       /// SEALED: Remote phone number in E164 format.
-      public var remotePhoneNumber: String {
+      internal var remotePhoneNumber: String {
         get {
           return snapshot["remotePhoneNumber"]! as! String
         }
@@ -4401,7 +4428,7 @@ public final class GetMessageQuery: GraphQLQuery {
       }
 
       /// SEALED: Sudo phone number in E164 format.
-      public var localPhoneNumber: String {
+      internal var localPhoneNumber: String {
         get {
           return snapshot["localPhoneNumber"]! as! String
         }
@@ -4411,7 +4438,7 @@ public final class GetMessageQuery: GraphQLQuery {
       }
 
       /// SEALED: Message body, null if MMS only.
-      public var body: String? {
+      internal var body: String? {
         get {
           return snapshot["body"] as? String
         }
@@ -4421,7 +4448,7 @@ public final class GetMessageQuery: GraphQLQuery {
       }
 
       /// SEALED: MMS attachments.
-      public var media: [Medium]? {
+      internal var media: [Medium]? {
         get {
           return (snapshot["media"] as? [Snapshot]).flatMap { $0.map { Medium(snapshot: $0) } }
         }
@@ -4431,7 +4458,7 @@ public final class GetMessageQuery: GraphQLQuery {
       }
 
       /// UNSEALED: Direction of message.
-      public var direction: MessageDirection {
+      internal var direction: MessageDirection {
         get {
           return snapshot["direction"]! as! MessageDirection
         }
@@ -4441,7 +4468,7 @@ public final class GetMessageQuery: GraphQLQuery {
       }
 
       /// UNSEALED: Has this message been marked as seen on client.
-      public var seen: Bool {
+      internal var seen: Bool {
         get {
           return snapshot["seen"]! as! Bool
         }
@@ -4451,7 +4478,7 @@ public final class GetMessageQuery: GraphQLQuery {
       }
 
       /// UNSEALED: State of message record.
-      public var state: MessageState {
+      internal var state: MessageState {
         get {
           return snapshot["state"]! as! MessageState
         }
@@ -4461,7 +4488,7 @@ public final class GetMessageQuery: GraphQLQuery {
       }
 
       /// UNSEALED: v4 UUID of user that owns the message resource.
-      public var owner: GraphQLID {
+      internal var owner: GraphQLID {
         get {
           return snapshot["owner"]! as! GraphQLID
         }
@@ -4470,8 +4497,8 @@ public final class GetMessageQuery: GraphQLQuery {
         }
       }
 
-      /// UNSEALED: Algorithm descriptor describing public and symmetric key encryption, e.g RSAEncryptionOAEPSHA256AESGCM.
-      public var algorithm: String {
+      /// UNSEALED: Algorithm descriptor describing internal and symmetric key encryption, e.g RSAEncryptionOAEPSHA256AESGCM.
+      internal var algorithm: String {
         get {
           return snapshot["algorithm"]! as! String
         }
@@ -4480,8 +4507,8 @@ public final class GetMessageQuery: GraphQLQuery {
         }
       }
 
-      /// UNSEALED: Client generated key ID for the public key.
-      public var keyId: String {
+      /// UNSEALED: Client generated key ID for the internal key.
+      internal var keyId: String {
         get {
           return snapshot["keyId"]! as! String
         }
@@ -4491,7 +4518,7 @@ public final class GetMessageQuery: GraphQLQuery {
       }
 
       /// UNSEALED: ID used for the client to subscribe to specific events.
-      public var clientRefId: String? {
+      internal var clientRefId: String? {
         get {
           return snapshot["clientRefId"] as? String
         }
@@ -4501,7 +4528,7 @@ public final class GetMessageQuery: GraphQLQuery {
       }
 
       /// UNSEALED: Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
-      public var createdAtEpochMs: Double {
+      internal var createdAtEpochMs: Double {
         get {
           return snapshot["createdAtEpochMs"]! as! Double
         }
@@ -4511,7 +4538,7 @@ public final class GetMessageQuery: GraphQLQuery {
       }
 
       /// UNSEALED: Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
-      public var updatedAtEpochMs: Double {
+      internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
         }
@@ -4520,7 +4547,7 @@ public final class GetMessageQuery: GraphQLQuery {
         }
       }
 
-      public var fragments: Fragments {
+      internal var fragments: Fragments {
         get {
           return Fragments(snapshot: snapshot)
         }
@@ -4529,10 +4556,10 @@ public final class GetMessageQuery: GraphQLQuery {
         }
       }
 
-      public struct Fragments {
-        public var snapshot: Snapshot
+      internal struct Fragments {
+        internal var snapshot: Snapshot
 
-        public var sealedMessage: SealedMessage {
+        internal var sealedMessage: SealedMessage {
           get {
             return SealedMessage(snapshot: snapshot)
           }
@@ -4542,10 +4569,10 @@ public final class GetMessageQuery: GraphQLQuery {
         }
       }
 
-      public struct Medium: GraphQLSelectionSet {
-        public static let possibleTypes = ["S3MediaObject"]
+      internal struct Medium: GraphQLSelectionSet {
+        internal static let possibleTypes = ["S3MediaObject"]
 
-        public static let selections: [GraphQLSelection] = [
+        internal static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("key", type: .nonNull(.scalar(String.self))),
@@ -4553,17 +4580,17 @@ public final class GetMessageQuery: GraphQLQuery {
           GraphQLField("region", type: .nonNull(.scalar(String.self))),
         ]
 
-        public var snapshot: Snapshot
+        internal var snapshot: Snapshot
 
-        public init(snapshot: Snapshot) {
+        internal init(snapshot: Snapshot) {
           self.snapshot = snapshot
         }
 
-        public init(key: String, bucket: String, region: String) {
+        internal init(key: String, bucket: String, region: String) {
           self.init(snapshot: ["__typename": "S3MediaObject", "key": key, "bucket": bucket, "region": region])
         }
 
-        public var __typename: String {
+        internal var __typename: String {
           get {
             return snapshot["__typename"]! as! String
           }
@@ -4573,7 +4600,7 @@ public final class GetMessageQuery: GraphQLQuery {
         }
 
         /// Key of object in S3.
-        public var key: String {
+        internal var key: String {
           get {
             return snapshot["key"]! as! String
           }
@@ -4583,7 +4610,7 @@ public final class GetMessageQuery: GraphQLQuery {
         }
 
         /// Name of S3 bucket.
-        public var bucket: String {
+        internal var bucket: String {
           get {
             return snapshot["bucket"]! as! String
           }
@@ -4593,7 +4620,7 @@ public final class GetMessageQuery: GraphQLQuery {
         }
 
         /// Region S3 bucket is located in.
-        public var region: String {
+        internal var region: String {
           get {
             return snapshot["region"]! as! String
           }
@@ -4602,7 +4629,7 @@ public final class GetMessageQuery: GraphQLQuery {
           }
         }
 
-        public var fragments: Fragments {
+        internal var fragments: Fragments {
           get {
             return Fragments(snapshot: snapshot)
           }
@@ -4611,10 +4638,10 @@ public final class GetMessageQuery: GraphQLQuery {
           }
         }
 
-        public struct Fragments {
-          public var snapshot: Snapshot
+        internal struct Fragments {
+          internal var snapshot: Snapshot
 
-          public var s3MediaObject: S3MediaObject {
+          internal var s3MediaObject: S3MediaObject {
             get {
               return S3MediaObject(snapshot: snapshot)
             }
@@ -4628,39 +4655,39 @@ public final class GetMessageQuery: GraphQLQuery {
   }
 }
 
-public final class DeleteMessageMutation: GraphQLMutation {
-  public static let operationString =
+internal final class DeleteMessageMutation: GraphQLMutation {
+  internal static let operationString =
     "mutation deleteMessage($id: ID!) {\n  deleteMessage(id: $id)\n}"
 
-  public var id: GraphQLID
+  internal var id: GraphQLID
 
-  public init(id: GraphQLID) {
+  internal init(id: GraphQLID) {
     self.id = id
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["id": id]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Mutation"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Mutation"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("deleteMessage", arguments: ["id": GraphQLVariable("id")], type: .scalar(GraphQLID.self)),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(deleteMessage: GraphQLID? = nil) {
+    internal init(deleteMessage: GraphQLID? = nil) {
       self.init(snapshot: ["__typename": "Mutation", "deleteMessage": deleteMessage])
     }
 
     /// Delete SMS/MMS message.
-    public var deleteMessage: GraphQLID? {
+    internal var deleteMessage: GraphQLID? {
       get {
         return snapshot["deleteMessage"] as? GraphQLID
       }
@@ -4671,45 +4698,45 @@ public final class DeleteMessageMutation: GraphQLMutation {
   }
 }
 
-public final class ListMessagesQuery: GraphQLQuery {
-  public static let operationString =
+internal final class ListMessagesQuery: GraphQLQuery {
+  internal static let operationString =
     "query listMessages($filter: MessageFilterInput!, $limit: Int, $nextToken: String) {\n  listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      ...sealedMessage\n    }\n    nextToken\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(SealedMessage.fragmentString).appending(S3MediaObject.fragmentString) }
+  internal static var requestString: String { return operationString.appending(SealedMessage.fragmentString).appending(S3MediaObject.fragmentString) }
 
-  public var filter: MessageFilterInput
-  public var limit: Int?
-  public var nextToken: String?
+  internal var filter: MessageFilterInput
+  internal var limit: Int?
+  internal var nextToken: String?
 
-  public init(filter: MessageFilterInput, limit: Int? = nil, nextToken: String? = nil) {
+  internal init(filter: MessageFilterInput, limit: Int? = nil, nextToken: String? = nil) {
     self.filter = filter
     self.limit = limit
     self.nextToken = nextToken
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["filter": filter, "limit": limit, "nextToken": nextToken]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Query"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("listMessages", arguments: ["filter": GraphQLVariable("filter"), "limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .object(ListMessage.selections)),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(listMessages: ListMessage? = nil) {
+    internal init(listMessages: ListMessage? = nil) {
       self.init(snapshot: ["__typename": "Query", "listMessages": listMessages.flatMap { $0.snapshot }])
     }
 
     /// Returns a list of messages.
-    public var listMessages: ListMessage? {
+    internal var listMessages: ListMessage? {
       get {
         return (snapshot["listMessages"] as? Snapshot).flatMap { ListMessage(snapshot: $0) }
       }
@@ -4718,26 +4745,26 @@ public final class ListMessagesQuery: GraphQLQuery {
       }
     }
 
-    public struct ListMessage: GraphQLSelectionSet {
-      public static let possibleTypes = ["MessageConnection"]
+    internal struct ListMessage: GraphQLSelectionSet {
+      internal static let possibleTypes = ["MessageConnection"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("items", type: .list(.nonNull(.object(Item.selections)))),
         GraphQLField("nextToken", type: .scalar(String.self)),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(items: [Item]? = nil, nextToken: String? = nil) {
+      internal init(items: [Item]? = nil, nextToken: String? = nil) {
         self.init(snapshot: ["__typename": "MessageConnection", "items": items.flatMap { $0.map { $0.snapshot } }, "nextToken": nextToken])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -4746,7 +4773,7 @@ public final class ListMessagesQuery: GraphQLQuery {
         }
       }
 
-      public var items: [Item]? {
+      internal var items: [Item]? {
         get {
           return (snapshot["items"] as? [Snapshot]).flatMap { $0.map { Item(snapshot: $0) } }
         }
@@ -4755,7 +4782,7 @@ public final class ListMessagesQuery: GraphQLQuery {
         }
       }
 
-      public var nextToken: String? {
+      internal var nextToken: String? {
         get {
           return snapshot["nextToken"] as? String
         }
@@ -4764,10 +4791,10 @@ public final class ListMessagesQuery: GraphQLQuery {
         }
       }
 
-      public struct Item: GraphQLSelectionSet {
-        public static let possibleTypes = ["SealedMessage"]
+      internal struct Item: GraphQLSelectionSet {
+        internal static let possibleTypes = ["SealedMessage"]
 
-        public static let selections: [GraphQLSelection] = [
+        internal static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
@@ -4787,17 +4814,17 @@ public final class ListMessagesQuery: GraphQLQuery {
           GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
         ]
 
-        public var snapshot: Snapshot
+        internal var snapshot: Snapshot
 
-        public init(snapshot: Snapshot) {
+        internal init(snapshot: Snapshot) {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, conversation: GraphQLID, remotePhoneNumber: String, localPhoneNumber: String, body: String? = nil, media: [Medium]? = nil, direction: MessageDirection, seen: Bool, state: MessageState, owner: GraphQLID, algorithm: String, keyId: String, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+        internal init(id: GraphQLID, conversation: GraphQLID, remotePhoneNumber: String, localPhoneNumber: String, body: String? = nil, media: [Medium]? = nil, direction: MessageDirection, seen: Bool, state: MessageState, owner: GraphQLID, algorithm: String, keyId: String, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
           self.init(snapshot: ["__typename": "SealedMessage", "id": id, "conversation": conversation, "remotePhoneNumber": remotePhoneNumber, "localPhoneNumber": localPhoneNumber, "body": body, "media": media.flatMap { $0.map { $0.snapshot } }, "direction": direction, "seen": seen, "state": state, "owner": owner, "algorithm": algorithm, "keyId": keyId, "clientRefId": clientRefId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
         }
 
-        public var __typename: String {
+        internal var __typename: String {
           get {
             return snapshot["__typename"]! as! String
           }
@@ -4807,7 +4834,7 @@ public final class ListMessagesQuery: GraphQLQuery {
         }
 
         /// UNSEALED: v4 UUID assigned to message record.
-        public var id: GraphQLID {
+        internal var id: GraphQLID {
           get {
             return snapshot["id"]! as! GraphQLID
           }
@@ -4820,7 +4847,7 @@ public final class ListMessagesQuery: GraphQLQuery {
         /// result when provided with identical inputs, a fixed namespace UUID is included to
         /// further reduce collision.  Conversation IDs should be calculated as follows:
         /// v5(owner, localPhoneNumber + remotePhoneNumber)
-        public var conversation: GraphQLID {
+        internal var conversation: GraphQLID {
           get {
             return snapshot["conversation"]! as! GraphQLID
           }
@@ -4830,7 +4857,7 @@ public final class ListMessagesQuery: GraphQLQuery {
         }
 
         /// SEALED: Remote phone number in E164 format.
-        public var remotePhoneNumber: String {
+        internal var remotePhoneNumber: String {
           get {
             return snapshot["remotePhoneNumber"]! as! String
           }
@@ -4840,7 +4867,7 @@ public final class ListMessagesQuery: GraphQLQuery {
         }
 
         /// SEALED: Sudo phone number in E164 format.
-        public var localPhoneNumber: String {
+        internal var localPhoneNumber: String {
           get {
             return snapshot["localPhoneNumber"]! as! String
           }
@@ -4850,7 +4877,7 @@ public final class ListMessagesQuery: GraphQLQuery {
         }
 
         /// SEALED: Message body, null if MMS only.
-        public var body: String? {
+        internal var body: String? {
           get {
             return snapshot["body"] as? String
           }
@@ -4860,7 +4887,7 @@ public final class ListMessagesQuery: GraphQLQuery {
         }
 
         /// SEALED: MMS attachments.
-        public var media: [Medium]? {
+        internal var media: [Medium]? {
           get {
             return (snapshot["media"] as? [Snapshot]).flatMap { $0.map { Medium(snapshot: $0) } }
           }
@@ -4870,7 +4897,7 @@ public final class ListMessagesQuery: GraphQLQuery {
         }
 
         /// UNSEALED: Direction of message.
-        public var direction: MessageDirection {
+        internal var direction: MessageDirection {
           get {
             return snapshot["direction"]! as! MessageDirection
           }
@@ -4880,7 +4907,7 @@ public final class ListMessagesQuery: GraphQLQuery {
         }
 
         /// UNSEALED: Has this message been marked as seen on client.
-        public var seen: Bool {
+        internal var seen: Bool {
           get {
             return snapshot["seen"]! as! Bool
           }
@@ -4890,7 +4917,7 @@ public final class ListMessagesQuery: GraphQLQuery {
         }
 
         /// UNSEALED: State of message record.
-        public var state: MessageState {
+        internal var state: MessageState {
           get {
             return snapshot["state"]! as! MessageState
           }
@@ -4900,7 +4927,7 @@ public final class ListMessagesQuery: GraphQLQuery {
         }
 
         /// UNSEALED: v4 UUID of user that owns the message resource.
-        public var owner: GraphQLID {
+        internal var owner: GraphQLID {
           get {
             return snapshot["owner"]! as! GraphQLID
           }
@@ -4909,8 +4936,8 @@ public final class ListMessagesQuery: GraphQLQuery {
           }
         }
 
-        /// UNSEALED: Algorithm descriptor describing public and symmetric key encryption, e.g RSAEncryptionOAEPSHA256AESGCM.
-        public var algorithm: String {
+        /// UNSEALED: Algorithm descriptor describing internal and symmetric key encryption, e.g RSAEncryptionOAEPSHA256AESGCM.
+        internal var algorithm: String {
           get {
             return snapshot["algorithm"]! as! String
           }
@@ -4919,8 +4946,8 @@ public final class ListMessagesQuery: GraphQLQuery {
           }
         }
 
-        /// UNSEALED: Client generated key ID for the public key.
-        public var keyId: String {
+        /// UNSEALED: Client generated key ID for the internal key.
+        internal var keyId: String {
           get {
             return snapshot["keyId"]! as! String
           }
@@ -4930,7 +4957,7 @@ public final class ListMessagesQuery: GraphQLQuery {
         }
 
         /// UNSEALED: ID used for the client to subscribe to specific events.
-        public var clientRefId: String? {
+        internal var clientRefId: String? {
           get {
             return snapshot["clientRefId"] as? String
           }
@@ -4940,7 +4967,7 @@ public final class ListMessagesQuery: GraphQLQuery {
         }
 
         /// UNSEALED: Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
-        public var createdAtEpochMs: Double {
+        internal var createdAtEpochMs: Double {
           get {
             return snapshot["createdAtEpochMs"]! as! Double
           }
@@ -4950,7 +4977,7 @@ public final class ListMessagesQuery: GraphQLQuery {
         }
 
         /// UNSEALED: Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
-        public var updatedAtEpochMs: Double {
+        internal var updatedAtEpochMs: Double {
           get {
             return snapshot["updatedAtEpochMs"]! as! Double
           }
@@ -4959,7 +4986,7 @@ public final class ListMessagesQuery: GraphQLQuery {
           }
         }
 
-        public var fragments: Fragments {
+        internal var fragments: Fragments {
           get {
             return Fragments(snapshot: snapshot)
           }
@@ -4968,10 +4995,10 @@ public final class ListMessagesQuery: GraphQLQuery {
           }
         }
 
-        public struct Fragments {
-          public var snapshot: Snapshot
+        internal struct Fragments {
+          internal var snapshot: Snapshot
 
-          public var sealedMessage: SealedMessage {
+          internal var sealedMessage: SealedMessage {
             get {
               return SealedMessage(snapshot: snapshot)
             }
@@ -4981,10 +5008,10 @@ public final class ListMessagesQuery: GraphQLQuery {
           }
         }
 
-        public struct Medium: GraphQLSelectionSet {
-          public static let possibleTypes = ["S3MediaObject"]
+        internal struct Medium: GraphQLSelectionSet {
+          internal static let possibleTypes = ["S3MediaObject"]
 
-          public static let selections: [GraphQLSelection] = [
+          internal static let selections: [GraphQLSelection] = [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("key", type: .nonNull(.scalar(String.self))),
@@ -4992,17 +5019,17 @@ public final class ListMessagesQuery: GraphQLQuery {
             GraphQLField("region", type: .nonNull(.scalar(String.self))),
           ]
 
-          public var snapshot: Snapshot
+          internal var snapshot: Snapshot
 
-          public init(snapshot: Snapshot) {
+          internal init(snapshot: Snapshot) {
             self.snapshot = snapshot
           }
 
-          public init(key: String, bucket: String, region: String) {
+          internal init(key: String, bucket: String, region: String) {
             self.init(snapshot: ["__typename": "S3MediaObject", "key": key, "bucket": bucket, "region": region])
           }
 
-          public var __typename: String {
+          internal var __typename: String {
             get {
               return snapshot["__typename"]! as! String
             }
@@ -5012,7 +5039,7 @@ public final class ListMessagesQuery: GraphQLQuery {
           }
 
           /// Key of object in S3.
-          public var key: String {
+          internal var key: String {
             get {
               return snapshot["key"]! as! String
             }
@@ -5022,7 +5049,7 @@ public final class ListMessagesQuery: GraphQLQuery {
           }
 
           /// Name of S3 bucket.
-          public var bucket: String {
+          internal var bucket: String {
             get {
               return snapshot["bucket"]! as! String
             }
@@ -5032,7 +5059,7 @@ public final class ListMessagesQuery: GraphQLQuery {
           }
 
           /// Region S3 bucket is located in.
-          public var region: String {
+          internal var region: String {
             get {
               return snapshot["region"]! as! String
             }
@@ -5041,7 +5068,7 @@ public final class ListMessagesQuery: GraphQLQuery {
             }
           }
 
-          public var fragments: Fragments {
+          internal var fragments: Fragments {
             get {
               return Fragments(snapshot: snapshot)
             }
@@ -5050,10 +5077,10 @@ public final class ListMessagesQuery: GraphQLQuery {
             }
           }
 
-          public struct Fragments {
-            public var snapshot: Snapshot
+          internal struct Fragments {
+            internal var snapshot: Snapshot
 
-            public var s3MediaObject: S3MediaObject {
+            internal var s3MediaObject: S3MediaObject {
               get {
                 return S3MediaObject(snapshot: snapshot)
               }
@@ -5068,42 +5095,42 @@ public final class ListMessagesQuery: GraphQLQuery {
   }
 }
 
-public final class OnMessageReceivedSubscription: GraphQLSubscription {
-  public static let operationString =
+internal final class OnMessageReceivedSubscription: GraphQLSubscription {
+  internal static let operationString =
     "subscription onMessageReceived($owner: String!) {\n  OnMessage(owner: $owner) {\n    __typename\n    ...sealedMessage\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(SealedMessage.fragmentString).appending(S3MediaObject.fragmentString) }
+  internal static var requestString: String { return operationString.appending(SealedMessage.fragmentString).appending(S3MediaObject.fragmentString) }
 
-  public var owner: String
+  internal var owner: String
 
-  public init(owner: String) {
+  internal init(owner: String) {
     self.owner = owner
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["owner": owner]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Subscription"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Subscription"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("OnMessage", arguments: ["owner": GraphQLVariable("owner")], type: .object(OnMessage.selections)),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(onMessage: OnMessage? = nil) {
+    internal init(onMessage: OnMessage? = nil) {
       self.init(snapshot: ["__typename": "Subscription", "OnMessage": onMessage.flatMap { $0.snapshot }])
     }
 
     /// Owner id for the current logged in user.
     /// ID used for the client to subscribe to specific message events.
-    public var onMessage: OnMessage? {
+    internal var onMessage: OnMessage? {
       get {
         return (snapshot["OnMessage"] as? Snapshot).flatMap { OnMessage(snapshot: $0) }
       }
@@ -5112,10 +5139,10 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
       }
     }
 
-    public struct OnMessage: GraphQLSelectionSet {
-      public static let possibleTypes = ["SealedMessage"]
+    internal struct OnMessage: GraphQLSelectionSet {
+      internal static let possibleTypes = ["SealedMessage"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
@@ -5135,17 +5162,17 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
         GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, conversation: GraphQLID, remotePhoneNumber: String, localPhoneNumber: String, body: String? = nil, media: [Medium]? = nil, direction: MessageDirection, seen: Bool, state: MessageState, owner: GraphQLID, algorithm: String, keyId: String, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+      internal init(id: GraphQLID, conversation: GraphQLID, remotePhoneNumber: String, localPhoneNumber: String, body: String? = nil, media: [Medium]? = nil, direction: MessageDirection, seen: Bool, state: MessageState, owner: GraphQLID, algorithm: String, keyId: String, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
         self.init(snapshot: ["__typename": "SealedMessage", "id": id, "conversation": conversation, "remotePhoneNumber": remotePhoneNumber, "localPhoneNumber": localPhoneNumber, "body": body, "media": media.flatMap { $0.map { $0.snapshot } }, "direction": direction, "seen": seen, "state": state, "owner": owner, "algorithm": algorithm, "keyId": keyId, "clientRefId": clientRefId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -5155,7 +5182,7 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
       }
 
       /// UNSEALED: v4 UUID assigned to message record.
-      public var id: GraphQLID {
+      internal var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
         }
@@ -5168,7 +5195,7 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
       /// result when provided with identical inputs, a fixed namespace UUID is included to
       /// further reduce collision.  Conversation IDs should be calculated as follows:
       /// v5(owner, localPhoneNumber + remotePhoneNumber)
-      public var conversation: GraphQLID {
+      internal var conversation: GraphQLID {
         get {
           return snapshot["conversation"]! as! GraphQLID
         }
@@ -5178,7 +5205,7 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
       }
 
       /// SEALED: Remote phone number in E164 format.
-      public var remotePhoneNumber: String {
+      internal var remotePhoneNumber: String {
         get {
           return snapshot["remotePhoneNumber"]! as! String
         }
@@ -5188,7 +5215,7 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
       }
 
       /// SEALED: Sudo phone number in E164 format.
-      public var localPhoneNumber: String {
+      internal var localPhoneNumber: String {
         get {
           return snapshot["localPhoneNumber"]! as! String
         }
@@ -5198,7 +5225,7 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
       }
 
       /// SEALED: Message body, null if MMS only.
-      public var body: String? {
+      internal var body: String? {
         get {
           return snapshot["body"] as? String
         }
@@ -5208,7 +5235,7 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
       }
 
       /// SEALED: MMS attachments.
-      public var media: [Medium]? {
+      internal var media: [Medium]? {
         get {
           return (snapshot["media"] as? [Snapshot]).flatMap { $0.map { Medium(snapshot: $0) } }
         }
@@ -5218,7 +5245,7 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
       }
 
       /// UNSEALED: Direction of message.
-      public var direction: MessageDirection {
+      internal var direction: MessageDirection {
         get {
           return snapshot["direction"]! as! MessageDirection
         }
@@ -5228,7 +5255,7 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
       }
 
       /// UNSEALED: Has this message been marked as seen on client.
-      public var seen: Bool {
+      internal var seen: Bool {
         get {
           return snapshot["seen"]! as! Bool
         }
@@ -5238,7 +5265,7 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
       }
 
       /// UNSEALED: State of message record.
-      public var state: MessageState {
+      internal var state: MessageState {
         get {
           return snapshot["state"]! as! MessageState
         }
@@ -5248,7 +5275,7 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
       }
 
       /// UNSEALED: v4 UUID of user that owns the message resource.
-      public var owner: GraphQLID {
+      internal var owner: GraphQLID {
         get {
           return snapshot["owner"]! as! GraphQLID
         }
@@ -5257,8 +5284,8 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
         }
       }
 
-      /// UNSEALED: Algorithm descriptor describing public and symmetric key encryption, e.g RSAEncryptionOAEPSHA256AESGCM.
-      public var algorithm: String {
+      /// UNSEALED: Algorithm descriptor describing internal and symmetric key encryption, e.g RSAEncryptionOAEPSHA256AESGCM.
+      internal var algorithm: String {
         get {
           return snapshot["algorithm"]! as! String
         }
@@ -5267,8 +5294,8 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
         }
       }
 
-      /// UNSEALED: Client generated key ID for the public key.
-      public var keyId: String {
+      /// UNSEALED: Client generated key ID for the internal key.
+      internal var keyId: String {
         get {
           return snapshot["keyId"]! as! String
         }
@@ -5278,7 +5305,7 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
       }
 
       /// UNSEALED: ID used for the client to subscribe to specific events.
-      public var clientRefId: String? {
+      internal var clientRefId: String? {
         get {
           return snapshot["clientRefId"] as? String
         }
@@ -5288,7 +5315,7 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
       }
 
       /// UNSEALED: Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
-      public var createdAtEpochMs: Double {
+      internal var createdAtEpochMs: Double {
         get {
           return snapshot["createdAtEpochMs"]! as! Double
         }
@@ -5298,7 +5325,7 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
       }
 
       /// UNSEALED: Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
-      public var updatedAtEpochMs: Double {
+      internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
         }
@@ -5307,7 +5334,7 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
         }
       }
 
-      public var fragments: Fragments {
+      internal var fragments: Fragments {
         get {
           return Fragments(snapshot: snapshot)
         }
@@ -5316,10 +5343,10 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
         }
       }
 
-      public struct Fragments {
-        public var snapshot: Snapshot
+      internal struct Fragments {
+        internal var snapshot: Snapshot
 
-        public var sealedMessage: SealedMessage {
+        internal var sealedMessage: SealedMessage {
           get {
             return SealedMessage(snapshot: snapshot)
           }
@@ -5329,10 +5356,10 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
         }
       }
 
-      public struct Medium: GraphQLSelectionSet {
-        public static let possibleTypes = ["S3MediaObject"]
+      internal struct Medium: GraphQLSelectionSet {
+        internal static let possibleTypes = ["S3MediaObject"]
 
-        public static let selections: [GraphQLSelection] = [
+        internal static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("key", type: .nonNull(.scalar(String.self))),
@@ -5340,17 +5367,17 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
           GraphQLField("region", type: .nonNull(.scalar(String.self))),
         ]
 
-        public var snapshot: Snapshot
+        internal var snapshot: Snapshot
 
-        public init(snapshot: Snapshot) {
+        internal init(snapshot: Snapshot) {
           self.snapshot = snapshot
         }
 
-        public init(key: String, bucket: String, region: String) {
+        internal init(key: String, bucket: String, region: String) {
           self.init(snapshot: ["__typename": "S3MediaObject", "key": key, "bucket": bucket, "region": region])
         }
 
-        public var __typename: String {
+        internal var __typename: String {
           get {
             return snapshot["__typename"]! as! String
           }
@@ -5360,7 +5387,7 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
         }
 
         /// Key of object in S3.
-        public var key: String {
+        internal var key: String {
           get {
             return snapshot["key"]! as! String
           }
@@ -5370,7 +5397,7 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
         }
 
         /// Name of S3 bucket.
-        public var bucket: String {
+        internal var bucket: String {
           get {
             return snapshot["bucket"]! as! String
           }
@@ -5380,7 +5407,7 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
         }
 
         /// Region S3 bucket is located in.
-        public var region: String {
+        internal var region: String {
           get {
             return snapshot["region"]! as! String
           }
@@ -5389,7 +5416,7 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
           }
         }
 
-        public var fragments: Fragments {
+        internal var fragments: Fragments {
           get {
             return Fragments(snapshot: snapshot)
           }
@@ -5398,10 +5425,10 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
           }
         }
 
-        public struct Fragments {
-          public var snapshot: Snapshot
+        internal struct Fragments {
+          internal var snapshot: Snapshot
 
-          public var s3MediaObject: S3MediaObject {
+          internal var s3MediaObject: S3MediaObject {
             get {
               return S3MediaObject(snapshot: snapshot)
             }
@@ -5415,41 +5442,41 @@ public final class OnMessageReceivedSubscription: GraphQLSubscription {
   }
 }
 
-public final class GetConversationQuery: GraphQLQuery {
-  public static let operationString =
+internal final class GetConversationQuery: GraphQLQuery {
+  internal static let operationString =
     "query getConversation($id: ID!) {\n  getConversation(id: $id) {\n    __typename\n    ...conversation\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(Conversation.fragmentString) }
+  internal static var requestString: String { return operationString.appending(Conversation.fragmentString) }
 
-  public var id: GraphQLID
+  internal var id: GraphQLID
 
-  public init(id: GraphQLID) {
+  internal init(id: GraphQLID) {
     self.id = id
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["id": id]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Query"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("getConversation", arguments: ["id": GraphQLVariable("id")], type: .object(GetConversation.selections)),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(getConversation: GetConversation? = nil) {
+    internal init(getConversation: GetConversation? = nil) {
       self.init(snapshot: ["__typename": "Query", "getConversation": getConversation.flatMap { $0.snapshot }])
     }
 
     /// Get a conversation record by ID.
-    public var getConversation: GetConversation? {
+    internal var getConversation: GetConversation? {
       get {
         return (snapshot["getConversation"] as? Snapshot).flatMap { GetConversation(snapshot: $0) }
       }
@@ -5458,10 +5485,10 @@ public final class GetConversationQuery: GraphQLQuery {
       }
     }
 
-    public struct GetConversation: GraphQLSelectionSet {
-      public static let possibleTypes = ["Conversation"]
+    internal struct GetConversation: GraphQLSelectionSet {
+      internal static let possibleTypes = ["Conversation"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
@@ -5472,17 +5499,17 @@ public final class GetConversationQuery: GraphQLQuery {
         GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, owner: GraphQLID, type: ConversationType, lastMessage: GraphQLID, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+      internal init(id: GraphQLID, owner: GraphQLID, type: ConversationType, lastMessage: GraphQLID, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
         self.init(snapshot: ["__typename": "Conversation", "id": id, "owner": owner, "type": type, "lastMessage": lastMessage, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -5495,7 +5522,7 @@ public final class GetConversationQuery: GraphQLQuery {
       /// result when provided with identical inputs, a fixed namespace UUID is included to
       /// further reduce collision.  Conversation IDs should be calculated as follows:
       /// v5(owner, localPhoneNumber + remotePhoneNumber)
-      public var id: GraphQLID {
+      internal var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
         }
@@ -5505,7 +5532,7 @@ public final class GetConversationQuery: GraphQLQuery {
       }
 
       /// v4 UUID of user that owns the conversation resource.
-      public var owner: GraphQLID {
+      internal var owner: GraphQLID {
         get {
           return snapshot["owner"]! as! GraphQLID
         }
@@ -5515,7 +5542,7 @@ public final class GetConversationQuery: GraphQLQuery {
       }
 
       /// Type for this conversation.
-      public var type: ConversationType {
+      internal var type: ConversationType {
         get {
           return snapshot["type"]! as! ConversationType
         }
@@ -5525,7 +5552,7 @@ public final class GetConversationQuery: GraphQLQuery {
       }
 
       /// v4 UUID of last message, can be used to display preview in message feed.
-      public var lastMessage: GraphQLID {
+      internal var lastMessage: GraphQLID {
         get {
           return snapshot["lastMessage"]! as! GraphQLID
         }
@@ -5535,7 +5562,7 @@ public final class GetConversationQuery: GraphQLQuery {
       }
 
       /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
-      public var createdAtEpochMs: Double {
+      internal var createdAtEpochMs: Double {
         get {
           return snapshot["createdAtEpochMs"]! as! Double
         }
@@ -5545,7 +5572,7 @@ public final class GetConversationQuery: GraphQLQuery {
       }
 
       /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
-      public var updatedAtEpochMs: Double {
+      internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
         }
@@ -5554,7 +5581,7 @@ public final class GetConversationQuery: GraphQLQuery {
         }
       }
 
-      public var fragments: Fragments {
+      internal var fragments: Fragments {
         get {
           return Fragments(snapshot: snapshot)
         }
@@ -5563,10 +5590,10 @@ public final class GetConversationQuery: GraphQLQuery {
         }
       }
 
-      public struct Fragments {
-        public var snapshot: Snapshot
+      internal struct Fragments {
+        internal var snapshot: Snapshot
 
-        public var conversation: Conversation {
+        internal var conversation: Conversation {
           get {
             return Conversation(snapshot: snapshot)
           }
@@ -5579,45 +5606,45 @@ public final class GetConversationQuery: GraphQLQuery {
   }
 }
 
-public final class ListConversationsQuery: GraphQLQuery {
-  public static let operationString =
+internal final class ListConversationsQuery: GraphQLQuery {
+  internal static let operationString =
     "query listConversations($filter: ConversationFilterInput!, $limit: Int, $nextToken: String) {\n  listConversations(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      ...conversation\n    }\n    nextToken\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(Conversation.fragmentString) }
+  internal static var requestString: String { return operationString.appending(Conversation.fragmentString) }
 
-  public var filter: ConversationFilterInput
-  public var limit: Int?
-  public var nextToken: String?
+  internal var filter: ConversationFilterInput
+  internal var limit: Int?
+  internal var nextToken: String?
 
-  public init(filter: ConversationFilterInput, limit: Int? = nil, nextToken: String? = nil) {
+  internal init(filter: ConversationFilterInput, limit: Int? = nil, nextToken: String? = nil) {
     self.filter = filter
     self.limit = limit
     self.nextToken = nextToken
   }
 
-  public var variables: GraphQLMap? {
+  internal var variables: GraphQLMap? {
     return ["filter": filter, "limit": limit, "nextToken": nextToken]
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Query"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("listConversations", arguments: ["filter": GraphQLVariable("filter"), "limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .object(ListConversation.selections)),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(listConversations: ListConversation? = nil) {
+    internal init(listConversations: ListConversation? = nil) {
       self.init(snapshot: ["__typename": "Query", "listConversations": listConversations.flatMap { $0.snapshot }])
     }
 
     /// Returns a list of message conversations.
-    public var listConversations: ListConversation? {
+    internal var listConversations: ListConversation? {
       get {
         return (snapshot["listConversations"] as? Snapshot).flatMap { ListConversation(snapshot: $0) }
       }
@@ -5626,26 +5653,26 @@ public final class ListConversationsQuery: GraphQLQuery {
       }
     }
 
-    public struct ListConversation: GraphQLSelectionSet {
-      public static let possibleTypes = ["ConversationConnection"]
+    internal struct ListConversation: GraphQLSelectionSet {
+      internal static let possibleTypes = ["ConversationConnection"]
 
-      public static let selections: [GraphQLSelection] = [
+      internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("items", type: .list(.nonNull(.object(Item.selections)))),
         GraphQLField("nextToken", type: .scalar(String.self)),
       ]
 
-      public var snapshot: Snapshot
+      internal var snapshot: Snapshot
 
-      public init(snapshot: Snapshot) {
+      internal init(snapshot: Snapshot) {
         self.snapshot = snapshot
       }
 
-      public init(items: [Item]? = nil, nextToken: String? = nil) {
+      internal init(items: [Item]? = nil, nextToken: String? = nil) {
         self.init(snapshot: ["__typename": "ConversationConnection", "items": items.flatMap { $0.map { $0.snapshot } }, "nextToken": nextToken])
       }
 
-      public var __typename: String {
+      internal var __typename: String {
         get {
           return snapshot["__typename"]! as! String
         }
@@ -5654,7 +5681,7 @@ public final class ListConversationsQuery: GraphQLQuery {
         }
       }
 
-      public var items: [Item]? {
+      internal var items: [Item]? {
         get {
           return (snapshot["items"] as? [Snapshot]).flatMap { $0.map { Item(snapshot: $0) } }
         }
@@ -5663,7 +5690,7 @@ public final class ListConversationsQuery: GraphQLQuery {
         }
       }
 
-      public var nextToken: String? {
+      internal var nextToken: String? {
         get {
           return snapshot["nextToken"] as? String
         }
@@ -5672,10 +5699,10 @@ public final class ListConversationsQuery: GraphQLQuery {
         }
       }
 
-      public struct Item: GraphQLSelectionSet {
-        public static let possibleTypes = ["Conversation"]
+      internal struct Item: GraphQLSelectionSet {
+        internal static let possibleTypes = ["Conversation"]
 
-        public static let selections: [GraphQLSelection] = [
+        internal static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
@@ -5686,17 +5713,17 @@ public final class ListConversationsQuery: GraphQLQuery {
           GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
         ]
 
-        public var snapshot: Snapshot
+        internal var snapshot: Snapshot
 
-        public init(snapshot: Snapshot) {
+        internal init(snapshot: Snapshot) {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, owner: GraphQLID, type: ConversationType, lastMessage: GraphQLID, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+        internal init(id: GraphQLID, owner: GraphQLID, type: ConversationType, lastMessage: GraphQLID, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
           self.init(snapshot: ["__typename": "Conversation", "id": id, "owner": owner, "type": type, "lastMessage": lastMessage, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
         }
 
-        public var __typename: String {
+        internal var __typename: String {
           get {
             return snapshot["__typename"]! as! String
           }
@@ -5709,7 +5736,7 @@ public final class ListConversationsQuery: GraphQLQuery {
         /// result when provided with identical inputs, a fixed namespace UUID is included to
         /// further reduce collision.  Conversation IDs should be calculated as follows:
         /// v5(owner, localPhoneNumber + remotePhoneNumber)
-        public var id: GraphQLID {
+        internal var id: GraphQLID {
           get {
             return snapshot["id"]! as! GraphQLID
           }
@@ -5719,7 +5746,7 @@ public final class ListConversationsQuery: GraphQLQuery {
         }
 
         /// v4 UUID of user that owns the conversation resource.
-        public var owner: GraphQLID {
+        internal var owner: GraphQLID {
           get {
             return snapshot["owner"]! as! GraphQLID
           }
@@ -5729,7 +5756,7 @@ public final class ListConversationsQuery: GraphQLQuery {
         }
 
         /// Type for this conversation.
-        public var type: ConversationType {
+        internal var type: ConversationType {
           get {
             return snapshot["type"]! as! ConversationType
           }
@@ -5739,7 +5766,7 @@ public final class ListConversationsQuery: GraphQLQuery {
         }
 
         /// v4 UUID of last message, can be used to display preview in message feed.
-        public var lastMessage: GraphQLID {
+        internal var lastMessage: GraphQLID {
           get {
             return snapshot["lastMessage"]! as! GraphQLID
           }
@@ -5749,7 +5776,7 @@ public final class ListConversationsQuery: GraphQLQuery {
         }
 
         /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
-        public var createdAtEpochMs: Double {
+        internal var createdAtEpochMs: Double {
           get {
             return snapshot["createdAtEpochMs"]! as! Double
           }
@@ -5759,7 +5786,7 @@ public final class ListConversationsQuery: GraphQLQuery {
         }
 
         /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
-        public var updatedAtEpochMs: Double {
+        internal var updatedAtEpochMs: Double {
           get {
             return snapshot["updatedAtEpochMs"]! as! Double
           }
@@ -5768,7 +5795,7 @@ public final class ListConversationsQuery: GraphQLQuery {
           }
         }
 
-        public var fragments: Fragments {
+        internal var fragments: Fragments {
           get {
             return Fragments(snapshot: snapshot)
           }
@@ -5777,10 +5804,10 @@ public final class ListConversationsQuery: GraphQLQuery {
           }
         }
 
-        public struct Fragments {
-          public var snapshot: Snapshot
+        internal struct Fragments {
+          internal var snapshot: Snapshot
 
-          public var conversation: Conversation {
+          internal var conversation: Conversation {
             get {
               return Conversation(snapshot: snapshot)
             }
@@ -5794,13 +5821,13 @@ public final class ListConversationsQuery: GraphQLQuery {
   }
 }
 
-public struct SudoPhoneNumber: GraphQLFragment {
-  public static let fragmentString =
+internal struct SudoPhoneNumber: GraphQLFragment {
+  internal static let fragmentString =
     "fragment SudoPhoneNumber on PhoneNumber {\n  __typename\n  id\n  phoneNumber\n  country\n  keyRingId\n  state\n  version\n  clientRefId\n  createdAtEpochMs\n  updatedAtEpochMs\n}"
 
-  public static let possibleTypes = ["PhoneNumber"]
+  internal static let possibleTypes = ["PhoneNumber"]
 
-  public static let selections: [GraphQLSelection] = [
+  internal static let selections: [GraphQLSelection] = [
     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
     GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
     GraphQLField("phoneNumber", type: .nonNull(.scalar(String.self))),
@@ -5813,17 +5840,17 @@ public struct SudoPhoneNumber: GraphQLFragment {
     GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
   ]
 
-  public var snapshot: Snapshot
+  internal var snapshot: Snapshot
 
-  public init(snapshot: Snapshot) {
+  internal init(snapshot: Snapshot) {
     self.snapshot = snapshot
   }
 
-  public init(id: GraphQLID, phoneNumber: String, country: String, keyRingId: String, state: PhoneNumberState, version: Int, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+  internal init(id: GraphQLID, phoneNumber: String, country: String, keyRingId: String, state: PhoneNumberState, version: Int, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
     self.init(snapshot: ["__typename": "PhoneNumber", "id": id, "phoneNumber": phoneNumber, "country": country, "keyRingId": keyRingId, "state": state, "version": version, "clientRefId": clientRefId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
   }
 
-  public var __typename: String {
+  internal var __typename: String {
     get {
       return snapshot["__typename"]! as! String
     }
@@ -5833,7 +5860,7 @@ public struct SudoPhoneNumber: GraphQLFragment {
   }
 
   /// v4 UUID of phone number record.
-  public var id: GraphQLID {
+  internal var id: GraphQLID {
     get {
       return snapshot["id"]! as! GraphQLID
     }
@@ -5843,7 +5870,7 @@ public struct SudoPhoneNumber: GraphQLFragment {
   }
 
   /// E164 formatted phone number.
-  public var phoneNumber: String {
+  internal var phoneNumber: String {
     get {
       return snapshot["phoneNumber"]! as! String
     }
@@ -5853,7 +5880,7 @@ public struct SudoPhoneNumber: GraphQLFragment {
   }
 
   /// ISO country code of phone number e.g. 'US' 'ZZ'.
-  public var country: String {
+  internal var country: String {
     get {
       return snapshot["country"]! as! String
     }
@@ -5863,7 +5890,7 @@ public struct SudoPhoneNumber: GraphQLFragment {
   }
 
   /// Key ring ID that dictates which keys the child resources of this phone number will be encrypted with.
-  public var keyRingId: String {
+  internal var keyRingId: String {
     get {
       return snapshot["keyRingId"]! as! String
     }
@@ -5873,7 +5900,7 @@ public struct SudoPhoneNumber: GraphQLFragment {
   }
 
   /// State of phone number.
-  public var state: PhoneNumberState {
+  internal var state: PhoneNumberState {
     get {
       return snapshot["state"]! as! PhoneNumberState
     }
@@ -5883,7 +5910,7 @@ public struct SudoPhoneNumber: GraphQLFragment {
   }
 
   /// Version of this phone number record, increments on update.
-  public var version: Int {
+  internal var version: Int {
     get {
       return snapshot["version"]! as! Int
     }
@@ -5893,7 +5920,7 @@ public struct SudoPhoneNumber: GraphQLFragment {
   }
 
   /// ID used for the client to subscribe to specific events.
-  public var clientRefId: String? {
+  internal var clientRefId: String? {
     get {
       return snapshot["clientRefId"] as? String
     }
@@ -5903,7 +5930,7 @@ public struct SudoPhoneNumber: GraphQLFragment {
   }
 
   /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
-  public var createdAtEpochMs: Double {
+  internal var createdAtEpochMs: Double {
     get {
       return snapshot["createdAtEpochMs"]! as! Double
     }
@@ -5913,7 +5940,7 @@ public struct SudoPhoneNumber: GraphQLFragment {
   }
 
   /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
-  public var updatedAtEpochMs: Double {
+  internal var updatedAtEpochMs: Double {
     get {
       return snapshot["updatedAtEpochMs"]! as! Double
     }
@@ -5923,13 +5950,13 @@ public struct SudoPhoneNumber: GraphQLFragment {
   }
 }
 
-public struct SudoAvailablePhoneNumberResult: GraphQLFragment {
-  public static let fragmentString =
+internal struct SudoAvailablePhoneNumberResult: GraphQLFragment {
+  internal static let fragmentString =
     "fragment SudoAvailablePhoneNumberResult on PhoneNumberSearch {\n  __typename\n  id\n  country\n  gps {\n    __typename\n    latitude\n    longitude\n  }\n  prefix\n  state\n  results\n  clientRefId\n  createdAtEpochMs\n  updatedAtEpochMs\n}"
 
-  public static let possibleTypes = ["PhoneNumberSearch"]
+  internal static let possibleTypes = ["PhoneNumberSearch"]
 
-  public static let selections: [GraphQLSelection] = [
+  internal static let selections: [GraphQLSelection] = [
     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
     GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
     GraphQLField("country", type: .nonNull(.scalar(String.self))),
@@ -5942,17 +5969,17 @@ public struct SudoAvailablePhoneNumberResult: GraphQLFragment {
     GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
   ]
 
-  public var snapshot: Snapshot
+  internal var snapshot: Snapshot
 
-  public init(snapshot: Snapshot) {
+  internal init(snapshot: Snapshot) {
     self.snapshot = snapshot
   }
 
-  public init(id: GraphQLID, country: String, gps: Gp? = nil, `prefix`: String? = nil, state: PhoneNumberSearchState, results: [String]? = nil, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+  internal init(id: GraphQLID, country: String, gps: Gp? = nil, `prefix`: String? = nil, state: PhoneNumberSearchState, results: [String]? = nil, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
     self.init(snapshot: ["__typename": "PhoneNumberSearch", "id": id, "country": country, "gps": gps.flatMap { $0.snapshot }, "prefix": `prefix`, "state": state, "results": results, "clientRefId": clientRefId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
   }
 
-  public var __typename: String {
+  internal var __typename: String {
     get {
       return snapshot["__typename"]! as! String
     }
@@ -5962,7 +5989,7 @@ public struct SudoAvailablePhoneNumberResult: GraphQLFragment {
   }
 
   /// v4 UUID assigned to the phone number search.
-  public var id: GraphQLID {
+  internal var id: GraphQLID {
     get {
       return snapshot["id"]! as! GraphQLID
     }
@@ -5972,7 +5999,7 @@ public struct SudoAvailablePhoneNumberResult: GraphQLFragment {
   }
 
   /// ISO country code of phone number e.g. 'US' 'ZZ'.
-  public var country: String {
+  internal var country: String {
     get {
       return snapshot["country"]! as! String
     }
@@ -5982,7 +6009,7 @@ public struct SudoAvailablePhoneNumberResult: GraphQLFragment {
   }
 
   /// GPS coordinates to scope phone number search.
-  public var gps: Gp? {
+  internal var gps: Gp? {
     get {
       return (snapshot["gps"] as? Snapshot).flatMap { Gp(snapshot: $0) }
     }
@@ -5992,7 +6019,7 @@ public struct SudoAvailablePhoneNumberResult: GraphQLFragment {
   }
 
   /// Area code of phone number e.g. 801, 555.
-  public var `prefix`: String? {
+  internal var `prefix`: String? {
     get {
       return snapshot["prefix"] as? String
     }
@@ -6002,7 +6029,7 @@ public struct SudoAvailablePhoneNumberResult: GraphQLFragment {
   }
 
   /// Current state of phone number search request.
-  public var state: PhoneNumberSearchState {
+  internal var state: PhoneNumberSearchState {
     get {
       return snapshot["state"]! as! PhoneNumberSearchState
     }
@@ -6012,7 +6039,7 @@ public struct SudoAvailablePhoneNumberResult: GraphQLFragment {
   }
 
   /// Array of available phone numbers.
-  public var results: [String]? {
+  internal var results: [String]? {
     get {
       return snapshot["results"] as? [String]
     }
@@ -6022,7 +6049,7 @@ public struct SudoAvailablePhoneNumberResult: GraphQLFragment {
   }
 
   /// ID used for the client to subscribe to specific events.
-  public var clientRefId: String? {
+  internal var clientRefId: String? {
     get {
       return snapshot["clientRefId"] as? String
     }
@@ -6032,7 +6059,7 @@ public struct SudoAvailablePhoneNumberResult: GraphQLFragment {
   }
 
   /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
-  public var createdAtEpochMs: Double {
+  internal var createdAtEpochMs: Double {
     get {
       return snapshot["createdAtEpochMs"]! as! Double
     }
@@ -6042,7 +6069,7 @@ public struct SudoAvailablePhoneNumberResult: GraphQLFragment {
   }
 
   /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
-  public var updatedAtEpochMs: Double {
+  internal var updatedAtEpochMs: Double {
     get {
       return snapshot["updatedAtEpochMs"]! as! Double
     }
@@ -6051,26 +6078,26 @@ public struct SudoAvailablePhoneNumberResult: GraphQLFragment {
     }
   }
 
-  public struct Gp: GraphQLSelectionSet {
-    public static let possibleTypes = ["GpsCoordinates"]
+  internal struct Gp: GraphQLSelectionSet {
+    internal static let possibleTypes = ["GpsCoordinates"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
       GraphQLField("latitude", type: .nonNull(.scalar(String.self))),
       GraphQLField("longitude", type: .nonNull(.scalar(String.self))),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(latitude: String, longitude: String) {
+    internal init(latitude: String, longitude: String) {
       self.init(snapshot: ["__typename": "GpsCoordinates", "latitude": latitude, "longitude": longitude])
     }
 
-    public var __typename: String {
+    internal var __typename: String {
       get {
         return snapshot["__typename"]! as! String
       }
@@ -6079,7 +6106,7 @@ public struct SudoAvailablePhoneNumberResult: GraphQLFragment {
       }
     }
 
-    public var latitude: String {
+    internal var latitude: String {
       get {
         return snapshot["latitude"]! as! String
       }
@@ -6088,7 +6115,7 @@ public struct SudoAvailablePhoneNumberResult: GraphQLFragment {
       }
     }
 
-    public var longitude: String {
+    internal var longitude: String {
       get {
         return snapshot["longitude"]! as! String
       }
@@ -6099,13 +6126,13 @@ public struct SudoAvailablePhoneNumberResult: GraphQLFragment {
   }
 }
 
-public struct PublicKey: GraphQLFragment {
-  public static let fragmentString =
+internal struct PublicKey: GraphQLFragment {
+  internal static let fragmentString =
     "fragment publicKey on PublicKey {\n  __typename\n  keyId\n  keyRingId\n  algorithm\n  publicKey\n  owner\n  version\n  createdAtEpochMs\n  updatedAtEpochMs\n}"
 
-  public static let possibleTypes = ["PublicKey"]
+  internal static let possibleTypes = ["PublicKey"]
 
-  public static let selections: [GraphQLSelection] = [
+  internal static let selections: [GraphQLSelection] = [
     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
     GraphQLField("keyId", type: .nonNull(.scalar(String.self))),
     GraphQLField("keyRingId", type: .nonNull(.scalar(String.self))),
@@ -6117,17 +6144,17 @@ public struct PublicKey: GraphQLFragment {
     GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
   ]
 
-  public var snapshot: Snapshot
+  internal var snapshot: Snapshot
 
-  public init(snapshot: Snapshot) {
+  internal init(snapshot: Snapshot) {
     self.snapshot = snapshot
   }
 
-  public init(keyId: String, keyRingId: String, algorithm: String, publicKey: String, owner: GraphQLID, version: Int, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+  internal init(keyId: String, keyRingId: String, algorithm: String, publicKey: String, owner: GraphQLID, version: Int, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
     self.init(snapshot: ["__typename": "PublicKey", "keyId": keyId, "keyRingId": keyRingId, "algorithm": algorithm, "publicKey": publicKey, "owner": owner, "version": version, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
   }
 
-  public var __typename: String {
+  internal var __typename: String {
     get {
       return snapshot["__typename"]! as! String
     }
@@ -6136,7 +6163,7 @@ public struct PublicKey: GraphQLFragment {
     }
   }
 
-  public var keyId: String {
+  internal var keyId: String {
     get {
       return snapshot["keyId"]! as! String
     }
@@ -6145,7 +6172,7 @@ public struct PublicKey: GraphQLFragment {
     }
   }
 
-  public var keyRingId: String {
+  internal var keyRingId: String {
     get {
       return snapshot["keyRingId"]! as! String
     }
@@ -6154,7 +6181,7 @@ public struct PublicKey: GraphQLFragment {
     }
   }
 
-  public var algorithm: String {
+  internal var algorithm: String {
     get {
       return snapshot["algorithm"]! as! String
     }
@@ -6163,7 +6190,7 @@ public struct PublicKey: GraphQLFragment {
     }
   }
 
-  public var publicKey: String {
+  internal var publicKey: String {
     get {
       return snapshot["publicKey"]! as! String
     }
@@ -6172,7 +6199,7 @@ public struct PublicKey: GraphQLFragment {
     }
   }
 
-  public var owner: GraphQLID {
+  internal var owner: GraphQLID {
     get {
       return snapshot["owner"]! as! GraphQLID
     }
@@ -6181,7 +6208,7 @@ public struct PublicKey: GraphQLFragment {
     }
   }
 
-  public var version: Int {
+  internal var version: Int {
     get {
       return snapshot["version"]! as! Int
     }
@@ -6190,7 +6217,7 @@ public struct PublicKey: GraphQLFragment {
     }
   }
 
-  public var createdAtEpochMs: Double {
+  internal var createdAtEpochMs: Double {
     get {
       return snapshot["createdAtEpochMs"]! as! Double
     }
@@ -6199,7 +6226,7 @@ public struct PublicKey: GraphQLFragment {
     }
   }
 
-  public var updatedAtEpochMs: Double {
+  internal var updatedAtEpochMs: Double {
     get {
       return snapshot["updatedAtEpochMs"]! as! Double
     }
@@ -6209,13 +6236,13 @@ public struct PublicKey: GraphQLFragment {
   }
 }
 
-public struct SealedMessage: GraphQLFragment {
-  public static let fragmentString =
+internal struct SealedMessage: GraphQLFragment {
+  internal static let fragmentString =
     "fragment sealedMessage on SealedMessage {\n  __typename\n  id\n  conversation\n  remotePhoneNumber\n  localPhoneNumber\n  body\n  media {\n    __typename\n    ...s3MediaObject\n  }\n  direction\n  seen\n  state\n  owner\n  algorithm\n  keyId\n  clientRefId\n  createdAtEpochMs\n  updatedAtEpochMs\n}"
 
-  public static let possibleTypes = ["SealedMessage"]
+  internal static let possibleTypes = ["SealedMessage"]
 
-  public static let selections: [GraphQLSelection] = [
+  internal static let selections: [GraphQLSelection] = [
     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
     GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
     GraphQLField("conversation", type: .nonNull(.scalar(GraphQLID.self))),
@@ -6234,17 +6261,17 @@ public struct SealedMessage: GraphQLFragment {
     GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
   ]
 
-  public var snapshot: Snapshot
+  internal var snapshot: Snapshot
 
-  public init(snapshot: Snapshot) {
+  internal init(snapshot: Snapshot) {
     self.snapshot = snapshot
   }
 
-  public init(id: GraphQLID, conversation: GraphQLID, remotePhoneNumber: String, localPhoneNumber: String, body: String? = nil, media: [Medium]? = nil, direction: MessageDirection, seen: Bool, state: MessageState, owner: GraphQLID, algorithm: String, keyId: String, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+  internal init(id: GraphQLID, conversation: GraphQLID, remotePhoneNumber: String, localPhoneNumber: String, body: String? = nil, media: [Medium]? = nil, direction: MessageDirection, seen: Bool, state: MessageState, owner: GraphQLID, algorithm: String, keyId: String, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
     self.init(snapshot: ["__typename": "SealedMessage", "id": id, "conversation": conversation, "remotePhoneNumber": remotePhoneNumber, "localPhoneNumber": localPhoneNumber, "body": body, "media": media.flatMap { $0.map { $0.snapshot } }, "direction": direction, "seen": seen, "state": state, "owner": owner, "algorithm": algorithm, "keyId": keyId, "clientRefId": clientRefId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
   }
 
-  public var __typename: String {
+  internal var __typename: String {
     get {
       return snapshot["__typename"]! as! String
     }
@@ -6254,7 +6281,7 @@ public struct SealedMessage: GraphQLFragment {
   }
 
   /// UNSEALED: v4 UUID assigned to message record.
-  public var id: GraphQLID {
+  internal var id: GraphQLID {
     get {
       return snapshot["id"]! as! GraphQLID
     }
@@ -6267,7 +6294,7 @@ public struct SealedMessage: GraphQLFragment {
   /// result when provided with identical inputs, a fixed namespace UUID is included to
   /// further reduce collision.  Conversation IDs should be calculated as follows:
   /// v5(owner, localPhoneNumber + remotePhoneNumber)
-  public var conversation: GraphQLID {
+  internal var conversation: GraphQLID {
     get {
       return snapshot["conversation"]! as! GraphQLID
     }
@@ -6277,7 +6304,7 @@ public struct SealedMessage: GraphQLFragment {
   }
 
   /// SEALED: Remote phone number in E164 format.
-  public var remotePhoneNumber: String {
+  internal var remotePhoneNumber: String {
     get {
       return snapshot["remotePhoneNumber"]! as! String
     }
@@ -6287,7 +6314,7 @@ public struct SealedMessage: GraphQLFragment {
   }
 
   /// SEALED: Sudo phone number in E164 format.
-  public var localPhoneNumber: String {
+  internal var localPhoneNumber: String {
     get {
       return snapshot["localPhoneNumber"]! as! String
     }
@@ -6297,7 +6324,7 @@ public struct SealedMessage: GraphQLFragment {
   }
 
   /// SEALED: Message body, null if MMS only.
-  public var body: String? {
+  internal var body: String? {
     get {
       return snapshot["body"] as? String
     }
@@ -6307,7 +6334,7 @@ public struct SealedMessage: GraphQLFragment {
   }
 
   /// SEALED: MMS attachments.
-  public var media: [Medium]? {
+  internal var media: [Medium]? {
     get {
       return (snapshot["media"] as? [Snapshot]).flatMap { $0.map { Medium(snapshot: $0) } }
     }
@@ -6317,7 +6344,7 @@ public struct SealedMessage: GraphQLFragment {
   }
 
   /// UNSEALED: Direction of message.
-  public var direction: MessageDirection {
+  internal var direction: MessageDirection {
     get {
       return snapshot["direction"]! as! MessageDirection
     }
@@ -6327,7 +6354,7 @@ public struct SealedMessage: GraphQLFragment {
   }
 
   /// UNSEALED: Has this message been marked as seen on client.
-  public var seen: Bool {
+  internal var seen: Bool {
     get {
       return snapshot["seen"]! as! Bool
     }
@@ -6337,7 +6364,7 @@ public struct SealedMessage: GraphQLFragment {
   }
 
   /// UNSEALED: State of message record.
-  public var state: MessageState {
+  internal var state: MessageState {
     get {
       return snapshot["state"]! as! MessageState
     }
@@ -6347,7 +6374,7 @@ public struct SealedMessage: GraphQLFragment {
   }
 
   /// UNSEALED: v4 UUID of user that owns the message resource.
-  public var owner: GraphQLID {
+  internal var owner: GraphQLID {
     get {
       return snapshot["owner"]! as! GraphQLID
     }
@@ -6356,8 +6383,8 @@ public struct SealedMessage: GraphQLFragment {
     }
   }
 
-  /// UNSEALED: Algorithm descriptor describing public and symmetric key encryption, e.g RSAEncryptionOAEPSHA256AESGCM.
-  public var algorithm: String {
+  /// UNSEALED: Algorithm descriptor describing internal and symmetric key encryption, e.g RSAEncryptionOAEPSHA256AESGCM.
+  internal var algorithm: String {
     get {
       return snapshot["algorithm"]! as! String
     }
@@ -6366,8 +6393,8 @@ public struct SealedMessage: GraphQLFragment {
     }
   }
 
-  /// UNSEALED: Client generated key ID for the public key.
-  public var keyId: String {
+  /// UNSEALED: Client generated key ID for the internal key.
+  internal var keyId: String {
     get {
       return snapshot["keyId"]! as! String
     }
@@ -6377,7 +6404,7 @@ public struct SealedMessage: GraphQLFragment {
   }
 
   /// UNSEALED: ID used for the client to subscribe to specific events.
-  public var clientRefId: String? {
+  internal var clientRefId: String? {
     get {
       return snapshot["clientRefId"] as? String
     }
@@ -6387,7 +6414,7 @@ public struct SealedMessage: GraphQLFragment {
   }
 
   /// UNSEALED: Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
-  public var createdAtEpochMs: Double {
+  internal var createdAtEpochMs: Double {
     get {
       return snapshot["createdAtEpochMs"]! as! Double
     }
@@ -6397,7 +6424,7 @@ public struct SealedMessage: GraphQLFragment {
   }
 
   /// UNSEALED: Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
-  public var updatedAtEpochMs: Double {
+  internal var updatedAtEpochMs: Double {
     get {
       return snapshot["updatedAtEpochMs"]! as! Double
     }
@@ -6406,10 +6433,10 @@ public struct SealedMessage: GraphQLFragment {
     }
   }
 
-  public struct Medium: GraphQLSelectionSet {
-    public static let possibleTypes = ["S3MediaObject"]
+  internal struct Medium: GraphQLSelectionSet {
+    internal static let possibleTypes = ["S3MediaObject"]
 
-    public static let selections: [GraphQLSelection] = [
+    internal static let selections: [GraphQLSelection] = [
       GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
       GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
       GraphQLField("key", type: .nonNull(.scalar(String.self))),
@@ -6417,17 +6444,17 @@ public struct SealedMessage: GraphQLFragment {
       GraphQLField("region", type: .nonNull(.scalar(String.self))),
     ]
 
-    public var snapshot: Snapshot
+    internal var snapshot: Snapshot
 
-    public init(snapshot: Snapshot) {
+    internal init(snapshot: Snapshot) {
       self.snapshot = snapshot
     }
 
-    public init(key: String, bucket: String, region: String) {
+    internal init(key: String, bucket: String, region: String) {
       self.init(snapshot: ["__typename": "S3MediaObject", "key": key, "bucket": bucket, "region": region])
     }
 
-    public var __typename: String {
+    internal var __typename: String {
       get {
         return snapshot["__typename"]! as! String
       }
@@ -6437,7 +6464,7 @@ public struct SealedMessage: GraphQLFragment {
     }
 
     /// Key of object in S3.
-    public var key: String {
+    internal var key: String {
       get {
         return snapshot["key"]! as! String
       }
@@ -6447,7 +6474,7 @@ public struct SealedMessage: GraphQLFragment {
     }
 
     /// Name of S3 bucket.
-    public var bucket: String {
+    internal var bucket: String {
       get {
         return snapshot["bucket"]! as! String
       }
@@ -6457,7 +6484,7 @@ public struct SealedMessage: GraphQLFragment {
     }
 
     /// Region S3 bucket is located in.
-    public var region: String {
+    internal var region: String {
       get {
         return snapshot["region"]! as! String
       }
@@ -6466,7 +6493,7 @@ public struct SealedMessage: GraphQLFragment {
       }
     }
 
-    public var fragments: Fragments {
+    internal var fragments: Fragments {
       get {
         return Fragments(snapshot: snapshot)
       }
@@ -6475,10 +6502,10 @@ public struct SealedMessage: GraphQLFragment {
       }
     }
 
-    public struct Fragments {
-      public var snapshot: Snapshot
+    internal struct Fragments {
+      internal var snapshot: Snapshot
 
-      public var s3MediaObject: S3MediaObject {
+      internal var s3MediaObject: S3MediaObject {
         get {
           return S3MediaObject(snapshot: snapshot)
         }
@@ -6490,13 +6517,13 @@ public struct SealedMessage: GraphQLFragment {
   }
 }
 
-public struct Conversation: GraphQLFragment {
-  public static let fragmentString =
+internal struct Conversation: GraphQLFragment {
+  internal static let fragmentString =
     "fragment conversation on Conversation {\n  __typename\n  id\n  owner\n  type\n  lastMessage\n  createdAtEpochMs\n  updatedAtEpochMs\n}"
 
-  public static let possibleTypes = ["Conversation"]
+  internal static let possibleTypes = ["Conversation"]
 
-  public static let selections: [GraphQLSelection] = [
+  internal static let selections: [GraphQLSelection] = [
     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
     GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
     GraphQLField("owner", type: .nonNull(.scalar(GraphQLID.self))),
@@ -6506,17 +6533,17 @@ public struct Conversation: GraphQLFragment {
     GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
   ]
 
-  public var snapshot: Snapshot
+  internal var snapshot: Snapshot
 
-  public init(snapshot: Snapshot) {
+  internal init(snapshot: Snapshot) {
     self.snapshot = snapshot
   }
 
-  public init(id: GraphQLID, owner: GraphQLID, type: ConversationType, lastMessage: GraphQLID, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+  internal init(id: GraphQLID, owner: GraphQLID, type: ConversationType, lastMessage: GraphQLID, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
     self.init(snapshot: ["__typename": "Conversation", "id": id, "owner": owner, "type": type, "lastMessage": lastMessage, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
   }
 
-  public var __typename: String {
+  internal var __typename: String {
     get {
       return snapshot["__typename"]! as! String
     }
@@ -6529,7 +6556,7 @@ public struct Conversation: GraphQLFragment {
   /// result when provided with identical inputs, a fixed namespace UUID is included to
   /// further reduce collision.  Conversation IDs should be calculated as follows:
   /// v5(owner, localPhoneNumber + remotePhoneNumber)
-  public var id: GraphQLID {
+  internal var id: GraphQLID {
     get {
       return snapshot["id"]! as! GraphQLID
     }
@@ -6539,7 +6566,7 @@ public struct Conversation: GraphQLFragment {
   }
 
   /// v4 UUID of user that owns the conversation resource.
-  public var owner: GraphQLID {
+  internal var owner: GraphQLID {
     get {
       return snapshot["owner"]! as! GraphQLID
     }
@@ -6549,7 +6576,7 @@ public struct Conversation: GraphQLFragment {
   }
 
   /// Type for this conversation.
-  public var type: ConversationType {
+  internal var type: ConversationType {
     get {
       return snapshot["type"]! as! ConversationType
     }
@@ -6559,7 +6586,7 @@ public struct Conversation: GraphQLFragment {
   }
 
   /// v4 UUID of last message, can be used to display preview in message feed.
-  public var lastMessage: GraphQLID {
+  internal var lastMessage: GraphQLID {
     get {
       return snapshot["lastMessage"]! as! GraphQLID
     }
@@ -6569,7 +6596,7 @@ public struct Conversation: GraphQLFragment {
   }
 
   /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
-  public var createdAtEpochMs: Double {
+  internal var createdAtEpochMs: Double {
     get {
       return snapshot["createdAtEpochMs"]! as! Double
     }
@@ -6579,7 +6606,7 @@ public struct Conversation: GraphQLFragment {
   }
 
   /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
-  public var updatedAtEpochMs: Double {
+  internal var updatedAtEpochMs: Double {
     get {
       return snapshot["updatedAtEpochMs"]! as! Double
     }
@@ -6589,30 +6616,30 @@ public struct Conversation: GraphQLFragment {
   }
 }
 
-public struct S3MediaObject: GraphQLFragment {
-  public static let fragmentString =
+internal struct S3MediaObject: GraphQLFragment {
+  internal static let fragmentString =
     "fragment s3MediaObject on S3MediaObject {\n  __typename\n  key\n  bucket\n  region\n}"
 
-  public static let possibleTypes = ["S3MediaObject"]
+  internal static let possibleTypes = ["S3MediaObject"]
 
-  public static let selections: [GraphQLSelection] = [
+  internal static let selections: [GraphQLSelection] = [
     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
     GraphQLField("key", type: .nonNull(.scalar(String.self))),
     GraphQLField("bucket", type: .nonNull(.scalar(String.self))),
     GraphQLField("region", type: .nonNull(.scalar(String.self))),
   ]
 
-  public var snapshot: Snapshot
+  internal var snapshot: Snapshot
 
-  public init(snapshot: Snapshot) {
+  internal init(snapshot: Snapshot) {
     self.snapshot = snapshot
   }
 
-  public init(key: String, bucket: String, region: String) {
+  internal init(key: String, bucket: String, region: String) {
     self.init(snapshot: ["__typename": "S3MediaObject", "key": key, "bucket": bucket, "region": region])
   }
 
-  public var __typename: String {
+  internal var __typename: String {
     get {
       return snapshot["__typename"]! as! String
     }
@@ -6622,7 +6649,7 @@ public struct S3MediaObject: GraphQLFragment {
   }
 
   /// Key of object in S3.
-  public var key: String {
+  internal var key: String {
     get {
       return snapshot["key"]! as! String
     }
@@ -6632,7 +6659,7 @@ public struct S3MediaObject: GraphQLFragment {
   }
 
   /// Name of S3 bucket.
-  public var bucket: String {
+  internal var bucket: String {
     get {
       return snapshot["bucket"]! as! String
     }
@@ -6642,7 +6669,7 @@ public struct S3MediaObject: GraphQLFragment {
   }
 
   /// Region S3 bucket is located in.
-  public var region: String {
+  internal var region: String {
     get {
       return snapshot["region"]! as! String
     }

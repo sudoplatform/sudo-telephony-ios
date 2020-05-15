@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="index.html">
-          SudoTelephony 2.0.4 Docs
+          SudoTelephony 3.0.0 Docs
         </a>
         
       </p>
@@ -65,28 +65,24 @@
             <a class="nav-group-name-link" href="Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/ConversationType.html">ConversationType</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/MessageDirection.html">MessageDirection</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/MessageState.html">MessageState</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/PhoneNumberSearchState.html">PhoneNumberSearchState</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/PhoneNumberState.html">PhoneNumberState</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions.html#/s:10AWSAppSync0aB19SubscriptionWatcherC">AWSAppSyncSubscriptionWatcher</a>
               </li>
             </ul>
           </li>
           <li class="nav-group-name">
             <a class="nav-group-name-link" href="Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/SubscriptionToken.html">SubscriptionToken</a>
+              </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/SudoTelephonyClient.html">SudoTelephonyClient</a>
               </li>
@@ -96,10 +92,10 @@
             <a class="nav-group-name-link" href="Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/DeprovisionPhoneNumberInput.html">DeprovisionPhoneNumberInput</a>
+                <a class="nav-group-task-link" href="Structs.html#/s:13SudoTelephony7KeyPairV">KeyPair</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs.html#/s:13SudoTelephony7KeyPairV">KeyPair</a>
+                <a class="nav-group-task-link" href="Structs.html#/s:13SudoTelephony11MediaObjectV">MediaObject</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/PhoneMessage.html">PhoneMessage</a>
@@ -115,15 +111,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/PhoneMessageConversation.html#/s:13SudoTelephony24PhoneMessageConversationV0dE4TypeO">– MessageConversationType</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/ProvisionPhoneNumberInput.html">ProvisionPhoneNumberInput</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/S3MediaObjectInput.html">S3MediaObjectInput</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/SendMessageInput.html">SendMessageInput</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/TelephonyListToken.html">TelephonyListToken</a>
@@ -157,118 +144,6 @@
           <div class="section-content">
             <div class="task-group">
               <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SudoTelephony25ProvisionPhoneNumberInputV"></a>
-                    <a name="//apple_ref/swift/Struct/ProvisionPhoneNumberInput" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony25ProvisionPhoneNumberInputV">ProvisionPhoneNumberInput</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Input definition to provision a phone number.</p>
-
-                        <a href="Structs/ProvisionPhoneNumberInput.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ProvisionPhoneNumberInput</span> <span class="p">:</span> <span class="kt">GraphQLMapConvertible</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SudoTelephony27DeprovisionPhoneNumberInputV"></a>
-                    <a name="//apple_ref/swift/Struct/DeprovisionPhoneNumberInput" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony27DeprovisionPhoneNumberInputV">DeprovisionPhoneNumberInput</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Input definition to delete a phone number.</p>
-
-                        <a href="Structs/DeprovisionPhoneNumberInput.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DeprovisionPhoneNumberInput</span> <span class="p">:</span> <span class="kt">GraphQLMapConvertible</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SudoTelephony16SendMessageInputV"></a>
-                    <a name="//apple_ref/swift/Struct/SendMessageInput" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony16SendMessageInputV">SendMessageInput</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Input definition to send a message.</p>
-
-                        <a href="Structs/SendMessageInput.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SendMessageInput</span> <span class="p">:</span> <span class="kt">GraphQLMapConvertible</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SudoTelephony18S3MediaObjectInputV"></a>
-                    <a name="//apple_ref/swift/Struct/S3MediaObjectInput" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony18S3MediaObjectInputV">S3MediaObjectInput</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Representation of the S3 Object containing telephony media (i.e. MMS and Voicemails).</p>
-
-                        <a href="Structs/S3MediaObjectInput.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">S3MediaObjectInput</span> <span class="p">:</span> <span class="kt">GraphQLMapConvertible</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -318,6 +193,33 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PhoneMessage</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony11MediaObjectV"></a>
+                    <a name="//apple_ref/swift/Struct/MediaObject" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony11MediaObjectV">MediaObject</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A remote media object</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">MediaObject</span></code></pre>
 
                         </div>
                       </div>
@@ -389,7 +291,7 @@ participants.  This id of this object will be set as the conversation id on mess
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2020-04-30)</p>
+      <p>&copy; 2020 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2020-05-16)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
