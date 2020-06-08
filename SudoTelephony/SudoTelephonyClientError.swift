@@ -154,4 +154,28 @@ public enum SudoTelephonyClientError: Error, LocalizedError {
             self = .unknown
         }
     }
+
+    /// Initializes a SudoTelephonyClientError from an error retured by the service.
+    /// Will convert GraphQLError as well.
+    ///
+    /// - Parameters:
+    ///   - serviceError: Error returned by the service.
+    init(serviceError: Error?) {
+
+        guard let error = serviceError else {
+            self = .unknown
+            return
+        }
+
+        switch error {
+        case AWSAppSyncClientError.authenticationError(let error):
+            self = SudoTelephonyClientError.authenticationFailed(error)
+        case AWSAppSyncClientError.requestFailed:
+            self = SudoTelephonyClientError.requestFailed
+        case let error as GraphQLError:
+            self = SudoTelephonyClientError(internalError: error)
+        default:
+            self = SudoTelephonyClientError.internalError
+        }
+    }
 }

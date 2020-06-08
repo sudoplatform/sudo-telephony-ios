@@ -14,6 +14,8 @@ import SudoConfigManager
 import SudoApiClient
 import MobileCoreServices
 import SudoOperations
+import TwilioVoice
+import CallKit
 
 /// The type of a `SudoTelephonyClient` search callback.
 public typealias SudoTelephonySearchResult = (Swift.Result<AvailablePhoneNumberResult, SudoTelephonyClientError>) -> Void
@@ -164,6 +166,15 @@ public protocol SudoTelephonyClient {
     /// - Parameter nextToken: The token to use for pagination.
     /// - Parameter completion: Completion callback providing a list of conversations or an error if there was a failure.
     func getConversations(localNumber: PhoneNumber, limit: Int?, nextToken: String?, completion: @escaping (Swift.Result<TelephonyListToken<PhoneMessageConversation>, SudoTelephonyClientError>) -> Void) throws
+
+    /// Creates a call from a provisioned phone number to another number.
+    ///
+    /// - Parameters
+    ///     - localNumber: The E164 formatted phone number to call from. For example: "+14155552671".
+    ///     - remoteNumber: The E164 formatted phone number of the recipient. For example: "+14155552671".
+    ///     - delegate: ActiveCallDelegate for monitoring voice call events
+    /// - Throws: A `CallConfigurationError` if a CallProviderConfiguration object is not provided in the initializer.
+    func createVoiceCall(localNumber: PhoneNumber, remoteNumber: String, delegate: ActiveCallDelegate) throws
 }
 
 /// Default implementation of `SudoTelephonyClient`.
@@ -262,7 +273,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
     private unowned let sudoProfilesClient: SudoProfilesClient
     
     /// GraphQL client for communicating with the Sudo  service.
-    private var graphQLClient: AWSAppSyncClient
+    private let graphQLClient: AWSAppSyncClient
     
     /// Queue for processing API result.
     private let apiResultQueue = DispatchQueue(label: "com.sudoplatform.telephonyclient.api.result")
@@ -284,6 +295,18 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
 
     /// Queue for synchronized reading and writing to the `subscriptions` array.
     private let subscriptionsAccessQueue = DispatchQueue(label: "com.sudoplatform.telephonyclient.api.subscriptions")
+
+    /// Calling feature.
+    private var callProviderConfig: CallProviderConfiguration?
+    private lazy var calling: SudoTelephonyCalling? = {
+        guard let config = self.callProviderConfig else { return nil }
+        return SudoTelephonyCalling(
+            graphQLClient: self.graphQLClient,
+            apiResultQueue: self.apiResultQueue,
+            callProviderConfiguration: config,
+            logger: self.logger
+        )
+    }()
     
     /// Intializes a new `DefaultTelephonyClient` instance.  It uses configuration parameters defined in
     /// `sudoplatformconfig.json` file located in the app bundle.
@@ -291,9 +314,14 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
     /// - Parameters:
     ///   - sudoUserClient: `SudoUserClient` instance required to issue authentication tokens
     ///   - sudoProfilesClient: `SudoProfilesClient` instance required to issue ownership proofs
+    ///   - callProviderConfiguration: Optional configuration object for calling related functionality.  If not provided, attemts to use calling features will throw an error.
     ///   - logger: A logger to use for logging messages. If none provided then a default internal logger will be used.
     /// - Throws: `TelephonyClientError`
-    convenience public init(sudoUserClient: SudoUserClient, sudoProfilesClient: SudoProfilesClient) throws {
+    convenience public init(
+        sudoUserClient: SudoUserClient,
+        sudoProfilesClient: SudoProfilesClient,
+        callProviderConfiguration: CallProviderConfiguration? = nil
+    ) throws {
         guard let configManager = DefaultSudoConfigManager(),
             let identityServiceConfig = configManager.getConfigSet(namespace: Config.Namespace.identityService),
             let sudoTelephonyConfig = configManager.getConfigSet(namespace: Config.Namespace.apiService) else {
@@ -305,10 +333,16 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
             throw SudoTelephonyClientError.invalidConfig
         }
         
-        try self.init(config: [Config.Namespace.identityService: identityServiceConfig, Config.Namespace.apiService: sudoTelephonyConfig],
-                      sudoUserClient: sudoUserClient,
-                      sudoProfilesClient: sudoProfilesClient,
-                      graphQLClient: graphQLClient)
+        try self.init(
+            config: [
+                Config.Namespace.identityService: identityServiceConfig,
+                Config.Namespace.apiService: sudoTelephonyConfig
+            ],
+            sudoUserClient: sudoUserClient,
+            sudoProfilesClient: sudoProfilesClient,
+            callProviderConfiguration: callProviderConfiguration,
+            graphQLClient: graphQLClient
+        )
     }
     
     /// Intializes a new `DefaultTelephonyClient` instance with the specified backend configuration.
@@ -317,6 +351,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
     ///   - config: Configuration parameters for the client.
     ///   - sudoUserClient: `SudoUserClient` instance required to issue authentication tokens and perform cryptographic operations.
     ///   - sudoProfilesClient: `SudoProfilesClient` instance required to issue ownership proofs
+    ///   - callProviderConfiguration: Optional configuration object for calling related functionality.  If not provided, attemts to use calling features will throw an error.
     ///   - cacheType: Cache type to use. Please refer to CacheType enum.
     ///   - logger: A logger to use for logging messages. If none provided then a default internal logger will be used.
     ///   - keyNamespace: Namespace to use for the keys and passwords.
@@ -325,6 +360,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
     public init(config: [String: Any],
                 sudoUserClient: SudoUserClient,
                 sudoProfilesClient: SudoProfilesClient,
+                callProviderConfiguration: CallProviderConfiguration? = nil,
                 cacheType: CacheType = .disk,
                 logger: Logger? = nil,
                 keyNamespace: String = "tel",
@@ -387,6 +423,8 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
             graphQLClient.apolloClient?.cacheKeyForObject = { $0["id"] }
             self.graphQLClient = graphQLClient
         }
+
+        self.callProviderConfig = callProviderConfiguration
     }
 
     private var s3TransferUtility: AWSS3TransferUtility {
@@ -434,19 +472,6 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         return identityId + "/telephony/media/" + s3Key
     }
     
-    private func handleAppSyncError(_ error: Error) -> SudoTelephonyClientError {
-        switch error {
-        case AWSAppSyncClientError.authenticationError(let error):
-            return SudoTelephonyClientError.authenticationFailed(error)
-        case AWSAppSyncClientError.requestFailed:
-            return SudoTelephonyClientError.requestFailed
-        case let error as GraphQLError:
-            return SudoTelephonyClientError(internalError: error)
-        default:
-            return SudoTelephonyClientError.internalError
-        }
-    }
-    
     private func generateKeyPair(completion: @escaping (Swift.Result<PublicKey, SudoTelephonyClientError>) -> Void) throws {
         self.logger.info("Generating public/private keypair")
         
@@ -476,7 +501,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         
         graphQLClient.perform(mutation: mutation, queue: self.apiResultQueue, optimisticUpdate: nil, conflictResolutionBlock: nil) { (result, error) in
             guard error == nil else {
-                completion(.failure(self.handleAppSyncError(error!)))
+                completion(.failure(SudoTelephonyClientError(serviceError: error)))
                 return
             }
             
@@ -582,7 +607,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         self.graphQLClient.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, queue: self.apiResultQueue) { (result, error) in
             
             guard error == nil else {
-                completion(.failure(self.handleAppSyncError(error!)))
+                completion(.failure(SudoTelephonyClientError(serviceError: error)))
                 return
             }
             
@@ -603,7 +628,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         self.graphQLClient.perform(mutation: mutation, queue: self.apiResultQueue, optimisticUpdate: nil, conflictResolutionBlock: nil) { (result, error) in
             
             guard error == nil else {
-                completion(.failure(self.handleAppSyncError(error!)))
+                completion(.failure(SudoTelephonyClientError(serviceError: error)))
                 return
             }
             
@@ -637,7 +662,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         self.graphQLClient.perform(mutation: mutation, queue: self.apiResultQueue, optimisticUpdate: nil, conflictResolutionBlock: nil) { (result, error) in
             
             guard error == nil else {
-                completion(.failure(self.handleAppSyncError(error!)))
+                completion(.failure(SudoTelephonyClientError(serviceError: error)))
                 return
             }
             
@@ -663,7 +688,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         self.graphQLClient.perform(mutation: mutation, queue: self.apiResultQueue, optimisticUpdate: nil, conflictResolutionBlock: nil) { (result, error) in
             
             guard error == nil else {
-                completion(.failure(self.handleAppSyncError(error!)))
+                completion(.failure(SudoTelephonyClientError(serviceError: error)))
                 return
             }
             
@@ -690,7 +715,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
             guard let self = self else {return}
 
             guard error == nil else {
-                completion(.failure(self.handleAppSyncError(error!)))
+                completion(.failure(SudoTelephonyClientError(serviceError: error)))
                 return
             }
 
@@ -722,7 +747,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         // Result handler block to be called after provisioning
         let resultHandler = { (result: GraphQLResult<ProvisionPhoneNumberMutation.Data>?, error: Error?) in
             guard error == nil else {
-                completion(.failure(self.handleAppSyncError(error!)))
+                completion(.failure(SudoTelephonyClientError(serviceError: error)))
                 return
             }
 
@@ -743,7 +768,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
             func postProvisionFetchHandler(query: PhoneNumberQuery, completion: @escaping (Swift.Result<PhoneNumber, SudoTelephonyClientError>) -> Void) {
                 self.graphQLClient.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, queue: self.apiResultQueue) { (result, error) in
                     guard error == nil else {
-                        completion(.failure(self.handleAppSyncError(error!)))
+                        completion(.failure(SudoTelephonyClientError(serviceError: error)))
                         return
                     }
 
@@ -843,7 +868,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         let mutation = DeprovisionPhoneNumberMutation(input: input)
         self.graphQLClient.perform(mutation: mutation, queue: self.apiResultQueue, optimisticUpdate: nil, conflictResolutionBlock: nil) { (result, error) in
             guard error == nil else {
-                completion(.failure(self.handleAppSyncError(error!)))
+                completion(.failure(SudoTelephonyClientError(serviceError: error)))
                 return
             }
             
@@ -863,7 +888,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         
         self.graphQLClient.fetch(query: query, cachePolicy: .returnCacheDataAndFetch, queue: self.apiResultQueue) { (result, error) in
             guard error == nil else {
-                completion(.failure(self.handleAppSyncError(error!)))
+                completion(.failure(SudoTelephonyClientError(serviceError: error)))
                 return
             }
 
@@ -888,7 +913,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         
         self.graphQLClient.fetch(query: query, cachePolicy: .returnCacheDataElseFetch, queue: self.apiResultQueue) { (result, error) in
             guard error == nil else {
-                completion(.failure(self.handleAppSyncError(error!)))
+                completion(.failure(SudoTelephonyClientError(serviceError: error)))
                 return
             }
             
@@ -911,7 +936,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         self.graphQLClient.perform(mutation: mutation, queue: self.apiResultQueue, optimisticUpdate: nil, conflictResolutionBlock: nil) { (result, error) in
             let containerError = result?.errors?.first
             guard error == nil, containerError == nil else {
-                completion(.failure((error ?? containerError).map(self.handleAppSyncError) ?? SudoTelephonyClientError.messageSendFailed))
+                completion(.failure(SudoTelephonyClientError(serviceError: error)))
                 return
             }
 
@@ -955,8 +980,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
             self.graphQLClient.perform(mutation: mutation, queue: self.apiResultQueue, optimisticUpdate: nil, conflictResolutionBlock: nil) { (result, error) in
                 let containerError = result?.errors?.first
                 guard error == nil, containerError == nil else {
-                    let e = self.handleAppSyncError(error ?? containerError ?? SudoTelephonyClientError.messageSendFailed)
-                    completion(.failure(e))
+                    completion(.failure(SudoTelephonyClientError(serviceError: error)))
                     return
                 }
                 guard let messageId = result?.data?.sendMessage else {
@@ -985,7 +1009,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         let query = GetMessageQuery(id: id, keyId: keyId)
         self.graphQLClient.fetch(query: query, cachePolicy: .returnCacheDataElseFetch, queue: self.apiResultQueue) { (result, error) in
             guard error == nil else {
-                completion(.failure(self.handleAppSyncError(error!)))
+                completion(.failure(SudoTelephonyClientError(serviceError: error)))
                 return
             }
             
@@ -1033,7 +1057,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         let query = ListMessagesQuery(filter: filterInput, limit: limit, nextToken: nextToken)
         self.graphQLClient.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, queue: self.apiResultQueue) { (result, error) in
             guard error == nil else {
-                completion(.failure(self.handleAppSyncError(error!)))
+                completion(.failure(SudoTelephonyClientError(serviceError: error)))
                 return
             }
             
@@ -1158,7 +1182,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         let resultHandler: (GraphQLResult<OnMessageReceivedSubscription.Data>?, ApolloStore.ReadWriteTransaction?, Error?) -> Void = { (result, _, error) in
             let containerError = result?.errors?.first
             guard error == nil, containerError == nil else {
-                resultHandler(.failure((error ?? containerError).map(self.handleAppSyncError) ?? SudoTelephonyClientError.messageSubscriptionFailed))
+                resultHandler(.failure(SudoTelephonyClientError(serviceError: error)))
                 return
             }
             guard let sealedMessage = result?.data?.onMessage else {
@@ -1217,7 +1241,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         let mutation = DeleteMessageMutation(id: id)
         self.graphQLClient.perform(mutation: mutation, queue: self.apiResultQueue, optimisticUpdate: nil, conflictResolutionBlock: nil) { (result, error) in
             guard error == nil else {
-                completion(.failure(self.handleAppSyncError(error!)))
+                completion(.failure(SudoTelephonyClientError(serviceError: error)))
                 return
             }
             
@@ -1236,7 +1260,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         
         self.graphQLClient.fetch(query: query, cachePolicy: .returnCacheDataAndFetch, queue: self.apiResultQueue) { (result, error) in
             guard error == nil else {
-                completion(.failure(self.handleAppSyncError(error!)))
+                completion(.failure(SudoTelephonyClientError(serviceError: error)))
                 return
             }
             
@@ -1323,4 +1347,16 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         conversationsOperation.addCondition(SignedInCondition(userClient: self.sudoUserClient))
         self.queue.addOperation(conversationsOperation)
     }
+
+    // - MARK: Calling
+
+    public func createVoiceCall(localNumber: PhoneNumber, remoteNumber: String, delegate: ActiveCallDelegate) throws {
+
+        guard let calling = self.calling else {
+            throw CallConfigurationError.missingCallProviderConfiguration
+        }
+
+        try calling.createVoiceCall(localNumber: localNumber, remoteNumber: remoteNumber, delegate: delegate)
+    }
 }
+

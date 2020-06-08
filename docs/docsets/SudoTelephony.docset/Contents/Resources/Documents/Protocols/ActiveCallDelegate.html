@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>PhoneMessageConversation Structure Reference</title>
+    <title>ActiveCallDelegate Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Struct/PhoneMessageConversation" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Protocol/ActiveCallDelegate" class="dashAnchor"></a>
 
-    <a title="PhoneMessageConversation Structure Reference"></a>
+    <a title="ActiveCallDelegate Protocol Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">SudoTelephony Reference</a>
       <img class="carat" src="../img/carat.png" />
-      PhoneMessageConversation Structure Reference
+      ActiveCallDelegate Protocol Reference
     </p>
 
     <div class="content-wrapper">
@@ -149,15 +149,14 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>PhoneMessageConversation</h1>
+            <h1>ActiveCallDelegate</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PhoneMessageConversation</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ActiveCallDelegate</span></code></pre>
 
                 </div>
               </div>
-            <p>An object representing a conversation between a sudo phone number and one or more
-participants.  This id of this object will be set as the conversation id on message objects</p>
+            <p>Delegate for receiving notifications about new <code><a href="../Classes/ActiveVoiceCall.html">ActiveVoiceCall</a></code> events.</p>
 
           </div>
         </section>
@@ -169,9 +168,9 @@ participants.  This id of this object will be set as the conversation id on mess
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony24PhoneMessageConversationV0dE4TypeO"></a>
-                    <a name="//apple_ref/swift/Enum/MessageConversationType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony24PhoneMessageConversationV0dE4TypeO">MessageConversationType</a>
+                    <a name="/s:13SudoTelephony18ActiveCallDelegateP011activeVoiceD10DidConnectyyAA0cgD0CF"></a>
+                    <a name="//apple_ref/swift/Method/activeVoiceCallDidConnect(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony18ActiveCallDelegateP011activeVoiceD10DidConnectyyAA0cgD0CF">activeVoiceCallDidConnect(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -179,16 +178,35 @@ participants.  This id of this object will be set as the conversation id on mess
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Enum that represents the direction of the message.</p>
+                        <p>Notifies the delegate that the call has connected</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">MessageConversationType</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">activeVoiceCallDidConnect</span><span class="p">(</span><span class="n">_</span> <span class="nv">call</span><span class="p">:</span> <span class="kt"><a href="../Classes/ActiveVoiceCall.html">ActiveVoiceCall</a></span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>call</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Classes/ActiveVoiceCall.html">ActiveVoiceCall</a></code></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -196,9 +214,9 @@ participants.  This id of this object will be set as the conversation id on mess
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony24PhoneMessageConversationV2idSSvp"></a>
-                    <a name="//apple_ref/swift/Property/id" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony24PhoneMessageConversationV2idSSvp">id</a>
+                    <a name="/s:13SudoTelephony18ActiveCallDelegateP011activeVoiceD16DidFailToConnect9withErroryAA07CallingM0O_tF"></a>
+                    <a name="//apple_ref/swift/Method/activeVoiceCallDidFailToConnect(withError:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony18ActiveCallDelegateP011activeVoiceD16DidFailToConnect9withErroryAA07CallingM0O_tF">activeVoiceCallDidFailToConnect(withError:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -206,16 +224,35 @@ participants.  This id of this object will be set as the conversation id on mess
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Unique ID of the conversation. Calculated by calculating the v5 UUID of <code>localPhoneNumber + remotePhoneNumber</code> with <code><a href="../Structs/PhoneMessageConversation.html#/s:13SudoTelephony24PhoneMessageConversationV5ownerSSvp">owner</a></code> as the namespace</p>
+                        <p>Notifies the delegate that the call failed to connect</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">activeVoiceCallDidFailToConnect</span><span class="p">(</span><span class="n">withError</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Enums/CallingError.html">CallingError</a></span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code><a href="../Enums/CallingError.html">CallingError</a></code> that occurred.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -223,9 +260,9 @@ participants.  This id of this object will be set as the conversation id on mess
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony24PhoneMessageConversationV5ownerSSvp"></a>
-                    <a name="//apple_ref/swift/Property/owner" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony24PhoneMessageConversationV5ownerSSvp">owner</a>
+                    <a name="/s:13SudoTelephony18ActiveCallDelegateP011activeVoiceD0_22didDisconnectWithErroryAA0cgD0C_s0K0_pSgtF"></a>
+                    <a name="//apple_ref/swift/Method/activeVoiceCall(_:didDisconnectWithError:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony18ActiveCallDelegateP011activeVoiceD0_22didDisconnectWithErroryAA0cgD0C_s0K0_pSgtF">activeVoiceCall(_:<wbr>didDisconnectWithError:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -233,16 +270,47 @@ participants.  This id of this object will be set as the conversation id on mess
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The ID of the owner of the message (also referred to as the subject)</p>
+                        <p>Notifies the delegate that the call has been disconnected</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">owner</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">activeVoiceCall</span><span class="p">(</span><span class="n">_</span> <span class="nv">call</span><span class="p">:</span> <span class="kt"><a href="../Classes/ActiveVoiceCall.html">ActiveVoiceCall</a></span><span class="p">,</span> <span class="n">didDisconnectWithError</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>call</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Classes/ActiveVoiceCall.html">ActiveVoiceCall</a></code></p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Error that caused the call to disconnect if one occurred.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -250,9 +318,9 @@ participants.  This id of this object will be set as the conversation id on mess
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony24PhoneMessageConversationV4typeAC0dE4TypeOvp"></a>
-                    <a name="//apple_ref/swift/Property/type" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony24PhoneMessageConversationV4typeAC0dE4TypeOvp">type</a>
+                    <a name="/s:13SudoTelephony18ActiveCallDelegateP011activeVoiceD0_18didChangeMuteStateyAA0cgD0C_SbtF"></a>
+                    <a name="//apple_ref/swift/Method/activeVoiceCall(_:didChangeMuteState:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony18ActiveCallDelegateP011activeVoiceD0_18didChangeMuteStateyAA0cgD0C_SbtF">activeVoiceCall(_:<wbr>didChangeMuteState:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -260,124 +328,47 @@ participants.  This id of this object will be set as the conversation id on mess
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code><a href="../Structs/PhoneMessageConversation.html#/s:13SudoTelephony24PhoneMessageConversationV0dE4TypeO">MessageConversationType</a></code> of the conversation</p>
+                        <p>Notifies the delegate that the call has been disconnected</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">type</span><span class="p">:</span> <span class="kt"><a href="../Structs/PhoneMessageConversation.html#/s:13SudoTelephony24PhoneMessageConversationV0dE4TypeO">MessageConversationType</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">activeVoiceCall</span><span class="p">(</span><span class="n">_</span> <span class="nv">call</span><span class="p">:</span> <span class="kt"><a href="../Classes/ActiveVoiceCall.html">ActiveVoiceCall</a></span><span class="p">,</span> <span class="n">didChangeMuteState</span> <span class="nv">isMuted</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SudoTelephony24PhoneMessageConversationV06latestD2IdSSvp"></a>
-                    <a name="//apple_ref/swift/Property/latestMessageId" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony24PhoneMessageConversationV06latestD2IdSSvp">latestMessageId</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The id of the latest message in the conversation</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">latestMessageId</span><span class="p">:</span> <span class="kt">String</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SudoTelephony24PhoneMessageConversationV06latestcD0AA0cD0VSgvp"></a>
-                    <a name="//apple_ref/swift/Property/latestPhoneMessage" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony24PhoneMessageConversationV06latestcD0AA0cD0VSgvp">latestPhoneMessage</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The latest phone message</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">latestPhoneMessage</span><span class="p">:</span> <span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SudoTelephony24PhoneMessageConversationV7created10Foundation4DateVvp"></a>
-                    <a name="//apple_ref/swift/Property/created" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony24PhoneMessageConversationV7created10Foundation4DateVvp">created</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The creation date of the conversation</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">created</span><span class="p">:</span> <span class="kt">Date</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13SudoTelephony24PhoneMessageConversationV7updated10Foundation4DateVvp"></a>
-                    <a name="//apple_ref/swift/Property/updated" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony24PhoneMessageConversationV7updated10Foundation4DateVvp">updated</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The date of the last modification to the conversation</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">updated</span><span class="p">:</span> <span class="kt">Date</span></code></pre>
-
-                        </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>call</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Classes/ActiveVoiceCall.html">ActiveVoiceCall</a></code></p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>isMuted</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Whether outgoing call audio is muted</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>

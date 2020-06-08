@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          SudoTelephony 3.0.0 Docs
+          SudoTelephony 3.1.0 Docs
         </a>
         
       </p>
@@ -48,6 +48,9 @@
             <a class="nav-group-name-link" href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ActiveVoiceCall.html">ActiveVoiceCall</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/DefaultSudoTelephonyClient.html">DefaultSudoTelephonyClient</a>
               </li>
               <li class="nav-group-task">
@@ -65,6 +68,12 @@
             <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/CallConfigurationError.html">CallConfigurationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/CallingError.html">CallingError</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a>
               </li>
             </ul>
@@ -81,6 +90,9 @@
             <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ActiveCallDelegate.html">ActiveCallDelegate</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/SubscriptionToken.html">SubscriptionToken</a>
               </li>
               <li class="nav-group-task">
@@ -91,6 +103,9 @@
           <li class="nav-group-name">
             <a class="nav-group-name-link" href="../Structs.html">Structures</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/CallProviderConfiguration.html">CallProviderConfiguration</a>
+              </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs.html#/s:13SudoTelephony7KeyPairV">KeyPair</a>
               </li>
@@ -1538,6 +1553,38 @@ The list can be queried in batches, where the limit and the next batch token can
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP15createVoiceCall11localNumber06remoteH08delegateyAA05PhoneH0V_SSAA06ActiveF8Delegate_ptKF"></a>
+                    <a name="//apple_ref/swift/Method/createVoiceCall(localNumber:remoteNumber:delegate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP15createVoiceCall11localNumber06remoteH08delegateyAA05PhoneH0V_SSAA06ActiveF8Delegate_ptKF">createVoiceCall(localNumber:<wbr>remoteNumber:<wbr>delegate:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a call from a provisioned phone number to another number.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    A <code><a href="../Enums/CallConfigurationError.html">CallConfigurationError</a></code> if a CallProviderConfiguration object is not provided in the initializer.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">createVoiceCall</span><span class="p">(</span><span class="nv">localNumber</span><span class="p">:</span> <span class="kt">PhoneNumber</span><span class="p">,</span> <span class="nv">remoteNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ActiveCallDelegate.html">ActiveCallDelegate</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
@@ -1546,7 +1593,7 @@ The list can be queried in batches, where the limit and the next batch token can
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2020-05-16)</p>
+      <p>&copy; 2020 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2020-06-09)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

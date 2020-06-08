@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>TelephonyListToken Structure Reference</title>
+    <title>CallingError Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Struct/TelephonyListToken" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Enum/CallingError" class="dashAnchor"></a>
 
-    <a title="TelephonyListToken Structure Reference"></a>
+    <a title="CallingError Enumeration Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">SudoTelephony Reference</a>
       <img class="carat" src="../img/carat.png" />
-      TelephonyListToken Structure Reference
+      CallingError Enumeration Reference
     </p>
 
     <div class="content-wrapper">
@@ -149,14 +149,14 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>TelephonyListToken</h1>
+            <h1>CallingError</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">TelephonyListToken</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">CallingError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">LocalizedError</span></code></pre>
 
                 </div>
               </div>
-            <p>Object containing a page of objects from a list, along with a token referencing the next page.</p>
+            <p>Errors for the calling feature</p>
 
           </div>
         </section>
@@ -168,9 +168,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0B9ListTokenV5itemsSayxGvp"></a>
-                    <a name="//apple_ref/swift/Property/items" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0B9ListTokenV5itemsSayxGvp">items</a>
+                    <a name="/s:13SudoTelephony12CallingErrorO26recordPermissionNotGrantedyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/recordPermissionNotGranted" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony12CallingErrorO26recordPermissionNotGrantedyA2CmF">recordPermissionNotGranted</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -178,14 +178,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Items returned from the token that represent a page in the overall list.</p>
+                        <p>Not permitted to access the microphone</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">items</span><span class="p">:</span> <span class="p">[</span><span class="kt">T</span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">recordPermissionNotGranted</span></code></pre>
 
                         </div>
                       </div>
@@ -195,9 +195,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0B9ListTokenV04nextD0SSSgvp"></a>
-                    <a name="//apple_ref/swift/Property/nextToken" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0B9ListTokenV04nextD0SSSgvp">nextToken</a>
+                    <a name="/s:13SudoTelephony12CallingErrorO21startCallActionFailedyACs0D0_pcACmF"></a>
+                    <a name="//apple_ref/swift/Element/startCallActionFailed(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony12CallingErrorO21startCallActionFailedyACs0D0_pcACmF">startCallActionFailed(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -205,14 +205,67 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A token that can be used to retrieve the next page.</p>
+                        <p>CXStartCallAction failed</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">startCallActionFailed</span><span class="p">(</span><span class="kt">Error</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony12CallingErrorO29failedToAuthorizeOutgoingCallyAcA0ab6ClientD0OSgcACmF"></a>
+                    <a name="//apple_ref/swift/Element/failedToAuthorizeOutgoingCall(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony12CallingErrorO29failedToAuthorizeOutgoingCallyAcA0ab6ClientD0OSgcACmF">failedToAuthorizeOutgoingCall(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Failed to authorize outgoing call</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">failedToAuthorizeOutgoingCall</span><span class="p">(</span><span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10Foundation14LocalizedErrorP16errorDescriptionSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/errorDescription" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Foundation14LocalizedErrorP16errorDescriptionSSSgvp">errorDescription</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">errorDescription</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>

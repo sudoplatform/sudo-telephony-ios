@@ -1,6 +1,13 @@
 {
   "warnings": [
     {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/Calling/ActiveVoiceCall.swift",
+      "line": 51,
+      "symbol": "ActiveVoiceCall.isMuted",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/Model/AvailablePhoneNumberResult.swift",
       "line": 10,
       "symbol": "AvailablePhoneNumberResult",
@@ -135,21 +142,21 @@
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/SudoTelephonyClient.swift",
-      "line": 516,
+      "line": 541,
       "symbol": "DefaultSudoTelephonyClient.getKeyPair()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/SudoTelephonyClient.swift",
-      "line": 529,
+      "line": 554,
       "symbol": "DefaultSudoTelephonyClient.getKeyId()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/SudoTelephonyClient.swift",
-      "line": 540,
+      "line": 565,
       "symbol": "DefaultSudoTelephonyClient.getKeyRingId()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

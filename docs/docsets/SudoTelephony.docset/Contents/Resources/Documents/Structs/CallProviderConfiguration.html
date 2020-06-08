@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>TelephonyListToken Structure Reference</title>
+    <title>CallProviderConfiguration Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Struct/TelephonyListToken" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Struct/CallProviderConfiguration" class="dashAnchor"></a>
 
-    <a title="TelephonyListToken Structure Reference"></a>
+    <a title="CallProviderConfiguration Structure Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">SudoTelephony Reference</a>
       <img class="carat" src="../img/carat.png" />
-      TelephonyListToken Structure Reference
+      CallProviderConfiguration Structure Reference
     </p>
 
     <div class="content-wrapper">
@@ -149,14 +149,14 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>TelephonyListToken</h1>
+            <h1>CallProviderConfiguration</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">TelephonyListToken</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CallProviderConfiguration</span></code></pre>
 
                 </div>
               </div>
-            <p>Object containing a page of objects from a list, along with a token referencing the next page.</p>
+            <p>A CallProviderConfiguration object controls the native call UI for incoming and outgoing calls, including a localized name for the provider, the ringtone to be played for incoming calls, and the icon to be displayed during calls.</p>
 
           </div>
         </section>
@@ -168,9 +168,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0B9ListTokenV5itemsSayxGvp"></a>
-                    <a name="//apple_ref/swift/Property/items" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0B9ListTokenV5itemsSayxGvp">items</a>
+                    <a name="/s:13SudoTelephony25CallProviderConfigurationV13localizedNameSSvp"></a>
+                    <a name="//apple_ref/swift/Property/localizedName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony25CallProviderConfigurationV13localizedNameSSvp">localizedName</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -178,14 +178,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Items returned from the token that represent a page in the overall list.</p>
+                        <p>The localized name of the provider.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">items</span><span class="p">:</span> <span class="p">[</span><span class="kt">T</span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">localizedName</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -195,9 +195,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0B9ListTokenV04nextD0SSSgvp"></a>
-                    <a name="//apple_ref/swift/Property/nextToken" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0B9ListTokenV04nextD0SSSgvp">nextToken</a>
+                    <a name="/s:13SudoTelephony25CallProviderConfigurationV12iconTemplateSo7UIImageCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/iconTemplate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony25CallProviderConfigurationV12iconTemplateSo7UIImageCSgvp">iconTemplate</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -205,14 +205,102 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A token that can be used to retrieve the next page.</p>
+                        <p>The icon image to be displayed for the provider.</p>
+
+<p>The icon image should be a square with side length of 40 points. The alpha channel of the image is used to create a white image mask, which is used in the system native in-call UI for the button which takes the user from this system UI to the 3rd-party app.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">iconTemplate</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony25CallProviderConfigurationV13ringtoneSoundSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/ringtoneSound" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony25CallProviderConfigurationV13ringtoneSoundSSSgvp">ringtoneSound</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The name of the sound resource in the app bundle to be used for the provider ringtone.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">ringtoneSound</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony25CallProviderConfigurationV22includesCallsInRecentsSbvp"></a>
+                    <a name="//apple_ref/swift/Property/includesCallsInRecents" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony25CallProviderConfigurationV22includesCallsInRecentsSbvp">includesCallsInRecents</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether or not calls from this provider should be included in the iOS Recents list.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">includesCallsInRecents</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony25CallProviderConfigurationV13localizedName12iconTemplate13ringtoneSound22includesCallsInRecentsACSS_So7UIImageCSgSSSgSbtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(localizedName:iconTemplate:ringtoneSound:includesCallsInRecents:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony25CallProviderConfigurationV13localizedName12iconTemplate13ringtoneSound22includesCallsInRecentsACSS_So7UIImageCSgSSSgSbtcfc">init(localizedName:<wbr>iconTemplate:<wbr>ringtoneSound:<wbr>includesCallsInRecents:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Instantiates a CallProviderConfiguration</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">localizedName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">iconTemplate</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?,</span>
+    <span class="nv">ringtoneSound</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+    <span class="nv">includesCallsInRecents</span><span class="p">:</span> <span class="kt">Bool</span>
+<span class="p">)</span></code></pre>
 
                         </div>
                       </div>

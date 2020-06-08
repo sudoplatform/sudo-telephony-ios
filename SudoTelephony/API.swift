@@ -853,6 +853,35 @@ internal struct ConversationFilterInput: GraphQLMapConvertible {
   }
 }
 
+internal struct CreateVoiceCallInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
+
+  internal init(from: String, to: String) {
+    graphQLMap = ["from": from, "to": to]
+  }
+
+  /// Source phone number in E164 format.
+  internal var from: String {
+    get {
+      return graphQLMap["from"] as! String
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "from")
+    }
+  }
+
+  /// Recipient. Must be one of the following:
+  /// - A phone number in E164 format.
+  internal var to: String {
+    get {
+      return graphQLMap["to"] as! String
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "to")
+    }
+  }
+}
+
 /// Possible directions for a SMS/MMS message.
 internal enum MessageDirection: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
   internal typealias RawValue = String
@@ -5815,6 +5844,86 @@ internal final class ListConversationsQuery: GraphQLQuery {
               snapshot += newValue.snapshot
             }
           }
+        }
+      }
+    }
+  }
+}
+
+internal final class CreateVoiceCallMutation: GraphQLMutation {
+  internal static let operationString =
+    "mutation createVoiceCall($input: CreateVoiceCallInput!) {\n  createVoiceCall(input: $input) {\n    __typename\n    token\n  }\n}"
+
+  internal var input: CreateVoiceCallInput
+
+  internal init(input: CreateVoiceCallInput) {
+    self.input = input
+  }
+
+  internal var variables: GraphQLMap? {
+    return ["input": input]
+  }
+
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Mutation"]
+
+    internal static let selections: [GraphQLSelection] = [
+      GraphQLField("createVoiceCall", arguments: ["input": GraphQLVariable("input")], type: .nonNull(.object(CreateVoiceCall.selections))),
+    ]
+
+    internal var snapshot: Snapshot
+
+    internal init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    internal init(createVoiceCall: CreateVoiceCall) {
+      self.init(snapshot: ["__typename": "Mutation", "createVoiceCall": createVoiceCall.snapshot])
+    }
+
+    /// Retrieve an access token for initiating an outgoing voice call.
+    internal var createVoiceCall: CreateVoiceCall {
+      get {
+        return CreateVoiceCall(snapshot: snapshot["createVoiceCall"]! as! Snapshot)
+      }
+      set {
+        snapshot.updateValue(newValue.snapshot, forKey: "createVoiceCall")
+      }
+    }
+
+    internal struct CreateVoiceCall: GraphQLSelectionSet {
+      internal static let possibleTypes = ["AccessToken"]
+
+      internal static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("token", type: .nonNull(.scalar(String.self))),
+      ]
+
+      internal var snapshot: Snapshot
+
+      internal init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      internal init(token: String) {
+        self.init(snapshot: ["__typename": "AccessToken", "token": token])
+      }
+
+      internal var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      internal var token: String {
+        get {
+          return snapshot["token"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "token")
         }
       }
     }
