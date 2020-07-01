@@ -31,7 +31,7 @@ PODS:
     - SudoLogging (~> 0.2)
   - SudoKeyManager (1.0.0)
   - SudoLogging (0.2.0)
-  - SudoOperations (1.0.0):
+  - SudoOperations (2.1.0):
     - AWSAppSync (~> 3.0)
     - SudoLogging (~> 0.2)
   - SudoProfiles (5.4.0):
@@ -51,7 +51,7 @@ PODS:
 
 DEPENDENCIES:
   - SudoApiClient (~> 1.3)
-  - SudoOperations (~> 1.0)
+  - SudoOperations (~> 2.0)
   - SudoProfiles (~> 5.4)
   - SudoUser (~> 7.8)
   - TwilioVoice (~> 5.3)
@@ -94,11 +94,11 @@ SPEC CHECKSUMS:
   SudoConfigManager: 0c0f56e23dda98d4cba5991c70d7300b73a72f2d
   SudoKeyManager: ce474fff6ab1219a9d1f8a4451c78847cf9af471
   SudoLogging: adffcc56d4a16aed321a059bc552b3f538fb2851
-  SudoOperations: 2e8a3b509dd601190a33cdc9ba0c3ab07006ac6a
+  SudoOperations: 5fc89094d8cc7cbe93262575a1ac7736f2f43e58
   SudoProfiles: 439b6d35aa393cddf7c38984876c19a1cf15e921
   SudoUser: 88a042b147b7dc3dd44455c59f49cd98d6b7d504
   TwilioVoice: 524743a779dfbd4b93ebd15cb0aba9fe678a2beb
 
 PODFILE CHECKSUM: d737390f753e599a4ec7fa5b46e8b780b56c6554
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.3
