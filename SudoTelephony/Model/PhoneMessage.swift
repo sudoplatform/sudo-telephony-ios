@@ -15,7 +15,7 @@ public struct PhoneMessage {
         case outbound
         case unknown
         
-        init(internalDirection: MessageDirection) {
+        init(internalDirection: SudoTelephony.Direction) {
             switch internalDirection {
             case .inbound:
                 self = .inbound

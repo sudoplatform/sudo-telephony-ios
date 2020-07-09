@@ -28,11 +28,11 @@ protocol CallingVendorCall: class {
 
     /// Instantiates and connects a call from this vendor.
     init(
-        action: CXStartCallAction,
+        uuid: UUID,
         callRecord: CallRecord,
-        connected: @escaping () -> Void,
-        connectionFailed: @escaping (Error) -> Void,
-        disconnected: @escaping (Error?) -> Void
+        connected: @escaping (_ callUUID: UUID) -> Void,
+        connectionFailed: @escaping (_ callUUID: UUID, _ error: Error) -> Void,
+        disconnected: @escaping (_ callUUID: UUID, _ error: Error?) -> Void
     )
 
     /// Disconnects this call.
@@ -46,9 +46,55 @@ protocol CallingVendorCall: class {
 
     /// Plays a string of DTMF tones over this call.
     func playDTMF(_ digits: String)
+
+    /// UUID of the call
+    var uuid: UUID { get }
+
+    /// Local number
+    var localNumber: String { get }
+
+    /// Remote number
+    var remoteNumber: String { get }
 }
 
 class TwilioVendorCall: CallingVendorCall {
+
+    class BlockTVOCallDelegate: NSObject, TVOCallDelegate {
+        private let connected: (_ callUUID: UUID) -> Void
+        private let connectionFailed: (_ callUUID: UUID, _ error: Error) -> Void
+        private let disconnected: (_ callUUID: UUID, _ error: Error?) -> Void
+
+        init(
+            connected: @escaping (_ callUUID: UUID) -> Void,
+            connectionFailed: @escaping (_ callUUID: UUID, _ error: Error) -> Void,
+            disconnected: @escaping (_ callUUID: UUID, _ error: Error?) -> Void
+        ) {
+            self.connected = connected
+            self.connectionFailed = connectionFailed
+            self.disconnected = disconnected
+
+            super.init()
+        }
+
+        func callDidConnect(_ call: TVOCall) {
+            connected(call.uuid)
+        }
+
+        func call(_ call: TVOCall, didFailToConnectWithError error: Error) {
+            connectionFailed(call.uuid, error)
+        }
+
+        func call(_ call: TVOCall, didDisconnectWithError error: Error?) {
+            disconnected(call.uuid, error)
+        }
+
+        func callDidStartRinging(_ call: TVOCall) {}
+
+        func call(_ call: TVOCall, isReconnectingWithError error: Error) {}
+
+        func callDidReconnect(_ call: TVOCall) {}
+    }
+
     static var supportsDTMF: Bool = true
     static var supportsHolding: Bool = true
     static var supportsGrouping: Bool = false
@@ -57,55 +103,20 @@ class TwilioVendorCall: CallingVendorCall {
     private let call: TVOCall
     private let delegate: TVOCallDelegate
 
+    /// Make an outgoing call
     required init(
-        action: CXStartCallAction,
+        uuid: UUID,
         callRecord: CallRecord,
-        connected: @escaping () -> Void,
-        connectionFailed: @escaping (Error) -> Void,
-        disconnected: @escaping (Error?) -> Void
+        connected: @escaping (_ callUUID: UUID) -> Void,
+        connectionFailed: @escaping (_ callUUID: UUID, _ error: Error) -> Void,
+        disconnected: @escaping (_ callUUID: UUID, _ error: Error?) -> Void
     ) {
         let connectOptions = TVOConnectOptions(accessToken: callRecord.accessToken) { builder in
             builder.params = [
                 "To": callRecord.remotePhoneNumber,
                 "From": callRecord.localPhoneNumber
             ]
-            builder.uuid = action.callUUID
-        }
-
-        class BlockTVOCallDelegate: NSObject, TVOCallDelegate {
-            private let connected: () -> Void
-            private let connectionFailed: (Error) -> Void
-            private let disconnected: (Error?) -> Void
-
-            init(
-                connected: @escaping () -> Void,
-                connectionFailed: @escaping (Error) -> Void,
-                disconnected: @escaping (Error?) -> Void
-            ) {
-                self.connected = connected
-                self.connectionFailed = connectionFailed
-                self.disconnected = disconnected
-
-                super.init()
-            }
-
-            func callDidConnect(_ call: TVOCall) {
-                connected()
-            }
-
-            func call(_ call: TVOCall, didFailToConnectWithError error: Error) {
-                connectionFailed(error)
-            }
-
-            func call(_ call: TVOCall, didDisconnectWithError error: Error?) {
-                disconnected(error)
-            }
-
-            func callDidStartRinging(_ call: TVOCall) {}
-
-            func call(_ call: TVOCall, isReconnectingWithError error: Error) {}
-
-            func callDidReconnect(_ call: TVOCall) {}
+            builder.uuid = uuid
         }
 
         delegate = BlockTVOCallDelegate(
@@ -114,6 +125,34 @@ class TwilioVendorCall: CallingVendorCall {
             disconnected: disconnected
         )
         call = TwilioVoice.connect(with: connectOptions, delegate: delegate)
+
+        // The `TVOCall.to` value is the user's Twilio identity since this is a call to a client app. We can retrieve the actual `to` phone number from the call record
+        self.localNumber = callRecord.localPhoneNumber
+        self.remoteNumber = callRecord.remotePhoneNumber
+    }
+
+    /// Accept an incoming call
+    init(
+        callInvite: TVOCallInvite,
+        connected: @escaping (_ callUUID: UUID) -> Void,
+        connectionFailed: @escaping (_ callUUID: UUID, _ error: Error) -> Void,
+        disconnected: @escaping (_ callUUID: UUID, _ error: Error?) -> Void
+    ) {
+        delegate = BlockTVOCallDelegate(
+            connected: connected,
+            connectionFailed: connectionFailed,
+            disconnected: disconnected
+        )
+
+        let options = TVOAcceptOptions(callInvite: callInvite) { (builder) in
+            builder.uuid = callInvite.uuid
+        }
+
+        call = callInvite.accept(with: options, delegate: delegate)
+
+        // The `TVOCall.to` and `TVOCallInvite.to` value is the user's Twilio identity since this is a call to a client app. We can retrieve the actual `to` phone number from the TVOCallInvite custom parameters.
+        self.localNumber = callInvite.localNumber
+        self.remoteNumber = callInvite.remoteNumber
     }
 
     func disconnect() {
@@ -141,36 +180,12 @@ class TwilioVendorCall: CallingVendorCall {
     func playDTMF(_ digits: String) {
         call.sendDigits(digits)
     }
-}
 
-class SimulatorVendorCall: CallingVendorCall {
-    static var supportsDTMF: Bool = false
-    static var supportsHolding: Bool = false
-    static var supportsGrouping: Bool = false
-    static var supportsUngrouping: Bool = false
-
-    required init(
-        action: CXStartCallAction,
-        callRecord: CallRecord,
-        connected: @escaping () -> Void,
-        connectionFailed: @escaping (Error) -> Void,
-        disconnected: @escaping (Error?) -> Void
-    ) {
-        // TODO
+    var uuid: UUID {
+        return call.uuid
     }
 
-    func disconnect() {
-        // TODO
-    }
+    let localNumber: String
 
-    var isMuted: Bool = false // TODO
-
-    var isOnHold: Bool {
-        get { assertionFailure("Should not be called since `supportsHolding` is false"); return false }
-        set { assertionFailure("Should not be called since `supportsHolding` is false") }
-    }
-
-    func playDTMF(_ digits: String) {
-        assertionFailure("Should not be called since `supportsDTMF` is false")
-    }
+    let remoteNumber: String
 }

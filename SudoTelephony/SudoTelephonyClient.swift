@@ -1,3 +1,4 @@
+
 //
 // Copyright © 2020 Anonyome Labs, Inc. All rights reserved.
 //
@@ -175,6 +176,29 @@ public protocol SudoTelephonyClient {
     ///     - delegate: ActiveCallDelegate for monitoring voice call events
     /// - Throws: A `CallConfigurationError` if a CallProviderConfiguration object is not provided in the initializer.
     func createVoiceCall(localNumber: PhoneNumber, remoteNumber: String, delegate: ActiveCallDelegate) throws
+
+    /// Register for incoming calls.
+    /// - Parameters:
+    ///     - data: The push token data from PushKit
+    ///     - useSandbox: Use the sandbox or production APNS.  Developer builds typically use the sandbox.
+    ///     - completion: Called when the push token has been sucessfully provided to the service. Returns an error on failure.
+    /// - Throws: A `CallConfigurationError` if a CallProviderConfiguration object is not provided in the initializer.
+    func registerForIncomingCalls(with token: Data, useSandbox: Bool, completion: ((SudoTelephonyClientError?) -> Void)?) throws
+
+    /// Deregisters for calls using the last recieved voip push token data.  The method should be called when Pushkit notifies your app the credentials have been invalidaded, or any other time you want to stop recieving voip pushes for incoming calls.
+    /// - Parameters:
+    ///     - completion: Called when deregistration is complete.
+    /// - Throws: A `CallConfigurationError` if a CallProviderConfiguration object is not provided in the initializer.
+    func deregisterForIncomingCalls(completion: ((SudoTelephonyClientError?) -> Void)?) throws
+
+    /// Notifies the SDK a new push was recieved.
+    ///
+    /// - Parameters:
+    ///     - payload: The payload from the voip push
+    ///
+    /// - Returns: A Bool indicating if the SDK was able to handle the payload or not.
+    /// - Throws: A `CallConfigurationError` if a CallProviderConfiguration object is not provided in the initializer.
+    func handleIncomingPushNotificationPayload(_ payload: [AnyHashable: Any], notificationDelegate: IncomingCallNotificationDelegate) throws -> Bool
 }
 
 /// Default implementation of `SudoTelephonyClient`.
@@ -298,11 +322,12 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
 
     /// Calling feature.
     private var callProviderConfig: CallProviderConfiguration?
-    private lazy var calling: SudoTelephonyCalling? = {
+    lazy var calling: SudoTelephonyCalling? = {
         guard let config = self.callProviderConfig else { return nil }
         return SudoTelephonyCalling(
             graphQLClient: self.graphQLClient,
             apiResultQueue: self.apiResultQueue,
+            sudoUserClient: self.sudoUserClient,
             callProviderConfiguration: config,
             logger: self.logger
         )
@@ -1023,8 +1048,8 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
                 completion(.success(phoneMessage))
             }
             catch {
-                if error is SudoTelephonyClientError {
-                    completion(.failure(error as! SudoTelephonyClientError))
+                if let clientError = error as? SudoTelephonyClientError {
+                    completion(.failure(clientError))
                 }
                 else {
                     completion(.failure(.messageDecryptionFailed))
@@ -1240,17 +1265,13 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         self.logger.info("Deleting phone message \(id)")
         let mutation = DeleteMessageMutation(id: id)
         self.graphQLClient.perform(mutation: mutation, queue: self.apiResultQueue, optimisticUpdate: nil, conflictResolutionBlock: nil) { (result, error) in
-            guard error == nil else {
+            let containerError = result?.errors?.first
+            guard error == nil, containerError == nil else {
                 completion(.failure(SudoTelephonyClientError(serviceError: error)))
                 return
             }
             
-            guard let data = result?.data?.deleteMessage else {
-                completion(.success(id))
-                return
-            }
-            
-            completion(.success(data))
+            completion(.success(result?.data?.deleteMessage ?? id))
         }
     }
     
@@ -1333,7 +1354,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
                 return
             }
             
-            guard conversations.items.count > 0 else {
+            guard !conversations.items.isEmpty else {
                 self?.logger.error("Get conversations call succeeded, but no results were available")
                 completion(.success(conversations))
                 return
@@ -1357,6 +1378,29 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         }
 
         try calling.createVoiceCall(localNumber: localNumber, remoteNumber: remoteNumber, delegate: delegate)
+    }
+
+    public func registerForIncomingCalls(with token: Data, useSandbox: Bool, completion: ((SudoTelephonyClientError?) -> Void)?) throws {
+        guard let calling = self.calling else {
+            throw CallConfigurationError.missingCallProviderConfiguration
+        }
+
+        calling.registerForIncomingCalls(with: token, useSandbox: useSandbox, completion: completion)
+    }
+
+    public func deregisterForIncomingCalls(completion: ((SudoTelephonyClientError?) -> Void)?) throws {
+        guard let calling = self.calling else {
+            throw CallConfigurationError.missingCallProviderConfiguration
+        }
+        calling.deregisterForIncomingCalls(completion: completion)
+    }
+
+    public func handleIncomingPushNotificationPayload(_ payload: [AnyHashable: Any], notificationDelegate: IncomingCallNotificationDelegate) throws -> Bool {
+        guard let calling = self.calling else {
+            throw CallConfigurationError.missingCallProviderConfiguration
+        }
+        
+        return calling.handleIncomingPushNotificationPayload(payload, notificationDelegate: notificationDelegate)
     }
 }
 

@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name                  = 'SudoTelephony'
-  spec.version               = '3.1.1'
+  spec.version               = '4.0.0-beta1'
   spec.author                = { 'Sudo Platform Engineering' => 'sudoplatform-engineering@anonyome.com' }
   spec.homepage              = 'https://sudoplatform.com'
   spec.summary               = 'Telephony SDK for the Sudo Platform by Anonyome Labs.'
@@ -11,8 +11,8 @@ Pod::Spec.new do |spec|
   spec.requires_arc          = true
   spec.swift_version         = '5.0'
 
-  spec.dependency 'SudoUser', '~> 7.8'
-  spec.dependency 'SudoProfiles', '~> 5.4'
+  spec.dependency 'SudoUser', '~> 7.9'
+  spec.dependency 'SudoProfiles', '~> 5.5'
   spec.dependency 'SudoApiClient', '~> 1.3'
   spec.dependency 'SudoOperations', '~> 2.0'
 

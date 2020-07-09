@@ -37,6 +37,12 @@ class SynchronizedArray<Element> {
         syncQueue.sync { elements.append(newElement) }
     }
 
+    func removeAll() {
+        syncQueue.sync {
+            elements.removeAll()
+        }
+    }
+
     func append<S>(contentsOf newElements: S) where Element == S.Element, S : Sequence {
         syncQueue.sync { elements.append(contentsOf: newElements) }
     }

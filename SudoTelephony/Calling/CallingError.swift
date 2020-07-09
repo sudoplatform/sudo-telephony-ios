@@ -19,8 +19,8 @@ public enum CallingError: Error, LocalizedError {
         switch self {
         case .recordPermissionNotGranted:
             return "Not permitted to access the microphone"
-        case .startCallActionFailed:
-            return "CXStartCallAction failed"
+        case .startCallActionFailed(let underlyingError):
+            return "CXStartCallAction failed: \(underlyingError)"
         case .failedToAuthorizeOutgoingCall(let underlyingError): return underlyingError?.errorDescription
         }
     }

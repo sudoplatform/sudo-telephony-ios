@@ -8,6 +8,8 @@ import Foundation
 import CallKit
 
 /// Delegate for receiving notifications about new `ActiveVoiceCall` events.
+///
+/// - Note: `ActiveCallDelegate` methods are called on the main thread.
 public protocol ActiveCallDelegate {
 
     /// Notifies the delegate that the call has connected
@@ -51,13 +53,14 @@ public class ActiveVoiceCall {
     public internal(set) var isMuted: Bool = false
 
     internal init(
-        callRecord: CallRecord,
+        localNumber: String,
+        remoteNumber: String,
         callId: UUID,
         callKitController: CXCallController,
         setAudioRouteToSpeakerBlock: @escaping ((Bool) -> Void)
     ) {
-        self.localPhoneNumber = callRecord.localPhoneNumber
-        self.remotePhoneNumber = callRecord.remotePhoneNumber
+        self.localPhoneNumber = localNumber
+        self.remotePhoneNumber = remoteNumber
 
         self.callId = callId
         self.callKitController = callKitController

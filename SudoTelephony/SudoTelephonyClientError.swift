@@ -39,6 +39,8 @@ public enum SudoTelephonyClientError: Error, LocalizedError {
     case keyDeletionFailed
     /// Failed to get ownership proof when provisioning a number
     case ownershipProofFailed
+    /// User has no public keys
+    case noPublicKey
     /// Sealed data decryption failed
     case sealedDataDecryptionFailed
     /// File not found at provided path
@@ -63,6 +65,8 @@ public enum SudoTelephonyClientError: Error, LocalizedError {
     case maximumMediaObject
     /// Unsupported media type
     case unsupportedMediaContentType
+    /// Service configuration error
+    case configurationError
     /// Unknown Error ocurred
     case unknown
 
@@ -98,6 +102,8 @@ public enum SudoTelephonyClientError: Error, LocalizedError {
             return "Key pair failed to be deleted for phone number."
         case .ownershipProofFailed:
             return "Failed to get ownership proof for number provisioning."
+        case .noPublicKey:
+            return "User has no public keys"
         case .sealedDataDecryptionFailed:
             return "Failed to decrypt the sealed data"
         case .fileNotFound:
@@ -122,6 +128,8 @@ public enum SudoTelephonyClientError: Error, LocalizedError {
             return "Exceeded the number of media objects allowed."
         case .unsupportedMediaContentType:
             return "Unsupported media type"
+        case .configurationError:
+            return "Service configuration error"
         case .unknown:
             return "An unknown error has ocurred. Please try again later."
         }
@@ -150,6 +158,10 @@ public enum SudoTelephonyClientError: Error, LocalizedError {
             self = .maximumMediaObject
         case "sudoplatform.telephony.UnsupportedMediaContentType":
             self = .unsupportedMediaContentType
+        case "sudoplatform.telephony.NoPublicKeyError":
+            self = .noPublicKey
+        case "sudoplatform.telephony.ConfigurationError":
+            self = .configurationError
         default:
             self = .unknown
         }

@@ -853,6 +853,7 @@ internal struct ConversationFilterInput: GraphQLMapConvertible {
   }
 }
 
+/// Input definition to create an outgoing voice call.
 internal struct CreateVoiceCallInput: GraphQLMapConvertible {
   internal var graphQLMap: GraphQLMap
 
@@ -882,8 +883,79 @@ internal struct CreateVoiceCallInput: GraphQLMapConvertible {
   }
 }
 
-/// Possible directions for a SMS/MMS message.
-internal enum MessageDirection: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
+/// Possible states for a call.
+/// AUTHORIZED  - Outbound call authorized but not yet initiated at telephony vendor.
+/// QUEUED      - Call is queued before ringing.
+/// RINGING     - Call is ringing.
+/// IN_PROGRESS - Call has been answered and is ongoing.
+/// CANCELED    - Call was hung up before being answered.
+/// COMPLETED   - Call was completed / hung up after being answered.
+/// BUSY        - Callee was busy.
+/// NO_ANSWER   - Callee did not answer.
+/// FAILED      - Call failed to initiate.
+internal enum CallState: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
+  internal typealias RawValue = String
+  case authorized
+  case queued
+  case ringing
+  case inProgress
+  case canceled
+  case completed
+  case busy
+  case noAnswer
+  case failed
+  /// Auto generated constant for unknown enum values
+  case unknown(RawValue)
+
+  internal init?(rawValue: RawValue) {
+    switch rawValue {
+      case "AUTHORIZED": self = .authorized
+      case "QUEUED": self = .queued
+      case "RINGING": self = .ringing
+      case "IN_PROGRESS": self = .inProgress
+      case "CANCELED": self = .canceled
+      case "COMPLETED": self = .completed
+      case "BUSY": self = .busy
+      case "NO_ANSWER": self = .noAnswer
+      case "FAILED": self = .failed
+      default: self = .unknown(rawValue)
+    }
+  }
+
+  internal var rawValue: RawValue {
+    switch self {
+      case .authorized: return "AUTHORIZED"
+      case .queued: return "QUEUED"
+      case .ringing: return "RINGING"
+      case .inProgress: return "IN_PROGRESS"
+      case .canceled: return "CANCELED"
+      case .completed: return "COMPLETED"
+      case .busy: return "BUSY"
+      case .noAnswer: return "NO_ANSWER"
+      case .failed: return "FAILED"
+      case .unknown(let value): return value
+    }
+  }
+
+  internal static func == (lhs: CallState, rhs: CallState) -> Bool {
+    switch (lhs, rhs) {
+      case (.authorized, .authorized): return true
+      case (.queued, .queued): return true
+      case (.ringing, .ringing): return true
+      case (.inProgress, .inProgress): return true
+      case (.canceled, .canceled): return true
+      case (.completed, .completed): return true
+      case (.busy, .busy): return true
+      case (.noAnswer, .noAnswer): return true
+      case (.failed, .failed): return true
+      case (.unknown(let lhsValue), .unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
+    }
+  }
+}
+
+/// Possible directions for a SMS/MMS message or call.
+internal enum Direction: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
   internal typealias RawValue = String
   case inbound
   case outbound
@@ -906,10 +978,67 @@ internal enum MessageDirection: RawRepresentable, Equatable, JSONDecodable, JSON
     }
   }
 
-  internal static func == (lhs: MessageDirection, rhs: MessageDirection) -> Bool {
+  internal static func == (lhs: Direction, rhs: Direction) -> Bool {
     switch (lhs, rhs) {
       case (.inbound, .inbound): return true
       case (.outbound, .outbound): return true
+      case (.unknown(let lhsValue), .unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
+    }
+  }
+}
+
+/// Input definition to register a device for push notifications.
+internal struct DeviceRegistrationInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
+
+  internal init(pushNotificationService: PushNotificationService) {
+    graphQLMap = ["pushNotificationService": pushNotificationService]
+  }
+
+  /// The push notification service to use to send pushes to this device.
+  internal var pushNotificationService: PushNotificationService {
+    get {
+      return graphQLMap["pushNotificationService"] as! PushNotificationService
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "pushNotificationService")
+    }
+  }
+}
+
+/// An intermediary service used to send push notifications to devices.
+internal enum PushNotificationService: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
+  internal typealias RawValue = String
+  case apns
+  case apnsSandbox
+  case fcm
+  /// Auto generated constant for unknown enum values
+  case unknown(RawValue)
+
+  internal init?(rawValue: RawValue) {
+    switch rawValue {
+      case "APNS": self = .apns
+      case "APNS_SANDBOX": self = .apnsSandbox
+      case "FCM": self = .fcm
+      default: self = .unknown(rawValue)
+    }
+  }
+
+  internal var rawValue: RawValue {
+    switch self {
+      case .apns: return "APNS"
+      case .apnsSandbox: return "APNS_SANDBOX"
+      case .fcm: return "FCM"
+      case .unknown(let value): return value
+    }
+  }
+
+  internal static func == (lhs: PushNotificationService, rhs: PushNotificationService) -> Bool {
+    switch (lhs, rhs) {
+      case (.apns, .apns): return true
+      case (.apnsSandbox, .apnsSandbox): return true
+      case (.fcm, .fcm): return true
       case (.unknown(let lhsValue), .unknown(let rhsValue)): return lhsValue == rhsValue
       default: return false
     }
@@ -4393,7 +4522,7 @@ internal final class GetMessageQuery: GraphQLQuery {
         GraphQLField("localPhoneNumber", type: .nonNull(.scalar(String.self))),
         GraphQLField("body", type: .scalar(String.self)),
         GraphQLField("media", type: .list(.nonNull(.object(Medium.selections)))),
-        GraphQLField("direction", type: .nonNull(.scalar(MessageDirection.self))),
+        GraphQLField("direction", type: .nonNull(.scalar(Direction.self))),
         GraphQLField("seen", type: .nonNull(.scalar(Bool.self))),
         GraphQLField("state", type: .nonNull(.scalar(MessageState.self))),
         GraphQLField("owner", type: .nonNull(.scalar(GraphQLID.self))),
@@ -4410,7 +4539,7 @@ internal final class GetMessageQuery: GraphQLQuery {
         self.snapshot = snapshot
       }
 
-      internal init(id: GraphQLID, conversation: GraphQLID, remotePhoneNumber: String, localPhoneNumber: String, body: String? = nil, media: [Medium]? = nil, direction: MessageDirection, seen: Bool, state: MessageState, owner: GraphQLID, algorithm: String, keyId: String, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+      internal init(id: GraphQLID, conversation: GraphQLID, remotePhoneNumber: String, localPhoneNumber: String, body: String? = nil, media: [Medium]? = nil, direction: Direction, seen: Bool, state: MessageState, owner: GraphQLID, algorithm: String, keyId: String, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
         self.init(snapshot: ["__typename": "SealedMessage", "id": id, "conversation": conversation, "remotePhoneNumber": remotePhoneNumber, "localPhoneNumber": localPhoneNumber, "body": body, "media": media.flatMap { $0.map { $0.snapshot } }, "direction": direction, "seen": seen, "state": state, "owner": owner, "algorithm": algorithm, "keyId": keyId, "clientRefId": clientRefId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
       }
 
@@ -4487,9 +4616,9 @@ internal final class GetMessageQuery: GraphQLQuery {
       }
 
       /// UNSEALED: Direction of message.
-      internal var direction: MessageDirection {
+      internal var direction: Direction {
         get {
-          return snapshot["direction"]! as! MessageDirection
+          return snapshot["direction"]! as! Direction
         }
         set {
           snapshot.updateValue(newValue, forKey: "direction")
@@ -4832,7 +4961,7 @@ internal final class ListMessagesQuery: GraphQLQuery {
           GraphQLField("localPhoneNumber", type: .nonNull(.scalar(String.self))),
           GraphQLField("body", type: .scalar(String.self)),
           GraphQLField("media", type: .list(.nonNull(.object(Medium.selections)))),
-          GraphQLField("direction", type: .nonNull(.scalar(MessageDirection.self))),
+          GraphQLField("direction", type: .nonNull(.scalar(Direction.self))),
           GraphQLField("seen", type: .nonNull(.scalar(Bool.self))),
           GraphQLField("state", type: .nonNull(.scalar(MessageState.self))),
           GraphQLField("owner", type: .nonNull(.scalar(GraphQLID.self))),
@@ -4849,7 +4978,7 @@ internal final class ListMessagesQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        internal init(id: GraphQLID, conversation: GraphQLID, remotePhoneNumber: String, localPhoneNumber: String, body: String? = nil, media: [Medium]? = nil, direction: MessageDirection, seen: Bool, state: MessageState, owner: GraphQLID, algorithm: String, keyId: String, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+        internal init(id: GraphQLID, conversation: GraphQLID, remotePhoneNumber: String, localPhoneNumber: String, body: String? = nil, media: [Medium]? = nil, direction: Direction, seen: Bool, state: MessageState, owner: GraphQLID, algorithm: String, keyId: String, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
           self.init(snapshot: ["__typename": "SealedMessage", "id": id, "conversation": conversation, "remotePhoneNumber": remotePhoneNumber, "localPhoneNumber": localPhoneNumber, "body": body, "media": media.flatMap { $0.map { $0.snapshot } }, "direction": direction, "seen": seen, "state": state, "owner": owner, "algorithm": algorithm, "keyId": keyId, "clientRefId": clientRefId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
         }
 
@@ -4926,9 +5055,9 @@ internal final class ListMessagesQuery: GraphQLQuery {
         }
 
         /// UNSEALED: Direction of message.
-        internal var direction: MessageDirection {
+        internal var direction: Direction {
           get {
-            return snapshot["direction"]! as! MessageDirection
+            return snapshot["direction"]! as! Direction
           }
           set {
             snapshot.updateValue(newValue, forKey: "direction")
@@ -5180,7 +5309,7 @@ internal final class OnMessageReceivedSubscription: GraphQLSubscription {
         GraphQLField("localPhoneNumber", type: .nonNull(.scalar(String.self))),
         GraphQLField("body", type: .scalar(String.self)),
         GraphQLField("media", type: .list(.nonNull(.object(Medium.selections)))),
-        GraphQLField("direction", type: .nonNull(.scalar(MessageDirection.self))),
+        GraphQLField("direction", type: .nonNull(.scalar(Direction.self))),
         GraphQLField("seen", type: .nonNull(.scalar(Bool.self))),
         GraphQLField("state", type: .nonNull(.scalar(MessageState.self))),
         GraphQLField("owner", type: .nonNull(.scalar(GraphQLID.self))),
@@ -5197,7 +5326,7 @@ internal final class OnMessageReceivedSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      internal init(id: GraphQLID, conversation: GraphQLID, remotePhoneNumber: String, localPhoneNumber: String, body: String? = nil, media: [Medium]? = nil, direction: MessageDirection, seen: Bool, state: MessageState, owner: GraphQLID, algorithm: String, keyId: String, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+      internal init(id: GraphQLID, conversation: GraphQLID, remotePhoneNumber: String, localPhoneNumber: String, body: String? = nil, media: [Medium]? = nil, direction: Direction, seen: Bool, state: MessageState, owner: GraphQLID, algorithm: String, keyId: String, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
         self.init(snapshot: ["__typename": "SealedMessage", "id": id, "conversation": conversation, "remotePhoneNumber": remotePhoneNumber, "localPhoneNumber": localPhoneNumber, "body": body, "media": media.flatMap { $0.map { $0.snapshot } }, "direction": direction, "seen": seen, "state": state, "owner": owner, "algorithm": algorithm, "keyId": keyId, "clientRefId": clientRefId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
       }
 
@@ -5274,9 +5403,9 @@ internal final class OnMessageReceivedSubscription: GraphQLSubscription {
       }
 
       /// UNSEALED: Direction of message.
-      internal var direction: MessageDirection {
+      internal var direction: Direction {
         get {
-          return snapshot["direction"]! as! MessageDirection
+          return snapshot["direction"]! as! Direction
         }
         set {
           snapshot.updateValue(newValue, forKey: "direction")
@@ -5852,7 +5981,7 @@ internal final class ListConversationsQuery: GraphQLQuery {
 
 internal final class CreateVoiceCallMutation: GraphQLMutation {
   internal static let operationString =
-    "mutation createVoiceCall($input: CreateVoiceCallInput!) {\n  createVoiceCall(input: $input) {\n    __typename\n    token\n  }\n}"
+    "mutation CreateVoiceCall($input: CreateVoiceCallInput!) {\n  createVoiceCall(input: $input) {\n    __typename\n    call {\n      __typename\n      id\n      state\n      direction\n      localPhoneNumber\n      remotePhoneNumber\n    }\n    vendorAuthorization {\n      __typename\n      vendor\n      accessToken\n    }\n  }\n}"
 
   internal var input: CreateVoiceCallInput
 
@@ -5892,11 +6021,12 @@ internal final class CreateVoiceCallMutation: GraphQLMutation {
     }
 
     internal struct CreateVoiceCall: GraphQLSelectionSet {
-      internal static let possibleTypes = ["AccessToken"]
+      internal static let possibleTypes = ["OutgoingVoiceCall"]
 
       internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-        GraphQLField("token", type: .nonNull(.scalar(String.self))),
+        GraphQLField("call", type: .nonNull(.object(Call.selections))),
+        GraphQLField("vendorAuthorization", type: .nonNull(.object(VendorAuthorization.selections))),
       ]
 
       internal var snapshot: Snapshot
@@ -5905,8 +6035,8 @@ internal final class CreateVoiceCallMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      internal init(token: String) {
-        self.init(snapshot: ["__typename": "AccessToken", "token": token])
+      internal init(call: Call, vendorAuthorization: VendorAuthorization) {
+        self.init(snapshot: ["__typename": "OutgoingVoiceCall", "call": call.snapshot, "vendorAuthorization": vendorAuthorization.snapshot])
       }
 
       internal var __typename: String {
@@ -5918,12 +6048,725 @@ internal final class CreateVoiceCallMutation: GraphQLMutation {
         }
       }
 
-      internal var token: String {
+      /// The record of the call that was authorized.
+      internal var call: Call {
         get {
-          return snapshot["token"]! as! String
+          return Call(snapshot: snapshot["call"]! as! Snapshot)
         }
         set {
-          snapshot.updateValue(newValue, forKey: "token")
+          snapshot.updateValue(newValue.snapshot, forKey: "call")
+        }
+      }
+
+      /// Credentials required to initiate the call via a vendor.
+      internal var vendorAuthorization: VendorAuthorization {
+        get {
+          return VendorAuthorization(snapshot: snapshot["vendorAuthorization"]! as! Snapshot)
+        }
+        set {
+          snapshot.updateValue(newValue.snapshot, forKey: "vendorAuthorization")
+        }
+      }
+
+      internal struct Call: GraphQLSelectionSet {
+        internal static let possibleTypes = ["CallRecord"]
+
+        internal static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("state", type: .nonNull(.scalar(CallState.self))),
+          GraphQLField("direction", type: .nonNull(.scalar(Direction.self))),
+          GraphQLField("localPhoneNumber", type: .nonNull(.scalar(String.self))),
+          GraphQLField("remotePhoneNumber", type: .nonNull(.scalar(String.self))),
+        ]
+
+        internal var snapshot: Snapshot
+
+        internal init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        internal init(id: GraphQLID, state: CallState, direction: Direction, localPhoneNumber: String, remotePhoneNumber: String) {
+          self.init(snapshot: ["__typename": "CallRecord", "id": id, "state": state, "direction": direction, "localPhoneNumber": localPhoneNumber, "remotePhoneNumber": remotePhoneNumber])
+        }
+
+        internal var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// v4 UUID assigned to call record.
+        internal var id: GraphQLID {
+          get {
+            return snapshot["id"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        /// State of call record.
+        internal var state: CallState {
+          get {
+            return snapshot["state"]! as! CallState
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "state")
+          }
+        }
+
+        /// Direction of call.
+        internal var direction: Direction {
+          get {
+            return snapshot["direction"]! as! Direction
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "direction")
+          }
+        }
+
+        /// Sudo phone number in E164 format.
+        internal var localPhoneNumber: String {
+          get {
+            return snapshot["localPhoneNumber"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "localPhoneNumber")
+          }
+        }
+
+        /// Remote participant. Must be one of the following:
+        /// - A phone number in E164 format.
+        internal var remotePhoneNumber: String {
+          get {
+            return snapshot["remotePhoneNumber"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "remotePhoneNumber")
+          }
+        }
+      }
+
+      internal struct VendorAuthorization: GraphQLSelectionSet {
+        internal static let possibleTypes = ["VendorAuthorization"]
+
+        internal static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("vendor", type: .nonNull(.scalar(String.self))),
+          GraphQLField("accessToken", type: .nonNull(.scalar(String.self))),
+        ]
+
+        internal var snapshot: Snapshot
+
+        internal init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        internal init(vendor: String, accessToken: String) {
+          self.init(snapshot: ["__typename": "VendorAuthorization", "vendor": vendor, "accessToken": accessToken])
+        }
+
+        internal var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// The vendor.
+        internal var vendor: String {
+          get {
+            return snapshot["vendor"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "vendor")
+          }
+        }
+
+        /// The credentials for the vendor.
+        internal var accessToken: String {
+          get {
+            return snapshot["accessToken"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "accessToken")
+          }
+        }
+      }
+    }
+  }
+}
+
+internal final class RegisterDeviceForIncomingCallsMutation: GraphQLMutation {
+  internal static let operationString =
+    "mutation RegisterDeviceForIncomingCalls($input: DeviceRegistrationInput!) {\n  registerDeviceForIncomingCalls(input: $input) {\n    __typename\n    vendorAuthorizations {\n      __typename\n      vendor\n      accessToken\n    }\n  }\n}"
+
+  internal var input: DeviceRegistrationInput
+
+  internal init(input: DeviceRegistrationInput) {
+    self.input = input
+  }
+
+  internal var variables: GraphQLMap? {
+    return ["input": input]
+  }
+
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Mutation"]
+
+    internal static let selections: [GraphQLSelection] = [
+      GraphQLField("registerDeviceForIncomingCalls", arguments: ["input": GraphQLVariable("input")], type: .nonNull(.object(RegisterDeviceForIncomingCall.selections))),
+    ]
+
+    internal var snapshot: Snapshot
+
+    internal init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    internal init(registerDeviceForIncomingCalls: RegisterDeviceForIncomingCall) {
+      self.init(snapshot: ["__typename": "Mutation", "registerDeviceForIncomingCalls": registerDeviceForIncomingCalls.snapshot])
+    }
+
+    /// Register a device to receive incoming call push notifications.
+    internal var registerDeviceForIncomingCalls: RegisterDeviceForIncomingCall {
+      get {
+        return RegisterDeviceForIncomingCall(snapshot: snapshot["registerDeviceForIncomingCalls"]! as! Snapshot)
+      }
+      set {
+        snapshot.updateValue(newValue.snapshot, forKey: "registerDeviceForIncomingCalls")
+      }
+    }
+
+    internal struct RegisterDeviceForIncomingCall: GraphQLSelectionSet {
+      internal static let possibleTypes = ["DeviceRegistrationOutput"]
+
+      internal static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("vendorAuthorizations", type: .nonNull(.list(.object(VendorAuthorization.selections)))),
+      ]
+
+      internal var snapshot: Snapshot
+
+      internal init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      internal init(vendorAuthorizations: [VendorAuthorization?]) {
+        self.init(snapshot: ["__typename": "DeviceRegistrationOutput", "vendorAuthorizations": vendorAuthorizations.map { $0.flatMap { $0.snapshot } }])
+      }
+
+      internal var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// Credentials to register for push notifications via vendors.
+      internal var vendorAuthorizations: [VendorAuthorization?] {
+        get {
+          return (snapshot["vendorAuthorizations"] as! [Snapshot?]).map { $0.flatMap { VendorAuthorization(snapshot: $0) } }
+        }
+        set {
+          snapshot.updateValue(newValue.map { $0.flatMap { $0.snapshot } }, forKey: "vendorAuthorizations")
+        }
+      }
+
+      internal struct VendorAuthorization: GraphQLSelectionSet {
+        internal static let possibleTypes = ["VendorAuthorization"]
+
+        internal static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("vendor", type: .nonNull(.scalar(String.self))),
+          GraphQLField("accessToken", type: .nonNull(.scalar(String.self))),
+        ]
+
+        internal var snapshot: Snapshot
+
+        internal init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        internal init(vendor: String, accessToken: String) {
+          self.init(snapshot: ["__typename": "VendorAuthorization", "vendor": vendor, "accessToken": accessToken])
+        }
+
+        internal var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// The vendor.
+        internal var vendor: String {
+          get {
+            return snapshot["vendor"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "vendor")
+          }
+        }
+
+        /// The credentials for the vendor.
+        internal var accessToken: String {
+          get {
+            return snapshot["accessToken"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "accessToken")
+          }
+        }
+      }
+    }
+  }
+}
+
+internal final class UnregisterDeviceForIncomingCallsMutation: GraphQLMutation {
+  internal static let operationString =
+    "mutation UnregisterDeviceForIncomingCalls($input: DeviceRegistrationInput!) {\n  unregisterDeviceForIncomingCalls(input: $input) {\n    __typename\n    vendorAuthorizations {\n      __typename\n      vendor\n      accessToken\n    }\n  }\n}"
+
+  internal var input: DeviceRegistrationInput
+
+  internal init(input: DeviceRegistrationInput) {
+    self.input = input
+  }
+
+  internal var variables: GraphQLMap? {
+    return ["input": input]
+  }
+
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Mutation"]
+
+    internal static let selections: [GraphQLSelection] = [
+      GraphQLField("unregisterDeviceForIncomingCalls", arguments: ["input": GraphQLVariable("input")], type: .nonNull(.object(UnregisterDeviceForIncomingCall.selections))),
+    ]
+
+    internal var snapshot: Snapshot
+
+    internal init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    internal init(unregisterDeviceForIncomingCalls: UnregisterDeviceForIncomingCall) {
+      self.init(snapshot: ["__typename": "Mutation", "unregisterDeviceForIncomingCalls": unregisterDeviceForIncomingCalls.snapshot])
+    }
+
+    /// Unregister a device from receiving incoming call push notifications.
+    internal var unregisterDeviceForIncomingCalls: UnregisterDeviceForIncomingCall {
+      get {
+        return UnregisterDeviceForIncomingCall(snapshot: snapshot["unregisterDeviceForIncomingCalls"]! as! Snapshot)
+      }
+      set {
+        snapshot.updateValue(newValue.snapshot, forKey: "unregisterDeviceForIncomingCalls")
+      }
+    }
+
+    internal struct UnregisterDeviceForIncomingCall: GraphQLSelectionSet {
+      internal static let possibleTypes = ["DeviceRegistrationOutput"]
+
+      internal static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("vendorAuthorizations", type: .nonNull(.list(.object(VendorAuthorization.selections)))),
+      ]
+
+      internal var snapshot: Snapshot
+
+      internal init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      internal init(vendorAuthorizations: [VendorAuthorization?]) {
+        self.init(snapshot: ["__typename": "DeviceRegistrationOutput", "vendorAuthorizations": vendorAuthorizations.map { $0.flatMap { $0.snapshot } }])
+      }
+
+      internal var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// Credentials to register for push notifications via vendors.
+      internal var vendorAuthorizations: [VendorAuthorization?] {
+        get {
+          return (snapshot["vendorAuthorizations"] as! [Snapshot?]).map { $0.flatMap { VendorAuthorization(snapshot: $0) } }
+        }
+        set {
+          snapshot.updateValue(newValue.map { $0.flatMap { $0.snapshot } }, forKey: "vendorAuthorizations")
+        }
+      }
+
+      internal struct VendorAuthorization: GraphQLSelectionSet {
+        internal static let possibleTypes = ["VendorAuthorization"]
+
+        internal static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("vendor", type: .nonNull(.scalar(String.self))),
+          GraphQLField("accessToken", type: .nonNull(.scalar(String.self))),
+        ]
+
+        internal var snapshot: Snapshot
+
+        internal init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        internal init(vendor: String, accessToken: String) {
+          self.init(snapshot: ["__typename": "VendorAuthorization", "vendor": vendor, "accessToken": accessToken])
+        }
+
+        internal var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// The vendor.
+        internal var vendor: String {
+          get {
+            return snapshot["vendor"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "vendor")
+          }
+        }
+
+        /// The credentials for the vendor.
+        internal var accessToken: String {
+          get {
+            return snapshot["accessToken"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "accessToken")
+          }
+        }
+      }
+    }
+  }
+}
+
+internal final class RegisterForIncomingCallsMutation: GraphQLMutation {
+  internal static let operationString =
+    "mutation RegisterForIncomingCalls($input: DeviceRegistrationInput!) {\n  registerDeviceForIncomingCalls(input: $input) {\n    __typename\n    ...deviceRegistrationOutput\n  }\n}"
+
+  internal static var requestString: String { return operationString.appending(DeviceRegistrationOutput.fragmentString) }
+
+  internal var input: DeviceRegistrationInput
+
+  internal init(input: DeviceRegistrationInput) {
+    self.input = input
+  }
+
+  internal var variables: GraphQLMap? {
+    return ["input": input]
+  }
+
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Mutation"]
+
+    internal static let selections: [GraphQLSelection] = [
+      GraphQLField("registerDeviceForIncomingCalls", arguments: ["input": GraphQLVariable("input")], type: .nonNull(.object(RegisterDeviceForIncomingCall.selections))),
+    ]
+
+    internal var snapshot: Snapshot
+
+    internal init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    internal init(registerDeviceForIncomingCalls: RegisterDeviceForIncomingCall) {
+      self.init(snapshot: ["__typename": "Mutation", "registerDeviceForIncomingCalls": registerDeviceForIncomingCalls.snapshot])
+    }
+
+    /// Register a device to receive incoming call push notifications.
+    internal var registerDeviceForIncomingCalls: RegisterDeviceForIncomingCall {
+      get {
+        return RegisterDeviceForIncomingCall(snapshot: snapshot["registerDeviceForIncomingCalls"]! as! Snapshot)
+      }
+      set {
+        snapshot.updateValue(newValue.snapshot, forKey: "registerDeviceForIncomingCalls")
+      }
+    }
+
+    internal struct RegisterDeviceForIncomingCall: GraphQLSelectionSet {
+      internal static let possibleTypes = ["DeviceRegistrationOutput"]
+
+      internal static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("vendorAuthorizations", type: .nonNull(.list(.object(VendorAuthorization.selections)))),
+      ]
+
+      internal var snapshot: Snapshot
+
+      internal init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      internal init(vendorAuthorizations: [VendorAuthorization?]) {
+        self.init(snapshot: ["__typename": "DeviceRegistrationOutput", "vendorAuthorizations": vendorAuthorizations.map { $0.flatMap { $0.snapshot } }])
+      }
+
+      internal var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// Credentials to register for push notifications via vendors.
+      internal var vendorAuthorizations: [VendorAuthorization?] {
+        get {
+          return (snapshot["vendorAuthorizations"] as! [Snapshot?]).map { $0.flatMap { VendorAuthorization(snapshot: $0) } }
+        }
+        set {
+          snapshot.updateValue(newValue.map { $0.flatMap { $0.snapshot } }, forKey: "vendorAuthorizations")
+        }
+      }
+
+      internal var fragments: Fragments {
+        get {
+          return Fragments(snapshot: snapshot)
+        }
+        set {
+          snapshot += newValue.snapshot
+        }
+      }
+
+      internal struct Fragments {
+        internal var snapshot: Snapshot
+
+        internal var deviceRegistrationOutput: DeviceRegistrationOutput {
+          get {
+            return DeviceRegistrationOutput(snapshot: snapshot)
+          }
+          set {
+            snapshot += newValue.snapshot
+          }
+        }
+      }
+
+      internal struct VendorAuthorization: GraphQLSelectionSet {
+        internal static let possibleTypes = ["VendorAuthorization"]
+
+        internal static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("vendor", type: .nonNull(.scalar(String.self))),
+          GraphQLField("accessToken", type: .nonNull(.scalar(String.self))),
+        ]
+
+        internal var snapshot: Snapshot
+
+        internal init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        internal init(vendor: String, accessToken: String) {
+          self.init(snapshot: ["__typename": "VendorAuthorization", "vendor": vendor, "accessToken": accessToken])
+        }
+
+        internal var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// The vendor.
+        internal var vendor: String {
+          get {
+            return snapshot["vendor"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "vendor")
+          }
+        }
+
+        /// The credentials for the vendor.
+        internal var accessToken: String {
+          get {
+            return snapshot["accessToken"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "accessToken")
+          }
+        }
+      }
+    }
+  }
+}
+
+internal final class UnregisterForIncomingCallsMutation: GraphQLMutation {
+  internal static let operationString =
+    "mutation UnregisterForIncomingCalls($input: DeviceRegistrationInput!) {\n  unregisterDeviceForIncomingCalls(input: $input) {\n    __typename\n    ...deviceRegistrationOutput\n  }\n}"
+
+  internal static var requestString: String { return operationString.appending(DeviceRegistrationOutput.fragmentString) }
+
+  internal var input: DeviceRegistrationInput
+
+  internal init(input: DeviceRegistrationInput) {
+    self.input = input
+  }
+
+  internal var variables: GraphQLMap? {
+    return ["input": input]
+  }
+
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Mutation"]
+
+    internal static let selections: [GraphQLSelection] = [
+      GraphQLField("unregisterDeviceForIncomingCalls", arguments: ["input": GraphQLVariable("input")], type: .nonNull(.object(UnregisterDeviceForIncomingCall.selections))),
+    ]
+
+    internal var snapshot: Snapshot
+
+    internal init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    internal init(unregisterDeviceForIncomingCalls: UnregisterDeviceForIncomingCall) {
+      self.init(snapshot: ["__typename": "Mutation", "unregisterDeviceForIncomingCalls": unregisterDeviceForIncomingCalls.snapshot])
+    }
+
+    /// Unregister a device from receiving incoming call push notifications.
+    internal var unregisterDeviceForIncomingCalls: UnregisterDeviceForIncomingCall {
+      get {
+        return UnregisterDeviceForIncomingCall(snapshot: snapshot["unregisterDeviceForIncomingCalls"]! as! Snapshot)
+      }
+      set {
+        snapshot.updateValue(newValue.snapshot, forKey: "unregisterDeviceForIncomingCalls")
+      }
+    }
+
+    internal struct UnregisterDeviceForIncomingCall: GraphQLSelectionSet {
+      internal static let possibleTypes = ["DeviceRegistrationOutput"]
+
+      internal static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("vendorAuthorizations", type: .nonNull(.list(.object(VendorAuthorization.selections)))),
+      ]
+
+      internal var snapshot: Snapshot
+
+      internal init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      internal init(vendorAuthorizations: [VendorAuthorization?]) {
+        self.init(snapshot: ["__typename": "DeviceRegistrationOutput", "vendorAuthorizations": vendorAuthorizations.map { $0.flatMap { $0.snapshot } }])
+      }
+
+      internal var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// Credentials to register for push notifications via vendors.
+      internal var vendorAuthorizations: [VendorAuthorization?] {
+        get {
+          return (snapshot["vendorAuthorizations"] as! [Snapshot?]).map { $0.flatMap { VendorAuthorization(snapshot: $0) } }
+        }
+        set {
+          snapshot.updateValue(newValue.map { $0.flatMap { $0.snapshot } }, forKey: "vendorAuthorizations")
+        }
+      }
+
+      internal var fragments: Fragments {
+        get {
+          return Fragments(snapshot: snapshot)
+        }
+        set {
+          snapshot += newValue.snapshot
+        }
+      }
+
+      internal struct Fragments {
+        internal var snapshot: Snapshot
+
+        internal var deviceRegistrationOutput: DeviceRegistrationOutput {
+          get {
+            return DeviceRegistrationOutput(snapshot: snapshot)
+          }
+          set {
+            snapshot += newValue.snapshot
+          }
+        }
+      }
+
+      internal struct VendorAuthorization: GraphQLSelectionSet {
+        internal static let possibleTypes = ["VendorAuthorization"]
+
+        internal static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("vendor", type: .nonNull(.scalar(String.self))),
+          GraphQLField("accessToken", type: .nonNull(.scalar(String.self))),
+        ]
+
+        internal var snapshot: Snapshot
+
+        internal init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        internal init(vendor: String, accessToken: String) {
+          self.init(snapshot: ["__typename": "VendorAuthorization", "vendor": vendor, "accessToken": accessToken])
+        }
+
+        internal var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// The vendor.
+        internal var vendor: String {
+          get {
+            return snapshot["vendor"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "vendor")
+          }
+        }
+
+        /// The credentials for the vendor.
+        internal var accessToken: String {
+          get {
+            return snapshot["accessToken"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "accessToken")
+          }
         }
       }
     }
@@ -6359,7 +7202,7 @@ internal struct SealedMessage: GraphQLFragment {
     GraphQLField("localPhoneNumber", type: .nonNull(.scalar(String.self))),
     GraphQLField("body", type: .scalar(String.self)),
     GraphQLField("media", type: .list(.nonNull(.object(Medium.selections)))),
-    GraphQLField("direction", type: .nonNull(.scalar(MessageDirection.self))),
+    GraphQLField("direction", type: .nonNull(.scalar(Direction.self))),
     GraphQLField("seen", type: .nonNull(.scalar(Bool.self))),
     GraphQLField("state", type: .nonNull(.scalar(MessageState.self))),
     GraphQLField("owner", type: .nonNull(.scalar(GraphQLID.self))),
@@ -6376,7 +7219,7 @@ internal struct SealedMessage: GraphQLFragment {
     self.snapshot = snapshot
   }
 
-  internal init(id: GraphQLID, conversation: GraphQLID, remotePhoneNumber: String, localPhoneNumber: String, body: String? = nil, media: [Medium]? = nil, direction: MessageDirection, seen: Bool, state: MessageState, owner: GraphQLID, algorithm: String, keyId: String, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
+  internal init(id: GraphQLID, conversation: GraphQLID, remotePhoneNumber: String, localPhoneNumber: String, body: String? = nil, media: [Medium]? = nil, direction: Direction, seen: Bool, state: MessageState, owner: GraphQLID, algorithm: String, keyId: String, clientRefId: String? = nil, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
     self.init(snapshot: ["__typename": "SealedMessage", "id": id, "conversation": conversation, "remotePhoneNumber": remotePhoneNumber, "localPhoneNumber": localPhoneNumber, "body": body, "media": media.flatMap { $0.map { $0.snapshot } }, "direction": direction, "seen": seen, "state": state, "owner": owner, "algorithm": algorithm, "keyId": keyId, "clientRefId": clientRefId, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
   }
 
@@ -6453,9 +7296,9 @@ internal struct SealedMessage: GraphQLFragment {
   }
 
   /// UNSEALED: Direction of message.
-  internal var direction: MessageDirection {
+  internal var direction: Direction {
     get {
-      return snapshot["direction"]! as! MessageDirection
+      return snapshot["direction"]! as! Direction
     }
     set {
       snapshot.updateValue(newValue, forKey: "direction")
@@ -6784,6 +7627,96 @@ internal struct S3MediaObject: GraphQLFragment {
     }
     set {
       snapshot.updateValue(newValue, forKey: "region")
+    }
+  }
+}
+
+internal struct DeviceRegistrationOutput: GraphQLFragment {
+  internal static let fragmentString =
+    "fragment deviceRegistrationOutput on DeviceRegistrationOutput {\n  __typename\n  vendorAuthorizations {\n    __typename\n    vendor\n    accessToken\n  }\n}"
+
+  internal static let possibleTypes = ["DeviceRegistrationOutput"]
+
+  internal static let selections: [GraphQLSelection] = [
+    GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+    GraphQLField("vendorAuthorizations", type: .nonNull(.list(.object(VendorAuthorization.selections)))),
+  ]
+
+  internal var snapshot: Snapshot
+
+  internal init(snapshot: Snapshot) {
+    self.snapshot = snapshot
+  }
+
+  internal init(vendorAuthorizations: [VendorAuthorization?]) {
+    self.init(snapshot: ["__typename": "DeviceRegistrationOutput", "vendorAuthorizations": vendorAuthorizations.map { $0.flatMap { $0.snapshot } }])
+  }
+
+  internal var __typename: String {
+    get {
+      return snapshot["__typename"]! as! String
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "__typename")
+    }
+  }
+
+  /// Credentials to register for push notifications via vendors.
+  internal var vendorAuthorizations: [VendorAuthorization?] {
+    get {
+      return (snapshot["vendorAuthorizations"] as! [Snapshot?]).map { $0.flatMap { VendorAuthorization(snapshot: $0) } }
+    }
+    set {
+      snapshot.updateValue(newValue.map { $0.flatMap { $0.snapshot } }, forKey: "vendorAuthorizations")
+    }
+  }
+
+  internal struct VendorAuthorization: GraphQLSelectionSet {
+    internal static let possibleTypes = ["VendorAuthorization"]
+
+    internal static let selections: [GraphQLSelection] = [
+      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+      GraphQLField("vendor", type: .nonNull(.scalar(String.self))),
+      GraphQLField("accessToken", type: .nonNull(.scalar(String.self))),
+    ]
+
+    internal var snapshot: Snapshot
+
+    internal init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    internal init(vendor: String, accessToken: String) {
+      self.init(snapshot: ["__typename": "VendorAuthorization", "vendor": vendor, "accessToken": accessToken])
+    }
+
+    internal var __typename: String {
+      get {
+        return snapshot["__typename"]! as! String
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "__typename")
+      }
+    }
+
+    /// The vendor.
+    internal var vendor: String {
+      get {
+        return snapshot["vendor"]! as! String
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "vendor")
+      }
+    }
+
+    /// The credentials for the vendor.
+    internal var accessToken: String {
+      get {
+        return snapshot["accessToken"]! as! String
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "accessToken")
+      }
     }
   }
 }
