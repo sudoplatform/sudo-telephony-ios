@@ -72,7 +72,7 @@ public struct PhoneMessage {
     /// The E164Number of the remote phone number
     public let remotePhoneNumber: String
     /// The body of the message
-    public let body: String
+    public let body: String?
     /// The direction of the message. Either `outbound` or `inbound`
     public let direction: Direction
     /// The state of the sending of the message.
@@ -96,48 +96,25 @@ public struct MediaObject {
 
 extension PhoneMessage {
 
-    /// Convenience function to parse and decrypt the getMessageQuery data into a PhoneMessage.
-    /// ideally this is a convenience init, but structs don't allow this.
+    /// Convenience function to parse and decrypt the `SealedMessage` GraphQL fragment into a `PhoneMessage`.
     ///
-    /// - Parameter Data: The sealed message data
-    /// - Parameter client: The telephony client used to decrypt the sealed body.
+    /// - Parameter sealed: The sealed message data
+    /// - Parameter keyManager: The telephony key manager used to decrypt the sealed body.
     /// - Returns: A decrypted PhoneMessage
     /// - Throws: SudoTelephonyClient error if the sealed message data cannot be processed into a PhoneMessage
-    static func createFrom(data: GetMessageQuery.Data.GetMessage, client: DefaultSudoTelephonyClient) throws -> PhoneMessage {
-
-        guard let sealedBody = data.body,
-            let sealedBodyData = Data(base64Encoded: sealedBody, options: .ignoreUnknownCharacters),
-            let sealedRemoteData = Data(base64Encoded: data.remotePhoneNumber, options: .ignoreUnknownCharacters),
-            let sealedLocalData = Data(base64Encoded: data.localPhoneNumber, options: .ignoreUnknownCharacters) else {
-                throw SudoTelephonyClientError.sealedDataDecryptionFailed
-        }
-
-        do {
-            let decryptedBody = try client.decryptSealedData(data: sealedBodyData)
-            let decryptedRemote = try client.decryptSealedData(data: sealedRemoteData)
-            let decryptedLocal = try client.decryptSealedData(data: sealedLocalData)
-            let bodyText = String(decoding: decryptedBody, as: UTF8.self)
-            let remote = String(decoding: decryptedRemote, as: UTF8.self)
-            let local = String(decoding: decryptedLocal, as: UTF8.self)
-
-            let phoneMessage = PhoneMessage(id: data.id,
-                                                owner: data.owner,
-                                                conversation: data.conversation,
-                                                updated: Date(timeIntervalSinceNow: TimeInterval(data.updatedAtEpochMs / 1000)),
-                                                created: Date(timeIntervalSinceNow: TimeInterval(data.createdAtEpochMs / 1000)),
-                                               localPhoneNumber: local,
-                                                remotePhoneNumber: remote,
-                                                body: bodyText,
-                                                direction: PhoneMessage.Direction(internalDirection: data.direction),
-                                                state: PhoneMessage.State(internalState: data.state),
-                                                media: data.media?.map { MediaObject(media: $0.fragments.s3MediaObject) } ?? [])
-
-            return phoneMessage
-        } catch {
-            throw SudoTelephonyClientError.messageDecryptionFailed
-        }
+    init(decrypting sealed: SealedMessage, keyManager: TelephonyKeyManager) throws {
+        self.init(
+            id: sealed.id,
+            owner: sealed.owner,
+            conversation: sealed.conversation,
+            updated: Date(timeIntervalSince1970: sealed.updatedAtEpochMs / 1000),
+            created: Date(timeIntervalSince1970: sealed.createdAtEpochMs / 1000),
+            localPhoneNumber: try keyManager.decrypt(sealed.localPhoneNumber),
+            remotePhoneNumber: try keyManager.decrypt(sealed.remotePhoneNumber),
+            body: try sealed.body.map { try keyManager.decrypt($0) },
+            direction: Direction(internalDirection: sealed.direction),
+            state: State(internalState: sealed.state),
+            media: (sealed.media ?? []).map { MediaObject(media: $0.fragments.s3MediaObject) }
+        )
     }
 }
-
-
-

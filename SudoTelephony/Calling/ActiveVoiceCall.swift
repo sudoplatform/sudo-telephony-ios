@@ -6,6 +6,7 @@
 
 import Foundation
 import CallKit
+import AVFoundation
 
 /// Delegate for receiving notifications about new `ActiveVoiceCall` events.
 ///
@@ -33,10 +34,15 @@ public protocol ActiveCallDelegate {
     ///     - call: The `ActiveVoiceCall`
     ///     - isMuted: Whether outgoing call audio is muted
     func activeVoiceCall(_ call: ActiveVoiceCall, didChangeMuteState isMuted: Bool)
+
+    /// Called when the system audio route has changed.
+    ///
+    /// Use `call.isOnSpeaker` to determine if the call is on speaker.
+    ///
+    /// - Parameter call: The `ActiveVoiceCall`
+    func activeVoiceCallAudioRouteDidChange(_ call: ActiveVoiceCall)
 }
 
-// TODO: This will eventually be the GraphQL response type from `createVoiceCall`.
-typealias CallRecord = (accessToken: String, localPhoneNumber: String, remotePhoneNumber: String)
 
 /// Enables controlling an active voice call and displaying its properties.
 public class ActiveVoiceCall {
@@ -50,7 +56,14 @@ public class ActiveVoiceCall {
 
     internal let setAudioRouteToSpeakerBlock: ((_ toSpeaker: Bool) -> Void)
 
+    /// A Boolean value indicating whether outgoing call audio is muted.
     public internal(set) var isMuted: Bool = false
+
+    /// A Boolean value that specifies if call audio is being routed through the built-in speaker.
+    public var isOnSpeaker: Bool {
+        let currentOutputs = AVAudioSession.sharedInstance().currentRoute.outputs
+        return currentOutputs.filter { $0.portType == AVAudioSession.Port.builtInSpeaker }.count > 0
+    }
 
     internal init(
         localNumber: String,

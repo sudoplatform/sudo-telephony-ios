@@ -4,6 +4,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 //
+
 import Foundation
 import AWSAppSync
 import AWSS3
@@ -104,7 +105,7 @@ public protocol SudoTelephonyClient {
     /// - Parameter body: The text body of the MMS message.
     /// - Parameter localUrl: The local path of the media to be uploaded.
     /// - Parameter completion: Completion callback providing the sent message or an error if there was a failure.
-    func sendMMSMessage(localNumber: PhoneNumber, remoteNumber: String, body: String, localUrl: URL, completion: @escaping (Swift.Result<PhoneMessage, SudoTelephonyClientError>) -> Void) throws
+    func sendMMSMessage(localNumber: PhoneNumber, remoteNumber: String, body: String?, localUrl: URL, completion: @escaping (Swift.Result<PhoneMessage, SudoTelephonyClientError>) -> Void) throws
     
     /// Subscribe to new messages and message status updates.
     ///
@@ -199,6 +200,61 @@ public protocol SudoTelephonyClient {
     /// - Returns: A Bool indicating if the SDK was able to handle the payload or not.
     /// - Throws: A `CallConfigurationError` if a CallProviderConfiguration object is not provided in the initializer.
     func handleIncomingPushNotificationPayload(_ payload: [AnyHashable: Any], notificationDelegate: IncomingCallNotificationDelegate) throws -> Bool
+
+    /// Retrieves the call record with specified id.
+    ///
+    /// - Parameter callRecordId: The id of the `CallRecord` to be retrieved.
+    /// - Parameter completion: Completion callback providing the `CallRecord` or an error if it could not be retrieved.
+    func getCallRecord(callRecordId: String, completion: @escaping (Swift.Result<CallRecord, SudoTelephonyClientError>) -> Void) throws
+
+    /// Retrieves a list of call records.
+    ///
+    /// - Parameter localNumber: The `PhoneNumber` of the participating sudo.
+    /// - Parameter limit: The maximum number of call records to retrieve.
+    /// - Parameter nextToken: The token to use for pagination.
+    /// - Parameter completion: Completion callback providing a list of `CallRecord`s or an error if it could not be retrieved.
+    func getCallRecords(localNumber: PhoneNumber, limit: Int?, nextToken: String?, completion: @escaping (Swift.Result<TelephonyListToken<CallRecord>, SudoTelephonyClientError>) -> Void) throws
+
+    /// Subscribe to new call record updates.
+    ///
+    /// - Parameter resultHandler: A callback that provides new/updated call record when a call is completed.
+    /// - Returns: `SubscriptionToken` The object used to cancel the subscription. When this object is released, the subscription is canceled.
+    func subscribeToCallRecords(resultHandler: @escaping (Swift.Result<CallRecord, SudoTelephonyClientError>) -> Void) throws -> SubscriptionToken
+
+    /// Deletes a call record matching the associated id.
+    ///
+    /// - Parameter id: The id of the `CallRecord` to delete.
+    /// - Parameter completion: Completion callback providing the id of the deleted `CallRecord` or an error if the `CallRecord` could not be deleted.
+    func deleteCallRecord(id: String, completion: @escaping (Swift.Result<String, SudoTelephonyClientError>) -> Void) throws
+
+    /// Retrieves a list of `Voicemail`s for the given `PhoneNumber`.
+    ///
+    /// - Parameters:
+    ///   - localNumber: The `PhoneNumber` to fetch `Voicemail`s for.
+    ///   - limit: The maximum number of `Voicemail`s to retrieve per page.
+    ///   - nextToken: The token to use for pagination.
+    ///   - completion: Completion callback providing a list of `Voicemail`s or an error if it could not be retrieved.
+    func getVoicemails(localNumber: PhoneNumber, limit: Int?, nextToken: String?, completion: @escaping (Swift.Result<TelephonyListToken<Voicemail>, SudoTelephonyClientError>) -> Void)
+
+    /// Retrieves the voicemail with the specified `id`.
+    ///
+    /// - Parameters:
+    ///   - id: The `id` of the `Voicemail` to retrieve.
+    ///   - completion: Completion callback providing the `Voicemail` or an error if it could not be retrieved.
+    func getVoicemail(id: String, completion: @escaping (Swift.Result<Voicemail, SudoTelephonyClientError>) -> Void)
+
+    /// Deletes a voicemail matching the given `id`.
+    ///
+    /// - Parameters:
+    ///   - id: The `id` of the `Voicemail` to delete.
+    ///   - completion: Completion callback providing success or an error if the `Voicemail` could not be deleted.
+    func deleteVoicemail(id: String, completion: @escaping (Swift.Result<Void, SudoTelephonyClientError>) -> Void)
+
+    /// Subscribe to new, updated, and deleted `Voicemail` records.
+    ///
+    /// - Parameter resultHandler: A callback that provides new/updated/deleted `Voicemail` records when changes occur.
+    /// - Returns: `SubscriptionToken` An object used to cancel the subscription. When this object is released, the subscription is canceled.
+    func subscribeToVoicemails(resultHandler: @escaping (Swift.Result<Voicemail, SudoTelephonyClientError>) -> Void) throws -> SubscriptionToken
 }
 
 /// Default implementation of `SudoTelephonyClient`.
@@ -253,14 +309,6 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
             static let tokenExpiry = "tokenExpiry"
             static let identityId = "identityId"
         }
-        
-        struct KeyManager {
-            static let defaultKeyManagerServiceName = "com.sudoplatform.appservicename"
-            static let defaultKeyManagerKeyTag = "com.sudoplatform"
-            static let keyIdName = "com.sudoplatform.keyId"
-            static let keyRingIdName = "com.sudoplatform.keyRingId"
-        }
-        
         struct SudoProfiles {
             static let telephonyAudience = "sudoplatform.telephony.phone-number"
         }
@@ -305,8 +353,8 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
     /// Key used to instantiate the AWSS3TransferUtility.
     private let s3TransferUtilityKey = "com.sudoplatform.telephonyclient.s3TransferUtility"
 
-    /// The sudo key manager to use for creating telephony keys/passwords and performing cryptographic operations
-    private let keyManager: SudoKeyManager
+    /// The key manager to use for creating telephony keys/passwords and performing cryptographic operations
+    private let keyManager: TelephonyKeyManager
 
     /// Weak reference to a cancellable resource, i.e. a subscription callback.
     struct WeakCancellable {
@@ -329,6 +377,9 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
             apiResultQueue: self.apiResultQueue,
             sudoUserClient: self.sudoUserClient,
             callProviderConfiguration: config,
+            keyManager: self.keyManager,
+            subscriptionsAccessQueue: self.subscriptionsAccessQueue,
+            subscriptions: self.subscriptions,
             logger: self.logger
         )
     }()
@@ -340,12 +391,13 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
     ///   - sudoUserClient: `SudoUserClient` instance required to issue authentication tokens
     ///   - sudoProfilesClient: `SudoProfilesClient` instance required to issue ownership proofs
     ///   - callProviderConfiguration: Optional configuration object for calling related functionality.  If not provided, attemts to use calling features will throw an error.
-    ///   - logger: A logger to use for logging messages. If none provided then a default internal logger will be used.
+    ///   - logger: A logger to use for logging messages. The default logger logs debug messages. Provide `nil` to silence logging.
     /// - Throws: `TelephonyClientError`
-    convenience public init(
+    public convenience init(
         sudoUserClient: SudoUserClient,
         sudoProfilesClient: SudoProfilesClient,
-        callProviderConfiguration: CallProviderConfiguration? = nil
+        callProviderConfiguration: CallProviderConfiguration? = nil,
+        logger: Logger? = DefaultSudoTelephonyClient.defaultLogger
     ) throws {
         guard let configManager = DefaultSudoConfigManager(),
             let identityServiceConfig = configManager.getConfigSet(namespace: Config.Namespace.identityService),
@@ -357,19 +409,34 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         guard let graphQLClient = try ApiClientManager.instance?.getClient(sudoUserClient: sudoUserClient) else {
             throw SudoTelephonyClientError.invalidConfig
         }
+
+        let config = [
+            Config.Namespace.identityService: identityServiceConfig,
+            Config.Namespace.apiService: sudoTelephonyConfig
+        ]
+
+        let logger = logger ?? Logger(
+            identifier: DefaultSudoTelephonyClient.defaultLogger.logIdentifier,
+            driver: NSLogDriver(level: LogLevel.none)
+        )
+        let keyManager = DefaultTelephonyKeyManager(
+            keyNamespace: "tel",
+            sudoUserClient: sudoUserClient,
+            graphQLClient: graphQLClient,
+            logger: logger
+        )
         
         try self.init(
-            config: [
-                Config.Namespace.identityService: identityServiceConfig,
-                Config.Namespace.apiService: sudoTelephonyConfig
-            ],
+            config: config,
             sudoUserClient: sudoUserClient,
             sudoProfilesClient: sudoProfilesClient,
             callProviderConfiguration: callProviderConfiguration,
+            logger: logger,
+            keyManager: keyManager,
             graphQLClient: graphQLClient
         )
     }
-    
+
     /// Intializes a new `DefaultTelephonyClient` instance with the specified backend configuration.
     ///
     /// - Parameters:
@@ -378,37 +445,110 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
     ///   - sudoProfilesClient: `SudoProfilesClient` instance required to issue ownership proofs
     ///   - callProviderConfiguration: Optional configuration object for calling related functionality.  If not provided, attemts to use calling features will throw an error.
     ///   - cacheType: Cache type to use. Please refer to CacheType enum.
-    ///   - logger: A logger to use for logging messages. If none provided then a default internal logger will be used.
+    ///   - logger: A logger to use for logging messages. The default logger logs debug messages. Provide `nil` to silence logging.
     ///   - keyNamespace: Namespace to use for the keys and passwords.
-    ///   - graphQLClient: Optional GraphQL client to use. Mainly used for unit testing.
     /// - Throws: `TelephonyClientError`
-    public init(config: [String: Any],
-                sudoUserClient: SudoUserClient,
-                sudoProfilesClient: SudoProfilesClient,
-                callProviderConfiguration: CallProviderConfiguration? = nil,
-                cacheType: CacheType = .disk,
-                logger: Logger? = nil,
-                keyNamespace: String = "tel",
-                graphQLClient: AWSAppSyncClient? = nil) throws {
+    public convenience init(
+        config: [String: Any],
+        sudoUserClient: SudoUserClient,
+        sudoProfilesClient: SudoProfilesClient,
+        callProviderConfiguration: CallProviderConfiguration? = nil,
+        cacheType: CacheType = .disk,
+        logger: Logger? = DefaultSudoTelephonyClient.defaultLogger,
+        keyNamespace: String = "tel"
+    ) throws {
+        let logger = logger ?? Logger(
+            identifier: DefaultSudoTelephonyClient.defaultLogger.logIdentifier,
+            driver: NSLogDriver(level: LogLevel.none)
+        )
+        let appSyncClient = try DefaultSudoTelephonyClient.getAppSyncClient(
+            config: config,
+            sudoUserClient: sudoUserClient,
+            cacheType: cacheType
+        )
+        let keyManager = DefaultTelephonyKeyManager(
+            keyNamespace: keyNamespace,
+            sudoUserClient: sudoUserClient,
+            graphQLClient: appSyncClient,
+            logger: logger
+        )
+        try self.init(
+            config: config,
+            sudoUserClient: sudoUserClient,
+            sudoProfilesClient: sudoProfilesClient,
+            callProviderConfiguration: callProviderConfiguration,
+            logger: logger,
+            keyManager: keyManager,
+            graphQLClient: appSyncClient
+        )
+    }
+
+    @available(*, deprecated, message: "This initializer references internal implementation details and should not be used. Prefer a different initializer.")
+    public convenience init(
+        config: [String: Any],
+        sudoUserClient: SudoUserClient,
+        sudoProfilesClient: SudoProfilesClient,
+        callProviderConfiguration: CallProviderConfiguration? = nil,
+        cacheType: CacheType = .disk,
+        logger: Logger? = nil,
+        keyNamespace: String = "tel",
+        graphQLClient: AWSAppSyncClient? = nil
+    ) throws {
+        let logger = logger ?? DefaultSudoTelephonyClient.defaultLogger
+        let appSyncClient = try graphQLClient ?? DefaultSudoTelephonyClient.getAppSyncClient(
+            config: config,
+            sudoUserClient: sudoUserClient,
+            cacheType: cacheType
+        )
+        let keyManager = DefaultTelephonyKeyManager(
+            keyNamespace: keyNamespace,
+            sudoUserClient: sudoUserClient,
+            graphQLClient: appSyncClient,
+            logger: logger
+        )
+        try self.init(
+            config: config,
+            sudoUserClient: sudoUserClient,
+            sudoProfilesClient: sudoProfilesClient,
+            callProviderConfiguration: callProviderConfiguration,
+            logger: logger,
+            keyManager: keyManager,
+            graphQLClient: appSyncClient
+        )
+    }
+
+    /// Intializes a new `DefaultTelephonyClient` instance with the specified backend configuration.
+    ///
+    /// - Parameters:
+    ///   - config: Configuration parameters for the client.
+    ///   - sudoUserClient: `SudoUserClient` instance required to issue authentication tokens and perform cryptographic operations.
+    ///   - sudoProfilesClient: `SudoProfilesClient` instance required to issue ownership proofs
+    ///   - callProviderConfiguration: Optional configuration object for calling related functionality.  If not provided, attemts to use calling features will throw an error.
+    ///   - logger: A logger to use for logging messages. Provide `nil` to silence logging.
+    ///   - keyManager: `TelephonyKeyManager`
+    ///   - graphQLClient: `AWSAppSyncClient`
+    /// - Throws: `SudoTelephonyClientError.invalidConfig`
+    internal init(config: [String: Any],
+                  sudoUserClient: SudoUserClient,
+                  sudoProfilesClient: SudoProfilesClient,
+                  callProviderConfiguration: CallProviderConfiguration?,
+                  logger: Logger,
+                  keyManager: TelephonyKeyManager,
+                  graphQLClient: AWSAppSyncClient) throws {
         
         #if DEBUG
         AWSDDLog.sharedInstance.logLevel = .verbose
         AWSDDLog.add(AWSDDTTYLogger.sharedInstance)
         #endif
-        
-        let logger = logger ?? Logger.telephonyClientLogger
+
         self.logger = logger
         self.sudoUserClient = sudoUserClient
         self.sudoProfilesClient = sudoProfilesClient
-        
-        let keyManager = SudoKeyManagerImpl(serviceName: Constants.KeyManager.defaultKeyManagerServiceName,
-                                            keyTag: Constants.KeyManager.defaultKeyManagerKeyTag,
-                                            namespace: keyNamespace)
-        self.keyManager = keyManager
-        
+
+        self.callProviderConfig = callProviderConfiguration
+
         guard let telephonyServiceConfig = config[Config.Namespace.apiService] as? [String: Any],
             let identityServiceConfig = config[Config.Namespace.identityService] as? [String: Any],
-            let configProvider = SudoTelephonyClientConfigProvider(config: telephonyServiceConfig),
             let region = telephonyServiceConfig[Config.TelephonyService.region] as? String,
             let poolId = identityServiceConfig[Config.TelephonyService.poolId] as? String,
             let identityPoolId = identityServiceConfig[Config.TelephonyService.identityPoolId] as? String,
@@ -424,32 +564,47 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         self.transientS3Bucket = transientBucket
         self.poolId = poolId
         self.identityPoolId = identityPoolId
-        
-        if let graphQLClient = graphQLClient {
-            self.graphQLClient = graphQLClient
-        } else {
-            let cacheConfiguration: AWSAppSyncCacheConfiguration
-            switch cacheType {
-            case .memory:
-                cacheConfiguration = AWSAppSyncCacheConfiguration.inMemory
-            case .disk:
-                cacheConfiguration = try AWSAppSyncCacheConfiguration()
-            }
-            
-            let appSyncConfig = try AWSAppSyncClientConfiguration(appSyncServiceConfig: configProvider,
-                                                                  userPoolsAuthProvider: GraphQLAuthProvider(client: self.sudoUserClient),
-                                                                  urlSessionConfiguration: URLSessionConfiguration.default,
-                                                                  cacheConfiguration: cacheConfiguration,
-                                                                  connectionStateChangeHandler: nil,
-                                                                  s3ObjectManager: nil,
-                                                                  presignedURLClient: nil,
-                                                                  retryStrategy: .exponential)
-            let graphQLClient = try AWSAppSyncClient(appSyncConfig: appSyncConfig)
-            graphQLClient.apolloClient?.cacheKeyForObject = { $0["id"] }
-            self.graphQLClient = graphQLClient
+
+        self.graphQLClient = graphQLClient
+        self.keyManager = keyManager
+    }
+
+    public static var defaultLogger: Logger {
+        return Logger(identifier: "telephonyClient", driver: NSLogDriver(level: .debug))
+    }
+
+    private static func getAppSyncClient(
+        config: [String: Any],
+        sudoUserClient: SudoUserClient,
+        cacheType: CacheType
+    ) throws -> AWSAppSyncClient {
+        let cacheConfiguration: AWSAppSyncCacheConfiguration
+        switch cacheType {
+        case .memory:
+            cacheConfiguration = AWSAppSyncCacheConfiguration.inMemory
+        case .disk:
+            cacheConfiguration = try AWSAppSyncCacheConfiguration()
         }
 
-        self.callProviderConfig = callProviderConfiguration
+        guard
+            let telephonyServiceConfig = config[Config.Namespace.apiService] as? [String: Any],
+            let configProvider = SudoTelephonyClientConfigProvider(config: telephonyServiceConfig)
+        else {
+            throw SudoTelephonyClientError.invalidConfig
+        }
+        let appSyncConfig = try AWSAppSyncClientConfiguration(
+            appSyncServiceConfig: configProvider,
+            userPoolsAuthProvider: GraphQLAuthProvider(client: sudoUserClient),
+            urlSessionConfiguration: URLSessionConfiguration.default,
+            cacheConfiguration: cacheConfiguration,
+            connectionStateChangeHandler: nil,
+            s3ObjectManager: nil,
+            presignedURLClient: nil,
+            retryStrategy: .exponential
+        )
+        let graphQLClient = try AWSAppSyncClient(appSyncConfig: appSyncConfig)
+        graphQLClient.apolloClient?.cacheKeyForObject = { $0["id"] }
+        return graphQLClient
     }
 
     private var s3TransferUtility: AWSS3TransferUtility {
@@ -479,6 +634,8 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
             subscriptions.forEach { $0.value?.cancel() }
             logger.info("Resetting client state.")
 
+            calling?.reset()
+
             AWSS3TransferUtility.remove(forKey: s3TransferUtilityKey)
 
             try graphQLClient.clearCaches(options: .init(clearQueries: true,
@@ -497,134 +654,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         return identityId + "/telephony/media/" + s3Key
     }
     
-    private func generateKeyPair(completion: @escaping (Swift.Result<PublicKey, SudoTelephonyClientError>) -> Void) throws {
-        self.logger.info("Generating public/private keypair")
-        
-        guard let identityId = self.sudoUserClient.getIdentityId() else {
-            completion(.failure(SudoTelephonyClientError.keyGenerationFailed))
-            return
-        }
-        let keyRingId = UUID().uuidString
-        let keyId = try self.keyManager.generateKeyId()
-        
-        do {
-            try self.keyManager.generateKeyPair(identityId)
-        } catch {
-            throw SudoTelephonyClientError.keyGenerationFailed
-        }
-        
-        guard let keyPair = getKeyPair() else {
-            completion(.failure(SudoTelephonyClientError.keyGenerationFailed))
-            return
-        }
-        
-        let publicKey = keyPair.publicKey.base64EncodedString()
-        
-        let publicKeyInput = CreatePublicKeyInput.init(keyId: keyId, keyRingId: keyRingId, algorithm: "RSAEncryptionOAEPAESCBC", publicKey: publicKey)
-        
-        let mutation = CreatePublicKeyMutation(input: publicKeyInput)
-        
-        graphQLClient.perform(mutation: mutation, queue: self.apiResultQueue, optimisticUpdate: nil, conflictResolutionBlock: nil) { (result, error) in
-            guard error == nil else {
-                completion(.failure(SudoTelephonyClientError(serviceError: error)))
-                return
-            }
-            
-            guard let publicKey = result?.data?.createPublicKeyForTelephony else {
-                self.logger.error("Public key not registered with service")
-                completion(.failure(SudoTelephonyClientError.keyGenerationFailed))
-                return
-            }
-            
-            // Save the key ID as a password in the key manager
-            guard let keyIdData = keyId.data(using: String.Encoding.utf8) else {
-                completion(.failure(SudoTelephonyClientError.keyGenerationFailed))
-                return
-            }
-            do {
-                try self.keyManager.addPassword(keyIdData, name: Constants.KeyManager.keyIdName + identityId)
-            } catch {
-                completion(.failure(SudoTelephonyClientError.keyGenerationFailed))
-            }
-            
-            // Save the key ring ID as a password in the key manager
-            guard let keyRingIdData = keyRingId.data(using: String.Encoding.utf8) else {
-                completion(.failure(SudoTelephonyClientError.keyGenerationFailed))
-                return
-            }
-            do {
-                try self.keyManager.addPassword(keyRingIdData, name: Constants.KeyManager.keyRingIdName + identityId)
-            } catch {
-                completion(.failure(SudoTelephonyClientError.keyGenerationFailed))
-            }
-            
-            
-            completion(.success(publicKey.fragments.publicKey))
-        }
-    }
-    
-    open func getKeyPair() -> KeyPair? {
-        do {
-            guard let identityId = sudoUserClient.getIdentityId() else { return nil }
-            guard let privateKey = try self.keyManager.getPrivateKey(identityId), let publicKey = try self.keyManager.getPublicKey(identityId) else {
-                return nil
-            }
-            
-            return KeyPair(publicKey: publicKey, privateKey: privateKey)
-        } catch {
-            return nil
-        }
-    }
-    
-    open func getKeyId() -> String? {
-        do {
-            guard let identityId = sudoUserClient.getIdentityId() else { return nil }
-            let keyIdData = try self.keyManager.getPassword(Constants.KeyManager.keyIdName + identityId)
-            guard let keyId = keyIdData else { return nil }
-            return String(data: keyId, encoding: .utf8)
-        } catch {
-            return nil
-        }
-    }
-    
-    open func getKeyRingId() -> String? {
-        do {
-            guard let identityId = sudoUserClient.getIdentityId() else { return nil }
-            let keyRingIdData = try self.keyManager.getPassword(Constants.KeyManager.keyRingIdName + identityId)
-            guard let keyRingId = keyRingIdData else { return nil }
-            return String(data: keyRingId, encoding: .utf8)
-        } catch {
-            return nil
-        }
-    }
-    
-    private func deleteKeyPair() throws {
-        do {
-            guard let identityId = sudoUserClient.getIdentityId() else { throw SudoTelephonyClientError.keyDeletionFailed }
-            try keyManager.deleteKeyPair(identityId)
-        } catch {
-            throw SudoTelephonyClientError.keyDeletionFailed
-        }
-    }
-    
-    internal func decryptSealedData(data: Data) throws -> Data {
-        if data.count < 1 { return data }
-        
-        guard let identityId = self.sudoUserClient.getIdentityId() else { throw SudoTelephonyClientError.messageDecryptionFailed }
-        do {
-            let encryptedCipherKey = data[0...255]
-            let cipherKey = try self.keyManager.decryptWithPrivateKey(identityId, data: encryptedCipherKey, algorithm: PublicKeyEncryptionAlgorithm.rsaEncryptionOAEPSHA1)
-            let symmetricKey = cipherKey[0...31]
-            let iv = Data(repeating: 0, count: 16)
-            let encryptedBody = data[256...data.count - 1]
-            
-            let decryptedData = try self.keyManager.decryptWithSymmetricKey(symmetricKey, data: encryptedBody, iv: iv)
-            return decryptedData
-        } catch {
-            throw SudoTelephonyClientError.sealedDataDecryptionFailed
-        }
-    }
-    
+
     public func getSupportedCountries(completion: @escaping (Swift.Result<[String], SudoTelephonyClientError>) -> Void) throws {
         self.logger.info("Fetching supported countries")
         
@@ -633,6 +663,11 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
             
             guard error == nil else {
                 completion(.failure(SudoTelephonyClientError(serviceError: error)))
+                return
+            }
+
+            if let apiError = result?.errors?.first {
+                completion(.failure(SudoTelephonyClientError(internalError: apiError)))
                 return
             }
             
@@ -744,6 +779,11 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
                 return
             }
 
+            if let apiError = result?.errors?.first {
+                completion(.failure(SudoTelephonyClientError(internalError: apiError)))
+                return
+            }
+
             guard let data = result?.data?.getPhoneNumberSearch else {
                 completion(.failure(.internalError))
                 return
@@ -826,46 +866,13 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
 
             postProvisionFetchHandler(query: query, completion: completion)
         }
-        
-        // Set up public/private keypair
-        if getKeyPair() == nil {
-            try self.generateKeyPair() { result in
-                switch result {
-                case .failure(let error):
-                    completion(.failure(error))
-                    return
-                case .success(_):
-                    self.logger.info("Successfully generated public/private keypair")
-                    guard let keyRingId = self.getKeyRingId() else {
-                        completion(.failure(SudoTelephonyClientError.keyGenerationFailed))
-                        return
-                    }
-                    
-                    let sudo = Sudo(id: sudoId)
-                    do {
-                        try self.sudoProfilesClient.getOwnershipProof(sudo: sudo, audience: Constants.SudoProfiles.telephonyAudience) { (result: GetOwnershipProofResult) in
-                            switch result {
-                            case let .success(jwt):
-                                let input = ProvisionPhoneNumberInput(phoneNumber: phoneNumber, country: countryCode, keyRingId: keyRingId, ownerProofs: [jwt])
-                                let mutation = ProvisionPhoneNumberMutation(input: input)
-                                self.graphQLClient.perform(mutation: mutation, queue: self.apiResultQueue, optimisticUpdate: nil, conflictResolutionBlock: nil, resultHandler: resultHandler)
-                            case let .failure(cause):
-                                self.logger.error("Failed to get ownership proof: \(cause)")
-                                completion(.failure(SudoTelephonyClientError.ownershipProofFailed))
-                            }
-                        }
-                    } catch {
-                        completion(.failure(SudoTelephonyClientError.keyGenerationFailed))
-                        return
-                    }
-                }
-            }
-        } else {
-            guard let keyRingId = self.getKeyRingId() else {
+
+        let doProvisioning = {
+            guard let keyRingId = self.keyManager.getKeyRingId() else {
                 completion(.failure(SudoTelephonyClientError.keyGenerationFailed))
                 return
             }
-            
+
             let sudo = Sudo(id: sudoId)
             do {
                 try self.sudoProfilesClient.getOwnershipProof(sudo: sudo, audience: Constants.SudoProfiles.telephonyAudience) { (result: GetOwnershipProofResult) in
@@ -882,6 +889,21 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
             } catch {
                 completion(.failure(SudoTelephonyClientError.ownershipProofFailed))
                 return
+            }
+        }
+
+        // Set up public/private keypair
+        if keyManager.getKeyPair() != nil {
+            doProvisioning()
+        } else {
+            try keyManager.generateKeyPair(apiResultQueue: apiResultQueue) { result in
+                switch result {
+                case .failure(let error):
+                    completion(.failure(error))
+                    return
+                case .success:
+                    doProvisioning()
+                }
             }
         }
     }
@@ -917,11 +939,15 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
                 return
             }
 
+            if let apiError = result?.errors?.first {
+                completion(.failure(SudoTelephonyClientError(internalError: apiError)))
+                return
+            }
+
             guard let data = result?.data?.listPhoneNumbers else {
                 completion(.failure(.internalError))
                 return
             }
-
 
             let token = TelephonyListToken(items: data.items?.map {
                 PhoneNumber(id: $0.id, phoneNumber: $0.phoneNumber, state: PhoneNumber.State(internalState: $0.state), version: $0.version, created: Date(timeIntervalSince1970: $0.createdAtEpochMs / 1000), updated: Date(timeIntervalSince1970: $0.updatedAtEpochMs / 1000))
@@ -939,6 +965,11 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         self.graphQLClient.fetch(query: query, cachePolicy: .returnCacheDataElseFetch, queue: self.apiResultQueue) { (result, error) in
             guard error == nil else {
                 completion(.failure(SudoTelephonyClientError(serviceError: error)))
+                return
+            }
+
+            if let apiError = result?.errors?.first {
+                completion(.failure(SudoTelephonyClientError(internalError: apiError)))
                 return
             }
             
@@ -961,7 +992,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         self.graphQLClient.perform(mutation: mutation, queue: self.apiResultQueue, optimisticUpdate: nil, conflictResolutionBlock: nil) { (result, error) in
             let containerError = result?.errors?.first
             guard error == nil, containerError == nil else {
-                completion(.failure(SudoTelephonyClientError(serviceError: error)))
+                completion(.failure(SudoTelephonyClientError(serviceError: error ?? containerError)))
                 return
             }
 
@@ -979,7 +1010,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         }
     }
     
-    public func sendMMSMessage(localNumber: PhoneNumber, remoteNumber: String, body: String, localUrl: URL, completion: @escaping (Swift.Result<PhoneMessage, SudoTelephonyClientError>) -> Void) throws {
+    public func sendMMSMessage(localNumber: PhoneNumber, remoteNumber: String, body: String?, localUrl: URL, completion: @escaping (Swift.Result<PhoneMessage, SudoTelephonyClientError>) -> Void) throws {
         self.logger.info("Sending MMS Message")
 
         // Create an s3 keypath where the file will be uploaded
@@ -1005,7 +1036,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
             self.graphQLClient.perform(mutation: mutation, queue: self.apiResultQueue, optimisticUpdate: nil, conflictResolutionBlock: nil) { (result, error) in
                 let containerError = result?.errors?.first
                 guard error == nil, containerError == nil else {
-                    completion(.failure(SudoTelephonyClientError(serviceError: error)))
+                    completion(.failure(SudoTelephonyClientError(serviceError: error ?? containerError)))
                     return
                 }
                 guard let messageId = result?.data?.sendMessage else {
@@ -1026,35 +1057,33 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
     public func getMessage(id: String, completion: @escaping (Swift.Result<PhoneMessage, SudoTelephonyClientError>) -> Void) throws {
         self.logger.info("Getting Phone Message \(id)")
         
-        guard let keyId = self.getKeyId() else {
-            completion(.failure(.getMessageFailed))
-            return
+        guard let keyId = keyManager.getKeyId() else {
+            return completion(.failure(.getMessageFailed))
         }
         
         let query = GetMessageQuery(id: id, keyId: keyId)
         self.graphQLClient.fetch(query: query, cachePolicy: .returnCacheDataElseFetch, queue: self.apiResultQueue) { (result, error) in
-            guard error == nil else {
-                completion(.failure(SudoTelephonyClientError(serviceError: error)))
-                return
-            }
-            
-            guard let data = result?.data?.getMessage else {
-                completion(.failure(.getMessageFailed))
-                return
+            if let error = error {
+                return completion(.failure(SudoTelephonyClientError(serviceError: error)))
             }
 
-            do {
-                let phoneMessage = try PhoneMessage.createFrom(data: data, client: self)
-                completion(.success(phoneMessage))
+            if let error = result?.errors?.first {
+                return completion(.failure(SudoTelephonyClientError(serviceError: error)))
             }
-            catch {
-                if let clientError = error as? SudoTelephonyClientError {
-                    completion(.failure(clientError))
-                }
-                else {
-                    completion(.failure(.messageDecryptionFailed))
-                }
-                return
+
+            guard let data = result?.data?.getMessage else {
+                return completion(.failure(.getMessageFailed))
+            }
+
+            switch Swift.Result(catching: {
+                try PhoneMessage(decrypting: data.fragments.sealedMessage, keyManager: self.keyManager)
+            }) {
+            case .success(let message):
+                return completion(.success(message))
+            case .failure(let error as SudoTelephonyClientError):
+                return completion(.failure(error))
+            case .failure:
+                return completion(.failure(.messageDecryptionFailed))
             }
         }
     }
@@ -1072,9 +1101,8 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
     public func getMessages(conversationId: String, limit: Int?, nextToken: String?, completion: @escaping (Swift.Result<TelephonyListToken<PhoneMessage>, SudoTelephonyClientError>) -> Void) throws {
         self.logger.info("Getting Phone Messages for conversation \(conversationId)")
         
-        guard let keyId = self.getKeyId() else {
-            completion(.failure(.getConversationFailed))
-            return
+        guard let keyId = keyManager.getKeyId() else {
+            return completion(.failure(.getConversationFailed))
         }
         
         let filterInput = MessageFilterInput(conversation: IDFilterInput(eq: conversationId), keyId: IDFilterInput(eq: keyId))
@@ -1082,50 +1110,28 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         let query = ListMessagesQuery(filter: filterInput, limit: limit, nextToken: nextToken)
         self.graphQLClient.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, queue: self.apiResultQueue) { (result, error) in
             guard error == nil else {
-                completion(.failure(SudoTelephonyClientError(serviceError: error)))
-                return
+                return completion(.failure(SudoTelephonyClientError(serviceError: error)))
+            }
+
+            if let error = result?.errors?.first {
+                return completion(.failure(SudoTelephonyClientError(serviceError: error)))
             }
             
             guard let result = result, let results = result.data?.listMessages else {
-                completion(.failure(.getMessageFailed))
-                return
+                return completion(.failure(.getMessageFailed))
             }
             
             do {
-                let messages = try results.items?.map { data in
-                    let sealedBody = data.body ?? ""
-
-                    let sealedBodyData = Data(base64Encoded: sealedBody, options: .ignoreUnknownCharacters) ?? Data()
-                    let sealedRemoteData = Data(base64Encoded: data.remotePhoneNumber, options: .ignoreUnknownCharacters) ?? Data()
-                    let sealedLocalData = Data(base64Encoded: data.localPhoneNumber, options: .ignoreUnknownCharacters) ?? Data()
-                    
-                    let decryptedBody = try self.decryptSealedData(data: sealedBodyData)
-                    let decryptedRemote = try self.decryptSealedData(data: sealedRemoteData)
-                    let decryptedLocal = try self.decryptSealedData(data: sealedLocalData)
-                    let bodyText = String(decoding: decryptedBody, as: UTF8.self)
-                    let remote = String(decoding: decryptedRemote, as: UTF8.self)
-                    let local = String(decoding: decryptedLocal, as: UTF8.self)
-                    
-                    return PhoneMessage(id: data.id,
-                                            owner: data.owner,
-                                            conversation: data.conversation,
-                                            updated: Date(timeIntervalSince1970: data.updatedAtEpochMs / 1000),
-                                            created: Date(timeIntervalSince1970: data.createdAtEpochMs / 1000),
-                                            localPhoneNumber: local,
-                                            remotePhoneNumber: remote,
-                                            body: bodyText,
-                                            direction: PhoneMessage.Direction(internalDirection: data.direction),
-                                            state: PhoneMessage.State(internalState: data.state),
-                                            media: data.media?.map { MediaObject(media: $0.fragments.s3MediaObject) } ?? [])
-                    } ?? [PhoneMessage]()
-                
-                let listToken = TelephonyListToken<PhoneMessage>(items: messages, nextToken: results.nextToken)
-                completion(.success(listToken))
+                let messages = try (results.items ?? []).compactMap {
+                    try PhoneMessage(decrypting: $0.fragments.sealedMessage, keyManager: self.keyManager)
+                }
+                return completion(.success(TelephonyListToken<PhoneMessage>(
+                    items: messages,
+                    nextToken: results.nextToken
+                )))
             } catch {
-                completion(.failure(.messageDecryptionFailed))
-                return
+                return completion(.failure(.messageDecryptionFailed))
             }
-            
         }
     }
     
@@ -1161,6 +1167,9 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         let fileData = fileManager.contents(atPath: localUrl.path)!
 
         self.s3TransferUtility.uploadData(fileData, bucket: s3Bucket, key: s3KeyPath, contentType: mimeType, expression: nil) { (task, error) in
+            // https://github.com/aws-amplify/aws-sdk-ios/issues/2053
+            task.setCompletionHandler({ _,_ in })
+
             guard error == nil else {
                 self.logger.error(error?.localizedDescription)
                 let taskResult = task.response.debugDescription
@@ -1179,6 +1188,9 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         self.logger.info("Downloading data \(s3Key)")
 
         self.s3TransferUtility.downloadData(fromBucket: media.bucket, key: s3Key, expression: nil) { (task, _, data, error) in
+            // https://github.com/aws-amplify/aws-sdk-ios/issues/2053
+            task.setCompletionHandler({ _,_,_,_ in })
+
             guard error == nil, let downloadedData = data else {
                 if let e = error { self.logger.error(e.localizedDescription) }
                 let taskResult = task.response.debugDescription
@@ -1188,7 +1200,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
             }
             
             do {
-                let decryptedData = try self.decryptSealedData(data: downloadedData)
+                let decryptedData = try self.keyManager.decryptSealedData(data: downloadedData)
                 self.logger.info("Data \(s3Key) successfully downloaded")
                 completion(.success(decryptedData))
             } catch {
@@ -1207,46 +1219,21 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         let resultHandler: (GraphQLResult<OnMessageReceivedSubscription.Data>?, ApolloStore.ReadWriteTransaction?, Error?) -> Void = { (result, _, error) in
             let containerError = result?.errors?.first
             guard error == nil, containerError == nil else {
-                resultHandler(.failure(SudoTelephonyClientError(serviceError: error)))
-                return
+                return resultHandler(.failure(SudoTelephonyClientError(serviceError: error ?? containerError)))
             }
             guard let sealedMessage = result?.data?.onMessage else {
-                resultHandler(.failure(SudoTelephonyClientError.messageSubscriptionFailed))
+                self.logger.error("Sealed message data missing and no error was returned.")
                 return
             }
 
             do {
-                guard let sealedBody = sealedMessage.body,
-                    let sealedBodyData = Data(base64Encoded: sealedBody, options: .ignoreUnknownCharacters),
-                    let sealedRemoteData = Data(base64Encoded: sealedMessage.remotePhoneNumber, options: .ignoreUnknownCharacters),
-                    let sealedLocalData = Data(base64Encoded: sealedMessage.localPhoneNumber, options: .ignoreUnknownCharacters) else {
-                        resultHandler(.failure(SudoTelephonyClientError.messageDecryptionFailed))
-                        return
-                }
-
-                let decryptedBody = try self.decryptSealedData(data: sealedBodyData)
-                let decryptedRemote = try self.decryptSealedData(data: sealedRemoteData)
-                let decryptedLocal = try self.decryptSealedData(data: sealedLocalData)
-                let bodyText = String(decoding: decryptedBody, as: UTF8.self)
-                let remote = String(decoding: decryptedRemote, as: UTF8.self)
-                let local = String(decoding: decryptedLocal, as: UTF8.self)
-
-                let phoneMessage = PhoneMessage(id: sealedMessage.id,
-                                                owner: sealedMessage.owner,
-                                                conversation: sealedMessage.conversation,
-                                                updated: Date(timeIntervalSince1970: sealedMessage.updatedAtEpochMs / 1000),
-                                                created: Date(timeIntervalSince1970: sealedMessage.createdAtEpochMs / 1000),
-                                                localPhoneNumber: local,
-                                                remotePhoneNumber: remote,
-                                                body: bodyText,
-                                                direction: PhoneMessage.Direction(internalDirection: sealedMessage.direction),
-                                                state: PhoneMessage.State(internalState: sealedMessage.state),
-                                                media: sealedMessage.media?.map { MediaObject(media: $0.fragments.s3MediaObject) } ?? [])
-
-                resultHandler(.success(phoneMessage))
+                let phoneMessage = try PhoneMessage(
+                    decrypting: sealedMessage.fragments.sealedMessage,
+                    keyManager: self.keyManager
+                )
+                return resultHandler(.success(phoneMessage))
             } catch {
-                resultHandler(.failure(SudoTelephonyClientError.messageDecryptionFailed))
-                return
+                return resultHandler(.failure(SudoTelephonyClientError.messageDecryptionFailed))
             }
         }
 
@@ -1267,7 +1254,7 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         self.graphQLClient.perform(mutation: mutation, queue: self.apiResultQueue, optimisticUpdate: nil, conflictResolutionBlock: nil) { (result, error) in
             let containerError = result?.errors?.first
             guard error == nil, containerError == nil else {
-                completion(.failure(SudoTelephonyClientError(serviceError: error)))
+                completion(.failure(SudoTelephonyClientError(serviceError: error ?? containerError)))
                 return
             }
             
@@ -1280,8 +1267,9 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         let query = GetConversationQuery(id: conversationId)
         
         self.graphQLClient.fetch(query: query, cachePolicy: .returnCacheDataAndFetch, queue: self.apiResultQueue) { (result, error) in
-            guard error == nil else {
-                completion(.failure(SudoTelephonyClientError(serviceError: error)))
+            let containerError = result?.errors?.first
+            guard error == nil, containerError == nil else {
+                completion(.failure(SudoTelephonyClientError(serviceError: error ?? containerError)))
                 return
             }
             
@@ -1299,13 +1287,15 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
                         completion(.failure(error))
                         return
                     case .success(let message):
-                        let phoneMessageConversation = PhoneMessageConversation(id: conversation.id,
-                                                                                    owner: conversation.owner,
-                                                                                    type: PhoneMessageConversation.MessageConversationType(internalType: conversation.type),
-                                                                                    latestMessageId: conversation.lastMessage,
-                                                                                    latestPhoneMessage: message,
-                                                                                    created: Date(timeIntervalSince1970: conversation.createdAtEpochMs / 1000),
-                                                                                    updated: Date(timeIntervalSince1970: conversation.updatedAtEpochMs / 1000))
+                        let phoneMessageConversation = PhoneMessageConversation(
+                            id: conversation.id,
+                            owner: conversation.owner,
+                            type: PhoneMessageConversation.MessageConversationType(internalType: conversation.type),
+                            latestMessageId: conversation.lastMessage,
+                            latestPhoneMessage: message,
+                            created: Date(timeIntervalSince1970: conversation.createdAtEpochMs / 1000),
+                            updated: Date(timeIntervalSince1970: conversation.updatedAtEpochMs / 1000)
+                        )
                         completion(.success(phoneMessageConversation))
                     }
                 }
@@ -1331,29 +1321,30 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         let numberFilter = IDFilterInput(eq: localNumber.id)
         let input: ConversationFilterInput = ConversationFilterInput(phoneNumberId: numberFilter, createdAtEpochMs: FloatFilterInput(ge: 0), updatedAtEpochMs: nil, and: nil, or: nil, not: nil)
 
-        guard let keyId = self.getKeyId() else {
+        guard let keyId = keyManager.getKeyId() else {
             completion(.failure(.getConversationFailed))
             return
         }
         
-        let conversationsOperation = ListConversationsOperation(input: input, keyId: keyId, limit: limit, nextToken: nextToken, appSyncClient: self.graphQLClient, telephonyClient: self, logger: self.logger)
+        let conversationsOperation = ListConversationsOperation(input: input, keyId: keyId, limit: limit, nextToken: nextToken, appSyncClient: self.graphQLClient, keyManager: self.keyManager, logger: self.logger)
         let completionObserver = PlatformBlockObserver(finishHandler: { [weak self] operation, errors in
             guard !operation.isCancelled else {
-                return
-            }
-            if let error = errors.first {
-                self?.logger.error("Failed to get conversations: \(error)")
-                conversationsOperation.cancel()
                 completion(.failure(.getConversationFailed))
                 return
             }
-            
-            guard let conversations = conversationsOperation.result else {
+
+            if let error = errors.first {
+                self?.logger.error("Failed to get conversations: \(error)")
+                completion(.failure(.getConversationFailed))
+                return
+            }
+
+            guard let conversations = (operation as? ListConversationsOperation)?.result else {
                 self?.logger.error("Unexpected error - no result or error received when getting conversations")
                 completion(.failure(.getConversationFailed))
                 return
             }
-            
+
             guard !conversations.items.isEmpty else {
                 self?.logger.error("Get conversations call succeeded, but no results were available")
                 completion(.success(conversations))
@@ -1399,8 +1390,159 @@ public class DefaultSudoTelephonyClient: SudoTelephonyClient {
         guard let calling = self.calling else {
             throw CallConfigurationError.missingCallProviderConfiguration
         }
-        
+
         return calling.handleIncomingPushNotificationPayload(payload, notificationDelegate: notificationDelegate)
     }
-}
 
+    public func getCallRecord(callRecordId: String, completion: @escaping (Swift.Result<CallRecord, SudoTelephonyClientError>) -> Void) throws {
+        guard let calling = self.calling else {
+            throw CallConfigurationError.missingCallProviderConfiguration
+        }
+
+        calling.getCallRecord(callRecordId: callRecordId, completion: completion)
+    }
+
+    public func getCallRecords(localNumber: PhoneNumber, limit: Int?, nextToken: String?, completion: @escaping (Swift.Result<TelephonyListToken<CallRecord>, SudoTelephonyClientError>) -> Void) throws {
+        guard let calling = self.calling else {
+            throw CallConfigurationError.missingCallProviderConfiguration
+        }
+
+        calling.getCallRecords(localNumber: localNumber, limit: limit, nextToken: nextToken, completion: completion)
+    }
+
+    public func subscribeToCallRecords(resultHandler: @escaping (Swift.Result<CallRecord, SudoTelephonyClientError>) -> Void) throws -> SubscriptionToken {
+        guard let calling = self.calling else {
+            throw CallConfigurationError.missingCallProviderConfiguration
+        }
+
+        return try calling.subscribeToCallRecords(resultHandler: resultHandler)
+    }
+
+    public func deleteCallRecord(id: String, completion: @escaping (Swift.Result<String, SudoTelephonyClientError>) -> Void) throws {
+        guard let calling = self.calling else {
+            throw CallConfigurationError.missingCallProviderConfiguration
+        }
+
+        calling.deleteCallRecord(id: id, completion: completion)
+    }
+
+    public func getVoicemail(id: String, completion: @escaping (Swift.Result<Voicemail, SudoTelephonyClientError>) -> Void) {
+        let query = GetVoicemailQuery(id: id)
+        graphQLClient.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, queue: apiResultQueue) { (result, error) in
+            if let error = error {
+                return completion(.failure(SudoTelephonyClientError(serviceError: error)))
+            }
+
+            if let error = result?.errors?.first {
+                return completion(.failure(SudoTelephonyClientError(serviceError: error)))
+            }
+
+            guard let data = result?.data?.getVoicemail else {
+                return completion(.failure(SudoTelephonyClientError.getVoicemailFailed))
+            }
+
+            let sealedVoicemail = data.fragments.sealedVoicemail
+
+            do {
+                let voicemail = try Voicemail(decrypting: sealedVoicemail, keyManager: self.keyManager)
+                return completion(.success(voicemail))
+            } catch let error {
+                return completion(.failure(SudoTelephonyClientError.voicemailDecryptionFailed(error)))
+            }
+        }
+    }
+
+    public func getVoicemails(localNumber: PhoneNumber, limit: Int?, nextToken: String?, completion: @escaping (Swift.Result<TelephonyListToken<Voicemail>, SudoTelephonyClientError>) -> Void) {
+        let query = ListVoicemailsQuery(
+            key: VoicemailKeyInput(phoneNumberId: localNumber.id),
+            limit: limit,
+            nextToken: nextToken
+        )
+        graphQLClient.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, queue: apiResultQueue) { (result, error) in
+            if let error = error {
+                return completion(.failure(SudoTelephonyClientError(serviceError: error)))
+            }
+
+            if let error = result?.errors?.first {
+                return completion(.failure(SudoTelephonyClientError(serviceError: error)))
+            }
+
+            guard let results = result?.data?.listVoicemails else {
+                return completion(.failure(SudoTelephonyClientError.getVoicemailFailed))
+            }
+
+            do {
+                let voicemails = try (results.items ?? []).map {
+                    try Voicemail(decrypting: $0.fragments.sealedVoicemail, keyManager: self.keyManager)
+                }
+                return completion(.success(TelephonyListToken<Voicemail>(
+                    items: voicemails,
+                    nextToken: results.nextToken
+                )))
+            } catch let error {
+                return completion(.failure(.voicemailDecryptionFailed(error)))
+            }
+        }
+    }
+
+    public func deleteVoicemail(id: String, completion: @escaping (Swift.Result<Void, SudoTelephonyClientError>) -> Void) {
+        let mutation = DeleteVoicemailMutation(id: id)
+        graphQLClient.perform(mutation: mutation, queue: apiResultQueue, optimisticUpdate: nil, conflictResolutionBlock: nil) { (result, error) in
+            if let error = error {
+                return completion(.failure(SudoTelephonyClientError(serviceError: error)))
+            }
+
+            if let error = result?.errors?.first {
+                return completion(.failure(SudoTelephonyClientError(serviceError: error)))
+            }
+
+            return completion(.success(()))
+        }
+    }
+
+    public func subscribeToVoicemails(resultHandler: @escaping (Swift.Result<Voicemail, SudoTelephonyClientError>) -> Void) throws -> SubscriptionToken {
+        guard let ownerId = try? sudoUserClient.getSubject() else {
+            throw SudoTelephonyClientError.notSignedIn
+        }
+
+        let subscription = OnVoicemailSubscription(owner: ownerId)
+
+        let resultHandler: SubscriptionResultHandler<OnVoicemailSubscription> = { (result, transaction, error) -> Void in
+            if let error = error {
+                return resultHandler(.failure(SudoTelephonyClientError(serviceError: error)))
+            }
+
+            if let error = result?.errors?.first {
+                return resultHandler(.failure(SudoTelephonyClientError(serviceError: error)))
+            }
+
+            guard let sealedVoicemail = result?.data?.onVoicemail else {
+                return
+            }
+
+            do {
+                let voicemail = try Voicemail(
+                    decrypting: sealedVoicemail.fragments.sealedVoicemail,
+                    keyManager: self.keyManager
+                )
+                return resultHandler(.success(voicemail))
+            } catch let error {
+                return resultHandler(.failure(SudoTelephonyClientError.voicemailDecryptionFailed(error)))
+            }
+        }
+
+        switch Swift.Result(catching: {
+            try graphQLClient.subscribe(subscription: subscription, queue: apiResultQueue, statusChangeHandler: nil, resultHandler: resultHandler)
+        }) {
+        case .success(.some(let cancellable)):
+            subscriptionsAccessQueue.sync {
+                subscriptions.append(.init(value: cancellable))
+            }
+            return cancellable
+        case .success(.none):
+            throw SudoTelephonyClientError.voicemailSubscriptionFailed(nil)
+        case .failure(let error):
+            throw SudoTelephonyClientError.voicemailSubscriptionFailed(error)
+        }
+    }
+}

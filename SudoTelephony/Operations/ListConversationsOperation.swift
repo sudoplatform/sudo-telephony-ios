@@ -23,7 +23,7 @@ class ListConversationsOperation: PlatformOperation {
 
     private let limit: Int?
     
-    private unowned let telephonyClient: DefaultSudoTelephonyClient
+    private let keyManager: TelephonyKeyManager
     
     private unowned let appSyncClient: AWSAppSyncClient
 
@@ -36,7 +36,7 @@ class ListConversationsOperation: PlatformOperation {
          limit: Int?,
          nextToken: String?,
          appSyncClient: AWSAppSyncClient,
-         telephonyClient: DefaultSudoTelephonyClient,
+         keyManager: TelephonyKeyManager,
          logger: Logger) {
         
         self.input = input
@@ -44,7 +44,7 @@ class ListConversationsOperation: PlatformOperation {
         self.limit = limit
         self.nextToken = nextToken
         self.appSyncClient = appSyncClient
-        self.telephonyClient = telephonyClient
+        self.keyManager = keyManager
         super.init(logger: logger)
     }
     
@@ -106,26 +106,31 @@ class ListConversationsOperation: PlatformOperation {
                         self.logger.error("Error fetching message id: \(messageId) for conversation: \(item.id), error: \(error)")
                     }
 
-                    var latestPhoneMessage: PhoneMessage? = nil
+                    let latestPhoneMessage: PhoneMessage?
                     if let message = fetchMessageResult?.data?.getMessage {
                         do {
-                            try latestPhoneMessage = PhoneMessage.createFrom(data: message, client: self.telephonyClient)
+                            try latestPhoneMessage = PhoneMessage(decrypting: message.fragments.sealedMessage, keyManager: self.keyManager)
                         }
                         catch {
                             self.logger.error("Error creating PhoneMessage \(messageId) from provided data: \(error)")
+                            latestPhoneMessage = nil
                         }
+                    } else {
+                        latestPhoneMessage = nil
                     }
 
                     // Conversation and message data fetch finished. Finalize creating the PhoneMessage and the PhoneMessageConveration.
                     // Append to the results arrray using the async queue for thread safety.
                     let type = PhoneMessageConversation.MessageConversationType(internalType: item.type)
-                    let conversation = PhoneMessageConversation(id: item.id,
-                                                                    owner: item.owner,
-                                                                    type: type,
-                                                                    latestMessageId: messageId,
-                                                                    latestPhoneMessage: latestPhoneMessage,
-                                                                    created: Date(timeIntervalSinceNow: TimeInterval(item.updatedAtEpochMs)),
-                                                                    updated: Date(timeIntervalSinceNow: TimeInterval(item.updatedAtEpochMs)))
+                    let conversation = PhoneMessageConversation(
+                        id: item.id,
+                        owner: item.owner,
+                        type: type,
+                        latestMessageId: messageId,
+                        latestPhoneMessage: latestPhoneMessage,
+                        created: Date(timeIntervalSince1970: item.createdAtEpochMs / 1000),
+                        updated: Date(timeIntervalSince1970: item.updatedAtEpochMs / 1000)
+                    )
                     conversations.append(conversation)
 
                     // All done.  Leave the dispatch group.
@@ -141,6 +146,3 @@ class ListConversationsOperation: PlatformOperation {
         }
     }
 }
-
-
-

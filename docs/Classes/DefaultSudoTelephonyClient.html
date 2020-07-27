@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          SudoTelephony 4.0.0-beta1 Docs
+          SudoTelephony 4.0.0-beta2 Docs
         </a>
         
       </p>
@@ -133,6 +133,9 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/TelephonyListToken.html">TelephonyListToken</a>
               </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Voicemail.html">Voicemail</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -226,9 +229,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony07DefaultaB6ClientC08sudoUserD00e8ProfilesD025callProviderConfigurationAC0aF00afD0_p_0aG00agD0_pAA04CalliJ0VSgtKcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(sudoUserClient:sudoProfilesClient:callProviderConfiguration:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony07DefaultaB6ClientC08sudoUserD00e8ProfilesD025callProviderConfigurationAC0aF00afD0_p_0aG00agD0_pAA04CalliJ0VSgtKcfc">init(sudoUserClient:<wbr>sudoProfilesClient:<wbr>callProviderConfiguration:<wbr>)</a>
+                    <a name="/s:13SudoTelephony07DefaultaB6ClientC08sudoUserD00e8ProfilesD025callProviderConfiguration6loggerAC0aF00afD0_p_0aG00agD0_pAA04CalliJ0VSg0A7Logging6LoggerCSgtKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(sudoUserClient:sudoProfilesClient:callProviderConfiguration:logger:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony07DefaultaB6ClientC08sudoUserD00e8ProfilesD025callProviderConfiguration6loggerAC0aF00afD0_p_0aG00agD0_pAA04CalliJ0VSg0A7Logging6LoggerCSgtKcfc">init(sudoUserClient:<wbr>sudoProfilesClient:<wbr>callProviderConfiguration:<wbr>logger:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -249,10 +252,11 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="n">convenience</span> <span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span>
     <span class="nv">sudoUserClient</span><span class="p">:</span> <span class="kt">SudoUserClient</span><span class="p">,</span>
     <span class="nv">sudoProfilesClient</span><span class="p">:</span> <span class="kt">SudoProfilesClient</span><span class="p">,</span>
-    <span class="nv">callProviderConfiguration</span><span class="p">:</span> <span class="kt"><a href="../Structs/CallProviderConfiguration.html">CallProviderConfiguration</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+    <span class="nv">callProviderConfiguration</span><span class="p">:</span> <span class="kt"><a href="../Structs/CallProviderConfiguration.html">CallProviderConfiguration</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">logger</span><span class="p">:</span> <span class="kt">Logger</span><span class="p">?</span> <span class="o">=</span> <span class="kt">DefaultSudoTelephonyClient</span><span class="o">.</span><span class="n">defaultLogger</span>
 <span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
@@ -305,7 +309,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>A logger to use for logging messages. If none provided then a default internal logger will be used.</p>
+                                  <p>A logger to use for logging messages. The default logger logs debug messages. Provide <code>nil</code> to silence logging.</p>
                                 </div>
                               </td>
                             </tr>
@@ -318,9 +322,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony07DefaultaB6ClientC6config08sudoUserD00f8ProfilesD025callProviderConfiguration9cacheType6logger12keyNamespace13graphQLClientACSDySSypG_0aG00agD0_p0aH00ahD0_pAA04CalljK0VSgAC05CacheM0O0A7Logging6LoggerCSgSS10AWSAppSync0wxD0CSgtKcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(config:sudoUserClient:sudoProfilesClient:callProviderConfiguration:cacheType:logger:keyNamespace:graphQLClient:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony07DefaultaB6ClientC6config08sudoUserD00f8ProfilesD025callProviderConfiguration9cacheType6logger12keyNamespace13graphQLClientACSDySSypG_0aG00agD0_p0aH00ahD0_pAA04CalljK0VSgAC05CacheM0O0A7Logging6LoggerCSgSS10AWSAppSync0wxD0CSgtKcfc">init(config:<wbr>sudoUserClient:<wbr>sudoProfilesClient:<wbr>callProviderConfiguration:<wbr>cacheType:<wbr>logger:<wbr>keyNamespace:<wbr>graphQLClient:<wbr>)</a>
+                    <a name="/s:13SudoTelephony07DefaultaB6ClientC6config08sudoUserD00f8ProfilesD025callProviderConfiguration9cacheType6logger12keyNamespaceACSDySSypG_0aG00agD0_p0aH00ahD0_pAA04CalljK0VSgAC05CacheM0O0A7Logging6LoggerCSgSStKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(config:sudoUserClient:sudoProfilesClient:callProviderConfiguration:cacheType:logger:keyNamespace:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony07DefaultaB6ClientC6config08sudoUserD00f8ProfilesD025callProviderConfiguration9cacheType6logger12keyNamespaceACSDySSypG_0aG00agD0_p0aH00ahD0_pAA04CalljK0VSgAC05CacheM0O0A7Logging6LoggerCSgSStKcfc">init(config:<wbr>sudoUserClient:<wbr>sudoProfilesClient:<wbr>callProviderConfiguration:<wbr>cacheType:<wbr>logger:<wbr>keyNamespace:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -340,14 +344,15 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">config</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">],</span>
-            <span class="nv">sudoUserClient</span><span class="p">:</span> <span class="kt">SudoUserClient</span><span class="p">,</span>
-            <span class="nv">sudoProfilesClient</span><span class="p">:</span> <span class="kt">SudoProfilesClient</span><span class="p">,</span>
-            <span class="nv">callProviderConfiguration</span><span class="p">:</span> <span class="kt"><a href="../Structs/CallProviderConfiguration.html">CallProviderConfiguration</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-            <span class="nv">cacheType</span><span class="p">:</span> <span class="kt"><a href="../Classes/DefaultSudoTelephonyClient/CacheType.html">CacheType</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">disk</span><span class="p">,</span>
-            <span class="nv">logger</span><span class="p">:</span> <span class="kt">Logger</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-            <span class="nv">keyNamespace</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"tel"</span><span class="p">,</span>
-            <span class="nv">graphQLClient</span><span class="p">:</span> <span class="kt">AWSAppSyncClient</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">config</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">],</span>
+    <span class="nv">sudoUserClient</span><span class="p">:</span> <span class="kt">SudoUserClient</span><span class="p">,</span>
+    <span class="nv">sudoProfilesClient</span><span class="p">:</span> <span class="kt">SudoProfilesClient</span><span class="p">,</span>
+    <span class="nv">callProviderConfiguration</span><span class="p">:</span> <span class="kt"><a href="../Structs/CallProviderConfiguration.html">CallProviderConfiguration</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">cacheType</span><span class="p">:</span> <span class="kt"><a href="../Classes/DefaultSudoTelephonyClient/CacheType.html">CacheType</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">disk</span><span class="p">,</span>
+    <span class="nv">logger</span><span class="p">:</span> <span class="kt">Logger</span><span class="p">?</span> <span class="o">=</span> <span class="kt">DefaultSudoTelephonyClient</span><span class="o">.</span><span class="n">defaultLogger</span><span class="p">,</span>
+    <span class="nv">keyNamespace</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"tel"</span>
+<span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -423,7 +428,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>A logger to use for logging messages. If none provided then a default internal logger will be used.</p>
+                                  <p>A logger to use for logging messages. The default logger logs debug messages. Provide <code>nil</code> to silence logging.</p>
                                 </div>
                               </td>
                             </tr>
@@ -436,18 +441,6 @@
                               <td>
                                 <div>
                                   <p>Namespace to use for the keys and passwords.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>graphQLClient</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Optional GraphQL client to use. Mainly used for unit testing.</p>
                                 </div>
                               </td>
                             </tr>
@@ -720,9 +713,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP14sendMMSMessage11localNumber06remoteG04body0F3Url10completionyAA05PhoneG0V_S2S10Foundation3URLVys6ResultOyAA0L7MessageVAA0abC5ErrorOGctKF"></a>
+                    <a name="/s:13SudoTelephony0aB6ClientP14sendMMSMessage11localNumber06remoteG04body0F3Url10completionyAA05PhoneG0V_S2SSg10Foundation3URLVys6ResultOyAA0L7MessageVAA0abC5ErrorOGctKF"></a>
                     <a name="//apple_ref/swift/Method/sendMMSMessage(localNumber:remoteNumber:body:localUrl:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP14sendMMSMessage11localNumber06remoteG04body0F3Url10completionyAA05PhoneG0V_S2S10Foundation3URLVys6ResultOyAA0L7MessageVAA0abC5ErrorOGctKF">sendMMSMessage(localNumber:<wbr>remoteNumber:<wbr>body:<wbr>localUrl:<wbr>completion:<wbr>)</a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP14sendMMSMessage11localNumber06remoteG04body0F3Url10completionyAA05PhoneG0V_S2SSg10Foundation3URLVys6ResultOyAA0L7MessageVAA0abC5ErrorOGctKF">sendMMSMessage(localNumber:<wbr>remoteNumber:<wbr>body:<wbr>localUrl:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -736,7 +729,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">sendMMSMessage</span><span class="p">(</span><span class="nv">localNumber</span><span class="p">:</span> <span class="kt">PhoneNumber</span><span class="p">,</span> <span class="nv">remoteNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">body</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">localUrl</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">sendMMSMessage</span><span class="p">(</span><span class="nv">localNumber</span><span class="p">:</span> <span class="kt">PhoneNumber</span><span class="p">,</span> <span class="nv">remoteNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">body</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">localUrl</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -1094,6 +1087,214 @@
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP13getCallRecord04callF2Id10completionySS_ys6ResultOyAA0eF0VAA0abC5ErrorOGctKF"></a>
+                    <a name="//apple_ref/swift/Method/getCallRecord(callRecordId:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP13getCallRecord04callF2Id10completionySS_ys6ResultOyAA0eF0VAA0abC5ErrorOGctKF">getCallRecord(callRecordId:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getCallRecord</span><span class="p">(</span><span class="nv">callRecordId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">CallRecord</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP14getCallRecords11localNumber5limit9nextToken10completionyAA05PhoneH0V_SiSgSSSgys6ResultOyAA0b4ListK0VyAA0E6RecordVGAA0abC5ErrorOGctKF"></a>
+                    <a name="//apple_ref/swift/Method/getCallRecords(localNumber:limit:nextToken:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP14getCallRecords11localNumber5limit9nextToken10completionyAA05PhoneH0V_SiSgSSSgys6ResultOyAA0b4ListK0VyAA0E6RecordVGAA0abC5ErrorOGctKF">getCallRecords(localNumber:<wbr>limit:<wbr>nextToken:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getCallRecords</span><span class="p">(</span><span class="nv">localNumber</span><span class="p">:</span> <span class="kt">PhoneNumber</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span> <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/TelephonyListToken.html">TelephonyListToken</a></span><span class="o">&lt;</span><span class="kt">CallRecord</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP22subscribeToCallRecords13resultHandlerAA17SubscriptionToken_pys6ResultOyAA0F6RecordVAA0abC5ErrorOGc_tKF"></a>
+                    <a name="//apple_ref/swift/Method/subscribeToCallRecords(resultHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP22subscribeToCallRecords13resultHandlerAA17SubscriptionToken_pys6ResultOyAA0F6RecordVAA0abC5ErrorOGc_tKF">subscribeToCallRecords(resultHandler:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">subscribeToCallRecords</span><span class="p">(</span><span class="nv">resultHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">CallRecord</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/SubscriptionToken.html">SubscriptionToken</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP16deleteCallRecord2id10completionySS_ys6ResultOySSAA0abC5ErrorOGctKF"></a>
+                    <a name="//apple_ref/swift/Method/deleteCallRecord(id:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP16deleteCallRecord2id10completionySS_ys6ResultOySSAA0abC5ErrorOGctKF">deleteCallRecord(id:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">deleteCallRecord</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP12getVoicemail2id10completionySS_ys6ResultOyAA0E0VAA0abC5ErrorOGctF"></a>
+                    <a name="//apple_ref/swift/Method/getVoicemail(id:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP12getVoicemail2id10completionySS_ys6ResultOyAA0E0VAA0abC5ErrorOGctF">getVoicemail(id:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getVoicemail</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Voicemail.html">Voicemail</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP13getVoicemails11localNumber5limit9nextToken10completionyAA05PhoneG0V_SiSgSSSgys6ResultOyAA0b4ListJ0VyAA9VoicemailVGAA0abC5ErrorOGctF"></a>
+                    <a name="//apple_ref/swift/Method/getVoicemails(localNumber:limit:nextToken:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP13getVoicemails11localNumber5limit9nextToken10completionyAA05PhoneG0V_SiSgSSSgys6ResultOyAA0b4ListJ0VyAA9VoicemailVGAA0abC5ErrorOGctF">getVoicemails(localNumber:<wbr>limit:<wbr>nextToken:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getVoicemails</span><span class="p">(</span><span class="nv">localNumber</span><span class="p">:</span> <span class="kt">PhoneNumber</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span> <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/TelephonyListToken.html">TelephonyListToken</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Voicemail.html">Voicemail</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP15deleteVoicemail2id10completionySS_ys6ResultOyytAA0abC5ErrorOGctF"></a>
+                    <a name="//apple_ref/swift/Method/deleteVoicemail(id:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP15deleteVoicemail2id10completionySS_ys6ResultOyytAA0abC5ErrorOGctF">deleteVoicemail(id:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">deleteVoicemail</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP21subscribeToVoicemails13resultHandlerAA17SubscriptionToken_pys6ResultOyAA9VoicemailVAA0abC5ErrorOGc_tKF"></a>
+                    <a name="//apple_ref/swift/Method/subscribeToVoicemails(resultHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP21subscribeToVoicemails13resultHandlerAA17SubscriptionToken_pys6ResultOyAA9VoicemailVAA0abC5ErrorOGc_tKF">subscribeToVoicemails(resultHandler:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">subscribeToVoicemails</span><span class="p">(</span><span class="nv">resultHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Voicemail.html">Voicemail</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/SubscriptionToken.html">SubscriptionToken</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
@@ -1102,7 +1303,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2020-07-10)</p>
+      <p>&copy; 2020 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2020-07-28)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

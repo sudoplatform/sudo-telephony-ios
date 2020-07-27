@@ -28,11 +28,13 @@
 		329C578624A1477B00A8D6AB /* CallKitDisplayName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329C578524A1477B00A8D6AB /* CallKitDisplayName.swift */; };
 		4E53B147016DC5E6905AD0EA /* Pods_SudoTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050D25F248395500F134D5A1 /* Pods_SudoTelephony.framework */; };
 		B39491069B18B2015A42DEE3 /* Pods_SudoTelephonyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92E9BB8A7001EDCA3EC20584 /* Pods_SudoTelephonyTests.framework */; };
+		C3C74D1224AA851600699F58 /* CallRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C74D1124AA851600699F58 /* CallRecord.swift */; };
+		C3C74D1424ABD45100699F58 /* TelephonyKeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C74D1324ABD45100699F58 /* TelephonyKeyManager.swift */; };
 		CF1A3A6824818B73004886BE /* SudoTelephonyCalling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A3A6724818B73004886BE /* SudoTelephonyCalling.swift */; };
+		CFCF286E24BE28B800B09F5C /* Voicemail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCF286D24BE28B800B09F5C /* Voicemail.swift */; };
 		CFD525512440E26D008616A9 /* SudoTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD525472440E26C008616A9 /* SudoTelephony.framework */; };
 		CFD525582440E26D008616A9 /* SudoTelephony.h in Headers */ = {isa = PBXBuildFile; fileRef = CFD5254A2440E26C008616A9 /* SudoTelephony.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CFD525672440E2B7008616A9 /* SudoTelephonyClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525622440E2B6008616A9 /* SudoTelephonyClient.swift */; };
-		CFD525682440E2B7008616A9 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525632440E2B6008616A9 /* Logger.swift */; };
 		CFD525692440E2B7008616A9 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525642440E2B7008616A9 /* API.swift */; };
 		CFD5258B2440E552008616A9 /* SudoTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD525472440E26C008616A9 /* SudoTelephony.framework */; };
 		CFD525A22440E777008616A9 /* ListConversationsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD5259E2440E777008616A9 /* ListConversationsOperation.swift */; };
@@ -107,15 +109,17 @@
 		84F24D22805EBF8341B7697F /* Pods-SudoTelephonyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephonyTests.debug.xcconfig"; path = "Target Support Files/Pods-SudoTelephonyTests/Pods-SudoTelephonyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		92E9BB8A7001EDCA3EC20584 /* Pods_SudoTelephonyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SudoTelephonyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A223D98032C8E556CD4BF7CA /* Pods-SudoTelephony.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephony.release.xcconfig"; path = "Target Support Files/Pods-SudoTelephony/Pods-SudoTelephony.release.xcconfig"; sourceTree = "<group>"; };
+		C3C74D1124AA851600699F58 /* CallRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallRecord.swift; sourceTree = "<group>"; };
+		C3C74D1324ABD45100699F58 /* TelephonyKeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelephonyKeyManager.swift; sourceTree = "<group>"; };
 		C51E4D2F419F88C25257756F /* Pods-SudoTelephonyIntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephonyIntegrationTests.release.xcconfig"; path = "Target Support Files/Pods-SudoTelephonyIntegrationTests/Pods-SudoTelephonyIntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
 		CF1A3A6724818B73004886BE /* SudoTelephonyCalling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoTelephonyCalling.swift; sourceTree = "<group>"; };
+		CFCF286D24BE28B800B09F5C /* Voicemail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Voicemail.swift; sourceTree = "<group>"; };
 		CFD525472440E26C008616A9 /* SudoTelephony.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SudoTelephony.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFD5254A2440E26C008616A9 /* SudoTelephony.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SudoTelephony.h; sourceTree = "<group>"; };
 		CFD5254B2440E26C008616A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CFD525502440E26D008616A9 /* SudoTelephonyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudoTelephonyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFD525572440E26D008616A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CFD525622440E2B6008616A9 /* SudoTelephonyClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SudoTelephonyClient.swift; sourceTree = "<group>"; };
-		CFD525632440E2B6008616A9 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		CFD525642440E2B7008616A9 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		CFD525812440E47B008616A9 /* SudoTelephony.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; path = SudoTelephony.podspec; sourceTree = "<group>"; };
 		CFD525862440E552008616A9 /* SudoTelephonyIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudoTelephonyIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -206,6 +210,8 @@
 				329C578524A1477B00A8D6AB /* CallKitDisplayName.swift */,
 				322274D524A26E4600857985 /* SignInStatusBlockObserver.swift */,
 				3246283B24ABDC8400199C5E /* PushTokenManagement.swift */,
+				C3C74D1124AA851600699F58 /* CallRecord.swift */,
+				CFCF286D24BE28B800B09F5C /* Voicemail.swift */,
 			);
 			path = Calling;
 			sourceTree = "<group>";
@@ -268,9 +274,9 @@
 				CFD5254B2440E26C008616A9 /* Info.plist */,
 				CFD5254A2440E26C008616A9 /* SudoTelephony.h */,
 				CFD525642440E2B7008616A9 /* API.swift */,
-				CFD525632440E2B6008616A9 /* Logger.swift */,
 				CFD525622440E2B6008616A9 /* SudoTelephonyClient.swift */,
 				3225AEE4246B4D1A00AF27BD /* SudoTelephonyClientError.swift */,
+				C3C74D1324ABD45100699F58 /* TelephonyKeyManager.swift */,
 			);
 			path = SudoTelephony;
 			sourceTree = "<group>";
@@ -674,7 +680,9 @@
 				CFD525A92440E7A3008616A9 /* TelephonyListToken.swift in Sources */,
 				326E74582489824700313EFD /* CallingError.swift in Sources */,
 				3202683D245C75E900F18E66 /* SynchronizedArray.swift in Sources */,
+				CFCF286E24BE28B800B09F5C /* Voicemail.swift in Sources */,
 				3246283C24ABDC8400199C5E /* PushTokenManagement.swift in Sources */,
+				C3C74D1224AA851600699F58 /* CallRecord.swift in Sources */,
 				3225AEE7246B4DC600AF27BD /* MMSUpload.swift in Sources */,
 				3225AEDF246B4B3C00AF27BD /* SubscriptionToken.swift in Sources */,
 				322274D624A26E4600857985 /* SignInStatusBlockObserver.swift in Sources */,
@@ -694,8 +702,8 @@
 				CFD525A52440E7A3008616A9 /* AvailablePhoneNumberResult.swift in Sources */,
 				329C578424A1475800A8D6AB /* IncomingCallNotificationDelegate.swift in Sources */,
 				CFD525692440E2B7008616A9 /* API.swift in Sources */,
-				CFD525682440E2B7008616A9 /* Logger.swift in Sources */,
 				3261489624991B0B0093682C /* PushHandler.swift in Sources */,
+				C3C74D1424ABD45100699F58 /* TelephonyKeyManager.swift in Sources */,
 				3225AEE3246B4BBE00AF27BD /* AWSRegionTypeExtensions.swift in Sources */,
 				CFD525A82440E7A3008616A9 /* PhoneNumber.swift in Sources */,
 				326E7456248981F900313EFD /* CallingVendor.swift in Sources */,

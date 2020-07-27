@@ -31,6 +31,18 @@ public enum SudoTelephonyClientError: Error, LocalizedError {
     case messageSubscriptionFailed
     /// Conversation retrieval failed
     case getConversationFailed
+    /// CallRecord retrieval failed
+    case getCallRecordFailed
+    /// CallRecord decryption failed
+    case callRecordDecryptionFailed
+    /// CallRecord subscription failed
+    case callRecordSubscriptionFailed
+    /// `Voicemail` retrieval failed
+    case getVoicemailFailed
+    /// `Voicemail` decryption failed
+    case voicemailDecryptionFailed(Error)
+    /// `Voicemail` subscription failed
+    case voicemailSubscriptionFailed(Error?)
     /// One or more invalid inputs were passed on the request.
     case invalidInput
     /// Key Pair failed to be generated for new phone number.
@@ -94,6 +106,18 @@ public enum SudoTelephonyClientError: Error, LocalizedError {
             return "Failed to subscribe to message events"
         case .getConversationFailed:
             return "Failed to get conversation"
+        case .getCallRecordFailed:
+            return "Failed to get call record"
+        case .callRecordDecryptionFailed:
+            return "Failed to decrypt the sealed data"
+        case .callRecordSubscriptionFailed:
+            return "Failed to subscribe to call record events"
+        case .getVoicemailFailed:
+            return "Failed to get voicemail"
+        case .voicemailDecryptionFailed(let error):
+            return "Failed to decrypt voicemail: \(error.localizedDescription)"
+        case .voicemailSubscriptionFailed(let error):
+            return "Failed to subscribe to voicemail events\(error.map { ": \($0.localizedDescription)" } ?? "")"
         case .invalidInput:
             return "One or more invalid inputs were passed on the request."
         case .keyGenerationFailed:

@@ -1,13 +1,6 @@
 {
   "warnings": [
     {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/Calling/ActiveVoiceCall.swift",
-      "line": 53,
-      "symbol": "ActiveVoiceCall.isMuted",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/Calling/CallKitDisplayName.swift",
       "line": 12,
       "symbol": "CallKitDisplayName.value",
@@ -19,6 +12,13 @@
       "line": 13,
       "symbol": "CallKitDisplayName.ignoreSystemContacts",
       "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/Calling/CallRecord.swift",
+      "line": 9,
+      "symbol": "CallRecord",
+      "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
@@ -170,23 +170,16 @@
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/SudoTelephonyClient.swift",
-      "line": 566,
-      "symbol": "DefaultSudoTelephonyClient.getKeyPair()",
+      "line": 487,
+      "symbol": "DefaultSudoTelephonyClient.init(config:sudoUserClient:sudoProfilesClient:callProviderConfiguration:cacheType:logger:keyNamespace:graphQLClient:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/SudoTelephonyClient.swift",
-      "line": 579,
-      "symbol": "DefaultSudoTelephonyClient.getKeyId()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/SudoTelephonyClient.swift",
-      "line": 590,
-      "symbol": "DefaultSudoTelephonyClient.getKeyRingId()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "line": 572,
+      "symbol": "DefaultSudoTelephonyClient.defaultLogger",
+      "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     }
   ],

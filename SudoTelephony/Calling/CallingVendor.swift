@@ -29,7 +29,9 @@ protocol CallingVendorCall: class {
     /// Instantiates and connects a call from this vendor.
     init(
         uuid: UUID,
-        callRecord: CallRecord,
+        accessToken: String,
+        localPhoneNumber: String,
+        remotePhoneNumber: String,
         connected: @escaping (_ callUUID: UUID) -> Void,
         connectionFailed: @escaping (_ callUUID: UUID, _ error: Error) -> Void,
         disconnected: @escaping (_ callUUID: UUID, _ error: Error?) -> Void
@@ -106,15 +108,17 @@ class TwilioVendorCall: CallingVendorCall {
     /// Make an outgoing call
     required init(
         uuid: UUID,
-        callRecord: CallRecord,
+        accessToken: String,
+        localPhoneNumber: String,
+        remotePhoneNumber: String,
         connected: @escaping (_ callUUID: UUID) -> Void,
         connectionFailed: @escaping (_ callUUID: UUID, _ error: Error) -> Void,
         disconnected: @escaping (_ callUUID: UUID, _ error: Error?) -> Void
     ) {
-        let connectOptions = TVOConnectOptions(accessToken: callRecord.accessToken) { builder in
+        let connectOptions = TVOConnectOptions(accessToken: accessToken) { builder in
             builder.params = [
-                "To": callRecord.remotePhoneNumber,
-                "From": callRecord.localPhoneNumber
+                "To": remotePhoneNumber,
+                "From": localPhoneNumber
             ]
             builder.uuid = uuid
         }
@@ -127,8 +131,8 @@ class TwilioVendorCall: CallingVendorCall {
         call = TwilioVoice.connect(with: connectOptions, delegate: delegate)
 
         // The `TVOCall.to` value is the user's Twilio identity since this is a call to a client app. We can retrieve the actual `to` phone number from the call record
-        self.localNumber = callRecord.localPhoneNumber
-        self.remoteNumber = callRecord.remotePhoneNumber
+        self.localNumber = localPhoneNumber
+        self.remoteNumber = remotePhoneNumber
     }
 
     /// Accept an incoming call

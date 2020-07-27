@@ -853,7 +853,7 @@ internal struct ConversationFilterInput: GraphQLMapConvertible {
   }
 }
 
-/// Input definition to create an outgoing voice call.
+/// Input definition to create an outbound voice call.
 internal struct CreateVoiceCallInput: GraphQLMapConvertible {
   internal var graphQLMap: GraphQLMap
 
@@ -879,111 +879,6 @@ internal struct CreateVoiceCallInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "to")
-    }
-  }
-}
-
-/// Possible states for a call.
-/// AUTHORIZED  - Outbound call authorized but not yet initiated at telephony vendor.
-/// QUEUED      - Call is queued before ringing.
-/// RINGING     - Call is ringing.
-/// IN_PROGRESS - Call has been answered and is ongoing.
-/// CANCELED    - Call was hung up before being answered.
-/// COMPLETED   - Call was completed / hung up after being answered.
-/// BUSY        - Callee was busy.
-/// NO_ANSWER   - Callee did not answer.
-/// FAILED      - Call failed to initiate.
-internal enum CallState: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
-  internal typealias RawValue = String
-  case authorized
-  case queued
-  case ringing
-  case inProgress
-  case canceled
-  case completed
-  case busy
-  case noAnswer
-  case failed
-  /// Auto generated constant for unknown enum values
-  case unknown(RawValue)
-
-  internal init?(rawValue: RawValue) {
-    switch rawValue {
-      case "AUTHORIZED": self = .authorized
-      case "QUEUED": self = .queued
-      case "RINGING": self = .ringing
-      case "IN_PROGRESS": self = .inProgress
-      case "CANCELED": self = .canceled
-      case "COMPLETED": self = .completed
-      case "BUSY": self = .busy
-      case "NO_ANSWER": self = .noAnswer
-      case "FAILED": self = .failed
-      default: self = .unknown(rawValue)
-    }
-  }
-
-  internal var rawValue: RawValue {
-    switch self {
-      case .authorized: return "AUTHORIZED"
-      case .queued: return "QUEUED"
-      case .ringing: return "RINGING"
-      case .inProgress: return "IN_PROGRESS"
-      case .canceled: return "CANCELED"
-      case .completed: return "COMPLETED"
-      case .busy: return "BUSY"
-      case .noAnswer: return "NO_ANSWER"
-      case .failed: return "FAILED"
-      case .unknown(let value): return value
-    }
-  }
-
-  internal static func == (lhs: CallState, rhs: CallState) -> Bool {
-    switch (lhs, rhs) {
-      case (.authorized, .authorized): return true
-      case (.queued, .queued): return true
-      case (.ringing, .ringing): return true
-      case (.inProgress, .inProgress): return true
-      case (.canceled, .canceled): return true
-      case (.completed, .completed): return true
-      case (.busy, .busy): return true
-      case (.noAnswer, .noAnswer): return true
-      case (.failed, .failed): return true
-      case (.unknown(let lhsValue), .unknown(let rhsValue)): return lhsValue == rhsValue
-      default: return false
-    }
-  }
-}
-
-/// Possible directions for a SMS/MMS message or call.
-internal enum Direction: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
-  internal typealias RawValue = String
-  case inbound
-  case outbound
-  /// Auto generated constant for unknown enum values
-  case unknown(RawValue)
-
-  internal init?(rawValue: RawValue) {
-    switch rawValue {
-      case "INBOUND": self = .inbound
-      case "OUTBOUND": self = .outbound
-      default: self = .unknown(rawValue)
-    }
-  }
-
-  internal var rawValue: RawValue {
-    switch self {
-      case .inbound: return "INBOUND"
-      case .outbound: return "OUTBOUND"
-      case .unknown(let value): return value
-    }
-  }
-
-  internal static func == (lhs: Direction, rhs: Direction) -> Bool {
-    switch (lhs, rhs) {
-      case (.inbound, .inbound): return true
-      case (.outbound, .outbound): return true
-      case (.unknown(let lhsValue), .unknown(let rhsValue)): return lhsValue == rhsValue
-      default: return false
     }
   }
 }
@@ -1039,6 +934,191 @@ internal enum PushNotificationService: RawRepresentable, Equatable, JSONDecodabl
       case (.apns, .apns): return true
       case (.apnsSandbox, .apnsSandbox): return true
       case (.fcm, .fcm): return true
+      case (.unknown(let lhsValue), .unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
+    }
+  }
+}
+
+internal struct CallRecordKeyInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
+
+  internal init(sudoOwner: Optional<GraphQLID?> = nil, phoneNumberId: Optional<GraphQLID?> = nil, createdAtEpochMs: Optional<FloatFilterInput?> = nil) {
+    graphQLMap = ["sudoOwner": sudoOwner, "phoneNumberId": phoneNumberId, "createdAtEpochMs": createdAtEpochMs]
+  }
+
+  internal var sudoOwner: Optional<GraphQLID?> {
+    get {
+      return graphQLMap["sudoOwner"] as! Optional<GraphQLID?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "sudoOwner")
+    }
+  }
+
+  internal var phoneNumberId: Optional<GraphQLID?> {
+    get {
+      return graphQLMap["phoneNumberId"] as! Optional<GraphQLID?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "phoneNumberId")
+    }
+  }
+
+  internal var createdAtEpochMs: Optional<FloatFilterInput?> {
+    get {
+      return graphQLMap["createdAtEpochMs"] as! Optional<FloatFilterInput?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "createdAtEpochMs")
+    }
+  }
+}
+
+internal struct CallRecordFilterInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
+
+  internal init(state: Optional<CallStateFilterInput?> = nil, direction: Optional<DirectionFilterInput?> = nil) {
+    graphQLMap = ["state": state, "direction": direction]
+  }
+
+  internal var state: Optional<CallStateFilterInput?> {
+    get {
+      return graphQLMap["state"] as! Optional<CallStateFilterInput?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "state")
+    }
+  }
+
+  internal var direction: Optional<DirectionFilterInput?> {
+    get {
+      return graphQLMap["direction"] as! Optional<DirectionFilterInput?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "direction")
+    }
+  }
+}
+
+internal struct CallStateFilterInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
+
+  internal init(`in`: Optional<[CallState?]?> = nil) {
+    graphQLMap = ["in": `in`]
+  }
+
+  internal var `in`: Optional<[CallState?]?> {
+    get {
+      return graphQLMap["in"] as! Optional<[CallState?]?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "in")
+    }
+  }
+}
+
+/// Possible states for a call.
+/// AUTHORIZED  - Outbound call authorized but not yet initiated at telephony vendor.
+/// QUEUED      - Call is queued before ringing.
+/// RINGING     - Call is ringing.
+/// ANSWERED    - Call has been answered and is ongoing.
+/// COMPLETED   - Call ended after being answered.
+/// UNANSWERED  - Call failed or was not answered.
+internal enum CallState: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
+  internal typealias RawValue = String
+  case authorized
+  case queued
+  case ringing
+  case answered
+  case completed
+  case unanswered
+  /// Auto generated constant for unknown enum values
+  case unknown(RawValue)
+
+  internal init?(rawValue: RawValue) {
+    switch rawValue {
+      case "AUTHORIZED": self = .authorized
+      case "QUEUED": self = .queued
+      case "RINGING": self = .ringing
+      case "ANSWERED": self = .answered
+      case "COMPLETED": self = .completed
+      case "UNANSWERED": self = .unanswered
+      default: self = .unknown(rawValue)
+    }
+  }
+
+  internal var rawValue: RawValue {
+    switch self {
+      case .authorized: return "AUTHORIZED"
+      case .queued: return "QUEUED"
+      case .ringing: return "RINGING"
+      case .answered: return "ANSWERED"
+      case .completed: return "COMPLETED"
+      case .unanswered: return "UNANSWERED"
+      case .unknown(let value): return value
+    }
+  }
+
+  internal static func == (lhs: CallState, rhs: CallState) -> Bool {
+    switch (lhs, rhs) {
+      case (.authorized, .authorized): return true
+      case (.queued, .queued): return true
+      case (.ringing, .ringing): return true
+      case (.answered, .answered): return true
+      case (.completed, .completed): return true
+      case (.unanswered, .unanswered): return true
+      case (.unknown(let lhsValue), .unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
+    }
+  }
+}
+
+internal struct DirectionFilterInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
+
+  internal init(eq: Optional<Direction?> = nil) {
+    graphQLMap = ["eq": eq]
+  }
+
+  internal var eq: Optional<Direction?> {
+    get {
+      return graphQLMap["eq"] as! Optional<Direction?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "eq")
+    }
+  }
+}
+
+/// Possible directions for a SMS/MMS message or call.
+internal enum Direction: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
+  internal typealias RawValue = String
+  case inbound
+  case outbound
+  /// Auto generated constant for unknown enum values
+  case unknown(RawValue)
+
+  internal init?(rawValue: RawValue) {
+    switch rawValue {
+      case "INBOUND": self = .inbound
+      case "OUTBOUND": self = .outbound
+      default: self = .unknown(rawValue)
+    }
+  }
+
+  internal var rawValue: RawValue {
+    switch self {
+      case .inbound: return "INBOUND"
+      case .outbound: return "OUTBOUND"
+      case .unknown(let value): return value
+    }
+  }
+
+  internal static func == (lhs: Direction, rhs: Direction) -> Bool {
+    switch (lhs, rhs) {
+      case (.inbound, .inbound): return true
+      case (.outbound, .outbound): return true
       case (.unknown(let lhsValue), .unknown(let rhsValue)): return lhsValue == rhsValue
       default: return false
     }
@@ -1131,6 +1211,41 @@ internal enum ConversationType: RawRepresentable, Equatable, JSONDecodable, JSON
       case (.group, .group): return true
       case (.unknown(let lhsValue), .unknown(let rhsValue)): return lhsValue == rhsValue
       default: return false
+    }
+  }
+}
+
+internal struct VoicemailKeyInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
+
+  internal init(sudoOwner: Optional<GraphQLID?> = nil, phoneNumberId: Optional<GraphQLID?> = nil, createdAtEpochMs: Optional<FloatFilterInput?> = nil) {
+    graphQLMap = ["sudoOwner": sudoOwner, "phoneNumberId": phoneNumberId, "createdAtEpochMs": createdAtEpochMs]
+  }
+
+  internal var sudoOwner: Optional<GraphQLID?> {
+    get {
+      return graphQLMap["sudoOwner"] as! Optional<GraphQLID?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "sudoOwner")
+    }
+  }
+
+  internal var phoneNumberId: Optional<GraphQLID?> {
+    get {
+      return graphQLMap["phoneNumberId"] as! Optional<GraphQLID?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "phoneNumberId")
+    }
+  }
+
+  internal var createdAtEpochMs: Optional<FloatFilterInput?> {
+    get {
+      return graphQLMap["createdAtEpochMs"] as! Optional<FloatFilterInput?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "createdAtEpochMs")
     }
   }
 }
@@ -5981,7 +6096,9 @@ internal final class ListConversationsQuery: GraphQLQuery {
 
 internal final class CreateVoiceCallMutation: GraphQLMutation {
   internal static let operationString =
-    "mutation CreateVoiceCall($input: CreateVoiceCallInput!) {\n  createVoiceCall(input: $input) {\n    __typename\n    call {\n      __typename\n      id\n      state\n      direction\n      localPhoneNumber\n      remotePhoneNumber\n    }\n    vendorAuthorization {\n      __typename\n      vendor\n      accessToken\n    }\n  }\n}"
+    "mutation CreateVoiceCall($input: CreateVoiceCallInput!) {\n  createVoiceCall(input: $input) {\n    __typename\n    callRecord {\n      __typename\n      ...sealedCallRecord\n    }\n    vendorAuthorization {\n      __typename\n      vendor\n      accessToken\n    }\n  }\n}"
+
+  internal static var requestString: String { return operationString.appending(SealedCallRecord.fragmentString).appending(S3MediaObject.fragmentString) }
 
   internal var input: CreateVoiceCallInput
 
@@ -6010,7 +6127,7 @@ internal final class CreateVoiceCallMutation: GraphQLMutation {
       self.init(snapshot: ["__typename": "Mutation", "createVoiceCall": createVoiceCall.snapshot])
     }
 
-    /// Retrieve an access token for initiating an outgoing voice call.
+    /// Retrieve an access token for initiating an outbound voice call.
     internal var createVoiceCall: CreateVoiceCall {
       get {
         return CreateVoiceCall(snapshot: snapshot["createVoiceCall"]! as! Snapshot)
@@ -6021,11 +6138,11 @@ internal final class CreateVoiceCallMutation: GraphQLMutation {
     }
 
     internal struct CreateVoiceCall: GraphQLSelectionSet {
-      internal static let possibleTypes = ["OutgoingVoiceCall"]
+      internal static let possibleTypes = ["OutboundVoiceCall"]
 
       internal static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-        GraphQLField("call", type: .nonNull(.object(Call.selections))),
+        GraphQLField("callRecord", type: .nonNull(.object(CallRecord.selections))),
         GraphQLField("vendorAuthorization", type: .nonNull(.object(VendorAuthorization.selections))),
       ]
 
@@ -6035,8 +6152,8 @@ internal final class CreateVoiceCallMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      internal init(call: Call, vendorAuthorization: VendorAuthorization) {
-        self.init(snapshot: ["__typename": "OutgoingVoiceCall", "call": call.snapshot, "vendorAuthorization": vendorAuthorization.snapshot])
+      internal init(callRecord: CallRecord, vendorAuthorization: VendorAuthorization) {
+        self.init(snapshot: ["__typename": "OutboundVoiceCall", "callRecord": callRecord.snapshot, "vendorAuthorization": vendorAuthorization.snapshot])
       }
 
       internal var __typename: String {
@@ -6049,12 +6166,12 @@ internal final class CreateVoiceCallMutation: GraphQLMutation {
       }
 
       /// The record of the call that was authorized.
-      internal var call: Call {
+      internal var callRecord: CallRecord {
         get {
-          return Call(snapshot: snapshot["call"]! as! Snapshot)
+          return CallRecord(snapshot: snapshot["callRecord"]! as! Snapshot)
         }
         set {
-          snapshot.updateValue(newValue.snapshot, forKey: "call")
+          snapshot.updateValue(newValue.snapshot, forKey: "callRecord")
         }
       }
 
@@ -6068,16 +6185,24 @@ internal final class CreateVoiceCallMutation: GraphQLMutation {
         }
       }
 
-      internal struct Call: GraphQLSelectionSet {
-        internal static let possibleTypes = ["CallRecord"]
+      internal struct CallRecord: GraphQLSelectionSet {
+        internal static let possibleTypes = ["SealedCallRecord"]
 
         internal static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-          GraphQLField("state", type: .nonNull(.scalar(CallState.self))),
+          GraphQLField("owner", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("sudoOwner", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("phoneNumberId", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("voicemailId", type: .scalar(GraphQLID.self)),
           GraphQLField("direction", type: .nonNull(.scalar(Direction.self))),
-          GraphQLField("localPhoneNumber", type: .nonNull(.scalar(String.self))),
-          GraphQLField("remotePhoneNumber", type: .nonNull(.scalar(String.self))),
+          GraphQLField("seen", type: .nonNull(.scalar(Bool.self))),
+          GraphQLField("state", type: .nonNull(.scalar(CallState.self))),
+          GraphQLField("createdAtEpochMs", type: .nonNull(.scalar(Double.self))),
+          GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
+          GraphQLField("version", type: .nonNull(.scalar(Int.self))),
+          GraphQLField("sealed", type: .nonNull(.list(.nonNull(.object(Sealed.selections))))),
         ]
 
         internal var snapshot: Snapshot
@@ -6086,8 +6211,8 @@ internal final class CreateVoiceCallMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        internal init(id: GraphQLID, state: CallState, direction: Direction, localPhoneNumber: String, remotePhoneNumber: String) {
-          self.init(snapshot: ["__typename": "CallRecord", "id": id, "state": state, "direction": direction, "localPhoneNumber": localPhoneNumber, "remotePhoneNumber": remotePhoneNumber])
+        internal init(id: GraphQLID, owner: GraphQLID, sudoOwner: GraphQLID, phoneNumberId: GraphQLID, voicemailId: GraphQLID? = nil, direction: Direction, seen: Bool, state: CallState, createdAtEpochMs: Double, updatedAtEpochMs: Double, version: Int, sealed: [Sealed]) {
+          self.init(snapshot: ["__typename": "SealedCallRecord", "id": id, "owner": owner, "sudoOwner": sudoOwner, "phoneNumberId": phoneNumberId, "voicemailId": voicemailId, "direction": direction, "seen": seen, "state": state, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "version": version, "sealed": sealed.map { $0.snapshot }])
         }
 
         internal var __typename: String {
@@ -6109,13 +6234,43 @@ internal final class CreateVoiceCallMutation: GraphQLMutation {
           }
         }
 
-        /// State of call record.
-        internal var state: CallState {
+        /// v4 UUID of user that owns the call resource.
+        internal var owner: GraphQLID {
           get {
-            return snapshot["state"]! as! CallState
+            return snapshot["owner"]! as! GraphQLID
           }
           set {
-            snapshot.updateValue(newValue, forKey: "state")
+            snapshot.updateValue(newValue, forKey: "owner")
+          }
+        }
+
+        /// v4 UUID of sudo that owns the call resource.
+        internal var sudoOwner: GraphQLID {
+          get {
+            return snapshot["sudoOwner"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "sudoOwner")
+          }
+        }
+
+        /// The phone number id related to the call resource.
+        internal var phoneNumberId: GraphQLID {
+          get {
+            return snapshot["phoneNumberId"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "phoneNumberId")
+          }
+        }
+
+        /// The ID of the voicemail belonging to the call resource if one exists.
+        internal var voicemailId: GraphQLID? {
+          get {
+            return snapshot["voicemailId"] as? GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "voicemailId")
           }
         }
 
@@ -6129,24 +6284,310 @@ internal final class CreateVoiceCallMutation: GraphQLMutation {
           }
         }
 
-        /// Sudo phone number in E164 format.
-        internal var localPhoneNumber: String {
+        /// Has this call been marked as seen on client.
+        internal var seen: Bool {
           get {
-            return snapshot["localPhoneNumber"]! as! String
+            return snapshot["seen"]! as! Bool
           }
           set {
-            snapshot.updateValue(newValue, forKey: "localPhoneNumber")
+            snapshot.updateValue(newValue, forKey: "seen")
           }
         }
 
-        /// Remote participant. Must be one of the following:
-        /// - A phone number in E164 format.
-        internal var remotePhoneNumber: String {
+        /// State of call record.
+        internal var state: CallState {
           get {
-            return snapshot["remotePhoneNumber"]! as! String
+            return snapshot["state"]! as! CallState
           }
           set {
-            snapshot.updateValue(newValue, forKey: "remotePhoneNumber")
+            snapshot.updateValue(newValue, forKey: "state")
+          }
+        }
+
+        /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
+        internal var createdAtEpochMs: Double {
+          get {
+            return snapshot["createdAtEpochMs"]! as! Double
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "createdAtEpochMs")
+          }
+        }
+
+        /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
+        internal var updatedAtEpochMs: Double {
+          get {
+            return snapshot["updatedAtEpochMs"]! as! Double
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "updatedAtEpochMs")
+          }
+        }
+
+        /// Version of this object, increments on update.
+        internal var version: Int {
+          get {
+            return snapshot["version"]! as! Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "version")
+          }
+        }
+
+        /// Sealed data.
+        internal var sealed: [Sealed] {
+          get {
+            return (snapshot["sealed"] as! [Snapshot]).map { Sealed(snapshot: $0) }
+          }
+          set {
+            snapshot.updateValue(newValue.map { $0.snapshot }, forKey: "sealed")
+          }
+        }
+
+        internal var fragments: Fragments {
+          get {
+            return Fragments(snapshot: snapshot)
+          }
+          set {
+            snapshot += newValue.snapshot
+          }
+        }
+
+        internal struct Fragments {
+          internal var snapshot: Snapshot
+
+          internal var sealedCallRecord: SealedCallRecord {
+            get {
+              return SealedCallRecord(snapshot: snapshot)
+            }
+            set {
+              snapshot += newValue.snapshot
+            }
+          }
+        }
+
+        internal struct Sealed: GraphQLSelectionSet {
+          internal static let possibleTypes = ["SealedCallRecordData"]
+
+          internal static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("algorithm", type: .nonNull(.scalar(String.self))),
+            GraphQLField("keyId", type: .nonNull(.scalar(String.self))),
+            GraphQLField("localPhoneNumber", type: .nonNull(.scalar(String.self))),
+            GraphQLField("remotePhoneNumber", type: .nonNull(.scalar(String.self))),
+            GraphQLField("durationSeconds", type: .scalar(String.self)),
+            GraphQLField("voicemail", type: .object(Voicemail.selections)),
+          ]
+
+          internal var snapshot: Snapshot
+
+          internal init(snapshot: Snapshot) {
+            self.snapshot = snapshot
+          }
+
+          internal init(algorithm: String, keyId: String, localPhoneNumber: String, remotePhoneNumber: String, durationSeconds: String? = nil, voicemail: Voicemail? = nil) {
+            self.init(snapshot: ["__typename": "SealedCallRecordData", "algorithm": algorithm, "keyId": keyId, "localPhoneNumber": localPhoneNumber, "remotePhoneNumber": remotePhoneNumber, "durationSeconds": durationSeconds, "voicemail": voicemail.flatMap { $0.snapshot }])
+          }
+
+          internal var __typename: String {
+            get {
+              return snapshot["__typename"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          /// UNSEALED: Algorithm descriptor describing internal and symmetric key encryption, e.g RSAEncryptionOAEPSHA256AESGCM.
+          internal var algorithm: String {
+            get {
+              return snapshot["algorithm"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "algorithm")
+            }
+          }
+
+          /// UNSEALED: Client generated key ID for the internal key.
+          internal var keyId: String {
+            get {
+              return snapshot["keyId"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "keyId")
+            }
+          }
+
+          /// SEALED: Sudo phone number in E164 format.
+          internal var localPhoneNumber: String {
+            get {
+              return snapshot["localPhoneNumber"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "localPhoneNumber")
+            }
+          }
+
+          /// SEALED: Remote phone number in E164 format.
+          internal var remotePhoneNumber: String {
+            get {
+              return snapshot["remotePhoneNumber"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "remotePhoneNumber")
+            }
+          }
+
+          /// SEALED: The duration of the call when the call is in the COMPLETED state.
+          internal var durationSeconds: String? {
+            get {
+              return snapshot["durationSeconds"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "durationSeconds")
+            }
+          }
+
+          /// The voicemail belonging to the call record if one exists.
+          internal var voicemail: Voicemail? {
+            get {
+              return (snapshot["voicemail"] as? Snapshot).flatMap { Voicemail(snapshot: $0) }
+            }
+            set {
+              snapshot.updateValue(newValue?.snapshot, forKey: "voicemail")
+            }
+          }
+
+          internal struct Voicemail: GraphQLSelectionSet {
+            internal static let possibleTypes = ["SealedCallRecordVoicemailData"]
+
+            internal static let selections: [GraphQLSelection] = [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("durationSeconds", type: .nonNull(.scalar(String.self))),
+              GraphQLField("media", type: .nonNull(.object(Medium.selections))),
+            ]
+
+            internal var snapshot: Snapshot
+
+            internal init(snapshot: Snapshot) {
+              self.snapshot = snapshot
+            }
+
+            internal init(durationSeconds: String, media: Medium) {
+              self.init(snapshot: ["__typename": "SealedCallRecordVoicemailData", "durationSeconds": durationSeconds, "media": media.snapshot])
+            }
+
+            internal var __typename: String {
+              get {
+                return snapshot["__typename"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            /// SEALED: The duration of the voicemail recording.
+            internal var durationSeconds: String {
+              get {
+                return snapshot["durationSeconds"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "durationSeconds")
+              }
+            }
+
+            /// UNSEALED: Media object for voicemail recording.
+            internal var media: Medium {
+              get {
+                return Medium(snapshot: snapshot["media"]! as! Snapshot)
+              }
+              set {
+                snapshot.updateValue(newValue.snapshot, forKey: "media")
+              }
+            }
+
+            internal struct Medium: GraphQLSelectionSet {
+              internal static let possibleTypes = ["S3MediaObject"]
+
+              internal static let selections: [GraphQLSelection] = [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("key", type: .nonNull(.scalar(String.self))),
+                GraphQLField("bucket", type: .nonNull(.scalar(String.self))),
+                GraphQLField("region", type: .nonNull(.scalar(String.self))),
+              ]
+
+              internal var snapshot: Snapshot
+
+              internal init(snapshot: Snapshot) {
+                self.snapshot = snapshot
+              }
+
+              internal init(key: String, bucket: String, region: String) {
+                self.init(snapshot: ["__typename": "S3MediaObject", "key": key, "bucket": bucket, "region": region])
+              }
+
+              internal var __typename: String {
+                get {
+                  return snapshot["__typename"]! as! String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "__typename")
+                }
+              }
+
+              /// Key of object in S3.
+              internal var key: String {
+                get {
+                  return snapshot["key"]! as! String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "key")
+                }
+              }
+
+              /// Name of S3 bucket.
+              internal var bucket: String {
+                get {
+                  return snapshot["bucket"]! as! String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "bucket")
+                }
+              }
+
+              /// Region S3 bucket is located in.
+              internal var region: String {
+                get {
+                  return snapshot["region"]! as! String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "region")
+                }
+              }
+
+              internal var fragments: Fragments {
+                get {
+                  return Fragments(snapshot: snapshot)
+                }
+                set {
+                  snapshot += newValue.snapshot
+                }
+              }
+
+              internal struct Fragments {
+                internal var snapshot: Snapshot
+
+                internal var s3MediaObject: S3MediaObject {
+                  get {
+                    return S3MediaObject(snapshot: snapshot)
+                  }
+                  set {
+                    snapshot += newValue.snapshot
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -6463,6 +6904,1458 @@ internal final class UnregisterDeviceForIncomingCallsMutation: GraphQLMutation {
   }
 }
 
+internal final class GetCallRecordQuery: GraphQLQuery {
+  internal static let operationString =
+    "query GetCallRecord($id: ID!) {\n  getCallRecord(id: $id) {\n    __typename\n    ...sealedCallRecord\n  }\n}"
+
+  internal static var requestString: String { return operationString.appending(SealedCallRecord.fragmentString).appending(S3MediaObject.fragmentString) }
+
+  internal var id: GraphQLID
+
+  internal init(id: GraphQLID) {
+    self.id = id
+  }
+
+  internal var variables: GraphQLMap? {
+    return ["id": id]
+  }
+
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Query"]
+
+    internal static let selections: [GraphQLSelection] = [
+      GraphQLField("getCallRecord", arguments: ["id": GraphQLVariable("id")], type: .object(GetCallRecord.selections)),
+    ]
+
+    internal var snapshot: Snapshot
+
+    internal init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    internal init(getCallRecord: GetCallRecord? = nil) {
+      self.init(snapshot: ["__typename": "Query", "getCallRecord": getCallRecord.flatMap { $0.snapshot }])
+    }
+
+    /// Get a call record by ID.
+    internal var getCallRecord: GetCallRecord? {
+      get {
+        return (snapshot["getCallRecord"] as? Snapshot).flatMap { GetCallRecord(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "getCallRecord")
+      }
+    }
+
+    internal struct GetCallRecord: GraphQLSelectionSet {
+      internal static let possibleTypes = ["SealedCallRecord"]
+
+      internal static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("owner", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("sudoOwner", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("phoneNumberId", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("voicemailId", type: .scalar(GraphQLID.self)),
+        GraphQLField("direction", type: .nonNull(.scalar(Direction.self))),
+        GraphQLField("seen", type: .nonNull(.scalar(Bool.self))),
+        GraphQLField("state", type: .nonNull(.scalar(CallState.self))),
+        GraphQLField("createdAtEpochMs", type: .nonNull(.scalar(Double.self))),
+        GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
+        GraphQLField("version", type: .nonNull(.scalar(Int.self))),
+        GraphQLField("sealed", type: .nonNull(.list(.nonNull(.object(Sealed.selections))))),
+      ]
+
+      internal var snapshot: Snapshot
+
+      internal init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      internal init(id: GraphQLID, owner: GraphQLID, sudoOwner: GraphQLID, phoneNumberId: GraphQLID, voicemailId: GraphQLID? = nil, direction: Direction, seen: Bool, state: CallState, createdAtEpochMs: Double, updatedAtEpochMs: Double, version: Int, sealed: [Sealed]) {
+        self.init(snapshot: ["__typename": "SealedCallRecord", "id": id, "owner": owner, "sudoOwner": sudoOwner, "phoneNumberId": phoneNumberId, "voicemailId": voicemailId, "direction": direction, "seen": seen, "state": state, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "version": version, "sealed": sealed.map { $0.snapshot }])
+      }
+
+      internal var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// v4 UUID assigned to call record.
+      internal var id: GraphQLID {
+        get {
+          return snapshot["id"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      /// v4 UUID of user that owns the call resource.
+      internal var owner: GraphQLID {
+        get {
+          return snapshot["owner"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "owner")
+        }
+      }
+
+      /// v4 UUID of sudo that owns the call resource.
+      internal var sudoOwner: GraphQLID {
+        get {
+          return snapshot["sudoOwner"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "sudoOwner")
+        }
+      }
+
+      /// The phone number id related to the call resource.
+      internal var phoneNumberId: GraphQLID {
+        get {
+          return snapshot["phoneNumberId"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "phoneNumberId")
+        }
+      }
+
+      /// The ID of the voicemail belonging to the call resource if one exists.
+      internal var voicemailId: GraphQLID? {
+        get {
+          return snapshot["voicemailId"] as? GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "voicemailId")
+        }
+      }
+
+      /// Direction of call.
+      internal var direction: Direction {
+        get {
+          return snapshot["direction"]! as! Direction
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "direction")
+        }
+      }
+
+      /// Has this call been marked as seen on client.
+      internal var seen: Bool {
+        get {
+          return snapshot["seen"]! as! Bool
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "seen")
+        }
+      }
+
+      /// State of call record.
+      internal var state: CallState {
+        get {
+          return snapshot["state"]! as! CallState
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "state")
+        }
+      }
+
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
+      internal var createdAtEpochMs: Double {
+        get {
+          return snapshot["createdAtEpochMs"]! as! Double
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAtEpochMs")
+        }
+      }
+
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
+      internal var updatedAtEpochMs: Double {
+        get {
+          return snapshot["updatedAtEpochMs"]! as! Double
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAtEpochMs")
+        }
+      }
+
+      /// Version of this object, increments on update.
+      internal var version: Int {
+        get {
+          return snapshot["version"]! as! Int
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "version")
+        }
+      }
+
+      /// Sealed data.
+      internal var sealed: [Sealed] {
+        get {
+          return (snapshot["sealed"] as! [Snapshot]).map { Sealed(snapshot: $0) }
+        }
+        set {
+          snapshot.updateValue(newValue.map { $0.snapshot }, forKey: "sealed")
+        }
+      }
+
+      internal var fragments: Fragments {
+        get {
+          return Fragments(snapshot: snapshot)
+        }
+        set {
+          snapshot += newValue.snapshot
+        }
+      }
+
+      internal struct Fragments {
+        internal var snapshot: Snapshot
+
+        internal var sealedCallRecord: SealedCallRecord {
+          get {
+            return SealedCallRecord(snapshot: snapshot)
+          }
+          set {
+            snapshot += newValue.snapshot
+          }
+        }
+      }
+
+      internal struct Sealed: GraphQLSelectionSet {
+        internal static let possibleTypes = ["SealedCallRecordData"]
+
+        internal static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("algorithm", type: .nonNull(.scalar(String.self))),
+          GraphQLField("keyId", type: .nonNull(.scalar(String.self))),
+          GraphQLField("localPhoneNumber", type: .nonNull(.scalar(String.self))),
+          GraphQLField("remotePhoneNumber", type: .nonNull(.scalar(String.self))),
+          GraphQLField("durationSeconds", type: .scalar(String.self)),
+          GraphQLField("voicemail", type: .object(Voicemail.selections)),
+        ]
+
+        internal var snapshot: Snapshot
+
+        internal init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        internal init(algorithm: String, keyId: String, localPhoneNumber: String, remotePhoneNumber: String, durationSeconds: String? = nil, voicemail: Voicemail? = nil) {
+          self.init(snapshot: ["__typename": "SealedCallRecordData", "algorithm": algorithm, "keyId": keyId, "localPhoneNumber": localPhoneNumber, "remotePhoneNumber": remotePhoneNumber, "durationSeconds": durationSeconds, "voicemail": voicemail.flatMap { $0.snapshot }])
+        }
+
+        internal var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// UNSEALED: Algorithm descriptor describing internal and symmetric key encryption, e.g RSAEncryptionOAEPSHA256AESGCM.
+        internal var algorithm: String {
+          get {
+            return snapshot["algorithm"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "algorithm")
+          }
+        }
+
+        /// UNSEALED: Client generated key ID for the internal key.
+        internal var keyId: String {
+          get {
+            return snapshot["keyId"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "keyId")
+          }
+        }
+
+        /// SEALED: Sudo phone number in E164 format.
+        internal var localPhoneNumber: String {
+          get {
+            return snapshot["localPhoneNumber"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "localPhoneNumber")
+          }
+        }
+
+        /// SEALED: Remote phone number in E164 format.
+        internal var remotePhoneNumber: String {
+          get {
+            return snapshot["remotePhoneNumber"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "remotePhoneNumber")
+          }
+        }
+
+        /// SEALED: The duration of the call when the call is in the COMPLETED state.
+        internal var durationSeconds: String? {
+          get {
+            return snapshot["durationSeconds"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "durationSeconds")
+          }
+        }
+
+        /// The voicemail belonging to the call record if one exists.
+        internal var voicemail: Voicemail? {
+          get {
+            return (snapshot["voicemail"] as? Snapshot).flatMap { Voicemail(snapshot: $0) }
+          }
+          set {
+            snapshot.updateValue(newValue?.snapshot, forKey: "voicemail")
+          }
+        }
+
+        internal struct Voicemail: GraphQLSelectionSet {
+          internal static let possibleTypes = ["SealedCallRecordVoicemailData"]
+
+          internal static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("durationSeconds", type: .nonNull(.scalar(String.self))),
+            GraphQLField("media", type: .nonNull(.object(Medium.selections))),
+          ]
+
+          internal var snapshot: Snapshot
+
+          internal init(snapshot: Snapshot) {
+            self.snapshot = snapshot
+          }
+
+          internal init(durationSeconds: String, media: Medium) {
+            self.init(snapshot: ["__typename": "SealedCallRecordVoicemailData", "durationSeconds": durationSeconds, "media": media.snapshot])
+          }
+
+          internal var __typename: String {
+            get {
+              return snapshot["__typename"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          /// SEALED: The duration of the voicemail recording.
+          internal var durationSeconds: String {
+            get {
+              return snapshot["durationSeconds"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "durationSeconds")
+            }
+          }
+
+          /// UNSEALED: Media object for voicemail recording.
+          internal var media: Medium {
+            get {
+              return Medium(snapshot: snapshot["media"]! as! Snapshot)
+            }
+            set {
+              snapshot.updateValue(newValue.snapshot, forKey: "media")
+            }
+          }
+
+          internal struct Medium: GraphQLSelectionSet {
+            internal static let possibleTypes = ["S3MediaObject"]
+
+            internal static let selections: [GraphQLSelection] = [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("key", type: .nonNull(.scalar(String.self))),
+              GraphQLField("bucket", type: .nonNull(.scalar(String.self))),
+              GraphQLField("region", type: .nonNull(.scalar(String.self))),
+            ]
+
+            internal var snapshot: Snapshot
+
+            internal init(snapshot: Snapshot) {
+              self.snapshot = snapshot
+            }
+
+            internal init(key: String, bucket: String, region: String) {
+              self.init(snapshot: ["__typename": "S3MediaObject", "key": key, "bucket": bucket, "region": region])
+            }
+
+            internal var __typename: String {
+              get {
+                return snapshot["__typename"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            /// Key of object in S3.
+            internal var key: String {
+              get {
+                return snapshot["key"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "key")
+              }
+            }
+
+            /// Name of S3 bucket.
+            internal var bucket: String {
+              get {
+                return snapshot["bucket"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "bucket")
+              }
+            }
+
+            /// Region S3 bucket is located in.
+            internal var region: String {
+              get {
+                return snapshot["region"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "region")
+              }
+            }
+
+            internal var fragments: Fragments {
+              get {
+                return Fragments(snapshot: snapshot)
+              }
+              set {
+                snapshot += newValue.snapshot
+              }
+            }
+
+            internal struct Fragments {
+              internal var snapshot: Snapshot
+
+              internal var s3MediaObject: S3MediaObject {
+                get {
+                  return S3MediaObject(snapshot: snapshot)
+                }
+                set {
+                  snapshot += newValue.snapshot
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+internal final class ListCallRecordsQuery: GraphQLQuery {
+  internal static let operationString =
+    "query ListCallRecords($key: CallRecordKeyInput, $filter: CallRecordFilterInput, $limit: Int, $nextToken: String) {\n  listCallRecords(key: $key, filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      ...sealedCallRecord\n    }\n    nextToken\n  }\n}"
+
+  internal static var requestString: String { return operationString.appending(SealedCallRecord.fragmentString).appending(S3MediaObject.fragmentString) }
+
+  internal var key: CallRecordKeyInput?
+  internal var filter: CallRecordFilterInput?
+  internal var limit: Int?
+  internal var nextToken: String?
+
+  internal init(key: CallRecordKeyInput? = nil, filter: CallRecordFilterInput? = nil, limit: Int? = nil, nextToken: String? = nil) {
+    self.key = key
+    self.filter = filter
+    self.limit = limit
+    self.nextToken = nextToken
+  }
+
+  internal var variables: GraphQLMap? {
+    return ["key": key, "filter": filter, "limit": limit, "nextToken": nextToken]
+  }
+
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Query"]
+
+    internal static let selections: [GraphQLSelection] = [
+      GraphQLField("listCallRecords", arguments: ["key": GraphQLVariable("key"), "filter": GraphQLVariable("filter"), "limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .object(ListCallRecord.selections)),
+    ]
+
+    internal var snapshot: Snapshot
+
+    internal init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    internal init(listCallRecords: ListCallRecord? = nil) {
+      self.init(snapshot: ["__typename": "Query", "listCallRecords": listCallRecords.flatMap { $0.snapshot }])
+    }
+
+    /// Retrieve a list of call records.
+    internal var listCallRecords: ListCallRecord? {
+      get {
+        return (snapshot["listCallRecords"] as? Snapshot).flatMap { ListCallRecord(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "listCallRecords")
+      }
+    }
+
+    internal struct ListCallRecord: GraphQLSelectionSet {
+      internal static let possibleTypes = ["CallRecordConnection"]
+
+      internal static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("items", type: .list(.nonNull(.object(Item.selections)))),
+        GraphQLField("nextToken", type: .scalar(String.self)),
+      ]
+
+      internal var snapshot: Snapshot
+
+      internal init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      internal init(items: [Item]? = nil, nextToken: String? = nil) {
+        self.init(snapshot: ["__typename": "CallRecordConnection", "items": items.flatMap { $0.map { $0.snapshot } }, "nextToken": nextToken])
+      }
+
+      internal var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      internal var items: [Item]? {
+        get {
+          return (snapshot["items"] as? [Snapshot]).flatMap { $0.map { Item(snapshot: $0) } }
+        }
+        set {
+          snapshot.updateValue(newValue.flatMap { $0.map { $0.snapshot } }, forKey: "items")
+        }
+      }
+
+      internal var nextToken: String? {
+        get {
+          return snapshot["nextToken"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "nextToken")
+        }
+      }
+
+      internal struct Item: GraphQLSelectionSet {
+        internal static let possibleTypes = ["SealedCallRecord"]
+
+        internal static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("owner", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("sudoOwner", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("phoneNumberId", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("voicemailId", type: .scalar(GraphQLID.self)),
+          GraphQLField("direction", type: .nonNull(.scalar(Direction.self))),
+          GraphQLField("seen", type: .nonNull(.scalar(Bool.self))),
+          GraphQLField("state", type: .nonNull(.scalar(CallState.self))),
+          GraphQLField("createdAtEpochMs", type: .nonNull(.scalar(Double.self))),
+          GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
+          GraphQLField("version", type: .nonNull(.scalar(Int.self))),
+          GraphQLField("sealed", type: .nonNull(.list(.nonNull(.object(Sealed.selections))))),
+        ]
+
+        internal var snapshot: Snapshot
+
+        internal init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        internal init(id: GraphQLID, owner: GraphQLID, sudoOwner: GraphQLID, phoneNumberId: GraphQLID, voicemailId: GraphQLID? = nil, direction: Direction, seen: Bool, state: CallState, createdAtEpochMs: Double, updatedAtEpochMs: Double, version: Int, sealed: [Sealed]) {
+          self.init(snapshot: ["__typename": "SealedCallRecord", "id": id, "owner": owner, "sudoOwner": sudoOwner, "phoneNumberId": phoneNumberId, "voicemailId": voicemailId, "direction": direction, "seen": seen, "state": state, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "version": version, "sealed": sealed.map { $0.snapshot }])
+        }
+
+        internal var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// v4 UUID assigned to call record.
+        internal var id: GraphQLID {
+          get {
+            return snapshot["id"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        /// v4 UUID of user that owns the call resource.
+        internal var owner: GraphQLID {
+          get {
+            return snapshot["owner"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "owner")
+          }
+        }
+
+        /// v4 UUID of sudo that owns the call resource.
+        internal var sudoOwner: GraphQLID {
+          get {
+            return snapshot["sudoOwner"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "sudoOwner")
+          }
+        }
+
+        /// The phone number id related to the call resource.
+        internal var phoneNumberId: GraphQLID {
+          get {
+            return snapshot["phoneNumberId"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "phoneNumberId")
+          }
+        }
+
+        /// The ID of the voicemail belonging to the call resource if one exists.
+        internal var voicemailId: GraphQLID? {
+          get {
+            return snapshot["voicemailId"] as? GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "voicemailId")
+          }
+        }
+
+        /// Direction of call.
+        internal var direction: Direction {
+          get {
+            return snapshot["direction"]! as! Direction
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "direction")
+          }
+        }
+
+        /// Has this call been marked as seen on client.
+        internal var seen: Bool {
+          get {
+            return snapshot["seen"]! as! Bool
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "seen")
+          }
+        }
+
+        /// State of call record.
+        internal var state: CallState {
+          get {
+            return snapshot["state"]! as! CallState
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "state")
+          }
+        }
+
+        /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
+        internal var createdAtEpochMs: Double {
+          get {
+            return snapshot["createdAtEpochMs"]! as! Double
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "createdAtEpochMs")
+          }
+        }
+
+        /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
+        internal var updatedAtEpochMs: Double {
+          get {
+            return snapshot["updatedAtEpochMs"]! as! Double
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "updatedAtEpochMs")
+          }
+        }
+
+        /// Version of this object, increments on update.
+        internal var version: Int {
+          get {
+            return snapshot["version"]! as! Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "version")
+          }
+        }
+
+        /// Sealed data.
+        internal var sealed: [Sealed] {
+          get {
+            return (snapshot["sealed"] as! [Snapshot]).map { Sealed(snapshot: $0) }
+          }
+          set {
+            snapshot.updateValue(newValue.map { $0.snapshot }, forKey: "sealed")
+          }
+        }
+
+        internal var fragments: Fragments {
+          get {
+            return Fragments(snapshot: snapshot)
+          }
+          set {
+            snapshot += newValue.snapshot
+          }
+        }
+
+        internal struct Fragments {
+          internal var snapshot: Snapshot
+
+          internal var sealedCallRecord: SealedCallRecord {
+            get {
+              return SealedCallRecord(snapshot: snapshot)
+            }
+            set {
+              snapshot += newValue.snapshot
+            }
+          }
+        }
+
+        internal struct Sealed: GraphQLSelectionSet {
+          internal static let possibleTypes = ["SealedCallRecordData"]
+
+          internal static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("algorithm", type: .nonNull(.scalar(String.self))),
+            GraphQLField("keyId", type: .nonNull(.scalar(String.self))),
+            GraphQLField("localPhoneNumber", type: .nonNull(.scalar(String.self))),
+            GraphQLField("remotePhoneNumber", type: .nonNull(.scalar(String.self))),
+            GraphQLField("durationSeconds", type: .scalar(String.self)),
+            GraphQLField("voicemail", type: .object(Voicemail.selections)),
+          ]
+
+          internal var snapshot: Snapshot
+
+          internal init(snapshot: Snapshot) {
+            self.snapshot = snapshot
+          }
+
+          internal init(algorithm: String, keyId: String, localPhoneNumber: String, remotePhoneNumber: String, durationSeconds: String? = nil, voicemail: Voicemail? = nil) {
+            self.init(snapshot: ["__typename": "SealedCallRecordData", "algorithm": algorithm, "keyId": keyId, "localPhoneNumber": localPhoneNumber, "remotePhoneNumber": remotePhoneNumber, "durationSeconds": durationSeconds, "voicemail": voicemail.flatMap { $0.snapshot }])
+          }
+
+          internal var __typename: String {
+            get {
+              return snapshot["__typename"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          /// UNSEALED: Algorithm descriptor describing internal and symmetric key encryption, e.g RSAEncryptionOAEPSHA256AESGCM.
+          internal var algorithm: String {
+            get {
+              return snapshot["algorithm"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "algorithm")
+            }
+          }
+
+          /// UNSEALED: Client generated key ID for the internal key.
+          internal var keyId: String {
+            get {
+              return snapshot["keyId"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "keyId")
+            }
+          }
+
+          /// SEALED: Sudo phone number in E164 format.
+          internal var localPhoneNumber: String {
+            get {
+              return snapshot["localPhoneNumber"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "localPhoneNumber")
+            }
+          }
+
+          /// SEALED: Remote phone number in E164 format.
+          internal var remotePhoneNumber: String {
+            get {
+              return snapshot["remotePhoneNumber"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "remotePhoneNumber")
+            }
+          }
+
+          /// SEALED: The duration of the call when the call is in the COMPLETED state.
+          internal var durationSeconds: String? {
+            get {
+              return snapshot["durationSeconds"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "durationSeconds")
+            }
+          }
+
+          /// The voicemail belonging to the call record if one exists.
+          internal var voicemail: Voicemail? {
+            get {
+              return (snapshot["voicemail"] as? Snapshot).flatMap { Voicemail(snapshot: $0) }
+            }
+            set {
+              snapshot.updateValue(newValue?.snapshot, forKey: "voicemail")
+            }
+          }
+
+          internal struct Voicemail: GraphQLSelectionSet {
+            internal static let possibleTypes = ["SealedCallRecordVoicemailData"]
+
+            internal static let selections: [GraphQLSelection] = [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("durationSeconds", type: .nonNull(.scalar(String.self))),
+              GraphQLField("media", type: .nonNull(.object(Medium.selections))),
+            ]
+
+            internal var snapshot: Snapshot
+
+            internal init(snapshot: Snapshot) {
+              self.snapshot = snapshot
+            }
+
+            internal init(durationSeconds: String, media: Medium) {
+              self.init(snapshot: ["__typename": "SealedCallRecordVoicemailData", "durationSeconds": durationSeconds, "media": media.snapshot])
+            }
+
+            internal var __typename: String {
+              get {
+                return snapshot["__typename"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            /// SEALED: The duration of the voicemail recording.
+            internal var durationSeconds: String {
+              get {
+                return snapshot["durationSeconds"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "durationSeconds")
+              }
+            }
+
+            /// UNSEALED: Media object for voicemail recording.
+            internal var media: Medium {
+              get {
+                return Medium(snapshot: snapshot["media"]! as! Snapshot)
+              }
+              set {
+                snapshot.updateValue(newValue.snapshot, forKey: "media")
+              }
+            }
+
+            internal struct Medium: GraphQLSelectionSet {
+              internal static let possibleTypes = ["S3MediaObject"]
+
+              internal static let selections: [GraphQLSelection] = [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("key", type: .nonNull(.scalar(String.self))),
+                GraphQLField("bucket", type: .nonNull(.scalar(String.self))),
+                GraphQLField("region", type: .nonNull(.scalar(String.self))),
+              ]
+
+              internal var snapshot: Snapshot
+
+              internal init(snapshot: Snapshot) {
+                self.snapshot = snapshot
+              }
+
+              internal init(key: String, bucket: String, region: String) {
+                self.init(snapshot: ["__typename": "S3MediaObject", "key": key, "bucket": bucket, "region": region])
+              }
+
+              internal var __typename: String {
+                get {
+                  return snapshot["__typename"]! as! String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "__typename")
+                }
+              }
+
+              /// Key of object in S3.
+              internal var key: String {
+                get {
+                  return snapshot["key"]! as! String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "key")
+                }
+              }
+
+              /// Name of S3 bucket.
+              internal var bucket: String {
+                get {
+                  return snapshot["bucket"]! as! String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "bucket")
+                }
+              }
+
+              /// Region S3 bucket is located in.
+              internal var region: String {
+                get {
+                  return snapshot["region"]! as! String
+                }
+                set {
+                  snapshot.updateValue(newValue, forKey: "region")
+                }
+              }
+
+              internal var fragments: Fragments {
+                get {
+                  return Fragments(snapshot: snapshot)
+                }
+                set {
+                  snapshot += newValue.snapshot
+                }
+              }
+
+              internal struct Fragments {
+                internal var snapshot: Snapshot
+
+                internal var s3MediaObject: S3MediaObject {
+                  get {
+                    return S3MediaObject(snapshot: snapshot)
+                  }
+                  set {
+                    snapshot += newValue.snapshot
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+internal final class OnCallRecordSubscription: GraphQLSubscription {
+  internal static let operationString =
+    "subscription OnCallRecord($owner: String!) {\n  OnCallRecord(owner: $owner) {\n    __typename\n    ...sealedCallRecord\n  }\n}"
+
+  internal static var requestString: String { return operationString.appending(SealedCallRecord.fragmentString).appending(S3MediaObject.fragmentString) }
+
+  internal var owner: String
+
+  internal init(owner: String) {
+    self.owner = owner
+  }
+
+  internal var variables: GraphQLMap? {
+    return ["owner": owner]
+  }
+
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Subscription"]
+
+    internal static let selections: [GraphQLSelection] = [
+      GraphQLField("OnCallRecord", arguments: ["owner": GraphQLVariable("owner")], type: .object(OnCallRecord.selections)),
+    ]
+
+    internal var snapshot: Snapshot
+
+    internal init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    internal init(onCallRecord: OnCallRecord? = nil) {
+      self.init(snapshot: ["__typename": "Subscription", "OnCallRecord": onCallRecord.flatMap { $0.snapshot }])
+    }
+
+    /// Owner id for the current logged in user.
+    internal var onCallRecord: OnCallRecord? {
+      get {
+        return (snapshot["OnCallRecord"] as? Snapshot).flatMap { OnCallRecord(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "OnCallRecord")
+      }
+    }
+
+    internal struct OnCallRecord: GraphQLSelectionSet {
+      internal static let possibleTypes = ["SealedCallRecord"]
+
+      internal static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("owner", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("sudoOwner", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("phoneNumberId", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("voicemailId", type: .scalar(GraphQLID.self)),
+        GraphQLField("direction", type: .nonNull(.scalar(Direction.self))),
+        GraphQLField("seen", type: .nonNull(.scalar(Bool.self))),
+        GraphQLField("state", type: .nonNull(.scalar(CallState.self))),
+        GraphQLField("createdAtEpochMs", type: .nonNull(.scalar(Double.self))),
+        GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
+        GraphQLField("version", type: .nonNull(.scalar(Int.self))),
+        GraphQLField("sealed", type: .nonNull(.list(.nonNull(.object(Sealed.selections))))),
+      ]
+
+      internal var snapshot: Snapshot
+
+      internal init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      internal init(id: GraphQLID, owner: GraphQLID, sudoOwner: GraphQLID, phoneNumberId: GraphQLID, voicemailId: GraphQLID? = nil, direction: Direction, seen: Bool, state: CallState, createdAtEpochMs: Double, updatedAtEpochMs: Double, version: Int, sealed: [Sealed]) {
+        self.init(snapshot: ["__typename": "SealedCallRecord", "id": id, "owner": owner, "sudoOwner": sudoOwner, "phoneNumberId": phoneNumberId, "voicemailId": voicemailId, "direction": direction, "seen": seen, "state": state, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "version": version, "sealed": sealed.map { $0.snapshot }])
+      }
+
+      internal var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// v4 UUID assigned to call record.
+      internal var id: GraphQLID {
+        get {
+          return snapshot["id"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      /// v4 UUID of user that owns the call resource.
+      internal var owner: GraphQLID {
+        get {
+          return snapshot["owner"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "owner")
+        }
+      }
+
+      /// v4 UUID of sudo that owns the call resource.
+      internal var sudoOwner: GraphQLID {
+        get {
+          return snapshot["sudoOwner"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "sudoOwner")
+        }
+      }
+
+      /// The phone number id related to the call resource.
+      internal var phoneNumberId: GraphQLID {
+        get {
+          return snapshot["phoneNumberId"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "phoneNumberId")
+        }
+      }
+
+      /// The ID of the voicemail belonging to the call resource if one exists.
+      internal var voicemailId: GraphQLID? {
+        get {
+          return snapshot["voicemailId"] as? GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "voicemailId")
+        }
+      }
+
+      /// Direction of call.
+      internal var direction: Direction {
+        get {
+          return snapshot["direction"]! as! Direction
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "direction")
+        }
+      }
+
+      /// Has this call been marked as seen on client.
+      internal var seen: Bool {
+        get {
+          return snapshot["seen"]! as! Bool
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "seen")
+        }
+      }
+
+      /// State of call record.
+      internal var state: CallState {
+        get {
+          return snapshot["state"]! as! CallState
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "state")
+        }
+      }
+
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
+      internal var createdAtEpochMs: Double {
+        get {
+          return snapshot["createdAtEpochMs"]! as! Double
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAtEpochMs")
+        }
+      }
+
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
+      internal var updatedAtEpochMs: Double {
+        get {
+          return snapshot["updatedAtEpochMs"]! as! Double
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAtEpochMs")
+        }
+      }
+
+      /// Version of this object, increments on update.
+      internal var version: Int {
+        get {
+          return snapshot["version"]! as! Int
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "version")
+        }
+      }
+
+      /// Sealed data.
+      internal var sealed: [Sealed] {
+        get {
+          return (snapshot["sealed"] as! [Snapshot]).map { Sealed(snapshot: $0) }
+        }
+        set {
+          snapshot.updateValue(newValue.map { $0.snapshot }, forKey: "sealed")
+        }
+      }
+
+      internal var fragments: Fragments {
+        get {
+          return Fragments(snapshot: snapshot)
+        }
+        set {
+          snapshot += newValue.snapshot
+        }
+      }
+
+      internal struct Fragments {
+        internal var snapshot: Snapshot
+
+        internal var sealedCallRecord: SealedCallRecord {
+          get {
+            return SealedCallRecord(snapshot: snapshot)
+          }
+          set {
+            snapshot += newValue.snapshot
+          }
+        }
+      }
+
+      internal struct Sealed: GraphQLSelectionSet {
+        internal static let possibleTypes = ["SealedCallRecordData"]
+
+        internal static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("algorithm", type: .nonNull(.scalar(String.self))),
+          GraphQLField("keyId", type: .nonNull(.scalar(String.self))),
+          GraphQLField("localPhoneNumber", type: .nonNull(.scalar(String.self))),
+          GraphQLField("remotePhoneNumber", type: .nonNull(.scalar(String.self))),
+          GraphQLField("durationSeconds", type: .scalar(String.self)),
+          GraphQLField("voicemail", type: .object(Voicemail.selections)),
+        ]
+
+        internal var snapshot: Snapshot
+
+        internal init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        internal init(algorithm: String, keyId: String, localPhoneNumber: String, remotePhoneNumber: String, durationSeconds: String? = nil, voicemail: Voicemail? = nil) {
+          self.init(snapshot: ["__typename": "SealedCallRecordData", "algorithm": algorithm, "keyId": keyId, "localPhoneNumber": localPhoneNumber, "remotePhoneNumber": remotePhoneNumber, "durationSeconds": durationSeconds, "voicemail": voicemail.flatMap { $0.snapshot }])
+        }
+
+        internal var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// UNSEALED: Algorithm descriptor describing internal and symmetric key encryption, e.g RSAEncryptionOAEPSHA256AESGCM.
+        internal var algorithm: String {
+          get {
+            return snapshot["algorithm"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "algorithm")
+          }
+        }
+
+        /// UNSEALED: Client generated key ID for the internal key.
+        internal var keyId: String {
+          get {
+            return snapshot["keyId"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "keyId")
+          }
+        }
+
+        /// SEALED: Sudo phone number in E164 format.
+        internal var localPhoneNumber: String {
+          get {
+            return snapshot["localPhoneNumber"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "localPhoneNumber")
+          }
+        }
+
+        /// SEALED: Remote phone number in E164 format.
+        internal var remotePhoneNumber: String {
+          get {
+            return snapshot["remotePhoneNumber"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "remotePhoneNumber")
+          }
+        }
+
+        /// SEALED: The duration of the call when the call is in the COMPLETED state.
+        internal var durationSeconds: String? {
+          get {
+            return snapshot["durationSeconds"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "durationSeconds")
+          }
+        }
+
+        /// The voicemail belonging to the call record if one exists.
+        internal var voicemail: Voicemail? {
+          get {
+            return (snapshot["voicemail"] as? Snapshot).flatMap { Voicemail(snapshot: $0) }
+          }
+          set {
+            snapshot.updateValue(newValue?.snapshot, forKey: "voicemail")
+          }
+        }
+
+        internal struct Voicemail: GraphQLSelectionSet {
+          internal static let possibleTypes = ["SealedCallRecordVoicemailData"]
+
+          internal static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("durationSeconds", type: .nonNull(.scalar(String.self))),
+            GraphQLField("media", type: .nonNull(.object(Medium.selections))),
+          ]
+
+          internal var snapshot: Snapshot
+
+          internal init(snapshot: Snapshot) {
+            self.snapshot = snapshot
+          }
+
+          internal init(durationSeconds: String, media: Medium) {
+            self.init(snapshot: ["__typename": "SealedCallRecordVoicemailData", "durationSeconds": durationSeconds, "media": media.snapshot])
+          }
+
+          internal var __typename: String {
+            get {
+              return snapshot["__typename"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          /// SEALED: The duration of the voicemail recording.
+          internal var durationSeconds: String {
+            get {
+              return snapshot["durationSeconds"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "durationSeconds")
+            }
+          }
+
+          /// UNSEALED: Media object for voicemail recording.
+          internal var media: Medium {
+            get {
+              return Medium(snapshot: snapshot["media"]! as! Snapshot)
+            }
+            set {
+              snapshot.updateValue(newValue.snapshot, forKey: "media")
+            }
+          }
+
+          internal struct Medium: GraphQLSelectionSet {
+            internal static let possibleTypes = ["S3MediaObject"]
+
+            internal static let selections: [GraphQLSelection] = [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("key", type: .nonNull(.scalar(String.self))),
+              GraphQLField("bucket", type: .nonNull(.scalar(String.self))),
+              GraphQLField("region", type: .nonNull(.scalar(String.self))),
+            ]
+
+            internal var snapshot: Snapshot
+
+            internal init(snapshot: Snapshot) {
+              self.snapshot = snapshot
+            }
+
+            internal init(key: String, bucket: String, region: String) {
+              self.init(snapshot: ["__typename": "S3MediaObject", "key": key, "bucket": bucket, "region": region])
+            }
+
+            internal var __typename: String {
+              get {
+                return snapshot["__typename"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            /// Key of object in S3.
+            internal var key: String {
+              get {
+                return snapshot["key"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "key")
+              }
+            }
+
+            /// Name of S3 bucket.
+            internal var bucket: String {
+              get {
+                return snapshot["bucket"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "bucket")
+              }
+            }
+
+            /// Region S3 bucket is located in.
+            internal var region: String {
+              get {
+                return snapshot["region"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "region")
+              }
+            }
+
+            internal var fragments: Fragments {
+              get {
+                return Fragments(snapshot: snapshot)
+              }
+              set {
+                snapshot += newValue.snapshot
+              }
+            }
+
+            internal struct Fragments {
+              internal var snapshot: Snapshot
+
+              internal var s3MediaObject: S3MediaObject {
+                get {
+                  return S3MediaObject(snapshot: snapshot)
+                }
+                set {
+                  snapshot += newValue.snapshot
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+internal final class DeleteCallRecordMutation: GraphQLMutation {
+  internal static let operationString =
+    "mutation DeleteCallRecord($id: ID!) {\n  deleteCallRecord(id: $id)\n}"
+
+  internal var id: GraphQLID
+
+  internal init(id: GraphQLID) {
+    self.id = id
+  }
+
+  internal var variables: GraphQLMap? {
+    return ["id": id]
+  }
+
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Mutation"]
+
+    internal static let selections: [GraphQLSelection] = [
+      GraphQLField("deleteCallRecord", arguments: ["id": GraphQLVariable("id")], type: .nonNull(.scalar(GraphQLID.self))),
+    ]
+
+    internal var snapshot: Snapshot
+
+    internal init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    internal init(deleteCallRecord: GraphQLID) {
+      self.init(snapshot: ["__typename": "Mutation", "deleteCallRecord": deleteCallRecord])
+    }
+
+    /// Delete a call record.
+    internal var deleteCallRecord: GraphQLID {
+      get {
+        return snapshot["deleteCallRecord"]! as! GraphQLID
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "deleteCallRecord")
+      }
+    }
+  }
+}
+
 internal final class RegisterForIncomingCallsMutation: GraphQLMutation {
   internal static let operationString =
     "mutation RegisterForIncomingCalls($input: DeviceRegistrationInput!) {\n  registerDeviceForIncomingCalls(input: $input) {\n    __typename\n    ...deviceRegistrationOutput\n  }\n}"
@@ -6766,6 +8659,1243 @@ internal final class UnregisterForIncomingCallsMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "accessToken")
+          }
+        }
+      }
+    }
+  }
+}
+
+internal final class GetVoicemailQuery: GraphQLQuery {
+  internal static let operationString =
+    "query getVoicemail($id: ID!) {\n  getVoicemail(id: $id) {\n    __typename\n    ...sealedVoicemail\n  }\n}"
+
+  internal static var requestString: String { return operationString.appending(SealedVoicemail.fragmentString).appending(S3MediaObject.fragmentString) }
+
+  internal var id: GraphQLID
+
+  internal init(id: GraphQLID) {
+    self.id = id
+  }
+
+  internal var variables: GraphQLMap? {
+    return ["id": id]
+  }
+
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Query"]
+
+    internal static let selections: [GraphQLSelection] = [
+      GraphQLField("getVoicemail", arguments: ["id": GraphQLVariable("id")], type: .object(GetVoicemail.selections)),
+    ]
+
+    internal var snapshot: Snapshot
+
+    internal init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    internal init(getVoicemail: GetVoicemail? = nil) {
+      self.init(snapshot: ["__typename": "Query", "getVoicemail": getVoicemail.flatMap { $0.snapshot }])
+    }
+
+    /// Get a voicemail by ID.
+    internal var getVoicemail: GetVoicemail? {
+      get {
+        return (snapshot["getVoicemail"] as? Snapshot).flatMap { GetVoicemail(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "getVoicemail")
+      }
+    }
+
+    internal struct GetVoicemail: GraphQLSelectionSet {
+      internal static let possibleTypes = ["SealedVoicemail"]
+
+      internal static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("owner", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("sudoOwner", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("phoneNumberId", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("callRecordId", type: .scalar(GraphQLID.self)),
+        GraphQLField("seen", type: .nonNull(.scalar(Bool.self))),
+        GraphQLField("sealed", type: .nonNull(.list(.nonNull(.object(Sealed.selections))))),
+        GraphQLField("createdAtEpochMs", type: .nonNull(.scalar(Double.self))),
+        GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
+        GraphQLField("version", type: .nonNull(.scalar(Int.self))),
+      ]
+
+      internal var snapshot: Snapshot
+
+      internal init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      internal init(id: GraphQLID, owner: GraphQLID, sudoOwner: GraphQLID, phoneNumberId: GraphQLID, callRecordId: GraphQLID? = nil, seen: Bool, sealed: [Sealed], createdAtEpochMs: Double, updatedAtEpochMs: Double, version: Int) {
+        self.init(snapshot: ["__typename": "SealedVoicemail", "id": id, "owner": owner, "sudoOwner": sudoOwner, "phoneNumberId": phoneNumberId, "callRecordId": callRecordId, "seen": seen, "sealed": sealed.map { $0.snapshot }, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "version": version])
+      }
+
+      internal var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// v4 UUID assigned to voicemail.
+      internal var id: GraphQLID {
+        get {
+          return snapshot["id"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      /// v4 UUID of user that owns the voicemail resource.
+      internal var owner: GraphQLID {
+        get {
+          return snapshot["owner"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "owner")
+        }
+      }
+
+      /// v4 UUID of sudo that owns the voicemail resource.
+      internal var sudoOwner: GraphQLID {
+        get {
+          return snapshot["sudoOwner"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "sudoOwner")
+        }
+      }
+
+      /// The phone number id related to the voicemail resource.
+      internal var phoneNumberId: GraphQLID {
+        get {
+          return snapshot["phoneNumberId"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "phoneNumberId")
+        }
+      }
+
+      /// The ID of the call record this voicemail is related to.
+      internal var callRecordId: GraphQLID? {
+        get {
+          return snapshot["callRecordId"] as? GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "callRecordId")
+        }
+      }
+
+      /// Has this voicemail been marked as seen on client.
+      internal var seen: Bool {
+        get {
+          return snapshot["seen"]! as! Bool
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "seen")
+        }
+      }
+
+      /// Sealed data.
+      internal var sealed: [Sealed] {
+        get {
+          return (snapshot["sealed"] as! [Snapshot]).map { Sealed(snapshot: $0) }
+        }
+        set {
+          snapshot.updateValue(newValue.map { $0.snapshot }, forKey: "sealed")
+        }
+      }
+
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
+      internal var createdAtEpochMs: Double {
+        get {
+          return snapshot["createdAtEpochMs"]! as! Double
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAtEpochMs")
+        }
+      }
+
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
+      internal var updatedAtEpochMs: Double {
+        get {
+          return snapshot["updatedAtEpochMs"]! as! Double
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAtEpochMs")
+        }
+      }
+
+      /// Version of this object, increments on update.
+      internal var version: Int {
+        get {
+          return snapshot["version"]! as! Int
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "version")
+        }
+      }
+
+      internal var fragments: Fragments {
+        get {
+          return Fragments(snapshot: snapshot)
+        }
+        set {
+          snapshot += newValue.snapshot
+        }
+      }
+
+      internal struct Fragments {
+        internal var snapshot: Snapshot
+
+        internal var sealedVoicemail: SealedVoicemail {
+          get {
+            return SealedVoicemail(snapshot: snapshot)
+          }
+          set {
+            snapshot += newValue.snapshot
+          }
+        }
+      }
+
+      internal struct Sealed: GraphQLSelectionSet {
+        internal static let possibleTypes = ["SealedVoicemailData"]
+
+        internal static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("algorithm", type: .nonNull(.scalar(String.self))),
+          GraphQLField("keyId", type: .nonNull(.scalar(String.self))),
+          GraphQLField("localPhoneNumber", type: .nonNull(.scalar(String.self))),
+          GraphQLField("remotePhoneNumber", type: .nonNull(.scalar(String.self))),
+          GraphQLField("durationSeconds", type: .nonNull(.scalar(String.self))),
+          GraphQLField("media", type: .nonNull(.object(Medium.selections))),
+        ]
+
+        internal var snapshot: Snapshot
+
+        internal init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        internal init(algorithm: String, keyId: String, localPhoneNumber: String, remotePhoneNumber: String, durationSeconds: String, media: Medium) {
+          self.init(snapshot: ["__typename": "SealedVoicemailData", "algorithm": algorithm, "keyId": keyId, "localPhoneNumber": localPhoneNumber, "remotePhoneNumber": remotePhoneNumber, "durationSeconds": durationSeconds, "media": media.snapshot])
+        }
+
+        internal var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// UNSEALED: Algorithm descriptor describing internal and symmetric key encryption, e.g RSAEncryptionOAEPSHA256AESGCM.
+        internal var algorithm: String {
+          get {
+            return snapshot["algorithm"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "algorithm")
+          }
+        }
+
+        /// UNSEALED: Client generated key ID for the internal key.
+        internal var keyId: String {
+          get {
+            return snapshot["keyId"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "keyId")
+          }
+        }
+
+        /// SEALED: Sudo phone number in E164 format.
+        internal var localPhoneNumber: String {
+          get {
+            return snapshot["localPhoneNumber"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "localPhoneNumber")
+          }
+        }
+
+        /// SEALED: Remote phone number in E164 format.
+        internal var remotePhoneNumber: String {
+          get {
+            return snapshot["remotePhoneNumber"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "remotePhoneNumber")
+          }
+        }
+
+        /// SEALED: The duration of the voicemail recording.
+        internal var durationSeconds: String {
+          get {
+            return snapshot["durationSeconds"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "durationSeconds")
+          }
+        }
+
+        /// UNSEALED: Media object for voicemail recording.
+        internal var media: Medium {
+          get {
+            return Medium(snapshot: snapshot["media"]! as! Snapshot)
+          }
+          set {
+            snapshot.updateValue(newValue.snapshot, forKey: "media")
+          }
+        }
+
+        internal struct Medium: GraphQLSelectionSet {
+          internal static let possibleTypes = ["S3MediaObject"]
+
+          internal static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("key", type: .nonNull(.scalar(String.self))),
+            GraphQLField("bucket", type: .nonNull(.scalar(String.self))),
+            GraphQLField("region", type: .nonNull(.scalar(String.self))),
+          ]
+
+          internal var snapshot: Snapshot
+
+          internal init(snapshot: Snapshot) {
+            self.snapshot = snapshot
+          }
+
+          internal init(key: String, bucket: String, region: String) {
+            self.init(snapshot: ["__typename": "S3MediaObject", "key": key, "bucket": bucket, "region": region])
+          }
+
+          internal var __typename: String {
+            get {
+              return snapshot["__typename"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          /// Key of object in S3.
+          internal var key: String {
+            get {
+              return snapshot["key"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "key")
+            }
+          }
+
+          /// Name of S3 bucket.
+          internal var bucket: String {
+            get {
+              return snapshot["bucket"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "bucket")
+            }
+          }
+
+          /// Region S3 bucket is located in.
+          internal var region: String {
+            get {
+              return snapshot["region"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "region")
+            }
+          }
+
+          internal var fragments: Fragments {
+            get {
+              return Fragments(snapshot: snapshot)
+            }
+            set {
+              snapshot += newValue.snapshot
+            }
+          }
+
+          internal struct Fragments {
+            internal var snapshot: Snapshot
+
+            internal var s3MediaObject: S3MediaObject {
+              get {
+                return S3MediaObject(snapshot: snapshot)
+              }
+              set {
+                snapshot += newValue.snapshot
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+internal final class ListVoicemailsQuery: GraphQLQuery {
+  internal static let operationString =
+    "query listVoicemails($key: VoicemailKeyInput, $limit: Int, $nextToken: String) {\n  listVoicemails(key: $key, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      ...sealedVoicemail\n    }\n    nextToken\n  }\n}"
+
+  internal static var requestString: String { return operationString.appending(SealedVoicemail.fragmentString).appending(S3MediaObject.fragmentString) }
+
+  internal var key: VoicemailKeyInput?
+  internal var limit: Int?
+  internal var nextToken: String?
+
+  internal init(key: VoicemailKeyInput? = nil, limit: Int? = nil, nextToken: String? = nil) {
+    self.key = key
+    self.limit = limit
+    self.nextToken = nextToken
+  }
+
+  internal var variables: GraphQLMap? {
+    return ["key": key, "limit": limit, "nextToken": nextToken]
+  }
+
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Query"]
+
+    internal static let selections: [GraphQLSelection] = [
+      GraphQLField("listVoicemails", arguments: ["key": GraphQLVariable("key"), "limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .object(ListVoicemail.selections)),
+    ]
+
+    internal var snapshot: Snapshot
+
+    internal init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    internal init(listVoicemails: ListVoicemail? = nil) {
+      self.init(snapshot: ["__typename": "Query", "listVoicemails": listVoicemails.flatMap { $0.snapshot }])
+    }
+
+    /// Retrieve a list of voicemails.
+    internal var listVoicemails: ListVoicemail? {
+      get {
+        return (snapshot["listVoicemails"] as? Snapshot).flatMap { ListVoicemail(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "listVoicemails")
+      }
+    }
+
+    internal struct ListVoicemail: GraphQLSelectionSet {
+      internal static let possibleTypes = ["VoicemailConnection"]
+
+      internal static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("items", type: .list(.nonNull(.object(Item.selections)))),
+        GraphQLField("nextToken", type: .scalar(String.self)),
+      ]
+
+      internal var snapshot: Snapshot
+
+      internal init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      internal init(items: [Item]? = nil, nextToken: String? = nil) {
+        self.init(snapshot: ["__typename": "VoicemailConnection", "items": items.flatMap { $0.map { $0.snapshot } }, "nextToken": nextToken])
+      }
+
+      internal var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      internal var items: [Item]? {
+        get {
+          return (snapshot["items"] as? [Snapshot]).flatMap { $0.map { Item(snapshot: $0) } }
+        }
+        set {
+          snapshot.updateValue(newValue.flatMap { $0.map { $0.snapshot } }, forKey: "items")
+        }
+      }
+
+      internal var nextToken: String? {
+        get {
+          return snapshot["nextToken"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "nextToken")
+        }
+      }
+
+      internal struct Item: GraphQLSelectionSet {
+        internal static let possibleTypes = ["SealedVoicemail"]
+
+        internal static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("owner", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("sudoOwner", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("phoneNumberId", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("callRecordId", type: .scalar(GraphQLID.self)),
+          GraphQLField("seen", type: .nonNull(.scalar(Bool.self))),
+          GraphQLField("sealed", type: .nonNull(.list(.nonNull(.object(Sealed.selections))))),
+          GraphQLField("createdAtEpochMs", type: .nonNull(.scalar(Double.self))),
+          GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
+          GraphQLField("version", type: .nonNull(.scalar(Int.self))),
+        ]
+
+        internal var snapshot: Snapshot
+
+        internal init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        internal init(id: GraphQLID, owner: GraphQLID, sudoOwner: GraphQLID, phoneNumberId: GraphQLID, callRecordId: GraphQLID? = nil, seen: Bool, sealed: [Sealed], createdAtEpochMs: Double, updatedAtEpochMs: Double, version: Int) {
+          self.init(snapshot: ["__typename": "SealedVoicemail", "id": id, "owner": owner, "sudoOwner": sudoOwner, "phoneNumberId": phoneNumberId, "callRecordId": callRecordId, "seen": seen, "sealed": sealed.map { $0.snapshot }, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "version": version])
+        }
+
+        internal var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// v4 UUID assigned to voicemail.
+        internal var id: GraphQLID {
+          get {
+            return snapshot["id"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        /// v4 UUID of user that owns the voicemail resource.
+        internal var owner: GraphQLID {
+          get {
+            return snapshot["owner"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "owner")
+          }
+        }
+
+        /// v4 UUID of sudo that owns the voicemail resource.
+        internal var sudoOwner: GraphQLID {
+          get {
+            return snapshot["sudoOwner"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "sudoOwner")
+          }
+        }
+
+        /// The phone number id related to the voicemail resource.
+        internal var phoneNumberId: GraphQLID {
+          get {
+            return snapshot["phoneNumberId"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "phoneNumberId")
+          }
+        }
+
+        /// The ID of the call record this voicemail is related to.
+        internal var callRecordId: GraphQLID? {
+          get {
+            return snapshot["callRecordId"] as? GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "callRecordId")
+          }
+        }
+
+        /// Has this voicemail been marked as seen on client.
+        internal var seen: Bool {
+          get {
+            return snapshot["seen"]! as! Bool
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "seen")
+          }
+        }
+
+        /// Sealed data.
+        internal var sealed: [Sealed] {
+          get {
+            return (snapshot["sealed"] as! [Snapshot]).map { Sealed(snapshot: $0) }
+          }
+          set {
+            snapshot.updateValue(newValue.map { $0.snapshot }, forKey: "sealed")
+          }
+        }
+
+        /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
+        internal var createdAtEpochMs: Double {
+          get {
+            return snapshot["createdAtEpochMs"]! as! Double
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "createdAtEpochMs")
+          }
+        }
+
+        /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
+        internal var updatedAtEpochMs: Double {
+          get {
+            return snapshot["updatedAtEpochMs"]! as! Double
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "updatedAtEpochMs")
+          }
+        }
+
+        /// Version of this object, increments on update.
+        internal var version: Int {
+          get {
+            return snapshot["version"]! as! Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "version")
+          }
+        }
+
+        internal var fragments: Fragments {
+          get {
+            return Fragments(snapshot: snapshot)
+          }
+          set {
+            snapshot += newValue.snapshot
+          }
+        }
+
+        internal struct Fragments {
+          internal var snapshot: Snapshot
+
+          internal var sealedVoicemail: SealedVoicemail {
+            get {
+              return SealedVoicemail(snapshot: snapshot)
+            }
+            set {
+              snapshot += newValue.snapshot
+            }
+          }
+        }
+
+        internal struct Sealed: GraphQLSelectionSet {
+          internal static let possibleTypes = ["SealedVoicemailData"]
+
+          internal static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("algorithm", type: .nonNull(.scalar(String.self))),
+            GraphQLField("keyId", type: .nonNull(.scalar(String.self))),
+            GraphQLField("localPhoneNumber", type: .nonNull(.scalar(String.self))),
+            GraphQLField("remotePhoneNumber", type: .nonNull(.scalar(String.self))),
+            GraphQLField("durationSeconds", type: .nonNull(.scalar(String.self))),
+            GraphQLField("media", type: .nonNull(.object(Medium.selections))),
+          ]
+
+          internal var snapshot: Snapshot
+
+          internal init(snapshot: Snapshot) {
+            self.snapshot = snapshot
+          }
+
+          internal init(algorithm: String, keyId: String, localPhoneNumber: String, remotePhoneNumber: String, durationSeconds: String, media: Medium) {
+            self.init(snapshot: ["__typename": "SealedVoicemailData", "algorithm": algorithm, "keyId": keyId, "localPhoneNumber": localPhoneNumber, "remotePhoneNumber": remotePhoneNumber, "durationSeconds": durationSeconds, "media": media.snapshot])
+          }
+
+          internal var __typename: String {
+            get {
+              return snapshot["__typename"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          /// UNSEALED: Algorithm descriptor describing internal and symmetric key encryption, e.g RSAEncryptionOAEPSHA256AESGCM.
+          internal var algorithm: String {
+            get {
+              return snapshot["algorithm"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "algorithm")
+            }
+          }
+
+          /// UNSEALED: Client generated key ID for the internal key.
+          internal var keyId: String {
+            get {
+              return snapshot["keyId"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "keyId")
+            }
+          }
+
+          /// SEALED: Sudo phone number in E164 format.
+          internal var localPhoneNumber: String {
+            get {
+              return snapshot["localPhoneNumber"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "localPhoneNumber")
+            }
+          }
+
+          /// SEALED: Remote phone number in E164 format.
+          internal var remotePhoneNumber: String {
+            get {
+              return snapshot["remotePhoneNumber"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "remotePhoneNumber")
+            }
+          }
+
+          /// SEALED: The duration of the voicemail recording.
+          internal var durationSeconds: String {
+            get {
+              return snapshot["durationSeconds"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "durationSeconds")
+            }
+          }
+
+          /// UNSEALED: Media object for voicemail recording.
+          internal var media: Medium {
+            get {
+              return Medium(snapshot: snapshot["media"]! as! Snapshot)
+            }
+            set {
+              snapshot.updateValue(newValue.snapshot, forKey: "media")
+            }
+          }
+
+          internal struct Medium: GraphQLSelectionSet {
+            internal static let possibleTypes = ["S3MediaObject"]
+
+            internal static let selections: [GraphQLSelection] = [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("key", type: .nonNull(.scalar(String.self))),
+              GraphQLField("bucket", type: .nonNull(.scalar(String.self))),
+              GraphQLField("region", type: .nonNull(.scalar(String.self))),
+            ]
+
+            internal var snapshot: Snapshot
+
+            internal init(snapshot: Snapshot) {
+              self.snapshot = snapshot
+            }
+
+            internal init(key: String, bucket: String, region: String) {
+              self.init(snapshot: ["__typename": "S3MediaObject", "key": key, "bucket": bucket, "region": region])
+            }
+
+            internal var __typename: String {
+              get {
+                return snapshot["__typename"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            /// Key of object in S3.
+            internal var key: String {
+              get {
+                return snapshot["key"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "key")
+              }
+            }
+
+            /// Name of S3 bucket.
+            internal var bucket: String {
+              get {
+                return snapshot["bucket"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "bucket")
+              }
+            }
+
+            /// Region S3 bucket is located in.
+            internal var region: String {
+              get {
+                return snapshot["region"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "region")
+              }
+            }
+
+            internal var fragments: Fragments {
+              get {
+                return Fragments(snapshot: snapshot)
+              }
+              set {
+                snapshot += newValue.snapshot
+              }
+            }
+
+            internal struct Fragments {
+              internal var snapshot: Snapshot
+
+              internal var s3MediaObject: S3MediaObject {
+                get {
+                  return S3MediaObject(snapshot: snapshot)
+                }
+                set {
+                  snapshot += newValue.snapshot
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+internal final class DeleteVoicemailMutation: GraphQLMutation {
+  internal static let operationString =
+    "mutation deleteVoicemail($id: ID!) {\n  deleteVoicemail(id: $id)\n}"
+
+  internal var id: GraphQLID
+
+  internal init(id: GraphQLID) {
+    self.id = id
+  }
+
+  internal var variables: GraphQLMap? {
+    return ["id": id]
+  }
+
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Mutation"]
+
+    internal static let selections: [GraphQLSelection] = [
+      GraphQLField("deleteVoicemail", arguments: ["id": GraphQLVariable("id")], type: .nonNull(.scalar(GraphQLID.self))),
+    ]
+
+    internal var snapshot: Snapshot
+
+    internal init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    internal init(deleteVoicemail: GraphQLID) {
+      self.init(snapshot: ["__typename": "Mutation", "deleteVoicemail": deleteVoicemail])
+    }
+
+    /// Delete a voicemail.
+    internal var deleteVoicemail: GraphQLID {
+      get {
+        return snapshot["deleteVoicemail"]! as! GraphQLID
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "deleteVoicemail")
+      }
+    }
+  }
+}
+
+internal final class OnVoicemailSubscription: GraphQLSubscription {
+  internal static let operationString =
+    "subscription OnVoicemail($owner: String!) {\n  OnVoicemail(owner: $owner) {\n    __typename\n    ...sealedVoicemail\n  }\n}"
+
+  internal static var requestString: String { return operationString.appending(SealedVoicemail.fragmentString).appending(S3MediaObject.fragmentString) }
+
+  internal var owner: String
+
+  internal init(owner: String) {
+    self.owner = owner
+  }
+
+  internal var variables: GraphQLMap? {
+    return ["owner": owner]
+  }
+
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Subscription"]
+
+    internal static let selections: [GraphQLSelection] = [
+      GraphQLField("OnVoicemail", arguments: ["owner": GraphQLVariable("owner")], type: .object(OnVoicemail.selections)),
+    ]
+
+    internal var snapshot: Snapshot
+
+    internal init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    internal init(onVoicemail: OnVoicemail? = nil) {
+      self.init(snapshot: ["__typename": "Subscription", "OnVoicemail": onVoicemail.flatMap { $0.snapshot }])
+    }
+
+    /// Owner id for the current logged in user.
+    internal var onVoicemail: OnVoicemail? {
+      get {
+        return (snapshot["OnVoicemail"] as? Snapshot).flatMap { OnVoicemail(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "OnVoicemail")
+      }
+    }
+
+    internal struct OnVoicemail: GraphQLSelectionSet {
+      internal static let possibleTypes = ["SealedVoicemail"]
+
+      internal static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("owner", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("sudoOwner", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("phoneNumberId", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("callRecordId", type: .scalar(GraphQLID.self)),
+        GraphQLField("seen", type: .nonNull(.scalar(Bool.self))),
+        GraphQLField("sealed", type: .nonNull(.list(.nonNull(.object(Sealed.selections))))),
+        GraphQLField("createdAtEpochMs", type: .nonNull(.scalar(Double.self))),
+        GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
+        GraphQLField("version", type: .nonNull(.scalar(Int.self))),
+      ]
+
+      internal var snapshot: Snapshot
+
+      internal init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      internal init(id: GraphQLID, owner: GraphQLID, sudoOwner: GraphQLID, phoneNumberId: GraphQLID, callRecordId: GraphQLID? = nil, seen: Bool, sealed: [Sealed], createdAtEpochMs: Double, updatedAtEpochMs: Double, version: Int) {
+        self.init(snapshot: ["__typename": "SealedVoicemail", "id": id, "owner": owner, "sudoOwner": sudoOwner, "phoneNumberId": phoneNumberId, "callRecordId": callRecordId, "seen": seen, "sealed": sealed.map { $0.snapshot }, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "version": version])
+      }
+
+      internal var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// v4 UUID assigned to voicemail.
+      internal var id: GraphQLID {
+        get {
+          return snapshot["id"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      /// v4 UUID of user that owns the voicemail resource.
+      internal var owner: GraphQLID {
+        get {
+          return snapshot["owner"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "owner")
+        }
+      }
+
+      /// v4 UUID of sudo that owns the voicemail resource.
+      internal var sudoOwner: GraphQLID {
+        get {
+          return snapshot["sudoOwner"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "sudoOwner")
+        }
+      }
+
+      /// The phone number id related to the voicemail resource.
+      internal var phoneNumberId: GraphQLID {
+        get {
+          return snapshot["phoneNumberId"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "phoneNumberId")
+        }
+      }
+
+      /// The ID of the call record this voicemail is related to.
+      internal var callRecordId: GraphQLID? {
+        get {
+          return snapshot["callRecordId"] as? GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "callRecordId")
+        }
+      }
+
+      /// Has this voicemail been marked as seen on client.
+      internal var seen: Bool {
+        get {
+          return snapshot["seen"]! as! Bool
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "seen")
+        }
+      }
+
+      /// Sealed data.
+      internal var sealed: [Sealed] {
+        get {
+          return (snapshot["sealed"] as! [Snapshot]).map { Sealed(snapshot: $0) }
+        }
+        set {
+          snapshot.updateValue(newValue.map { $0.snapshot }, forKey: "sealed")
+        }
+      }
+
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
+      internal var createdAtEpochMs: Double {
+        get {
+          return snapshot["createdAtEpochMs"]! as! Double
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAtEpochMs")
+        }
+      }
+
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
+      internal var updatedAtEpochMs: Double {
+        get {
+          return snapshot["updatedAtEpochMs"]! as! Double
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAtEpochMs")
+        }
+      }
+
+      /// Version of this object, increments on update.
+      internal var version: Int {
+        get {
+          return snapshot["version"]! as! Int
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "version")
+        }
+      }
+
+      internal var fragments: Fragments {
+        get {
+          return Fragments(snapshot: snapshot)
+        }
+        set {
+          snapshot += newValue.snapshot
+        }
+      }
+
+      internal struct Fragments {
+        internal var snapshot: Snapshot
+
+        internal var sealedVoicemail: SealedVoicemail {
+          get {
+            return SealedVoicemail(snapshot: snapshot)
+          }
+          set {
+            snapshot += newValue.snapshot
+          }
+        }
+      }
+
+      internal struct Sealed: GraphQLSelectionSet {
+        internal static let possibleTypes = ["SealedVoicemailData"]
+
+        internal static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("algorithm", type: .nonNull(.scalar(String.self))),
+          GraphQLField("keyId", type: .nonNull(.scalar(String.self))),
+          GraphQLField("localPhoneNumber", type: .nonNull(.scalar(String.self))),
+          GraphQLField("remotePhoneNumber", type: .nonNull(.scalar(String.self))),
+          GraphQLField("durationSeconds", type: .nonNull(.scalar(String.self))),
+          GraphQLField("media", type: .nonNull(.object(Medium.selections))),
+        ]
+
+        internal var snapshot: Snapshot
+
+        internal init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        internal init(algorithm: String, keyId: String, localPhoneNumber: String, remotePhoneNumber: String, durationSeconds: String, media: Medium) {
+          self.init(snapshot: ["__typename": "SealedVoicemailData", "algorithm": algorithm, "keyId": keyId, "localPhoneNumber": localPhoneNumber, "remotePhoneNumber": remotePhoneNumber, "durationSeconds": durationSeconds, "media": media.snapshot])
+        }
+
+        internal var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// UNSEALED: Algorithm descriptor describing internal and symmetric key encryption, e.g RSAEncryptionOAEPSHA256AESGCM.
+        internal var algorithm: String {
+          get {
+            return snapshot["algorithm"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "algorithm")
+          }
+        }
+
+        /// UNSEALED: Client generated key ID for the internal key.
+        internal var keyId: String {
+          get {
+            return snapshot["keyId"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "keyId")
+          }
+        }
+
+        /// SEALED: Sudo phone number in E164 format.
+        internal var localPhoneNumber: String {
+          get {
+            return snapshot["localPhoneNumber"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "localPhoneNumber")
+          }
+        }
+
+        /// SEALED: Remote phone number in E164 format.
+        internal var remotePhoneNumber: String {
+          get {
+            return snapshot["remotePhoneNumber"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "remotePhoneNumber")
+          }
+        }
+
+        /// SEALED: The duration of the voicemail recording.
+        internal var durationSeconds: String {
+          get {
+            return snapshot["durationSeconds"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "durationSeconds")
+          }
+        }
+
+        /// UNSEALED: Media object for voicemail recording.
+        internal var media: Medium {
+          get {
+            return Medium(snapshot: snapshot["media"]! as! Snapshot)
+          }
+          set {
+            snapshot.updateValue(newValue.snapshot, forKey: "media")
+          }
+        }
+
+        internal struct Medium: GraphQLSelectionSet {
+          internal static let possibleTypes = ["S3MediaObject"]
+
+          internal static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("key", type: .nonNull(.scalar(String.self))),
+            GraphQLField("bucket", type: .nonNull(.scalar(String.self))),
+            GraphQLField("region", type: .nonNull(.scalar(String.self))),
+          ]
+
+          internal var snapshot: Snapshot
+
+          internal init(snapshot: Snapshot) {
+            self.snapshot = snapshot
+          }
+
+          internal init(key: String, bucket: String, region: String) {
+            self.init(snapshot: ["__typename": "S3MediaObject", "key": key, "bucket": bucket, "region": region])
+          }
+
+          internal var __typename: String {
+            get {
+              return snapshot["__typename"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          /// Key of object in S3.
+          internal var key: String {
+            get {
+              return snapshot["key"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "key")
+            }
+          }
+
+          /// Name of S3 bucket.
+          internal var bucket: String {
+            get {
+              return snapshot["bucket"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "bucket")
+            }
+          }
+
+          /// Region S3 bucket is located in.
+          internal var region: String {
+            get {
+              return snapshot["region"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "region")
+            }
+          }
+
+          internal var fragments: Fragments {
+            get {
+              return Fragments(snapshot: snapshot)
+            }
+            set {
+              snapshot += newValue.snapshot
+            }
+          }
+
+          internal struct Fragments {
+            internal var snapshot: Snapshot
+
+            internal var s3MediaObject: S3MediaObject {
+              get {
+                return S3MediaObject(snapshot: snapshot)
+              }
+              set {
+                snapshot += newValue.snapshot
+              }
+            }
           }
         }
       }
@@ -7469,6 +10599,393 @@ internal struct SealedMessage: GraphQLFragment {
   }
 }
 
+internal struct SealedCallRecord: GraphQLFragment {
+  internal static let fragmentString =
+    "fragment sealedCallRecord on SealedCallRecord {\n  __typename\n  id\n  owner\n  sudoOwner\n  phoneNumberId\n  voicemailId\n  direction\n  seen\n  state\n  createdAtEpochMs\n  updatedAtEpochMs\n  version\n  sealed {\n    __typename\n    algorithm\n    keyId\n    localPhoneNumber\n    remotePhoneNumber\n    durationSeconds\n    voicemail {\n      __typename\n      durationSeconds\n      media {\n        __typename\n        ...s3MediaObject\n      }\n    }\n  }\n}"
+
+  internal static let possibleTypes = ["SealedCallRecord"]
+
+  internal static let selections: [GraphQLSelection] = [
+    GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+    GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+    GraphQLField("owner", type: .nonNull(.scalar(GraphQLID.self))),
+    GraphQLField("sudoOwner", type: .nonNull(.scalar(GraphQLID.self))),
+    GraphQLField("phoneNumberId", type: .nonNull(.scalar(GraphQLID.self))),
+    GraphQLField("voicemailId", type: .scalar(GraphQLID.self)),
+    GraphQLField("direction", type: .nonNull(.scalar(Direction.self))),
+    GraphQLField("seen", type: .nonNull(.scalar(Bool.self))),
+    GraphQLField("state", type: .nonNull(.scalar(CallState.self))),
+    GraphQLField("createdAtEpochMs", type: .nonNull(.scalar(Double.self))),
+    GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
+    GraphQLField("version", type: .nonNull(.scalar(Int.self))),
+    GraphQLField("sealed", type: .nonNull(.list(.nonNull(.object(Sealed.selections))))),
+  ]
+
+  internal var snapshot: Snapshot
+
+  internal init(snapshot: Snapshot) {
+    self.snapshot = snapshot
+  }
+
+  internal init(id: GraphQLID, owner: GraphQLID, sudoOwner: GraphQLID, phoneNumberId: GraphQLID, voicemailId: GraphQLID? = nil, direction: Direction, seen: Bool, state: CallState, createdAtEpochMs: Double, updatedAtEpochMs: Double, version: Int, sealed: [Sealed]) {
+    self.init(snapshot: ["__typename": "SealedCallRecord", "id": id, "owner": owner, "sudoOwner": sudoOwner, "phoneNumberId": phoneNumberId, "voicemailId": voicemailId, "direction": direction, "seen": seen, "state": state, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "version": version, "sealed": sealed.map { $0.snapshot }])
+  }
+
+  internal var __typename: String {
+    get {
+      return snapshot["__typename"]! as! String
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "__typename")
+    }
+  }
+
+  /// v4 UUID assigned to call record.
+  internal var id: GraphQLID {
+    get {
+      return snapshot["id"]! as! GraphQLID
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "id")
+    }
+  }
+
+  /// v4 UUID of user that owns the call resource.
+  internal var owner: GraphQLID {
+    get {
+      return snapshot["owner"]! as! GraphQLID
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "owner")
+    }
+  }
+
+  /// v4 UUID of sudo that owns the call resource.
+  internal var sudoOwner: GraphQLID {
+    get {
+      return snapshot["sudoOwner"]! as! GraphQLID
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "sudoOwner")
+    }
+  }
+
+  /// The phone number id related to the call resource.
+  internal var phoneNumberId: GraphQLID {
+    get {
+      return snapshot["phoneNumberId"]! as! GraphQLID
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "phoneNumberId")
+    }
+  }
+
+  /// The ID of the voicemail belonging to the call resource if one exists.
+  internal var voicemailId: GraphQLID? {
+    get {
+      return snapshot["voicemailId"] as? GraphQLID
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "voicemailId")
+    }
+  }
+
+  /// Direction of call.
+  internal var direction: Direction {
+    get {
+      return snapshot["direction"]! as! Direction
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "direction")
+    }
+  }
+
+  /// Has this call been marked as seen on client.
+  internal var seen: Bool {
+    get {
+      return snapshot["seen"]! as! Bool
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "seen")
+    }
+  }
+
+  /// State of call record.
+  internal var state: CallState {
+    get {
+      return snapshot["state"]! as! CallState
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "state")
+    }
+  }
+
+  /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
+  internal var createdAtEpochMs: Double {
+    get {
+      return snapshot["createdAtEpochMs"]! as! Double
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "createdAtEpochMs")
+    }
+  }
+
+  /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
+  internal var updatedAtEpochMs: Double {
+    get {
+      return snapshot["updatedAtEpochMs"]! as! Double
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "updatedAtEpochMs")
+    }
+  }
+
+  /// Version of this object, increments on update.
+  internal var version: Int {
+    get {
+      return snapshot["version"]! as! Int
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "version")
+    }
+  }
+
+  /// Sealed data.
+  internal var sealed: [Sealed] {
+    get {
+      return (snapshot["sealed"] as! [Snapshot]).map { Sealed(snapshot: $0) }
+    }
+    set {
+      snapshot.updateValue(newValue.map { $0.snapshot }, forKey: "sealed")
+    }
+  }
+
+  internal struct Sealed: GraphQLSelectionSet {
+    internal static let possibleTypes = ["SealedCallRecordData"]
+
+    internal static let selections: [GraphQLSelection] = [
+      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+      GraphQLField("algorithm", type: .nonNull(.scalar(String.self))),
+      GraphQLField("keyId", type: .nonNull(.scalar(String.self))),
+      GraphQLField("localPhoneNumber", type: .nonNull(.scalar(String.self))),
+      GraphQLField("remotePhoneNumber", type: .nonNull(.scalar(String.self))),
+      GraphQLField("durationSeconds", type: .scalar(String.self)),
+      GraphQLField("voicemail", type: .object(Voicemail.selections)),
+    ]
+
+    internal var snapshot: Snapshot
+
+    internal init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    internal init(algorithm: String, keyId: String, localPhoneNumber: String, remotePhoneNumber: String, durationSeconds: String? = nil, voicemail: Voicemail? = nil) {
+      self.init(snapshot: ["__typename": "SealedCallRecordData", "algorithm": algorithm, "keyId": keyId, "localPhoneNumber": localPhoneNumber, "remotePhoneNumber": remotePhoneNumber, "durationSeconds": durationSeconds, "voicemail": voicemail.flatMap { $0.snapshot }])
+    }
+
+    internal var __typename: String {
+      get {
+        return snapshot["__typename"]! as! String
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "__typename")
+      }
+    }
+
+    /// UNSEALED: Algorithm descriptor describing internal and symmetric key encryption, e.g RSAEncryptionOAEPSHA256AESGCM.
+    internal var algorithm: String {
+      get {
+        return snapshot["algorithm"]! as! String
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "algorithm")
+      }
+    }
+
+    /// UNSEALED: Client generated key ID for the internal key.
+    internal var keyId: String {
+      get {
+        return snapshot["keyId"]! as! String
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "keyId")
+      }
+    }
+
+    /// SEALED: Sudo phone number in E164 format.
+    internal var localPhoneNumber: String {
+      get {
+        return snapshot["localPhoneNumber"]! as! String
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "localPhoneNumber")
+      }
+    }
+
+    /// SEALED: Remote phone number in E164 format.
+    internal var remotePhoneNumber: String {
+      get {
+        return snapshot["remotePhoneNumber"]! as! String
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "remotePhoneNumber")
+      }
+    }
+
+    /// SEALED: The duration of the call when the call is in the COMPLETED state.
+    internal var durationSeconds: String? {
+      get {
+        return snapshot["durationSeconds"] as? String
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "durationSeconds")
+      }
+    }
+
+    /// The voicemail belonging to the call record if one exists.
+    internal var voicemail: Voicemail? {
+      get {
+        return (snapshot["voicemail"] as? Snapshot).flatMap { Voicemail(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "voicemail")
+      }
+    }
+
+    internal struct Voicemail: GraphQLSelectionSet {
+      internal static let possibleTypes = ["SealedCallRecordVoicemailData"]
+
+      internal static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("durationSeconds", type: .nonNull(.scalar(String.self))),
+        GraphQLField("media", type: .nonNull(.object(Medium.selections))),
+      ]
+
+      internal var snapshot: Snapshot
+
+      internal init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      internal init(durationSeconds: String, media: Medium) {
+        self.init(snapshot: ["__typename": "SealedCallRecordVoicemailData", "durationSeconds": durationSeconds, "media": media.snapshot])
+      }
+
+      internal var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// SEALED: The duration of the voicemail recording.
+      internal var durationSeconds: String {
+        get {
+          return snapshot["durationSeconds"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "durationSeconds")
+        }
+      }
+
+      /// UNSEALED: Media object for voicemail recording.
+      internal var media: Medium {
+        get {
+          return Medium(snapshot: snapshot["media"]! as! Snapshot)
+        }
+        set {
+          snapshot.updateValue(newValue.snapshot, forKey: "media")
+        }
+      }
+
+      internal struct Medium: GraphQLSelectionSet {
+        internal static let possibleTypes = ["S3MediaObject"]
+
+        internal static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("key", type: .nonNull(.scalar(String.self))),
+          GraphQLField("bucket", type: .nonNull(.scalar(String.self))),
+          GraphQLField("region", type: .nonNull(.scalar(String.self))),
+        ]
+
+        internal var snapshot: Snapshot
+
+        internal init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        internal init(key: String, bucket: String, region: String) {
+          self.init(snapshot: ["__typename": "S3MediaObject", "key": key, "bucket": bucket, "region": region])
+        }
+
+        internal var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// Key of object in S3.
+        internal var key: String {
+          get {
+            return snapshot["key"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "key")
+          }
+        }
+
+        /// Name of S3 bucket.
+        internal var bucket: String {
+          get {
+            return snapshot["bucket"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "bucket")
+          }
+        }
+
+        /// Region S3 bucket is located in.
+        internal var region: String {
+          get {
+            return snapshot["region"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "region")
+          }
+        }
+
+        internal var fragments: Fragments {
+          get {
+            return Fragments(snapshot: snapshot)
+          }
+          set {
+            snapshot += newValue.snapshot
+          }
+        }
+
+        internal struct Fragments {
+          internal var snapshot: Snapshot
+
+          internal var s3MediaObject: S3MediaObject {
+            get {
+              return S3MediaObject(snapshot: snapshot)
+            }
+            set {
+              snapshot += newValue.snapshot
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 internal struct Conversation: GraphQLFragment {
   internal static let fragmentString =
     "fragment conversation on Conversation {\n  __typename\n  id\n  owner\n  type\n  lastMessage\n  createdAtEpochMs\n  updatedAtEpochMs\n}"
@@ -7716,6 +11233,322 @@ internal struct DeviceRegistrationOutput: GraphQLFragment {
       }
       set {
         snapshot.updateValue(newValue, forKey: "accessToken")
+      }
+    }
+  }
+}
+
+internal struct SealedVoicemail: GraphQLFragment {
+  internal static let fragmentString =
+    "fragment sealedVoicemail on SealedVoicemail {\n  __typename\n  id\n  owner\n  sudoOwner\n  phoneNumberId\n  callRecordId\n  seen\n  sealed {\n    __typename\n    algorithm\n    keyId\n    localPhoneNumber\n    remotePhoneNumber\n    durationSeconds\n    media {\n      __typename\n      ...s3MediaObject\n    }\n  }\n  createdAtEpochMs\n  updatedAtEpochMs\n  version\n}"
+
+  internal static let possibleTypes = ["SealedVoicemail"]
+
+  internal static let selections: [GraphQLSelection] = [
+    GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+    GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+    GraphQLField("owner", type: .nonNull(.scalar(GraphQLID.self))),
+    GraphQLField("sudoOwner", type: .nonNull(.scalar(GraphQLID.self))),
+    GraphQLField("phoneNumberId", type: .nonNull(.scalar(GraphQLID.self))),
+    GraphQLField("callRecordId", type: .scalar(GraphQLID.self)),
+    GraphQLField("seen", type: .nonNull(.scalar(Bool.self))),
+    GraphQLField("sealed", type: .nonNull(.list(.nonNull(.object(Sealed.selections))))),
+    GraphQLField("createdAtEpochMs", type: .nonNull(.scalar(Double.self))),
+    GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
+    GraphQLField("version", type: .nonNull(.scalar(Int.self))),
+  ]
+
+  internal var snapshot: Snapshot
+
+  internal init(snapshot: Snapshot) {
+    self.snapshot = snapshot
+  }
+
+  internal init(id: GraphQLID, owner: GraphQLID, sudoOwner: GraphQLID, phoneNumberId: GraphQLID, callRecordId: GraphQLID? = nil, seen: Bool, sealed: [Sealed], createdAtEpochMs: Double, updatedAtEpochMs: Double, version: Int) {
+    self.init(snapshot: ["__typename": "SealedVoicemail", "id": id, "owner": owner, "sudoOwner": sudoOwner, "phoneNumberId": phoneNumberId, "callRecordId": callRecordId, "seen": seen, "sealed": sealed.map { $0.snapshot }, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "version": version])
+  }
+
+  internal var __typename: String {
+    get {
+      return snapshot["__typename"]! as! String
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "__typename")
+    }
+  }
+
+  /// v4 UUID assigned to voicemail.
+  internal var id: GraphQLID {
+    get {
+      return snapshot["id"]! as! GraphQLID
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "id")
+    }
+  }
+
+  /// v4 UUID of user that owns the voicemail resource.
+  internal var owner: GraphQLID {
+    get {
+      return snapshot["owner"]! as! GraphQLID
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "owner")
+    }
+  }
+
+  /// v4 UUID of sudo that owns the voicemail resource.
+  internal var sudoOwner: GraphQLID {
+    get {
+      return snapshot["sudoOwner"]! as! GraphQLID
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "sudoOwner")
+    }
+  }
+
+  /// The phone number id related to the voicemail resource.
+  internal var phoneNumberId: GraphQLID {
+    get {
+      return snapshot["phoneNumberId"]! as! GraphQLID
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "phoneNumberId")
+    }
+  }
+
+  /// The ID of the call record this voicemail is related to.
+  internal var callRecordId: GraphQLID? {
+    get {
+      return snapshot["callRecordId"] as? GraphQLID
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "callRecordId")
+    }
+  }
+
+  /// Has this voicemail been marked as seen on client.
+  internal var seen: Bool {
+    get {
+      return snapshot["seen"]! as! Bool
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "seen")
+    }
+  }
+
+  /// Sealed data.
+  internal var sealed: [Sealed] {
+    get {
+      return (snapshot["sealed"] as! [Snapshot]).map { Sealed(snapshot: $0) }
+    }
+    set {
+      snapshot.updateValue(newValue.map { $0.snapshot }, forKey: "sealed")
+    }
+  }
+
+  /// Time in milliseconds since 1970-01-01T00:00:00Z when object was created.
+  internal var createdAtEpochMs: Double {
+    get {
+      return snapshot["createdAtEpochMs"]! as! Double
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "createdAtEpochMs")
+    }
+  }
+
+  /// Time in milliseconds since 1970-01-01T00:00:00Z when object was last updated.
+  internal var updatedAtEpochMs: Double {
+    get {
+      return snapshot["updatedAtEpochMs"]! as! Double
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "updatedAtEpochMs")
+    }
+  }
+
+  /// Version of this object, increments on update.
+  internal var version: Int {
+    get {
+      return snapshot["version"]! as! Int
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "version")
+    }
+  }
+
+  internal struct Sealed: GraphQLSelectionSet {
+    internal static let possibleTypes = ["SealedVoicemailData"]
+
+    internal static let selections: [GraphQLSelection] = [
+      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+      GraphQLField("algorithm", type: .nonNull(.scalar(String.self))),
+      GraphQLField("keyId", type: .nonNull(.scalar(String.self))),
+      GraphQLField("localPhoneNumber", type: .nonNull(.scalar(String.self))),
+      GraphQLField("remotePhoneNumber", type: .nonNull(.scalar(String.self))),
+      GraphQLField("durationSeconds", type: .nonNull(.scalar(String.self))),
+      GraphQLField("media", type: .nonNull(.object(Medium.selections))),
+    ]
+
+    internal var snapshot: Snapshot
+
+    internal init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    internal init(algorithm: String, keyId: String, localPhoneNumber: String, remotePhoneNumber: String, durationSeconds: String, media: Medium) {
+      self.init(snapshot: ["__typename": "SealedVoicemailData", "algorithm": algorithm, "keyId": keyId, "localPhoneNumber": localPhoneNumber, "remotePhoneNumber": remotePhoneNumber, "durationSeconds": durationSeconds, "media": media.snapshot])
+    }
+
+    internal var __typename: String {
+      get {
+        return snapshot["__typename"]! as! String
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "__typename")
+      }
+    }
+
+    /// UNSEALED: Algorithm descriptor describing internal and symmetric key encryption, e.g RSAEncryptionOAEPSHA256AESGCM.
+    internal var algorithm: String {
+      get {
+        return snapshot["algorithm"]! as! String
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "algorithm")
+      }
+    }
+
+    /// UNSEALED: Client generated key ID for the internal key.
+    internal var keyId: String {
+      get {
+        return snapshot["keyId"]! as! String
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "keyId")
+      }
+    }
+
+    /// SEALED: Sudo phone number in E164 format.
+    internal var localPhoneNumber: String {
+      get {
+        return snapshot["localPhoneNumber"]! as! String
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "localPhoneNumber")
+      }
+    }
+
+    /// SEALED: Remote phone number in E164 format.
+    internal var remotePhoneNumber: String {
+      get {
+        return snapshot["remotePhoneNumber"]! as! String
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "remotePhoneNumber")
+      }
+    }
+
+    /// SEALED: The duration of the voicemail recording.
+    internal var durationSeconds: String {
+      get {
+        return snapshot["durationSeconds"]! as! String
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "durationSeconds")
+      }
+    }
+
+    /// UNSEALED: Media object for voicemail recording.
+    internal var media: Medium {
+      get {
+        return Medium(snapshot: snapshot["media"]! as! Snapshot)
+      }
+      set {
+        snapshot.updateValue(newValue.snapshot, forKey: "media")
+      }
+    }
+
+    internal struct Medium: GraphQLSelectionSet {
+      internal static let possibleTypes = ["S3MediaObject"]
+
+      internal static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("key", type: .nonNull(.scalar(String.self))),
+        GraphQLField("bucket", type: .nonNull(.scalar(String.self))),
+        GraphQLField("region", type: .nonNull(.scalar(String.self))),
+      ]
+
+      internal var snapshot: Snapshot
+
+      internal init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      internal init(key: String, bucket: String, region: String) {
+        self.init(snapshot: ["__typename": "S3MediaObject", "key": key, "bucket": bucket, "region": region])
+      }
+
+      internal var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// Key of object in S3.
+      internal var key: String {
+        get {
+          return snapshot["key"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "key")
+        }
+      }
+
+      /// Name of S3 bucket.
+      internal var bucket: String {
+        get {
+          return snapshot["bucket"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "bucket")
+        }
+      }
+
+      /// Region S3 bucket is located in.
+      internal var region: String {
+        get {
+          return snapshot["region"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "region")
+        }
+      }
+
+      internal var fragments: Fragments {
+        get {
+          return Fragments(snapshot: snapshot)
+        }
+        set {
+          snapshot += newValue.snapshot
+        }
+      }
+
+      internal struct Fragments {
+        internal var snapshot: Snapshot
+
+        internal var s3MediaObject: S3MediaObject {
+          get {
+            return S3MediaObject(snapshot: snapshot)
+          }
+          set {
+            snapshot += newValue.snapshot
+          }
+        }
       }
     }
   }
