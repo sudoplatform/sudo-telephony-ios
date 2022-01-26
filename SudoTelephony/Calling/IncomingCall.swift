@@ -7,7 +7,7 @@
 import Foundation
 import TwilioVoice
 
-public protocol IncomingCall: class {
+public protocol IncomingCall: AnyObject {
 
     /// When an incoming call is recieved the delegate should be set in order to get updates on call related events.
     /// For example if the call is answered through CallKit the delegate will recieve the call connected event with
@@ -37,9 +37,9 @@ public protocol IncomingCall: class {
 
 class TwilioIncomingCall: IncomingCall {
 
-    private let invite: TVOCallInvite
+    private let invite: CallInvite
 
-    init(invite: TVOCallInvite) {
+    init(invite: CallInvite) {
         self.invite = invite
     }
 
@@ -70,7 +70,7 @@ class TwilioIncomingCall: IncomingCall {
     }
 
     /// Accepts the call with a delegate to provide call lifecycle updates.
-    var acceptWithDelegateBlock: ((_ call: TVOCallInvite, _ delegate: ActiveCallDelegate) -> Void)?
+    var acceptWithDelegateBlock: ((_ call: CallInvite, _ delegate: ActiveCallDelegate) -> Void)?
 
     func accept(with delegate: ActiveCallDelegate) {
         self.acceptWithDelegateBlock?(self.invite, delegate)
@@ -88,7 +88,7 @@ class TwilioIncomingCall: IncomingCall {
 
 /// Helper variables to pull the correct to/from values from the invites custom parameters.
 /// We do this because we can't rely on the call invites to field because it's a guid not a phone number.
-extension TVOCallInvite {
+extension CallInvite {
     var localNumber: String { return self.customParameters?["SudoPlatformLocalPhoneNumber"] ?? "" }
     var remoteNumber: String { return self.customParameters?["SudoPlatformRemotePhoneNumber"] ?? "" }
 }

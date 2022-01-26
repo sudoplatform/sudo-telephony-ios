@@ -1,5 +1,6 @@
 schema/schema.graphql
 telephony-system-test-config/
+/config/
 
 *.idea
 *.pyc
@@ -22,3 +23,6 @@ xcuserdata
 *.dSYM.zip
 *.ipa
 *.mobileprovision
+.vendor/
+vendor/
+.bundle

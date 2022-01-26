@@ -9,7 +9,7 @@ import TwilioVoice
 import CallKit
 
 /// Manages the vendor context for a call.
-protocol CallingVendorCall: class {
+protocol CallingVendorCall: AnyObject {
     /// A Boolean value that indicates whether this vendor's calls can send DTMF (dual tone multifrequency) tones via hard pause digits or in-call keypad entries.
     ///
     /// If false, `playDTMF` will never be called.
@@ -61,12 +61,19 @@ protocol CallingVendorCall: class {
 
 class TwilioVendorCall: CallingVendorCall {
 
-    class BlockTVOCallDelegate: NSObject, TVOCallDelegate {
+    class BlockCallDelegate: NSObject, CallDelegate {
+
+        // twilio call has an optional UUID so we can't rely on it being
+        // available.  However all calls have a uuid so we pass it in so it
+        // can be passed back out from delegate events.
+        let callUUID: UUID
+
         private let connected: (_ callUUID: UUID) -> Void
         private let connectionFailed: (_ callUUID: UUID, _ error: Error) -> Void
         private let disconnected: (_ callUUID: UUID, _ error: Error?) -> Void
 
         init(
+            uuid: UUID,
             connected: @escaping (_ callUUID: UUID) -> Void,
             connectionFailed: @escaping (_ callUUID: UUID, _ error: Error) -> Void,
             disconnected: @escaping (_ callUUID: UUID, _ error: Error?) -> Void
@@ -74,27 +81,28 @@ class TwilioVendorCall: CallingVendorCall {
             self.connected = connected
             self.connectionFailed = connectionFailed
             self.disconnected = disconnected
+            self.callUUID = uuid
 
             super.init()
         }
 
-        func callDidConnect(_ call: TVOCall) {
-            connected(call.uuid)
+        func callDidConnect(call: Call) {
+            connected(callUUID)
         }
 
-        func call(_ call: TVOCall, didFailToConnectWithError error: Error) {
-            connectionFailed(call.uuid, error)
+        func callDidFailToConnect(call: Call, error: Error) {
+            connectionFailed(callUUID, error)
         }
 
-        func call(_ call: TVOCall, didDisconnectWithError error: Error?) {
-            disconnected(call.uuid, error)
+        func callDidDisconnect(call: Call, error: Error?) {
+            disconnected(callUUID, error)
         }
 
-        func callDidStartRinging(_ call: TVOCall) {}
+        func callDidStartRinging(call: Call) {}
 
-        func call(_ call: TVOCall, isReconnectingWithError error: Error) {}
+        func call(call: Call, isReconnectingWithError error: Error) {}
 
-        func callDidReconnect(_ call: TVOCall) {}
+        func callDidReconnect(call: Call) {}
     }
 
     static var supportsDTMF: Bool = true
@@ -102,8 +110,8 @@ class TwilioVendorCall: CallingVendorCall {
     static var supportsGrouping: Bool = false
     static var supportsUngrouping: Bool = false
 
-    private let call: TVOCall
-    private let delegate: TVOCallDelegate
+    private let call: Call
+    private let delegate: CallDelegate
 
     /// Make an outgoing call
     required init(
@@ -115,7 +123,9 @@ class TwilioVendorCall: CallingVendorCall {
         connectionFailed: @escaping (_ callUUID: UUID, _ error: Error) -> Void,
         disconnected: @escaping (_ callUUID: UUID, _ error: Error?) -> Void
     ) {
-        let connectOptions = TVOConnectOptions(accessToken: accessToken) { builder in
+        self.uuid = uuid
+
+        let connectOptions = ConnectOptions(accessToken: accessToken) { builder in
             builder.params = [
                 "To": remotePhoneNumber,
                 "From": localPhoneNumber
@@ -123,40 +133,44 @@ class TwilioVendorCall: CallingVendorCall {
             builder.uuid = uuid
         }
 
-        delegate = BlockTVOCallDelegate(
+        delegate = BlockCallDelegate(
+            uuid: uuid,
             connected: connected,
             connectionFailed: connectionFailed,
             disconnected: disconnected
         )
-        call = TwilioVoice.connect(with: connectOptions, delegate: delegate)
 
-        // The `TVOCall.to` value is the user's Twilio identity since this is a call to a client app. We can retrieve the actual `to` phone number from the call record
+        call = TwilioVoiceSDK.connect(options: connectOptions, delegate: delegate)
+
+        // The `Call.to` value is the user's Twilio identity since this is a call to a client app. We can retrieve the actual `to` phone number from the call record
         self.localNumber = localPhoneNumber
         self.remoteNumber = remotePhoneNumber
     }
 
     /// Accept an incoming call
     init(
-        callInvite: TVOCallInvite,
+        callInvite: CallInvite,
         connected: @escaping (_ callUUID: UUID) -> Void,
         connectionFailed: @escaping (_ callUUID: UUID, _ error: Error) -> Void,
         disconnected: @escaping (_ callUUID: UUID, _ error: Error?) -> Void
     ) {
-        delegate = BlockTVOCallDelegate(
+        delegate = BlockCallDelegate(
+            uuid: callInvite.uuid,
             connected: connected,
             connectionFailed: connectionFailed,
             disconnected: disconnected
         )
 
-        let options = TVOAcceptOptions(callInvite: callInvite) { (builder) in
+        let acceptOptions = AcceptOptions(callInvite: callInvite) { builder in
             builder.uuid = callInvite.uuid
         }
 
-        call = callInvite.accept(with: options, delegate: delegate)
+        call = callInvite.accept(options: acceptOptions, delegate: delegate)
 
-        // The `TVOCall.to` and `TVOCallInvite.to` value is the user's Twilio identity since this is a call to a client app. We can retrieve the actual `to` phone number from the TVOCallInvite custom parameters.
+        // The `Call.to` and `CallInvite.to` value is the user's Twilio identity since this is a call to a client app. We can retrieve the actual `to` phone number from the CallInvite custom parameters.
         self.localNumber = callInvite.localNumber
         self.remoteNumber = callInvite.remoteNumber
+        self.uuid = callInvite.uuid
     }
 
     func disconnect() {
@@ -185,9 +199,7 @@ class TwilioVendorCall: CallingVendorCall {
         call.sendDigits(digits)
     }
 
-    var uuid: UUID {
-        return call.uuid
-    }
+    let uuid: UUID
 
     let localNumber: String
 

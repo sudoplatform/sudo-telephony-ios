@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>SignedInCondition Class Reference</title>
+    <title>SubscriptionStatus Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,14 +14,14 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Class/SignedInCondition" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Enum/SubscriptionStatus" class="dashAnchor"></a>
 
-    <a title="SignedInCondition Class Reference"></a>
+    <a title="SubscriptionStatus Enumeration Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          SudoTelephony 4.0.0 Docs
+          SudoTelephony 5.0.0 Docs
         </a>
         
       </p>
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">SudoTelephony Reference</a>
       <img class="carat" src="../img/carat.png" />
-      SignedInCondition Class Reference
+      SubscriptionStatus Enumeration Reference
     </p>
 
     <div class="content-wrapper">
@@ -53,15 +53,6 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/DefaultSudoTelephonyClient.html">DefaultSudoTelephonyClient</a>
               </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/DefaultSudoTelephonyClient/CacheType.html">– CacheType</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/DefaultSudoTelephonyClient.html#/s:13SudoTelephony07DefaultaB6ClientC6ConfigV">– Config</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/SignedInCondition.html">SignedInCondition</a>
-              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -72,6 +63,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/CallingError.html">CallingError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/SubscriptionStatus.html">SubscriptionStatus</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a>
@@ -142,9 +136,6 @@
             <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Typealiases.html#/s:13SudoTelephony0aB20ClientConfigProvidera">SudoTelephonyClientConfigProvider</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:13SudoTelephony0aB12SearchResulta">SudoTelephonySearchResult</a>
               </li>
             </ul>
@@ -155,14 +146,14 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>SignedInCondition</h1>
+            <h1>SubscriptionStatus</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">SignedInCondition</span> <span class="p">:</span> <span class="kt">PlatformOperationCondition</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">SubscriptionStatus</span></code></pre>
 
                 </div>
               </div>
-            <p>Check if the user is signed in.</p>
+            <p>The status of a SubscriptionWatcher</p>
 
           </div>
         </section>
@@ -174,9 +165,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14SudoOperations26PlatformOperationConditionP4nameSSvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/name" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SudoOperations26PlatformOperationConditionP4nameSSvpZ">name</a>
+                    <a name="/s:13SudoTelephony18SubscriptionStatusO10connectingyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/connecting" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony18SubscriptionStatusO10connectingyA2CmF">connecting</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -184,13 +175,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>The subscription is in process of connecting</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">connecting</span></code></pre>
 
                         </div>
                       </div>
@@ -200,9 +192,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14SudoOperations26PlatformOperationConditionP013dependencyForD0ySo11NSOperationCSgAA0cD0CF"></a>
-                    <a name="//apple_ref/swift/Method/dependencyForOperation(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SudoOperations26PlatformOperationConditionP013dependencyForD0ySo11NSOperationCSgAA0cD0CF">dependencyForOperation(_:<wbr>)</a>
+                    <a name="/s:13SudoTelephony18SubscriptionStatusO9connectedyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/connected" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony18SubscriptionStatusO9connectedyA2CmF">connected</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -210,13 +202,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>The subscription has connected and is receiving events from the service</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dependencyForOperation</span><span class="p">(</span><span class="n">_</span> <span class="nv">operation</span><span class="p">:</span> <span class="kt">PlatformOperation</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Operation</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">connected</span></code></pre>
 
                         </div>
                       </div>
@@ -226,9 +219,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14SudoOperations26PlatformOperationConditionP011evaluateForD0_10completionyAA0cD0C_ys6ResultOyyts5Error_pGXEtF"></a>
-                    <a name="//apple_ref/swift/Method/evaluateForOperation(_:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SudoOperations26PlatformOperationConditionP011evaluateForD0_10completionyAA0cD0C_ys6ResultOyyts5Error_pGXEtF">evaluateForOperation(_:<wbr>completion:<wbr>)</a>
+                    <a name="/s:13SudoTelephony18SubscriptionStatusO12disconnectedyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/disconnected" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony18SubscriptionStatusO12disconnectedyA2CmF">disconnected</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -236,13 +229,41 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>The subscription has been disconnected because of a lifecycle event or manual disconnect request</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">evaluateForOperation</span><span class="p">(</span><span class="n">_</span> <span class="nv">operation</span><span class="p">:</span> <span class="kt">PlatformOperation</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">PlatformOperationConditionResult</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">disconnected</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony18SubscriptionStatusO5erroryACs5Error_pcACmF"></a>
+                    <a name="//apple_ref/swift/Element/error(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony18SubscriptionStatusO5erroryACs5Error_pcACmF">error(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The subscription is in an error state. The enum&rsquo;s associated value will provide more details, including recovery options if available.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">error</span><span class="p">(</span><span class="kt">Error</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -257,7 +278,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2020-08-18)</p>
+      <p>&copy; 2022 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2022-01-27)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

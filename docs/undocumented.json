@@ -162,24 +162,24 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/Operations/Conditions/SignedInCondition.swift",
-      "line": 20,
-      "symbol": "SignedInCondition.init(userClient:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/S3ConfigProvider.swift",
+      "line": 10,
+      "symbol": "S3ConfigProvider",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/Service Calls/SubscriptionService.swift",
+      "line": 13,
+      "symbol": "SubscriptionHandler",
+      "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/SudoTelephonyClient.swift",
-      "line": 487,
-      "symbol": "DefaultSudoTelephonyClient.init(config:sudoUserClient:sudoProfilesClient:callProviderConfiguration:cacheType:logger:keyNamespace:graphQLClient:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/telephony/sudo-telephony-ios/sudo-telephony-ios-gh/SudoTelephony/SudoTelephonyClient.swift",
-      "line": 572,
-      "symbol": "DefaultSudoTelephonyClient.defaultLogger",
-      "symbol_kind": "source.lang.swift.decl.var.static",
+      "line": 12,
+      "symbol": "TelephonyClientCompletion",
+      "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     }
   ],

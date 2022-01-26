@@ -6,6 +6,7 @@
 
 import Foundation
 import AWSAppSync
+import SudoApiClient
 
 /// List of possible errors thrown by `SudoTelephonyClient`.
 public enum SudoTelephonyClientError: Error, LocalizedError {
@@ -191,7 +192,7 @@ public enum SudoTelephonyClientError: Error, LocalizedError {
         }
     }
 
-    /// Initializes a SudoTelephonyClientError from an error retured by the service.
+    /// Initializes a SudoTelephonyClientError from an error returned by the service.
     /// Will convert GraphQLError as well.
     ///
     /// - Parameters:
@@ -210,6 +211,8 @@ public enum SudoTelephonyClientError: Error, LocalizedError {
             self = SudoTelephonyClientError.requestFailed
         case let error as GraphQLError:
             self = SudoTelephonyClientError(internalError: error)
+        case let error as SudoTelephonyClientError:
+            self = error
         default:
             self = SudoTelephonyClientError.internalError
         }

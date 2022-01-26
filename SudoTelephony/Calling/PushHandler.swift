@@ -8,18 +8,18 @@ import Foundation
 import TwilioVoice
 import SudoLogging
 
-// push handler is a bridge for us between the push notiifcation payload, the call provider (twilio), and the sdk user
-// It receieves a push payload and attempts to handle it.
+// Push handler is a bridge for us between the push notification payload, the call provider (Twilio), and the sdk user.
+// It receives a push payload and attempts to handle it.
 //
 // It lets us know about some events, e.g the push payload was turned into a call invite, or if the call was canceled.
 // When this happens we notify the user of the new incoming call, or if the call was canceled.  We also notify callkit of these events.
-// When we let the user know about the incoming call we give them the abilty to set the display name and the delegate for the call related
-// events (active call delegate).  If the call is answered we know where to send events to.
+// When we let the user know about the incoming call we give them the ability to set the display name and the delegate for the call related
+// events (active call delegate).  If the call is answered we know where to send events.
 //
 // When we need to get info back from the SDK user, e.g. decline call or answer call, the push handler will also tell us about these events.
 // When a call is answered, The IncomingCall will tell the push handler about the event.
 
-// The push handler has access to the underlying types, e.g. TVOCAllInvite (the twilio call will have it and could pass it back if need be).
+// The push handler has access to the underlying types, e.g. CallInvite (the Twilio call will have it and could pass it back if need be).
 // That makes it the appropriate place to create the `VendorCall`.  Of course `VendorCall` has some closures that need to be passed in, so we'll pass
 // those into the push handler.  That way when a call is answered the push handler has the closures and data needed to init a `VendorCall`.
 // The push handler will then notify us that the call was answered so we can report it to callKit.
@@ -42,11 +42,11 @@ protocol PushHandler {
     var incomingCall: IncomingCall? { get }
 }
 
-class TwilioPushHandler: NSObject, PushHandler, TVONotificationDelegate {
+class TwilioPushHandler: NSObject, PushHandler, NotificationDelegate {
 
     internal private(set) var incomingCall: IncomingCall?
 
-    var callInvite: TVOCallInvite?
+    var callInvite: CallInvite?
 
     var logger: Logger?
 
@@ -77,11 +77,14 @@ class TwilioPushHandler: NSObject, PushHandler, TVONotificationDelegate {
     }
 
     func handlePush(payload: [AnyHashable : Any]) -> Bool {
-        let pushHandled = TwilioVoice.handleNotification(payload, delegate: self, delegateQueue: nil)
+        let pushHandled = TwilioVoiceSDK.handleNotification(payload,
+                                          delegate: self,
+                                          delegateQueue: nil
+        )
         return pushHandled
     }
 
-    func callInviteReceived(_ callInvite: TVOCallInvite) {
+    func callInviteReceived(callInvite: CallInvite) {
         self.callInvite = callInvite
         let twilioIncomingCall = TwilioIncomingCall(invite: callInvite)
 
@@ -108,7 +111,7 @@ class TwilioPushHandler: NSObject, PushHandler, TVONotificationDelegate {
         self.incomingCall = twilioIncomingCall
     }
 
-    func cancelledCallInviteReceived(_ cancelledCallInvite: TVOCancelledCallInvite, error: Error) {
+    func cancelledCallInviteReceived(cancelledCallInvite: CancelledCallInvite, error: Error) {
         guard let invite = self.callInvite else {
             self.logger?.error("Incoming call canceled, but no prior call invite found.")
             return

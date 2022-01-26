@@ -7,381 +7,789 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2EC161921FA6CED5CA1015C6 /* Pods_SudoTelephonyIntegrationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5A7C6DCB0AF0DD922CA319 /* Pods_SudoTelephonyIntegrationTests.framework */; };
-		3202683D245C75E900F18E66 /* SynchronizedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3202683C245C75E900F18E66 /* SynchronizedArray.swift */; };
-		322274D624A26E4600857985 /* SignInStatusBlockObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322274D524A26E4600857985 /* SignInStatusBlockObserver.swift */; };
-		3225AEDF246B4B3C00AF27BD /* SubscriptionToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3225AEDE246B4B3C00AF27BD /* SubscriptionToken.swift */; };
-		3225AEE1246B4B8100AF27BD /* UUIDExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3225AEE0246B4B8100AF27BD /* UUIDExtensions.swift */; };
-		3225AEE3246B4BBE00AF27BD /* AWSRegionTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3225AEE2246B4BBE00AF27BD /* AWSRegionTypeExtensions.swift */; };
-		3225AEE5246B4D1A00AF27BD /* SudoTelephonyClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3225AEE4246B4D1A00AF27BD /* SudoTelephonyClientError.swift */; };
-		3225AEE7246B4DC600AF27BD /* MMSUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3225AEE6246B4DC600AF27BD /* MMSUpload.swift */; };
-		3246283824A6A12A00199C5E /* WaitForUserSignInOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3246283724A6A12A00199C5E /* WaitForUserSignInOperation.swift */; };
-		3246283C24ABDC8400199C5E /* PushTokenManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3246283B24ABDC8400199C5E /* PushTokenManagement.swift */; };
-		3261489624991B0B0093682C /* PushHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3261489524991B0B0093682C /* PushHandler.swift */; };
-		3261489824991B6D0093682C /* IncomingCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3261489724991B6D0093682C /* IncomingCall.swift */; };
-		326E7454248981B400313EFD /* CallProviderConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326E7453248981B400313EFD /* CallProviderConfiguration.swift */; };
-		326E7456248981F900313EFD /* CallingVendor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326E7455248981F900313EFD /* CallingVendor.swift */; };
-		326E74582489824700313EFD /* CallingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326E74572489824700313EFD /* CallingError.swift */; };
-		326E745A2489827F00313EFD /* ActiveVoiceCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326E74592489827F00313EFD /* ActiveVoiceCall.swift */; };
-		327E5A74246318EB00B78DEE /* InternalUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327E5A73246318EB00B78DEE /* InternalUtility.swift */; };
-		329C578424A1475800A8D6AB /* IncomingCallNotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329C578324A1475800A8D6AB /* IncomingCallNotificationDelegate.swift */; };
-		329C578624A1477B00A8D6AB /* CallKitDisplayName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329C578524A1477B00A8D6AB /* CallKitDisplayName.swift */; };
-		4E53B147016DC5E6905AD0EA /* Pods_SudoTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050D25F248395500F134D5A1 /* Pods_SudoTelephony.framework */; };
-		B39491069B18B2015A42DEE3 /* Pods_SudoTelephonyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92E9BB8A7001EDCA3EC20584 /* Pods_SudoTelephonyTests.framework */; };
-		C3C74D1224AA851600699F58 /* CallRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C74D1124AA851600699F58 /* CallRecord.swift */; };
-		C3C74D1424ABD45100699F58 /* TelephonyKeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C74D1324ABD45100699F58 /* TelephonyKeyManager.swift */; };
-		CF1A3A6824818B73004886BE /* SudoTelephonyCalling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A3A6724818B73004886BE /* SudoTelephonyCalling.swift */; };
-		CFCF286E24BE28B800B09F5C /* Voicemail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCF286D24BE28B800B09F5C /* Voicemail.swift */; };
-		CFD525512440E26D008616A9 /* SudoTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD525472440E26C008616A9 /* SudoTelephony.framework */; };
-		CFD525582440E26D008616A9 /* SudoTelephony.h in Headers */ = {isa = PBXBuildFile; fileRef = CFD5254A2440E26C008616A9 /* SudoTelephony.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CFD525672440E2B7008616A9 /* SudoTelephonyClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525622440E2B6008616A9 /* SudoTelephonyClient.swift */; };
-		CFD525692440E2B7008616A9 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525642440E2B7008616A9 /* API.swift */; };
-		CFD5258B2440E552008616A9 /* SudoTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD525472440E26C008616A9 /* SudoTelephony.framework */; };
-		CFD525A22440E777008616A9 /* ListConversationsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD5259E2440E777008616A9 /* ListConversationsOperation.swift */; };
-		CFD525A32440E777008616A9 /* SignedInCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525A02440E777008616A9 /* SignedInCondition.swift */; };
-		CFD525A52440E7A3008616A9 /* AvailablePhoneNumberResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525962440E763008616A9 /* AvailablePhoneNumberResult.swift */; };
-		CFD525A62440E7A3008616A9 /* PhoneMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525972440E763008616A9 /* PhoneMessage.swift */; };
-		CFD525A72440E7A3008616A9 /* KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525982440E763008616A9 /* KeyPair.swift */; };
-		CFD525A82440E7A3008616A9 /* PhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525992440E763008616A9 /* PhoneNumber.swift */; };
-		CFD525A92440E7A3008616A9 /* TelephonyListToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD5259A2440E763008616A9 /* TelephonyListToken.swift */; };
-		CFD525AB2440E7A3008616A9 /* PhoneMessageConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD5259C2440E763008616A9 /* PhoneMessageConversation.swift */; };
-		CFD525AE2440E860008616A9 /* DefaultSudoTelephonyClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525AD2440E860008616A9 /* DefaultSudoTelephonyClientTests.swift */; };
-		CFD525B32440E882008616A9 /* TestConfigurationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525AF2440E882008616A9 /* TestConfigurationProvider.swift */; };
-		CFD525B42440E882008616A9 /* TestKeyAuthenticationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525B02440E882008616A9 /* TestKeyAuthenticationProvider.swift */; };
-		CFD525B52440E882008616A9 /* TestKeyAuthenticationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525B12440E882008616A9 /* TestKeyAuthenticationInfo.swift */; };
-		CFD525B62440E882008616A9 /* TelephonyClientIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525B22440E882008616A9 /* TelephonyClientIntegrationTests.swift */; };
-		CFD525B82440EDED008616A9 /* MockSudoProfilesClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525B72440EDED008616A9 /* MockSudoProfilesClient.swift */; };
-		CFD525C32440F613008616A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525C22440F613008616A9 /* AppDelegate.swift */; };
-		CFD525C52440F613008616A9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525C42440F613008616A9 /* SceneDelegate.swift */; };
-		CFD525C72440F613008616A9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD525C62440F613008616A9 /* ContentView.swift */; };
-		CFD525C92440F61A008616A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFD525C82440F61A008616A9 /* Assets.xcassets */; };
-		CFD525CC2440F61A008616A9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFD525CB2440F61A008616A9 /* Preview Assets.xcassets */; };
-		CFD525CF2440F61A008616A9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFD525CD2440F61A008616A9 /* LaunchScreen.storyboard */; };
+		00481F1257D4E927B22C0F99ABAB7A23 /* OwnershipProofProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E78F38307ADCD2AD23BF6B37AF6E3 /* OwnershipProofProvider.swift */; };
+		0671098CD6FA8F0DA2465EA67A49F405 /* MockPublicKeyGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253AC23ABCD759591D9656FED2FB249 /* MockPublicKeyGenerator.swift */; };
+		068CCAA8F902E4F24ABE4622E3F9CE07 /* GetSupportedCountriesUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B914A304780BAE43A70D2B61F1887ACC /* GetSupportedCountriesUseCaseTests.swift */; };
+		073F3628C13C7AE0B70743489FEDDDBD /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59853714A4346B67FA4FD0086FB544EA /* API.swift */; };
+		0813BFDD91648DF8E3F9A1227FAF8ADA /* ListPhoneNumbersUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E53D8D7D98DEA830A01C3AAC90DA499 /* ListPhoneNumbersUseCase.swift */; };
+		08482673F530B3EC824FB3F0DD5ADE8B /* Voicemail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE158E28F49C6CEE28BC4CF462DD68E5 /* Voicemail.swift */; };
+		0F09A0596B5B21E68F66B2D023B8D290 /* UseCaseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CAE316EBA8FF20B93A0F89D99F40BE /* UseCaseFactory.swift */; };
+		11606117F3D0E082782C65CBA6A3A237 /* DeprovisionNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F1473D054564DE602C6D66510DB8F2 /* DeprovisionNumberTests.swift */; };
+		1569CBD0D491DD257AEDCC5CEE385E72 /* IncomingCallNotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D02118A29854AF265FAE19255B3396A /* IncomingCallNotificationDelegate.swift */; };
+		17ADA24242384DAF916466D1C6BB6556 /* CallRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = A240AA24D52F4143033CEAE09CB85DE0 /* CallRecord.swift */; };
+		1B3B4658D1CA2F5B24B91590EEC19894 /* OperationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2956506024D61EAEE19EBEBA1B41C0D4 /* OperationFactory.swift */; };
+		1C8DAC7074921C68C38C869D8011A352 /* PhoneMessageConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C426082EC9F9C357B09B854A6244D90 /* PhoneMessageConversation.swift */; };
+		2044EAB0A238A22A9AE59484970F09EF /* IdentityIdProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FD42F4CC7707576EE37E8ADCDAFD2C /* IdentityIdProvider.swift */; };
+		26058EF7C4C2A5739FDF83536C884974 /* MockGetSupportedCountriesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC8AE70674A45C8171A3FDAE4DECF47 /* MockGetSupportedCountriesUseCase.swift */; };
+		2801FAC6ECD0463F86DCFF9FA7B8D249 /* XCTestCase+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1294A61D120F66A56B073FF82B7CB7 /* XCTestCase+Utility.swift */; };
+		28140011757F7E7608FD0D255342AC10 /* CallKitDisplayName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBAD4D1A8F74D9C723E71B9DD72102A /* CallKitDisplayName.swift */; };
+		2AAF6838FE2D2F65D69F674AC7F749F8 /* SubscriptionServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD64CA7FB7FAE237E1042F713717D92 /* SubscriptionServiceMock.swift */; };
+		3039C63D743025BFB263EFD517D42C83 /* SignedInCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385B1123F215CAA31E4C802D56FE8DD8 /* SignedInCondition.swift */; };
+		3056C9AA064950FA1CD039A1922913CB /* Pods_SudoTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3AED76E2C8A5CD518EE9BD6C2E58B3B /* Pods_SudoTelephony.framework */; };
+		328C5981A0056437D5C1B8CFF642CA20 /* PhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6DB54329CCB58F8EF0C1C990B814A4 /* PhoneNumber.swift */; };
+		352CCCCBEC1250529A2D26AE238001B2 /* CallingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72236BD5B9EAACCC87B7937CDDB57586 /* CallingError.swift */; };
+		358EADAD815F85F331172370161911D6 /* DeletePhoneNumberUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4DF19D902D95D98F108D3670BDDDE6 /* DeletePhoneNumberUseCase.swift */; };
+		3CAEB572D1D77BC1C981498D61BCA0B6 /* AvailablePhoneNumberResultQueryOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707145053FB75418C2A75CB8A9BD8C82 /* AvailablePhoneNumberResultQueryOperationTests.swift */; };
+		3EA71B806189A3BABD1AEFEF55496DDC /* GetOwnershipProofOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD5987F3C2E684607524D88465A0DAE /* GetOwnershipProofOperation.swift */; };
+		4240C66D4EBD8EDFF6D376D23011BF53 /* PhoneNumberService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A574ACF5C72285C6295CF91720444136 /* PhoneNumberService.swift */; };
+		451836E3E5016E640563E1A91D79B5FD /* GrapQLTestUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D974659BB52DA8D5D897275019A0103 /* GrapQLTestUtilities.swift */; };
+		471AF3355023CA64FA114F527F26AC95 /* GetMessageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560D5523A7F55E19E6B7EF89129A2AA7 /* GetMessageUseCase.swift */; };
+		49E9AD3FC5AE484056FEF11A0BEC5CBC /* SudoTelephonyConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3859BB67B90FB62EA2818AE5B410FC23 /* SudoTelephonyConfig.swift */; };
+		4A94B81FA88C606505FE2F9D706FEFF4 /* MockSudoProfilesClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65582F943DFAD5E37157B7359E25AE1D /* MockSudoProfilesClient.swift */; };
+		4AE80BD400B7FEE76AD727C2091B4919 /* Result+convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9B19FC13BBE55413CE54A88776A51B /* Result+convenience.swift */; };
+		4BDFEFDD030372EA5F66888EA8F6104D /* SubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03A5104CF4D34854180C576F3A91F /* SubscriptionService.swift */; };
+		4CBBD300425C494B9F1BA9DA8347D1A1 /* AvailablePhoneNumberResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9A12FC28C9C8BA6519B7117CAC3C16 /* AvailablePhoneNumberResult.swift */; };
+		4CE26BA4DCBF3694BFE99014A7C9B109 /* SudoTelephonyClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315B0A503C05AEF868718FA54F488765 /* SudoTelephonyClient.swift */; };
+		4D56B22893B38AB0F8C95D5ACA56C17D /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7983FD3CCA72DA5ECC34472FED506D70 /* MessageService.swift */; };
+		5535ECD3FA5142B12F17750A32A32A4D /* TelephonyClientIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58010F74B6E1E14525BB04DBCD39ABF0 /* TelephonyClientIntegrationTests.swift */; };
+		5950F691C1AE705816F770CEE9165AFF /* MessageServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9119A0CE47E974CD1A949BA8236926 /* MessageServiceTests.swift */; };
+		59C81E9B26E690F19D0019A8A377DFD3 /* ServiceDateTransformations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C7EE09F7EF87229BC66804E860A6C4 /* ServiceDateTransformations.swift */; };
+		5F9E8AD52305B915CE356017E707B0B6 /* DefaultSudoTelephonyClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F769E08AD5AD54CF37B9B2FAFA3FEFE3 /* DefaultSudoTelephonyClientTests.swift */; };
+		65CACC8B884D955A87F01A605BD00198 /* CallingVendor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B05891EC262F89AA8E5DA0218E2E8C /* CallingVendor.swift */; };
+		68F4B44893D742E166CFCEC5CDFDCC84 /* InternalUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B162680FE7F3902E4587AB610E28C5C /* InternalUtility.swift */; };
+		6AFE4A8610C81C74603E72077084F689 /* ProvisionPhoneNumerServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C97A199A64438F9B557EFB7052BEBAB /* ProvisionPhoneNumerServiceTests.swift */; };
+		6E9C5277503A294EF2C7B0C2C7C814E9 /* Array+Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FEC876A7EF9F98556635C589F434A4 /* Array+Operation.swift */; };
+		714054DFC2DE14AC301915B59D6E0C07 /* GetKeyRingIdOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E333F093428CE865F102F1906EF3C /* GetKeyRingIdOperation.swift */; };
+		75F6C921276C0D52001170CE /* MessageServiceMediaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6C920276C0D52001170CE /* MessageServiceMediaTests.swift */; };
+		75F6C926276C0E90001170CE /* testUploadFile.gif in Resources */ = {isa = PBXBuildFile; fileRef = 75F6C922276C0E90001170CE /* testUploadFile.gif */; };
+		75F6C927276C0E90001170CE /* testUploadFile.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 75F6C923276C0E90001170CE /* testUploadFile.rtf */; };
+		75F6C928276C0E90001170CE /* testUploadFile.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 75F6C924276C0E90001170CE /* testUploadFile.jpeg */; };
+		75F6C929276C0E90001170CE /* testUploadFile.png in Resources */ = {isa = PBXBuildFile; fileRef = 75F6C925276C0E90001170CE /* testUploadFile.png */; };
+		75F6C92D276C16AA001170CE /* TransferUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6C92C276C16AA001170CE /* TransferUtility.swift */; };
+		75F6C92F276C2176001170CE /* MockAWSS3TransferUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6C92E276C2176001170CE /* MockAWSS3TransferUtility.swift */; };
+		75F6C932276D01B2001170CE /* GetMessageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6C931276D01B2001170CE /* GetMessageTests.swift */; };
+		75F6C934276D01BC001170CE /* SendMessageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6C933276D01BC001170CE /* SendMessageTests.swift */; };
+		75F6C936276D01D2001170CE /* DeleteMessageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6C935276D01D2001170CE /* DeleteMessageTests.swift */; };
+		75F6C938276D081D001170CE /* DownloadFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6C937276D081C001170CE /* DownloadFileTests.swift */; };
+		75F6C93A276D0828001170CE /* UploadFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6C939276D0828001170CE /* UploadFileTests.swift */; };
+		75F6C93F2772529A001170CE /* GetPhoneNumberUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6C93E2772529A001170CE /* GetPhoneNumberUseCaseTests.swift */; };
+		75F6C94127727E69001170CE /* GetMessageUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6C94027727E69001170CE /* GetMessageUseCaseTests.swift */; };
+		75F6C943277288D2001170CE /* ListMessagesUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6C942277288D2001170CE /* ListMessagesUseCaseTests.swift */; };
+		75F6C9452774FDAA001170CE /* ListPhoneNumbersUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6C9442774FDAA001170CE /* ListPhoneNumbersUseCaseTests.swift */; };
+		75F6C9472775209C001170CE /* SendMessageUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6C9462775209C001170CE /* SendMessageUseCaseTests.swift */; };
+		75F6C94A277522B4001170CE /* SendSMSUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6C949277522B4001170CE /* SendSMSUseCaseTests.swift */; };
+		75F6C94C277522C1001170CE /* SendMMSUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6C94B277522C1001170CE /* SendMMSUseCaseTests.swift */; };
+		784D70D5A1E8BD64AF19530B129849FD /* Pods_SudoTelephonyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E8F5846D193C01FF11DE3DA67B6210B /* Pods_SudoTelephonyTests.framework */; };
+		7AD512380BF4E448E95D6EFE9C4349DA /* MockOwnershipProofProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E31497244DBE27943960792ABB6FD7 /* MockOwnershipProofProvider.swift */; };
+		7B8D188A241328468A202212543E5AC3 /* DefaultSudoTelephonyClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75CEBC9310F6FE7D6B1F0A5D988218B /* DefaultSudoTelephonyClient.swift */; };
+		7D2324EF6C25183F9EAF047209A1C5E0 /* ConversationIdGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C022EB52C4244A4554FC524C6B846BCE /* ConversationIdGenerator.swift */; };
+		7E22AAD4FCB37566D9DD2FD9FB0F99A2 /* MockPhoneNumberService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2488B1CE965D0B125C12AC79789EE07 /* MockPhoneNumberService.swift */; };
+		7E3953D5DC3F2A7239270A42276C03C7 /* KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39E56823DDD2A1136AC006695E03349 /* KeyPair.swift */; };
+		7F24E10FEAFDAC77382A2F6A5499B0BE /* ProvisionPhoneNumberOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE60E5C418F895D63A88ECAF6FB9689 /* ProvisionPhoneNumberOperationTests.swift */; };
+		80D2BC2BBB7DF15767E6212231EC5A2C /* SudoTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF7119DBF023071248ACC20F981CAD7 /* SudoTelephony.framework */; };
+		80FAC15B7577F15B9B5ADED323350FED /* SudoUserTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D700891ADD743DE666E74A66469E4896 /* SudoUserTestHelper.swift */; };
+		857C4426F6E0DA750D4A014A7E5905B5 /* SubscriptionToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6749DD03ED32F3E501C5CE80FEC12C /* SubscriptionToken.swift */; };
+		8822B94403E857E8F057A4B17F7E3C73 /* SudoTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF7119DBF023071248ACC20F981CAD7 /* SudoTelephony.framework */; };
+		942039CD5B06A8AD56F92BADC90131E0 /* IncomingCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E65057C871B3CD2EED60EB572C5C980 /* IncomingCall.swift */; };
+		95F71F3A2D8285C411F94C357AECFF89 /* MockIdentityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD4D8A0A96B8B3CE17A4046397B48DD /* MockIdentityProvider.swift */; };
+		9AD1257E25B1E369E849C2372E4AC7A3 /* OwnerIdProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA03E3A04D53071D5C56F45648AC269 /* OwnerIdProvider.swift */; };
+		9B533E207B74B5F7A072F947F668E015 /* WaitForUserSignInOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E3BDEC94770D85A5387A9806375CE0 /* WaitForUserSignInOperation.swift */; };
+		9C3F1139C8F6E04F59992BD74A89E793 /* ActiveVoiceCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CFDAD2A9478CB7BD6B0455599B6917 /* ActiveVoiceCall.swift */; };
+		9E12EBA6425B966DF563D874169D2EE7 /* SignInStatusBlockObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33332DAEDA51A744362F08D8132CEFDB /* SignInStatusBlockObserver.swift */; };
+		9EBD1B78D88BC1407D51216D18FD05C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 867F4E8E28D132ADF82E19761AB9CBFB /* Assets.xcassets */; };
+		9F85DAA64056EDB2506F731C05DB9A2B /* SynchronizedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC08724FFFDEE912C8B761E83BD9CD64 /* SynchronizedArray.swift */; };
+		9FF5F5E033D94279B622965E46A8D233 /* S3ConfigProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E38673D3ED444BFE39BB5F70BC18E36 /* S3ConfigProvider.swift */; };
+		A0E22DCE90AB01590C4AF1012A6BCA91 /* ListMessagesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F13144759A4D81BCFC09D460CEA6179 /* ListMessagesUseCase.swift */; };
+		A398186AB41BD092F047E873D79CEFE1 /* MockOperationsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7478F82D4A0B0CC537CA40D02E499493 /* MockOperationsFactory.swift */; };
+		A51B2779912317481B8F23D050867734 /* SearchAvailablePhoneNumbersOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DCE0332AF00561D12CDAC1F24E010B /* SearchAvailablePhoneNumbersOperation.swift */; };
+		A67FAB45DD2342299F4F9B002D87D512 /* SendMessageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88060EEFAED95A5539F08795AD742B1 /* SendMessageUseCase.swift */; };
+		A6F7985369A54769E92373137FF34E79 /* PushHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71BD4D8EFAC797B1B18C68B7D0EF285 /* PushHandler.swift */; };
+		A7A16F4BB6496CEE5EBD26AC28800F20 /* DownloadDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E88216B1FB85CF8C24167A213F35818 /* DownloadDataUseCase.swift */; };
+		A9C13E1E9C9FB178B932C81B1087BABE /* GetKeyRingIdOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B0B66916CB2EC686B8A7E36C6B4713 /* GetKeyRingIdOperationTests.swift */; };
+		AD1C23213709EB419C6F9358779D26C2 /* AvailablePhoneNumberResultQueryOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F07C2B07975A2E258A8A6E1CEBDCA6 /* AvailablePhoneNumberResultQueryOperation.swift */; };
+		ADC5C12E4AD59E3A7C3F5EAFB75975D4 /* ErrorTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E160466330FF67B8A4F24DA4DB582 /* ErrorTransformer.swift */; };
+		B0458AB7B0567B655B7BFC4AD9D979A6 /* AWSMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAC1E3F34A73DCCD8936D86CC0CB84E /* AWSMocks.swift */; };
+		B13F325F7093689655A9138F8125A658 /* GetOwnershipProofOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8063AD0D030CA9CCEECC6920D8A5E3 /* GetOwnershipProofOperationTests.swift */; };
+		B500C10D3822F9C38A15ECCF02AE2574 /* Pods_SudoTelephonyIntegrationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E20A052F765E9A3C0DFBDB0B40DAF18 /* Pods_SudoTelephonyIntegrationTests.framework */; };
+		B7FC584ACEE6C6662887CDA1F3C670DA /* MockUseCaseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D177583733D0C58764F6601BF87658 /* MockUseCaseFactory.swift */; };
+		B8A6A9159B320ADCA4900DFF4EEEE13B /* GetSupportedCountriesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1390BE3B4AA121580E42A9444C5013D8 /* GetSupportedCountriesUseCase.swift */; };
+		C054FEEE3027B2572A4CE83D5C171E40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE636F37B78A4ADFBAA55B6AE29B423 /* AppDelegate.swift */; };
+		C11C4B9C95033C0A58A02517DA6EB39C /* ProvisionPhoneNumberOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A361DC748A6A5B37CE4FAE9FF87FD91 /* ProvisionPhoneNumberOperation.swift */; };
+		C15B8193FD064A320A58966E836129CD /* MessageMediaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD81B11CD8435AA7E6CB516E60A9B54 /* MessageMediaService.swift */; };
+		C5FA14AC87F8F3F0B48847033AF40366 /* SearchAvailablePhoneNumbersOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD7E1050F7A3754C0C0A88FAE3269EA /* SearchAvailablePhoneNumbersOperationTests.swift */; };
+		C715CC5D0CFFD64192DE0BAA046C908C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D114DB82ADD9F1883F7B54B09B09372 /* LaunchScreen.storyboard */; };
+		C894456A947C3D94DFE370777855EB30 /* KeyManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BC3104BAF0618173EC186E75E5253A /* KeyManagerMock.swift */; };
+		C916D776D51018F2EE105DC5BAF88B30 /* UUIDExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF963B737D8AD6A569C384E90BBE544 /* UUIDExtensions.swift */; };
+		C98BA998BB53C82E77D3E7580268EE7B /* MockSudoUserClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC3615C7BCA5E9D35C98F0113E993E4 /* MockSudoUserClient.swift */; };
+		CA540B64C8EE0673352A57BD94D1EBA0 /* PhoneNumberTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B53329C43096482E65E45325B6A335 /* PhoneNumberTransformer.swift */; };
+		CAD87943F02669631FDDC51F6A32B149 /* SudoTelephony.h in Headers */ = {isa = PBXBuildFile; fileRef = F28205346B207E530273A101A571BB11 /* SudoTelephony.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CB0CA4A01F7CFA7D15378080101D3C6A /* ObjectMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88C2CA24458EC4B4B0386BAD247793 /* ObjectMocks.swift */; };
+		D4421AE6DCBD47FB9705D3F0768F1D9F /* PhoneMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC0A5DA75FEBB14F1A56D2FFB2EDE94 /* PhoneMessage.swift */; };
+		D466EA19CC84B6CF9D7BACAFDAD2C073 /* AWSRegionTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FD2075251906BCF5A573CDB85B2273 /* AWSRegionTypeExtensions.swift */; };
+		D6F2782E180DE8B1EA3A15A2D952EF75 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB221A93C1566543E8A69C62A3EC085 /* Logging.swift */; };
+		D9A0E95C9E4852E970F72724D5CB6A27 /* PublicKeyGenerating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451A1B28CF869E7F874F2BECA0DC5B15 /* PublicKeyGenerating.swift */; };
+		DCAA1E10BE56E24B136FF18CCD7D256D /* PushTokenManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B62B7EA993831D02F9D4B52A35BFC3 /* PushTokenManagement.swift */; };
+		DE5FC5E5D2D2B0522446ACF629A4E462 /* MMSUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75680865CC3F5AFD3E3D396E1FB099F7 /* MMSUpload.swift */; };
+		DF097EE62F7044E1BDE580D239247F18 /* ProvisionPhoneNumberUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE2DB5166863A4D451BD1851A30F92 /* ProvisionPhoneNumberUseCaseTests.swift */; };
+		DF61544996C6E92EBA7256E00A974A43 /* PhoneMessageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E72263ECD459966B4864E3188CAF9F2 /* PhoneMessageTransformer.swift */; };
+		E22203D82767F583003E74AF /* ConversationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22203D72767F583003E74AF /* ConversationService.swift */; };
+		E22203DA2767F7FF003E74AF /* ConversationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22203D92767F7FF003E74AF /* ConversationServiceTests.swift */; };
+		E22203DC2767FBDE003E74AF /* SubscribeToMessagesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22203DB2767FBDE003E74AF /* SubscribeToMessagesUseCase.swift */; };
+		E22203DE2767FC0B003E74AF /* SubscriptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22203DD2767FC0B003E74AF /* SubscriptionStatus.swift */; };
+		E22203E02767FC20003E74AF /* SubscriptionStatusTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22203DF2767FC20003E74AF /* SubscriptionStatusTransformer.swift */; };
+		E22203E227680148003E74AF /* GetMessageOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22203E127680148003E74AF /* GetMessageOperation.swift */; };
+		E22203E42768016A003E74AF /* PhoneMessageConversationTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22203E32768016A003E74AF /* PhoneMessageConversationTransformer.swift */; };
+		E22203E627680195003E74AF /* ListConversationsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22203E527680195003E74AF /* ListConversationsUseCase.swift */; };
+		E22203E827681437003E74AF /* GetConversationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22203E727681437003E74AF /* GetConversationUseCase.swift */; };
+		E22203EA27681A46003E74AF /* ListConversationsUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22203E927681A46003E74AF /* ListConversationsUseCaseTests.swift */; };
+		E22203EC27694781003E74AF /* ListConversationsTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22203EB27694781003E74AF /* ListConversationsTransformer.swift */; };
+		E22203EE276947C4003E74AF /* MockConversationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22203ED276947C4003E74AF /* MockConversationService.swift */; };
+		E22203F02769480C003E74AF /* MockMessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22203EF2769480C003E74AF /* MockMessageService.swift */; };
+		E22203F427695B91003E74AF /* GetConversationUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22203F327695B91003E74AF /* GetConversationUseCaseTests.swift */; };
+		E26FA9E8276A6744005D38F7 /* DeleteMessageUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26FA9E7276A6744005D38F7 /* DeleteMessageUseCaseTests.swift */; };
+		E26FA9EA276A6B9A005D38F7 /* DeletePhoneNumberUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26FA9E9276A6B9A005D38F7 /* DeletePhoneNumberUseCaseTests.swift */; };
+		E26FA9EC276A711E005D38F7 /* DownloadDataUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26FA9EB276A711E005D38F7 /* DownloadDataUseCaseTests.swift */; };
+		E26FA9EE276A7916005D38F7 /* MockMessageMediaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26FA9ED276A7916005D38F7 /* MockMessageMediaService.swift */; };
+		E2A0FA8127725149007D71D5 /* SubscribeToMessageUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A0FA8027725149007D71D5 /* SubscribeToMessageUseCaseTests.swift */; };
+		E6D3A5AD90B23A983B95055742ED1D11 /* TelephonyListToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB577EA6FEA90F1C3AADE70E83536DC8 /* TelephonyListToken.swift */; };
+		E851D2AEFD428C4986687E5C2F7A0560 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BBBFA6A4756079895C0DBAAC10A936 /* ContentView.swift */; };
+		E9538AE96CDA9F939030411BD50877AB /* MockSubscriptionToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = B885A899A7D126B146223775499FDBAE /* MockSubscriptionToken.swift */; };
+		E9E91CA5B149DEBF896A8123A70D44F7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534B8A8353C895AB5BFC8790DB49348B /* SceneDelegate.swift */; };
+		EAFAC767C7D790FE1FE1D660571FD1B7 /* DeleteMessageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C43D0089DED54335BDAF0A901F0598 /* DeleteMessageUseCase.swift */; };
+		EBB4B429B1846FCD44888B8600540767 /* ListPhoneNumbersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9736DC0A5EFA64F25E68FCBFF8AB462 /* ListPhoneNumbersTests.swift */; };
+		EC7B0919DEF1C9A4CFF26C83867F44D0 /* SubscriptionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD0BBA37D3613EF16C3DD4AA651A363 /* SubscriptionServiceTests.swift */; };
+		ECC35CC721174ABAADC58123111322E7 /* SudoTelephonyClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCD60042E2803C365FD7DACD4AF3DE3 /* SudoTelephonyClientError.swift */; };
+		EE07B99E3F336492A1B9A82CB0C40920 /* SudoTelephonyCalling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E683CCCDEF4809E6F71BAE7360964C /* SudoTelephonyCalling.swift */; };
+		F1C52B5F0357B16B0FA3CA993CAC64E7 /* PhoneNumberServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADAD4DF6E6ED5804E8FAA18F65937A1 /* PhoneNumberServiceTests.swift */; };
+		F4458A1EC54C5FC60502047042899725 /* GetPhoneNumberUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16E1D915DA78EDCF41BFEF1E1EFEC21 /* GetPhoneNumberUseCase.swift */; };
+		F5B46C157D6425A6100D585EE1D8FB7B /* ProvisionPhoneNumberUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD95C43339C6B362D7B7F1D45DAFACAA /* ProvisionPhoneNumberUseCase.swift */; };
+		F7EA0EED0B94CD28F05320B454F4AA9F /* CallProviderConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA586B65386083FDDB99563D40529340 /* CallProviderConfiguration.swift */; };
+		FA86D76F3509B380F10EA4579E77E121 /* TelephonyKeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DC570A7758CE6C101E60809FC5AC71 /* TelephonyKeyManager.swift */; };
+		FBCF8E8E20136CC64300DAF7A7948CDC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A92FA292CD9B56EB72A847E3CDCD3AE /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		CFD525522440E26D008616A9 /* PBXContainerItemProxy */ = {
+		3E3B8DF809852AEDC6098A4891BA0A78 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = CFD5253E2440E26C008616A9 /* Project object */;
+			containerPortal = 1AF0D00051EB97238B8AA2966EC08558 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = CFD525462440E26C008616A9;
-			remoteInfo = SudoTelephony;
-		};
-		CFD5258C2440E552008616A9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CFD5253E2440E26C008616A9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CFD525462440E26C008616A9;
-			remoteInfo = SudoTelephony;
-		};
-		CFD525D42440F64A008616A9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CFD5253E2440E26C008616A9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CFD525BF2440F613008616A9;
+			remoteGlobalIDString = AFE4013D74A56A422FD63B9C75FD933F;
 			remoteInfo = SudoTelephonyIntegrationTestHost;
+		};
+		75F6C92A276C0FA0001170CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1AF0D00051EB97238B8AA2966EC08558 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AFE4013D74A56A422FD63B9C75FD933F;
+			remoteInfo = SudoTelephonyIntegrationTestHost;
+		};
+		D858D63E37D0387012888095CA92205C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1AF0D00051EB97238B8AA2966EC08558 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 043D8F941A260C7D48B2D35E35C61A2C;
+			remoteInfo = SudoTelephony;
+		};
+		E4EF32C8C7FCBB860119225FC2C68076 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1AF0D00051EB97238B8AA2966EC08558 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 043D8F941A260C7D48B2D35E35C61A2C;
+			remoteInfo = SudoTelephony;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		050D25F248395500F134D5A1 /* Pods_SudoTelephony.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SudoTelephony.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3202683C245C75E900F18E66 /* SynchronizedArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizedArray.swift; sourceTree = "<group>"; };
-		322274D524A26E4600857985 /* SignInStatusBlockObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInStatusBlockObserver.swift; sourceTree = "<group>"; };
-		3225AEDE246B4B3C00AF27BD /* SubscriptionToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionToken.swift; sourceTree = "<group>"; };
-		3225AEE0246B4B8100AF27BD /* UUIDExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUIDExtensions.swift; sourceTree = "<group>"; };
-		3225AEE2246B4BBE00AF27BD /* AWSRegionTypeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSRegionTypeExtensions.swift; sourceTree = "<group>"; };
-		3225AEE4246B4D1A00AF27BD /* SudoTelephonyClientError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoTelephonyClientError.swift; sourceTree = "<group>"; };
-		3225AEE6246B4DC600AF27BD /* MMSUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMSUpload.swift; sourceTree = "<group>"; };
-		3246283724A6A12A00199C5E /* WaitForUserSignInOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitForUserSignInOperation.swift; sourceTree = "<group>"; };
-		3246283B24ABDC8400199C5E /* PushTokenManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushTokenManagement.swift; sourceTree = "<group>"; };
-		3261489524991B0B0093682C /* PushHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushHandler.swift; sourceTree = "<group>"; };
-		3261489724991B6D0093682C /* IncomingCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingCall.swift; sourceTree = "<group>"; };
-		326E7453248981B400313EFD /* CallProviderConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallProviderConfiguration.swift; sourceTree = "<group>"; };
-		326E7455248981F900313EFD /* CallingVendor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallingVendor.swift; sourceTree = "<group>"; };
-		326E74572489824700313EFD /* CallingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallingError.swift; sourceTree = "<group>"; };
-		326E74592489827F00313EFD /* ActiveVoiceCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveVoiceCall.swift; sourceTree = "<group>"; };
-		327E5A73246318EB00B78DEE /* InternalUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUtility.swift; sourceTree = "<group>"; };
-		329C578324A1475800A8D6AB /* IncomingCallNotificationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingCallNotificationDelegate.swift; sourceTree = "<group>"; };
-		329C578524A1477B00A8D6AB /* CallKitDisplayName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallKitDisplayName.swift; sourceTree = "<group>"; };
-		5259C65D7CD380A439B9B9E1 /* Pods-SudoTelephonyIntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephonyIntegrationTests.debug.xcconfig"; path = "Target Support Files/Pods-SudoTelephonyIntegrationTests/Pods-SudoTelephonyIntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
-		6FF83A2F6F0CC00CEBF114A3 /* Pods-SudoTelephonyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephonyTests.release.xcconfig"; path = "Target Support Files/Pods-SudoTelephonyTests/Pods-SudoTelephonyTests.release.xcconfig"; sourceTree = "<group>"; };
-		7E5A7C6DCB0AF0DD922CA319 /* Pods_SudoTelephonyIntegrationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SudoTelephonyIntegrationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		84F24D22805EBF8341B7697F /* Pods-SudoTelephonyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephonyTests.debug.xcconfig"; path = "Target Support Files/Pods-SudoTelephonyTests/Pods-SudoTelephonyTests.debug.xcconfig"; sourceTree = "<group>"; };
-		92E9BB8A7001EDCA3EC20584 /* Pods_SudoTelephonyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SudoTelephonyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A223D98032C8E556CD4BF7CA /* Pods-SudoTelephony.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephony.release.xcconfig"; path = "Target Support Files/Pods-SudoTelephony/Pods-SudoTelephony.release.xcconfig"; sourceTree = "<group>"; };
-		C3C74D1124AA851600699F58 /* CallRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallRecord.swift; sourceTree = "<group>"; };
-		C3C74D1324ABD45100699F58 /* TelephonyKeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelephonyKeyManager.swift; sourceTree = "<group>"; };
-		C51E4D2F419F88C25257756F /* Pods-SudoTelephonyIntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephonyIntegrationTests.release.xcconfig"; path = "Target Support Files/Pods-SudoTelephonyIntegrationTests/Pods-SudoTelephonyIntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
-		CF1A3A6724818B73004886BE /* SudoTelephonyCalling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoTelephonyCalling.swift; sourceTree = "<group>"; };
-		CFCF286D24BE28B800B09F5C /* Voicemail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Voicemail.swift; sourceTree = "<group>"; };
-		CFD525472440E26C008616A9 /* SudoTelephony.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SudoTelephony.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CFD5254A2440E26C008616A9 /* SudoTelephony.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SudoTelephony.h; sourceTree = "<group>"; };
-		CFD5254B2440E26C008616A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CFD525502440E26D008616A9 /* SudoTelephonyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudoTelephonyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CFD525572440E26D008616A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CFD525622440E2B6008616A9 /* SudoTelephonyClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SudoTelephonyClient.swift; sourceTree = "<group>"; };
-		CFD525642440E2B7008616A9 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
-		CFD525812440E47B008616A9 /* SudoTelephony.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; path = SudoTelephony.podspec; sourceTree = "<group>"; };
-		CFD525862440E552008616A9 /* SudoTelephonyIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudoTelephonyIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CFD5258A2440E552008616A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CFD525962440E763008616A9 /* AvailablePhoneNumberResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailablePhoneNumberResult.swift; sourceTree = "<group>"; };
-		CFD525972440E763008616A9 /* PhoneMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneMessage.swift; sourceTree = "<group>"; };
-		CFD525982440E763008616A9 /* KeyPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPair.swift; sourceTree = "<group>"; };
-		CFD525992440E763008616A9 /* PhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumber.swift; sourceTree = "<group>"; };
-		CFD5259A2440E763008616A9 /* TelephonyListToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelephonyListToken.swift; sourceTree = "<group>"; };
-		CFD5259C2440E763008616A9 /* PhoneMessageConversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneMessageConversation.swift; sourceTree = "<group>"; };
-		CFD5259E2440E777008616A9 /* ListConversationsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListConversationsOperation.swift; sourceTree = "<group>"; };
-		CFD525A02440E777008616A9 /* SignedInCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignedInCondition.swift; sourceTree = "<group>"; };
-		CFD525AD2440E860008616A9 /* DefaultSudoTelephonyClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSudoTelephonyClientTests.swift; sourceTree = "<group>"; };
-		CFD525AF2440E882008616A9 /* TestConfigurationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestConfigurationProvider.swift; sourceTree = "<group>"; };
-		CFD525B02440E882008616A9 /* TestKeyAuthenticationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestKeyAuthenticationProvider.swift; sourceTree = "<group>"; };
-		CFD525B12440E882008616A9 /* TestKeyAuthenticationInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestKeyAuthenticationInfo.swift; sourceTree = "<group>"; };
-		CFD525B22440E882008616A9 /* TelephonyClientIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TelephonyClientIntegrationTests.swift; sourceTree = "<group>"; };
-		CFD525B72440EDED008616A9 /* MockSudoProfilesClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSudoProfilesClient.swift; sourceTree = "<group>"; };
-		CFD525C02440F613008616A9 /* SudoTelephonyIntegrationTestHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SudoTelephonyIntegrationTestHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CFD525C22440F613008616A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CFD525C42440F613008616A9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CFD525C62440F613008616A9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		CFD525C82440F61A008616A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		CFD525CB2440F61A008616A9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CFD525CE2440F61A008616A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		CFD525D02440F61B008616A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FF6DF052543DE5465608F47C /* Pods-SudoTelephony.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephony.debug.xcconfig"; path = "Target Support Files/Pods-SudoTelephony/Pods-SudoTelephony.debug.xcconfig"; sourceTree = "<group>"; };
+		08EB19253101B21C596EC3E94E0E8328 /* SudoTelephonyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudoTelephonyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A2E78F38307ADCD2AD23BF6B37AF6E3 /* OwnershipProofProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnershipProofProvider.swift; sourceTree = "<group>"; };
+		0B6749DD03ED32F3E501C5CE80FEC12C /* SubscriptionToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionToken.swift; sourceTree = "<group>"; };
+		0DC3615C7BCA5E9D35C98F0113E993E4 /* MockSudoUserClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSudoUserClient.swift; sourceTree = "<group>"; };
+		0E72263ECD459966B4864E3188CAF9F2 /* PhoneMessageTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneMessageTransformer.swift; sourceTree = "<group>"; };
+		11C43D0089DED54335BDAF0A901F0598 /* DeleteMessageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteMessageUseCase.swift; sourceTree = "<group>"; };
+		1390BE3B4AA121580E42A9444C5013D8 /* GetSupportedCountriesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSupportedCountriesUseCase.swift; sourceTree = "<group>"; };
+		1BB03A5104CF4D34854180C576F3A91F /* SubscriptionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionService.swift; sourceTree = "<group>"; };
+		1BD4D8A0A96B8B3CE17A4046397B48DD /* MockIdentityProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockIdentityProvider.swift; sourceTree = "<group>"; };
+		1C97A199A64438F9B557EFB7052BEBAB /* ProvisionPhoneNumerServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionPhoneNumerServiceTests.swift; sourceTree = "<group>"; };
+		1C9A12FC28C9C8BA6519B7117CAC3C16 /* AvailablePhoneNumberResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailablePhoneNumberResult.swift; sourceTree = "<group>"; };
+		1D4283E7E0B3F6DC748FAFEF51A98795 /* Pods-SudoTelephony.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephony.debug.xcconfig"; path = "Target Support Files/Pods-SudoTelephony/Pods-SudoTelephony.debug.xcconfig"; sourceTree = "<group>"; };
+		1DC8AE70674A45C8171A3FDAE4DECF47 /* MockGetSupportedCountriesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGetSupportedCountriesUseCase.swift; sourceTree = "<group>"; };
+		1E8F5846D193C01FF11DE3DA67B6210B /* Pods_SudoTelephonyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SudoTelephonyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1EBAD4D1A8F74D9C723E71B9DD72102A /* CallKitDisplayName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallKitDisplayName.swift; sourceTree = "<group>"; };
+		2168B9441D744A48D7525C46862CE997 /* Pods-SudoTelephony.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephony.release.xcconfig"; path = "Target Support Files/Pods-SudoTelephony/Pods-SudoTelephony.release.xcconfig"; sourceTree = "<group>"; };
+		28856AC36DA99AA3B0BCB85FB9009864 /* SudoTelephony.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; path = SudoTelephony.podspec; sourceTree = "<group>"; };
+		2956506024D61EAEE19EBEBA1B41C0D4 /* OperationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFactory.swift; sourceTree = "<group>"; };
+		29B05891EC262F89AA8E5DA0218E2E8C /* CallingVendor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallingVendor.swift; sourceTree = "<group>"; };
+		2A361DC748A6A5B37CE4FAE9FF87FD91 /* ProvisionPhoneNumberOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionPhoneNumberOperation.swift; sourceTree = "<group>"; };
+		2B162680FE7F3902E4587AB610E28C5C /* InternalUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUtility.swift; sourceTree = "<group>"; };
+		2C0E160466330FF67B8A4F24DA4DB582 /* ErrorTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTransformer.swift; sourceTree = "<group>"; };
+		2D02118A29854AF265FAE19255B3396A /* IncomingCallNotificationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingCallNotificationDelegate.swift; sourceTree = "<group>"; };
+		2D974659BB52DA8D5D897275019A0103 /* GrapQLTestUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrapQLTestUtilities.swift; sourceTree = "<group>"; };
+		2E20A052F765E9A3C0DFBDB0B40DAF18 /* Pods_SudoTelephonyIntegrationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SudoTelephonyIntegrationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		315B0A503C05AEF868718FA54F488765 /* SudoTelephonyClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoTelephonyClient.swift; sourceTree = "<group>"; };
+		33332DAEDA51A744362F08D8132CEFDB /* SignInStatusBlockObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInStatusBlockObserver.swift; sourceTree = "<group>"; };
+		3859BB67B90FB62EA2818AE5B410FC23 /* SudoTelephonyConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoTelephonyConfig.swift; sourceTree = "<group>"; };
+		385B1123F215CAA31E4C802D56FE8DD8 /* SignedInCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignedInCondition.swift; sourceTree = "<group>"; };
+		39DCE0332AF00561D12CDAC1F24E010B /* SearchAvailablePhoneNumbersOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAvailablePhoneNumbersOperation.swift; sourceTree = "<group>"; };
+		39FD42F4CC7707576EE37E8ADCDAFD2C /* IdentityIdProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityIdProvider.swift; sourceTree = "<group>"; };
+		3B88C2CA24458EC4B4B0386BAD247793 /* ObjectMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectMocks.swift; sourceTree = "<group>"; };
+		3C9511E0C5E5A289148DB3B53797C2E8 /* Pods-SudoTelephonyIntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephonyIntegrationTests.release.xcconfig"; path = "Target Support Files/Pods-SudoTelephonyIntegrationTests/Pods-SudoTelephonyIntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
+		3FD64CA7FB7FAE237E1042F713717D92 /* SubscriptionServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionServiceMock.swift; sourceTree = "<group>"; };
+		4253AC23ABCD759591D9656FED2FB249 /* MockPublicKeyGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPublicKeyGenerator.swift; sourceTree = "<group>"; };
+		451A1B28CF869E7F874F2BECA0DC5B15 /* PublicKeyGenerating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKeyGenerating.swift; sourceTree = "<group>"; };
+		45F1473D054564DE602C6D66510DB8F2 /* DeprovisionNumberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeprovisionNumberTests.swift; sourceTree = "<group>"; };
+		47BC3104BAF0618173EC186E75E5253A /* KeyManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyManagerMock.swift; sourceTree = "<group>"; };
+		4BB221A93C1566543E8A69C62A3EC085 /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
+		4C426082EC9F9C357B09B854A6244D90 /* PhoneMessageConversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneMessageConversation.swift; sourceTree = "<group>"; };
+		4CA03E3A04D53071D5C56F45648AC269 /* OwnerIdProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerIdProvider.swift; sourceTree = "<group>"; };
+		4F1294A61D120F66A56B073FF82B7CB7 /* XCTestCase+Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Utility.swift"; sourceTree = "<group>"; };
+		4FC0A5DA75FEBB14F1A56D2FFB2EDE94 /* PhoneMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneMessage.swift; sourceTree = "<group>"; };
+		534B8A8353C895AB5BFC8790DB49348B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		53FD2075251906BCF5A573CDB85B2273 /* AWSRegionTypeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSRegionTypeExtensions.swift; sourceTree = "<group>"; };
+		560D5523A7F55E19E6B7EF89129A2AA7 /* GetMessageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageUseCase.swift; sourceTree = "<group>"; };
+		58010F74B6E1E14525BB04DBCD39ABF0 /* TelephonyClientIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TelephonyClientIntegrationTests.swift; sourceTree = "<group>"; };
+		59853714A4346B67FA4FD0086FB544EA /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		59F9A103382201AD1D1A792E480F9225 /* SudoTelephonyIntegrationTestHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SudoTelephonyIntegrationTestHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A92FA292CD9B56EB72A847E3CDCD3AE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5BF7119DBF023071248ACC20F981CAD7 /* SudoTelephony.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SudoTelephony.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DCD60042E2803C365FD7DACD4AF3DE3 /* SudoTelephonyClientError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoTelephonyClientError.swift; sourceTree = "<group>"; };
+		5DD7E1050F7A3754C0C0A88FAE3269EA /* SearchAvailablePhoneNumbersOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAvailablePhoneNumbersOperationTests.swift; sourceTree = "<group>"; };
+		63E3BDEC94770D85A5387A9806375CE0 /* WaitForUserSignInOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitForUserSignInOperation.swift; sourceTree = "<group>"; };
+		65582F943DFAD5E37157B7359E25AE1D /* MockSudoProfilesClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSudoProfilesClient.swift; sourceTree = "<group>"; };
+		67B53329C43096482E65E45325B6A335 /* PhoneNumberTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberTransformer.swift; sourceTree = "<group>"; };
+		68D177583733D0C58764F6601BF87658 /* MockUseCaseFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUseCaseFactory.swift; sourceTree = "<group>"; };
+		68F844DA72623575F71335577C3DD1F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6CD5987F3C2E684607524D88465A0DAE /* GetOwnershipProofOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOwnershipProofOperation.swift; sourceTree = "<group>"; };
+		6CF963B737D8AD6A569C384E90BBE544 /* UUIDExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUIDExtensions.swift; sourceTree = "<group>"; };
+		6E53D8D7D98DEA830A01C3AAC90DA499 /* ListPhoneNumbersUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPhoneNumbersUseCase.swift; sourceTree = "<group>"; };
+		6E88216B1FB85CF8C24167A213F35818 /* DownloadDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadDataUseCase.swift; sourceTree = "<group>"; };
+		707145053FB75418C2A75CB8A9BD8C82 /* AvailablePhoneNumberResultQueryOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailablePhoneNumberResultQueryOperationTests.swift; sourceTree = "<group>"; };
+		72236BD5B9EAACCC87B7937CDDB57586 /* CallingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallingError.swift; sourceTree = "<group>"; };
+		73B62B7EA993831D02F9D4B52A35BFC3 /* PushTokenManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushTokenManagement.swift; sourceTree = "<group>"; };
+		7478F82D4A0B0CC537CA40D02E499493 /* MockOperationsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockOperationsFactory.swift; sourceTree = "<group>"; };
+		75680865CC3F5AFD3E3D396E1FB099F7 /* MMSUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMSUpload.swift; sourceTree = "<group>"; };
+		75F6C920276C0D52001170CE /* MessageServiceMediaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageServiceMediaTests.swift; sourceTree = "<group>"; };
+		75F6C922276C0E90001170CE /* testUploadFile.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = testUploadFile.gif; sourceTree = "<group>"; };
+		75F6C923276C0E90001170CE /* testUploadFile.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = testUploadFile.rtf; sourceTree = "<group>"; };
+		75F6C924276C0E90001170CE /* testUploadFile.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = testUploadFile.jpeg; sourceTree = "<group>"; };
+		75F6C925276C0E90001170CE /* testUploadFile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testUploadFile.png; sourceTree = "<group>"; };
+		75F6C92C276C16AA001170CE /* TransferUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferUtility.swift; sourceTree = "<group>"; };
+		75F6C92E276C2176001170CE /* MockAWSS3TransferUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAWSS3TransferUtility.swift; sourceTree = "<group>"; };
+		75F6C931276D01B2001170CE /* GetMessageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageTests.swift; sourceTree = "<group>"; };
+		75F6C933276D01BC001170CE /* SendMessageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageTests.swift; sourceTree = "<group>"; };
+		75F6C935276D01D2001170CE /* DeleteMessageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteMessageTests.swift; sourceTree = "<group>"; };
+		75F6C937276D081C001170CE /* DownloadFileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadFileTests.swift; sourceTree = "<group>"; };
+		75F6C939276D0828001170CE /* UploadFileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadFileTests.swift; sourceTree = "<group>"; };
+		75F6C93E2772529A001170CE /* GetPhoneNumberUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPhoneNumberUseCaseTests.swift; sourceTree = "<group>"; };
+		75F6C94027727E69001170CE /* GetMessageUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMessageUseCaseTests.swift; sourceTree = "<group>"; };
+		75F6C942277288D2001170CE /* ListMessagesUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesUseCaseTests.swift; sourceTree = "<group>"; };
+		75F6C9442774FDAA001170CE /* ListPhoneNumbersUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPhoneNumbersUseCaseTests.swift; sourceTree = "<group>"; };
+		75F6C9462775209C001170CE /* SendMessageUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageUseCaseTests.swift; sourceTree = "<group>"; };
+		75F6C949277522B4001170CE /* SendSMSUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendSMSUseCaseTests.swift; sourceTree = "<group>"; };
+		75F6C94B277522C1001170CE /* SendMMSUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMMSUseCaseTests.swift; sourceTree = "<group>"; };
+		77FE2DB5166863A4D451BD1851A30F92 /* ProvisionPhoneNumberUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionPhoneNumberUseCaseTests.swift; sourceTree = "<group>"; };
+		78F07C2B07975A2E258A8A6E1CEBDCA6 /* AvailablePhoneNumberResultQueryOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailablePhoneNumberResultQueryOperation.swift; sourceTree = "<group>"; };
+		7983FD3CCA72DA5ECC34472FED506D70 /* MessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
+		7A8E333F093428CE865F102F1906EF3C /* GetKeyRingIdOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetKeyRingIdOperation.swift; sourceTree = "<group>"; };
+		7E65057C871B3CD2EED60EB572C5C980 /* IncomingCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingCall.swift; sourceTree = "<group>"; };
+		7F13144759A4D81BCFC09D460CEA6179 /* ListMessagesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesUseCase.swift; sourceTree = "<group>"; };
+		8587F2CD1E59962E9DBADB315A2D4458 /* SudoTelephonyIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudoTelephonyIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		85DC570A7758CE6C101E60809FC5AC71 /* TelephonyKeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelephonyKeyManager.swift; sourceTree = "<group>"; };
+		867F4E8E28D132ADF82E19761AB9CBFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8A4DF19D902D95D98F108D3670BDDDE6 /* DeletePhoneNumberUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePhoneNumberUseCase.swift; sourceTree = "<group>"; };
+		8E38673D3ED444BFE39BB5F70BC18E36 /* S3ConfigProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3ConfigProvider.swift; sourceTree = "<group>"; };
+		8E8063AD0D030CA9CCEECC6920D8A5E3 /* GetOwnershipProofOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOwnershipProofOperationTests.swift; sourceTree = "<group>"; };
+		8E9119A0CE47E974CD1A949BA8236926 /* MessageServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageServiceTests.swift; sourceTree = "<group>"; };
+		8FD81B11CD8435AA7E6CB516E60A9B54 /* MessageMediaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageMediaService.swift; sourceTree = "<group>"; };
+		92B0B66916CB2EC686B8A7E36C6B4713 /* GetKeyRingIdOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetKeyRingIdOperationTests.swift; sourceTree = "<group>"; };
+		98CAE316EBA8FF20B93A0F89D99F40BE /* UseCaseFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCaseFactory.swift; sourceTree = "<group>"; };
+		9B091C8A86469A9EE0B56604F94E60DD /* Pods-SudoTelephonyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephonyTests.debug.xcconfig"; path = "Target Support Files/Pods-SudoTelephonyTests/Pods-SudoTelephonyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A240AA24D52F4143033CEAE09CB85DE0 /* CallRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallRecord.swift; sourceTree = "<group>"; };
+		A574ACF5C72285C6295CF91720444136 /* PhoneNumberService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberService.swift; sourceTree = "<group>"; };
+		A9736DC0A5EFA64F25E68FCBFF8AB462 /* ListPhoneNumbersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPhoneNumbersTests.swift; sourceTree = "<group>"; };
+		A9CFDAD2A9478CB7BD6B0455599B6917 /* ActiveVoiceCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveVoiceCall.swift; sourceTree = "<group>"; };
+		ACE60E5C418F895D63A88ECAF6FB9689 /* ProvisionPhoneNumberOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionPhoneNumberOperationTests.swift; sourceTree = "<group>"; };
+		AD95C43339C6B362D7B7F1D45DAFACAA /* ProvisionPhoneNumberUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionPhoneNumberUseCase.swift; sourceTree = "<group>"; };
+		AE6DB54329CCB58F8EF0C1C990B814A4 /* PhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumber.swift; sourceTree = "<group>"; };
+		B16E1D915DA78EDCF41BFEF1E1EFEC21 /* GetPhoneNumberUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPhoneNumberUseCase.swift; sourceTree = "<group>"; };
+		B1DBD0345AC1A9F40874AC5A383D41FB /* Pods-SudoTelephonyIntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephonyIntegrationTests.debug.xcconfig"; path = "Target Support Files/Pods-SudoTelephonyIntegrationTests/Pods-SudoTelephonyIntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B885A899A7D126B146223775499FDBAE /* MockSubscriptionToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSubscriptionToken.swift; sourceTree = "<group>"; };
+		B914A304780BAE43A70D2B61F1887ACC /* GetSupportedCountriesUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSupportedCountriesUseCaseTests.swift; sourceTree = "<group>"; };
+		BA586B65386083FDDB99563D40529340 /* CallProviderConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallProviderConfiguration.swift; sourceTree = "<group>"; };
+		BB577EA6FEA90F1C3AADE70E83536DC8 /* TelephonyListToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelephonyListToken.swift; sourceTree = "<group>"; };
+		BBAC1E3F34A73DCCD8936D86CC0CB84E /* AWSMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSMocks.swift; sourceTree = "<group>"; };
+		C022EB52C4244A4554FC524C6B846BCE /* ConversationIdGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationIdGenerator.swift; sourceTree = "<group>"; };
+		C1124759FF0B857380C84C0993D0793D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C3A1B98B13FEE4821DBB60CD477E6D66 /* Pods-SudoTelephonyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoTelephonyTests.release.xcconfig"; path = "Target Support Files/Pods-SudoTelephonyTests/Pods-SudoTelephonyTests.release.xcconfig"; sourceTree = "<group>"; };
+		C3AED76E2C8A5CD518EE9BD6C2E58B3B /* Pods_SudoTelephony.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SudoTelephony.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3C7EE09F7EF87229BC66804E860A6C4 /* ServiceDateTransformations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDateTransformations.swift; sourceTree = "<group>"; };
+		C6E683CCCDEF4809E6F71BAE7360964C /* SudoTelephonyCalling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoTelephonyCalling.swift; sourceTree = "<group>"; };
+		CADAD4DF6E6ED5804E8FAA18F65937A1 /* PhoneNumberServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberServiceTests.swift; sourceTree = "<group>"; };
+		CB9B19FC13BBE55413CE54A88776A51B /* Result+convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+convenience.swift"; sourceTree = "<group>"; };
+		CBD0BBA37D3613EF16C3DD4AA651A363 /* SubscriptionServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionServiceTests.swift; sourceTree = "<group>"; };
+		CE158E28F49C6CEE28BC4CF462DD68E5 /* Voicemail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Voicemail.swift; sourceTree = "<group>"; };
+		D700891ADD743DE666E74A66469E4896 /* SudoUserTestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoUserTestHelper.swift; sourceTree = "<group>"; };
+		D88060EEFAED95A5539F08795AD742B1 /* SendMessageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageUseCase.swift; sourceTree = "<group>"; };
+		DC08724FFFDEE912C8B761E83BD9CD64 /* SynchronizedArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizedArray.swift; sourceTree = "<group>"; };
+		E1E31497244DBE27943960792ABB6FD7 /* MockOwnershipProofProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockOwnershipProofProvider.swift; sourceTree = "<group>"; };
+		E22203D72767F583003E74AF /* ConversationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationService.swift; sourceTree = "<group>"; };
+		E22203D92767F7FF003E74AF /* ConversationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationServiceTests.swift; sourceTree = "<group>"; };
+		E22203DB2767FBDE003E74AF /* SubscribeToMessagesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeToMessagesUseCase.swift; sourceTree = "<group>"; };
+		E22203DD2767FC0B003E74AF /* SubscriptionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStatus.swift; sourceTree = "<group>"; };
+		E22203DF2767FC20003E74AF /* SubscriptionStatusTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStatusTransformer.swift; sourceTree = "<group>"; };
+		E22203E127680148003E74AF /* GetMessageOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageOperation.swift; sourceTree = "<group>"; };
+		E22203E32768016A003E74AF /* PhoneMessageConversationTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneMessageConversationTransformer.swift; sourceTree = "<group>"; };
+		E22203E527680195003E74AF /* ListConversationsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListConversationsUseCase.swift; sourceTree = "<group>"; };
+		E22203E727681437003E74AF /* GetConversationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetConversationUseCase.swift; sourceTree = "<group>"; };
+		E22203E927681A46003E74AF /* ListConversationsUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListConversationsUseCaseTests.swift; sourceTree = "<group>"; };
+		E22203EB27694781003E74AF /* ListConversationsTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListConversationsTransformer.swift; sourceTree = "<group>"; };
+		E22203ED276947C4003E74AF /* MockConversationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockConversationService.swift; sourceTree = "<group>"; };
+		E22203EF2769480C003E74AF /* MockMessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMessageService.swift; sourceTree = "<group>"; };
+		E22203F327695B91003E74AF /* GetConversationUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetConversationUseCaseTests.swift; sourceTree = "<group>"; };
+		E26FA9E7276A6744005D38F7 /* DeleteMessageUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteMessageUseCaseTests.swift; sourceTree = "<group>"; };
+		E26FA9E9276A6B9A005D38F7 /* DeletePhoneNumberUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePhoneNumberUseCaseTests.swift; sourceTree = "<group>"; };
+		E26FA9EB276A711E005D38F7 /* DownloadDataUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadDataUseCaseTests.swift; sourceTree = "<group>"; };
+		E26FA9ED276A7916005D38F7 /* MockMessageMediaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMessageMediaService.swift; sourceTree = "<group>"; };
+		E2A0FA8027725149007D71D5 /* SubscribeToMessageUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscribeToMessageUseCaseTests.swift; sourceTree = "<group>"; };
+		E63B2ECB0F09E2CAD2782FB1D9B5EE82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E8BBBFA6A4756079895C0DBAAC10A936 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E9FEC876A7EF9F98556635C589F434A4 /* Array+Operation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Operation.swift"; sourceTree = "<group>"; };
+		EA1AB06BEB56105BBA90B90D4AD8BA4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		ECE636F37B78A4ADFBAA55B6AE29B423 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F2488B1CE965D0B125C12AC79789EE07 /* MockPhoneNumberService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPhoneNumberService.swift; sourceTree = "<group>"; };
+		F28205346B207E530273A101A571BB11 /* SudoTelephony.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SudoTelephony.h; sourceTree = "<group>"; };
+		F39E56823DDD2A1136AC006695E03349 /* KeyPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPair.swift; sourceTree = "<group>"; };
+		F71BD4D8EFAC797B1B18C68B7D0EF285 /* PushHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushHandler.swift; sourceTree = "<group>"; };
+		F75CEBC9310F6FE7D6B1F0A5D988218B /* DefaultSudoTelephonyClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSudoTelephonyClient.swift; sourceTree = "<group>"; };
+		F769E08AD5AD54CF37B9B2FAFA3FEFE3 /* DefaultSudoTelephonyClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSudoTelephonyClientTests.swift; sourceTree = "<group>"; };
+		FE9836DBFA0133C536F15DED6EDB3644 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		CFD525442440E26C008616A9 /* Frameworks */ = {
+		4363078434A01EE8228790807962338D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E53B147016DC5E6905AD0EA /* Pods_SudoTelephony.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CFD5254D2440E26D008616A9 /* Frameworks */ = {
+		7D255C22B17163238D755CBE31885324 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFD525512440E26D008616A9 /* SudoTelephony.framework in Frameworks */,
-				B39491069B18B2015A42DEE3 /* Pods_SudoTelephonyTests.framework in Frameworks */,
+				3056C9AA064950FA1CD039A1922913CB /* Pods_SudoTelephony.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CFD525832440E552008616A9 /* Frameworks */ = {
+		CDAF8B1543EAD80E9391AFFADA46DE41 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFD5258B2440E552008616A9 /* SudoTelephony.framework in Frameworks */,
-				2EC161921FA6CED5CA1015C6 /* Pods_SudoTelephonyIntegrationTests.framework in Frameworks */,
+				B500C10D3822F9C38A15ECCF02AE2574 /* Pods_SudoTelephonyIntegrationTests.framework in Frameworks */,
+				80D2BC2BBB7DF15767E6212231EC5A2C /* SudoTelephony.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CFD525BD2440F613008616A9 /* Frameworks */ = {
+		F17C36C429BB8E4C29792F2024BA0AE9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				784D70D5A1E8BD64AF19530B129849FD /* Pods_SudoTelephonyTests.framework in Frameworks */,
+				8822B94403E857E8F057A4B17F7E3C73 /* SudoTelephony.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3202683B245C75D900F18E66 /* Utility */ = {
+		187B0A197C5C6A30E88CB9A0678F5EA0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3202683C245C75E900F18E66 /* SynchronizedArray.swift */,
-				3225AEE0246B4B8100AF27BD /* UUIDExtensions.swift */,
-				3225AEE2246B4BBE00AF27BD /* AWSRegionTypeExtensions.swift */,
-			);
-			path = Utility;
-			sourceTree = "<group>";
-		};
-		326E74522489819200313EFD /* Calling */ = {
-			isa = PBXGroup;
-			children = (
-				CF1A3A6724818B73004886BE /* SudoTelephonyCalling.swift */,
-				326E7453248981B400313EFD /* CallProviderConfiguration.swift */,
-				326E7455248981F900313EFD /* CallingVendor.swift */,
-				326E74572489824700313EFD /* CallingError.swift */,
-				326E74592489827F00313EFD /* ActiveVoiceCall.swift */,
-				3261489524991B0B0093682C /* PushHandler.swift */,
-				3261489724991B6D0093682C /* IncomingCall.swift */,
-				329C578324A1475800A8D6AB /* IncomingCallNotificationDelegate.swift */,
-				329C578524A1477B00A8D6AB /* CallKitDisplayName.swift */,
-				322274D524A26E4600857985 /* SignInStatusBlockObserver.swift */,
-				3246283B24ABDC8400199C5E /* PushTokenManagement.swift */,
-				C3C74D1124AA851600699F58 /* CallRecord.swift */,
-				CFCF286D24BE28B800B09F5C /* Voicemail.swift */,
-			);
-			path = Calling;
-			sourceTree = "<group>";
-		};
-		61A00CB54C8AEFF166B720FF /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				FF6DF052543DE5465608F47C /* Pods-SudoTelephony.debug.xcconfig */,
-				A223D98032C8E556CD4BF7CA /* Pods-SudoTelephony.release.xcconfig */,
-				5259C65D7CD380A439B9B9E1 /* Pods-SudoTelephonyIntegrationTests.debug.xcconfig */,
-				C51E4D2F419F88C25257756F /* Pods-SudoTelephonyIntegrationTests.release.xcconfig */,
-				84F24D22805EBF8341B7697F /* Pods-SudoTelephonyTests.debug.xcconfig */,
-				6FF83A2F6F0CC00CEBF114A3 /* Pods-SudoTelephonyTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		BB65E8225297C5BF1B0EF3B5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				050D25F248395500F134D5A1 /* Pods_SudoTelephony.framework */,
-				7E5A7C6DCB0AF0DD922CA319 /* Pods_SudoTelephonyIntegrationTests.framework */,
-				92E9BB8A7001EDCA3EC20584 /* Pods_SudoTelephonyTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		CFD5253D2440E26C008616A9 = {
-			isa = PBXGroup;
-			children = (
-				CFD525812440E47B008616A9 /* SudoTelephony.podspec */,
-				CFD525492440E26C008616A9 /* SudoTelephony */,
-				CFD525542440E26D008616A9 /* SudoTelephonyTests */,
-				CFD525872440E552008616A9 /* SudoTelephonyIntegrationTests */,
-				CFD525C12440F613008616A9 /* SudoTelephonyIntegrationTestHost */,
-				CFD525482440E26C008616A9 /* Products */,
-				61A00CB54C8AEFF166B720FF /* Pods */,
-				BB65E8225297C5BF1B0EF3B5 /* Frameworks */,
-			);
-			sourceTree = "<group>";
-		};
-		CFD525482440E26C008616A9 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				CFD525472440E26C008616A9 /* SudoTelephony.framework */,
-				CFD525502440E26D008616A9 /* SudoTelephonyTests.xctest */,
-				CFD525862440E552008616A9 /* SudoTelephonyIntegrationTests.xctest */,
-				CFD525C02440F613008616A9 /* SudoTelephonyIntegrationTestHost.app */,
+				5BF7119DBF023071248ACC20F981CAD7 /* SudoTelephony.framework */,
+				59F9A103382201AD1D1A792E480F9225 /* SudoTelephonyIntegrationTestHost.app */,
+				8587F2CD1E59962E9DBADB315A2D4458 /* SudoTelephonyIntegrationTests.xctest */,
+				08EB19253101B21C596EC3E94E0E8328 /* SudoTelephonyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CFD525492440E26C008616A9 /* SudoTelephony */ = {
+		21CDB83455A0F544000D3095B2FC9EDB /* SudoTelephonyIntegrationTestHost */ = {
 			isa = PBXGroup;
 			children = (
-				326E74522489819200313EFD /* Calling */,
-				3202683B245C75D900F18E66 /* Utility */,
-				CFD5259D2440E777008616A9 /* Operations */,
-				CFD525952440E763008616A9 /* Model */,
-				CFD5254B2440E26C008616A9 /* Info.plist */,
-				CFD5254A2440E26C008616A9 /* SudoTelephony.h */,
-				CFD525642440E2B7008616A9 /* API.swift */,
-				CFD525622440E2B6008616A9 /* SudoTelephonyClient.swift */,
-				3225AEE4246B4D1A00AF27BD /* SudoTelephonyClientError.swift */,
-				C3C74D1324ABD45100699F58 /* TelephonyKeyManager.swift */,
-			);
-			path = SudoTelephony;
-			sourceTree = "<group>";
-		};
-		CFD525542440E26D008616A9 /* SudoTelephonyTests */ = {
-			isa = PBXGroup;
-			children = (
-				CFD525572440E26D008616A9 /* Info.plist */,
-				CFD525AD2440E860008616A9 /* DefaultSudoTelephonyClientTests.swift */,
-				CFD525B72440EDED008616A9 /* MockSudoProfilesClient.swift */,
-			);
-			path = SudoTelephonyTests;
-			sourceTree = "<group>";
-		};
-		CFD525872440E552008616A9 /* SudoTelephonyIntegrationTests */ = {
-			isa = PBXGroup;
-			children = (
-				CFD5258A2440E552008616A9 /* Info.plist */,
-				CFD525B22440E882008616A9 /* TelephonyClientIntegrationTests.swift */,
-				CFD525AF2440E882008616A9 /* TestConfigurationProvider.swift */,
-				CFD525B12440E882008616A9 /* TestKeyAuthenticationInfo.swift */,
-				CFD525B02440E882008616A9 /* TestKeyAuthenticationProvider.swift */,
-				327E5A73246318EB00B78DEE /* InternalUtility.swift */,
-			);
-			path = SudoTelephonyIntegrationTests;
-			sourceTree = "<group>";
-		};
-		CFD525952440E763008616A9 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				CFD525962440E763008616A9 /* AvailablePhoneNumberResult.swift */,
-				CFD525972440E763008616A9 /* PhoneMessage.swift */,
-				CFD525982440E763008616A9 /* KeyPair.swift */,
-				CFD525992440E763008616A9 /* PhoneNumber.swift */,
-				CFD5259A2440E763008616A9 /* TelephonyListToken.swift */,
-				CFD5259C2440E763008616A9 /* PhoneMessageConversation.swift */,
-				3225AEDE246B4B3C00AF27BD /* SubscriptionToken.swift */,
-				3225AEE6246B4DC600AF27BD /* MMSUpload.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		CFD5259D2440E777008616A9 /* Operations */ = {
-			isa = PBXGroup;
-			children = (
-				CFD5259F2440E777008616A9 /* Conditions */,
-				CFD5259E2440E777008616A9 /* ListConversationsOperation.swift */,
-				3246283724A6A12A00199C5E /* WaitForUserSignInOperation.swift */,
-			);
-			path = Operations;
-			sourceTree = "<group>";
-		};
-		CFD5259F2440E777008616A9 /* Conditions */ = {
-			isa = PBXGroup;
-			children = (
-				CFD525A02440E777008616A9 /* SignedInCondition.swift */,
-			);
-			path = Conditions;
-			sourceTree = "<group>";
-		};
-		CFD525C12440F613008616A9 /* SudoTelephonyIntegrationTestHost */ = {
-			isa = PBXGroup;
-			children = (
-				CFD525C22440F613008616A9 /* AppDelegate.swift */,
-				CFD525C42440F613008616A9 /* SceneDelegate.swift */,
-				CFD525C62440F613008616A9 /* ContentView.swift */,
-				CFD525C82440F61A008616A9 /* Assets.xcassets */,
-				CFD525CD2440F61A008616A9 /* LaunchScreen.storyboard */,
-				CFD525D02440F61B008616A9 /* Info.plist */,
-				CFD525CA2440F61A008616A9 /* Preview Content */,
+				36BC9B7D2CCA736851BF84FBEFDBEA64 /* Preview Content */,
+				ECE636F37B78A4ADFBAA55B6AE29B423 /* AppDelegate.swift */,
+				867F4E8E28D132ADF82E19761AB9CBFB /* Assets.xcassets */,
+				E8BBBFA6A4756079895C0DBAAC10A936 /* ContentView.swift */,
+				C1124759FF0B857380C84C0993D0793D /* Info.plist */,
+				1D114DB82ADD9F1883F7B54B09B09372 /* LaunchScreen.storyboard */,
+				534B8A8353C895AB5BFC8790DB49348B /* SceneDelegate.swift */,
+				75F6C922276C0E90001170CE /* testUploadFile.gif */,
+				75F6C924276C0E90001170CE /* testUploadFile.jpeg */,
+				75F6C925276C0E90001170CE /* testUploadFile.png */,
+				75F6C923276C0E90001170CE /* testUploadFile.rtf */,
 			);
 			path = SudoTelephonyIntegrationTestHost;
 			sourceTree = "<group>";
 		};
-		CFD525CA2440F61A008616A9 /* Preview Content */ = {
+		2826E767C77826899C0488F3D9CF4213 /* SudoTelephonyIntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
-				CFD525CB2440F61A008616A9 /* Preview Assets.xcassets */,
+				E63B2ECB0F09E2CAD2782FB1D9B5EE82 /* Info.plist */,
+				2B162680FE7F3902E4587AB610E28C5C /* InternalUtility.swift */,
+				D700891ADD743DE666E74A66469E4896 /* SudoUserTestHelper.swift */,
+				58010F74B6E1E14525BB04DBCD39ABF0 /* TelephonyClientIntegrationTests.swift */,
+			);
+			path = SudoTelephonyIntegrationTests;
+			sourceTree = "<group>";
+		};
+		2897699A1748BE42453BCA1A6AF96BE3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1C9A12FC28C9C8BA6519B7117CAC3C16 /* AvailablePhoneNumberResult.swift */,
+				F39E56823DDD2A1136AC006695E03349 /* KeyPair.swift */,
+				75680865CC3F5AFD3E3D396E1FB099F7 /* MMSUpload.swift */,
+				4FC0A5DA75FEBB14F1A56D2FFB2EDE94 /* PhoneMessage.swift */,
+				4C426082EC9F9C357B09B854A6244D90 /* PhoneMessageConversation.swift */,
+				AE6DB54329CCB58F8EF0C1C990B814A4 /* PhoneNumber.swift */,
+				E22203DD2767FC0B003E74AF /* SubscriptionStatus.swift */,
+				0B6749DD03ED32F3E501C5CE80FEC12C /* SubscriptionToken.swift */,
+				BB577EA6FEA90F1C3AADE70E83536DC8 /* TelephonyListToken.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2CB4D2D1FA3CC184307BF38886A8DFFC /* SudoTelephony */ = {
+			isa = PBXGroup;
+			children = (
+				3FD9515B7900651AD868723396060925 /* Calling */,
+				C13597F08796DD64CBAF5ECCC642CA2C /* Error */,
+				2897699A1748BE42453BCA1A6AF96BE3 /* Model */,
+				60A190203A1EADE43741C4D757BD6607 /* Operations */,
+				640F63BAB0818C073F2A8C9E92387330 /* Service Calls */,
+				A03F99B834921AEAE7C07CB0430D6A0D /* Transformers */,
+				F7DE04E04EC21F287859CF99D1977C04 /* UseCase */,
+				EE6F7996D375CA4ED519B0140C8A5E76 /* Utility */,
+				59853714A4346B67FA4FD0086FB544EA /* API.swift */,
+				F75CEBC9310F6FE7D6B1F0A5D988218B /* DefaultSudoTelephonyClient.swift */,
+				68F844DA72623575F71335577C3DD1F7 /* Info.plist */,
+				8E38673D3ED444BFE39BB5F70BC18E36 /* S3ConfigProvider.swift */,
+				F28205346B207E530273A101A571BB11 /* SudoTelephony.h */,
+				315B0A503C05AEF868718FA54F488765 /* SudoTelephonyClient.swift */,
+				3859BB67B90FB62EA2818AE5B410FC23 /* SudoTelephonyConfig.swift */,
+				85DC570A7758CE6C101E60809FC5AC71 /* TelephonyKeyManager.swift */,
+			);
+			path = SudoTelephony;
+			sourceTree = "<group>";
+		};
+		36BC9B7D2CCA736851BF84FBEFDBEA64 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				5A92FA292CD9B56EB72A847E3CDCD3AE /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		3FD9515B7900651AD868723396060925 /* Calling */ = {
+			isa = PBXGroup;
+			children = (
+				A9CFDAD2A9478CB7BD6B0455599B6917 /* ActiveVoiceCall.swift */,
+				1EBAD4D1A8F74D9C723E71B9DD72102A /* CallKitDisplayName.swift */,
+				BA586B65386083FDDB99563D40529340 /* CallProviderConfiguration.swift */,
+				A240AA24D52F4143033CEAE09CB85DE0 /* CallRecord.swift */,
+				72236BD5B9EAACCC87B7937CDDB57586 /* CallingError.swift */,
+				29B05891EC262F89AA8E5DA0218E2E8C /* CallingVendor.swift */,
+				7E65057C871B3CD2EED60EB572C5C980 /* IncomingCall.swift */,
+				2D02118A29854AF265FAE19255B3396A /* IncomingCallNotificationDelegate.swift */,
+				F71BD4D8EFAC797B1B18C68B7D0EF285 /* PushHandler.swift */,
+				73B62B7EA993831D02F9D4B52A35BFC3 /* PushTokenManagement.swift */,
+				33332DAEDA51A744362F08D8132CEFDB /* SignInStatusBlockObserver.swift */,
+				C6E683CCCDEF4809E6F71BAE7360964C /* SudoTelephonyCalling.swift */,
+				CE158E28F49C6CEE28BC4CF462DD68E5 /* Voicemail.swift */,
+			);
+			path = Calling;
+			sourceTree = "<group>";
+		};
+		5666D546C35F6854FF50ADABCFF7E8BE /* ServiceCalls */ = {
+			isa = PBXGroup;
+			children = (
+				75F6C93B276D0EE2001170CE /* MessageServiceMediaTests */,
+				75F6C930276D0173001170CE /* MessageServiceTests */,
+				E22203D92767F7FF003E74AF /* ConversationServiceTests.swift */,
+				45F1473D054564DE602C6D66510DB8F2 /* DeprovisionNumberTests.swift */,
+				A9736DC0A5EFA64F25E68FCBFF8AB462 /* ListPhoneNumbersTests.swift */,
+				CADAD4DF6E6ED5804E8FAA18F65937A1 /* PhoneNumberServiceTests.swift */,
+				1C97A199A64438F9B557EFB7052BEBAB /* ProvisionPhoneNumerServiceTests.swift */,
+				CBD0BBA37D3613EF16C3DD4AA651A363 /* SubscriptionServiceTests.swift */,
+			);
+			path = ServiceCalls;
+			sourceTree = "<group>";
+		};
+		58473634E40E08F56C26FC9EF95A8DB9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2D974659BB52DA8D5D897275019A0103 /* GrapQLTestUtilities.swift */,
+				4F1294A61D120F66A56B073FF82B7CB7 /* XCTestCase+Utility.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		60A190203A1EADE43741C4D757BD6607 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				7A78B4E6BE3DF183FB089D3C20A0C391 /* Conditions */,
+				78F07C2B07975A2E258A8A6E1CEBDCA6 /* AvailablePhoneNumberResultQueryOperation.swift */,
+				7A8E333F093428CE865F102F1906EF3C /* GetKeyRingIdOperation.swift */,
+				E22203E127680148003E74AF /* GetMessageOperation.swift */,
+				6CD5987F3C2E684607524D88465A0DAE /* GetOwnershipProofOperation.swift */,
+				2956506024D61EAEE19EBEBA1B41C0D4 /* OperationFactory.swift */,
+				2A361DC748A6A5B37CE4FAE9FF87FD91 /* ProvisionPhoneNumberOperation.swift */,
+				39DCE0332AF00561D12CDAC1F24E010B /* SearchAvailablePhoneNumbersOperation.swift */,
+				63E3BDEC94770D85A5387A9806375CE0 /* WaitForUserSignInOperation.swift */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		640F63BAB0818C073F2A8C9E92387330 /* Service Calls */ = {
+			isa = PBXGroup;
+			children = (
+				E22203D72767F583003E74AF /* ConversationService.swift */,
+				39FD42F4CC7707576EE37E8ADCDAFD2C /* IdentityIdProvider.swift */,
+				8FD81B11CD8435AA7E6CB516E60A9B54 /* MessageMediaService.swift */,
+				7983FD3CCA72DA5ECC34472FED506D70 /* MessageService.swift */,
+				0A2E78F38307ADCD2AD23BF6B37AF6E3 /* OwnershipProofProvider.swift */,
+				A574ACF5C72285C6295CF91720444136 /* PhoneNumberService.swift */,
+				451A1B28CF869E7F874F2BECA0DC5B15 /* PublicKeyGenerating.swift */,
+				1BB03A5104CF4D34854180C576F3A91F /* SubscriptionService.swift */,
+			);
+			path = "Service Calls";
+			sourceTree = "<group>";
+		};
+		69EEF2D904F247DCBFD32295B707C43E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1D4283E7E0B3F6DC748FAFEF51A98795 /* Pods-SudoTelephony.debug.xcconfig */,
+				2168B9441D744A48D7525C46862CE997 /* Pods-SudoTelephony.release.xcconfig */,
+				B1DBD0345AC1A9F40874AC5A383D41FB /* Pods-SudoTelephonyIntegrationTests.debug.xcconfig */,
+				3C9511E0C5E5A289148DB3B53797C2E8 /* Pods-SudoTelephonyIntegrationTests.release.xcconfig */,
+				9B091C8A86469A9EE0B56604F94E60DD /* Pods-SudoTelephonyTests.debug.xcconfig */,
+				C3A1B98B13FEE4821DBB60CD477E6D66 /* Pods-SudoTelephonyTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		6A8CF94FEE11142FC5822288994357E1 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				7B1F3585BCA5646A6D8653BE1BE0A1EC /* UseCase */,
+				BBAC1E3F34A73DCCD8936D86CC0CB84E /* AWSMocks.swift */,
+				75F6C92E276C2176001170CE /* MockAWSS3TransferUtility.swift */,
+				E22203ED276947C4003E74AF /* MockConversationService.swift */,
+				1BD4D8A0A96B8B3CE17A4046397B48DD /* MockIdentityProvider.swift */,
+				E26FA9ED276A7916005D38F7 /* MockMessageMediaService.swift */,
+				E22203EF2769480C003E74AF /* MockMessageService.swift */,
+				7478F82D4A0B0CC537CA40D02E499493 /* MockOperationsFactory.swift */,
+				E1E31497244DBE27943960792ABB6FD7 /* MockOwnershipProofProvider.swift */,
+				F2488B1CE965D0B125C12AC79789EE07 /* MockPhoneNumberService.swift */,
+				4253AC23ABCD759591D9656FED2FB249 /* MockPublicKeyGenerator.swift */,
+				B885A899A7D126B146223775499FDBAE /* MockSubscriptionToken.swift */,
+				3B88C2CA24458EC4B4B0386BAD247793 /* ObjectMocks.swift */,
+				3FD64CA7FB7FAE237E1042F713717D92 /* SubscriptionServiceMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		6B1024DD7DB5556D3B309AB5F0A0494C = {
+			isa = PBXGroup;
+			children = (
+				9C481A9133A15E98DD5BC443B322D98C /* Frameworks */,
+				69EEF2D904F247DCBFD32295B707C43E /* Pods */,
+				187B0A197C5C6A30E88CB9A0678F5EA0 /* Products */,
+				2CB4D2D1FA3CC184307BF38886A8DFFC /* SudoTelephony */,
+				21CDB83455A0F544000D3095B2FC9EDB /* SudoTelephonyIntegrationTestHost */,
+				2826E767C77826899C0488F3D9CF4213 /* SudoTelephonyIntegrationTests */,
+				931F0624A577296DCCC493FE62DB1CC8 /* SudoTelephonyTests */,
+				28856AC36DA99AA3B0BCB85FB9009864 /* SudoTelephony.podspec */,
+			);
+			sourceTree = "<group>";
+		};
+		75F6C930276D0173001170CE /* MessageServiceTests */ = {
+			isa = PBXGroup;
+			children = (
+				75F6C935276D01D2001170CE /* DeleteMessageTests.swift */,
+				75F6C931276D01B2001170CE /* GetMessageTests.swift */,
+				8E9119A0CE47E974CD1A949BA8236926 /* MessageServiceTests.swift */,
+				75F6C933276D01BC001170CE /* SendMessageTests.swift */,
+			);
+			path = MessageServiceTests;
+			sourceTree = "<group>";
+		};
+		75F6C93B276D0EE2001170CE /* MessageServiceMediaTests */ = {
+			isa = PBXGroup;
+			children = (
+				75F6C937276D081C001170CE /* DownloadFileTests.swift */,
+				75F6C920276C0D52001170CE /* MessageServiceMediaTests.swift */,
+				75F6C939276D0828001170CE /* UploadFileTests.swift */,
+			);
+			path = MessageServiceMediaTests;
+			sourceTree = "<group>";
+		};
+		75F6C94827752293001170CE /* SendMessageUseCaseTests */ = {
+			isa = PBXGroup;
+			children = (
+				75F6C94B277522C1001170CE /* SendMMSUseCaseTests.swift */,
+				75F6C9462775209C001170CE /* SendMessageUseCaseTests.swift */,
+				75F6C949277522B4001170CE /* SendSMSUseCaseTests.swift */,
+			);
+			path = SendMessageUseCaseTests;
+			sourceTree = "<group>";
+		};
+		7A78B4E6BE3DF183FB089D3C20A0C391 /* Conditions */ = {
+			isa = PBXGroup;
+			children = (
+				385B1123F215CAA31E4C802D56FE8DD8 /* SignedInCondition.swift */,
+			);
+			path = Conditions;
+			sourceTree = "<group>";
+		};
+		7B1F3585BCA5646A6D8653BE1BE0A1EC /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				1DC8AE70674A45C8171A3FDAE4DECF47 /* MockGetSupportedCountriesUseCase.swift */,
+				68D177583733D0C58764F6601BF87658 /* MockUseCaseFactory.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		931F0624A577296DCCC493FE62DB1CC8 /* SudoTelephonyTests */ = {
+			isa = PBXGroup;
+			children = (
+				58473634E40E08F56C26FC9EF95A8DB9 /* Extensions */,
+				6A8CF94FEE11142FC5822288994357E1 /* Mocks */,
+				EF83D3A002DD52C9A298C78099A66412 /* Operations */,
+				5666D546C35F6854FF50ADABCFF7E8BE /* ServiceCalls */,
+				FA20D95776DE09E1D4E09DF53BEA5198 /* UseCases */,
+				F769E08AD5AD54CF37B9B2FAFA3FEFE3 /* DefaultSudoTelephonyClientTests.swift */,
+				FE9836DBFA0133C536F15DED6EDB3644 /* Info.plist */,
+				47BC3104BAF0618173EC186E75E5253A /* KeyManagerMock.swift */,
+				65582F943DFAD5E37157B7359E25AE1D /* MockSudoProfilesClient.swift */,
+				0DC3615C7BCA5E9D35C98F0113E993E4 /* MockSudoUserClient.swift */,
+			);
+			path = SudoTelephonyTests;
+			sourceTree = "<group>";
+		};
+		9C481A9133A15E98DD5BC443B322D98C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C3AED76E2C8A5CD518EE9BD6C2E58B3B /* Pods_SudoTelephony.framework */,
+				2E20A052F765E9A3C0DFBDB0B40DAF18 /* Pods_SudoTelephonyIntegrationTests.framework */,
+				1E8F5846D193C01FF11DE3DA67B6210B /* Pods_SudoTelephonyTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A03F99B834921AEAE7C07CB0430D6A0D /* Transformers */ = {
+			isa = PBXGroup;
+			children = (
+				E22203EB27694781003E74AF /* ListConversationsTransformer.swift */,
+				E22203E32768016A003E74AF /* PhoneMessageConversationTransformer.swift */,
+				0E72263ECD459966B4864E3188CAF9F2 /* PhoneMessageTransformer.swift */,
+				67B53329C43096482E65E45325B6A335 /* PhoneNumberTransformer.swift */,
+				E22203DF2767FC20003E74AF /* SubscriptionStatusTransformer.swift */,
+			);
+			path = Transformers;
+			sourceTree = "<group>";
+		};
+		C13597F08796DD64CBAF5ECCC642CA2C /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				2C0E160466330FF67B8A4F24DA4DB582 /* ErrorTransformer.swift */,
+				5DCD60042E2803C365FD7DACD4AF3DE3 /* SudoTelephonyClientError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		EE6F7996D375CA4ED519B0140C8A5E76 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				53FD2075251906BCF5A573CDB85B2273 /* AWSRegionTypeExtensions.swift */,
+				E9FEC876A7EF9F98556635C589F434A4 /* Array+Operation.swift */,
+				C022EB52C4244A4554FC524C6B846BCE /* ConversationIdGenerator.swift */,
+				4BB221A93C1566543E8A69C62A3EC085 /* Logging.swift */,
+				4CA03E3A04D53071D5C56F45648AC269 /* OwnerIdProvider.swift */,
+				CB9B19FC13BBE55413CE54A88776A51B /* Result+convenience.swift */,
+				C3C7EE09F7EF87229BC66804E860A6C4 /* ServiceDateTransformations.swift */,
+				DC08724FFFDEE912C8B761E83BD9CD64 /* SynchronizedArray.swift */,
+				75F6C92C276C16AA001170CE /* TransferUtility.swift */,
+				6CF963B737D8AD6A569C384E90BBE544 /* UUIDExtensions.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		EF83D3A002DD52C9A298C78099A66412 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				707145053FB75418C2A75CB8A9BD8C82 /* AvailablePhoneNumberResultQueryOperationTests.swift */,
+				92B0B66916CB2EC686B8A7E36C6B4713 /* GetKeyRingIdOperationTests.swift */,
+				8E8063AD0D030CA9CCEECC6920D8A5E3 /* GetOwnershipProofOperationTests.swift */,
+				ACE60E5C418F895D63A88ECAF6FB9689 /* ProvisionPhoneNumberOperationTests.swift */,
+				5DD7E1050F7A3754C0C0A88FAE3269EA /* SearchAvailablePhoneNumbersOperationTests.swift */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		F7DE04E04EC21F287859CF99D1977C04 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				11C43D0089DED54335BDAF0A901F0598 /* DeleteMessageUseCase.swift */,
+				8A4DF19D902D95D98F108D3670BDDDE6 /* DeletePhoneNumberUseCase.swift */,
+				6E88216B1FB85CF8C24167A213F35818 /* DownloadDataUseCase.swift */,
+				E22203E727681437003E74AF /* GetConversationUseCase.swift */,
+				560D5523A7F55E19E6B7EF89129A2AA7 /* GetMessageUseCase.swift */,
+				B16E1D915DA78EDCF41BFEF1E1EFEC21 /* GetPhoneNumberUseCase.swift */,
+				1390BE3B4AA121580E42A9444C5013D8 /* GetSupportedCountriesUseCase.swift */,
+				E22203E527680195003E74AF /* ListConversationsUseCase.swift */,
+				7F13144759A4D81BCFC09D460CEA6179 /* ListMessagesUseCase.swift */,
+				6E53D8D7D98DEA830A01C3AAC90DA499 /* ListPhoneNumbersUseCase.swift */,
+				AD95C43339C6B362D7B7F1D45DAFACAA /* ProvisionPhoneNumberUseCase.swift */,
+				D88060EEFAED95A5539F08795AD742B1 /* SendMessageUseCase.swift */,
+				E22203DB2767FBDE003E74AF /* SubscribeToMessagesUseCase.swift */,
+				98CAE316EBA8FF20B93A0F89D99F40BE /* UseCaseFactory.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		FA20D95776DE09E1D4E09DF53BEA5198 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				75F6C94827752293001170CE /* SendMessageUseCaseTests */,
+				E26FA9E7276A6744005D38F7 /* DeleteMessageUseCaseTests.swift */,
+				E26FA9E9276A6B9A005D38F7 /* DeletePhoneNumberUseCaseTests.swift */,
+				E26FA9EB276A711E005D38F7 /* DownloadDataUseCaseTests.swift */,
+				E22203F327695B91003E74AF /* GetConversationUseCaseTests.swift */,
+				75F6C94027727E69001170CE /* GetMessageUseCaseTests.swift */,
+				75F6C93E2772529A001170CE /* GetPhoneNumberUseCaseTests.swift */,
+				B914A304780BAE43A70D2B61F1887ACC /* GetSupportedCountriesUseCaseTests.swift */,
+				E22203E927681A46003E74AF /* ListConversationsUseCaseTests.swift */,
+				75F6C942277288D2001170CE /* ListMessagesUseCaseTests.swift */,
+				75F6C9442774FDAA001170CE /* ListPhoneNumbersUseCaseTests.swift */,
+				77FE2DB5166863A4D451BD1851A30F92 /* ProvisionPhoneNumberUseCaseTests.swift */,
+				E2A0FA8027725149007D71D5 /* SubscribeToMessageUseCaseTests.swift */,
+			);
+			path = UseCases;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		CFD525422440E26C008616A9 /* Headers */ = {
+		065B0AC30488644B7B9CB6FFDEDCA7D6 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFD525582440E26D008616A9 /* SudoTelephony.h in Headers */,
+				CAD87943F02669631FDDC51F6A32B149 /* SudoTelephony.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		CFD525462440E26C008616A9 /* SudoTelephony */ = {
+		043D8F941A260C7D48B2D35E35C61A2C /* SudoTelephony */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CFD5255B2440E26D008616A9 /* Build configuration list for PBXNativeTarget "SudoTelephony" */;
+			buildConfigurationList = B8EFFFB408E3C8B148847C7C526E2164 /* Build configuration list for PBXNativeTarget "SudoTelephony" */;
 			buildPhases = (
-				CACCEF063A132D14A0A0AE61 /* [CP] Check Pods Manifest.lock */,
-				CFD525422440E26C008616A9 /* Headers */,
-				CFD525432440E26C008616A9 /* Sources */,
-				CFD525442440E26C008616A9 /* Frameworks */,
-				CFD525452440E26C008616A9 /* Resources */,
+				B4EF2A91A58AEAD86FB9258BFDDAE1D4 /* [CP] Check Pods Manifest.lock */,
+				065B0AC30488644B7B9CB6FFDEDCA7D6 /* Headers */,
+				AEE5CBD594060AB58B7F62BAEEE74B13 /* Sources */,
+				7D255C22B17163238D755CBE31885324 /* Frameworks */,
+				8B7959CD361970D89FC34A56F2DB3E5E /* Resources */,
 			);
 			buildRules = (
 			);
@@ -389,59 +797,59 @@
 			);
 			name = SudoTelephony;
 			productName = SudoTelephony;
-			productReference = CFD525472440E26C008616A9 /* SudoTelephony.framework */;
+			productReference = 5BF7119DBF023071248ACC20F981CAD7 /* SudoTelephony.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		CFD5254F2440E26D008616A9 /* SudoTelephonyTests */ = {
+		1355198AE035D82F1578D6FCEF3324C3 /* SudoTelephonyTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CFD5255E2440E26D008616A9 /* Build configuration list for PBXNativeTarget "SudoTelephonyTests" */;
+			buildConfigurationList = CAABEAA193CA0FE7B7C92195FFE7228C /* Build configuration list for PBXNativeTarget "SudoTelephonyTests" */;
 			buildPhases = (
-				CD45E2C55736C9B014FF9189 /* [CP] Check Pods Manifest.lock */,
-				CFD5254C2440E26D008616A9 /* Sources */,
-				CFD5254D2440E26D008616A9 /* Frameworks */,
-				CFD5254E2440E26D008616A9 /* Resources */,
-				8BFBFA1AC090ADFF1122E3F6 /* [CP] Embed Pods Frameworks */,
+				7F315375BD76D8A71FECBF2E5AF1B29E /* [CP] Check Pods Manifest.lock */,
+				C8BFC6E99D6B0197887291BA76011986 /* Sources */,
+				F17C36C429BB8E4C29792F2024BA0AE9 /* Frameworks */,
+				383CBD3CADF92EAB650FD8BC5B3B9437 /* Resources */,
+				1AB0722D2C8E4E7F0770F6CA02345739 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				CFD525532440E26D008616A9 /* PBXTargetDependency */,
+				FB5FF808284C9F4360EA8238AC1F2C47 /* PBXTargetDependency */,
+				75F6C92B276C0FA0001170CE /* PBXTargetDependency */,
 			);
 			name = SudoTelephonyTests;
 			productName = SudoTelephonyTests;
-			productReference = CFD525502440E26D008616A9 /* SudoTelephonyTests.xctest */;
+			productReference = 08EB19253101B21C596EC3E94E0E8328 /* SudoTelephonyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		CFD525852440E552008616A9 /* SudoTelephonyIntegrationTests */ = {
+		5C513D7D9C397F77894698EB802DF54A /* SudoTelephonyIntegrationTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CFD5258E2440E552008616A9 /* Build configuration list for PBXNativeTarget "SudoTelephonyIntegrationTests" */;
+			buildConfigurationList = 09DB97786539238CDB6721582932872E /* Build configuration list for PBXNativeTarget "SudoTelephonyIntegrationTests" */;
 			buildPhases = (
-				94823CDA79EC2835A8E07843 /* [CP] Check Pods Manifest.lock */,
-				CFD525822440E552008616A9 /* Sources */,
-				CFD525832440E552008616A9 /* Frameworks */,
-				CFD525842440E552008616A9 /* Resources */,
-				D233DC2C6213067111336D29 /* [CP] Embed Pods Frameworks */,
-				CFD525BA2440F0D9008616A9 /* Copy Integration Test Configuration Files */,
+				CFFCAEF58C8B243D3D6FB4B780F42606 /* [CP] Check Pods Manifest.lock */,
+				923F14E6F1076EF7714C88C8A638186F /* Sources */,
+				CDAF8B1543EAD80E9391AFFADA46DE41 /* Frameworks */,
+				945D9C4184937E74C5D16891E6D8A3C3 /* Resources */,
+				D4B9260382522B50FDAB4CF1CBA215E4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				CFD5258D2440E552008616A9 /* PBXTargetDependency */,
-				CFD525D52440F64A008616A9 /* PBXTargetDependency */,
+				526C9A128BA1E9C80DF654E6A4C488F0 /* PBXTargetDependency */,
+				546791468F021CF74FECD94544DF0A87 /* PBXTargetDependency */,
 			);
 			name = SudoTelephonyIntegrationTests;
 			productName = SudoTelephonyIntegrationTests;
-			productReference = CFD525862440E552008616A9 /* SudoTelephonyIntegrationTests.xctest */;
+			productReference = 8587F2CD1E59962E9DBADB315A2D4458 /* SudoTelephonyIntegrationTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		CFD525BF2440F613008616A9 /* SudoTelephonyIntegrationTestHost */ = {
+		AFE4013D74A56A422FD63B9C75FD933F /* SudoTelephonyIntegrationTestHost */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CFD525D12440F61B008616A9 /* Build configuration list for PBXNativeTarget "SudoTelephonyIntegrationTestHost" */;
+			buildConfigurationList = 1B855E58FA87D3EC85A1B701BB9D5E0A /* Build configuration list for PBXNativeTarget "SudoTelephonyIntegrationTestHost" */;
 			buildPhases = (
-				CFD525BC2440F613008616A9 /* Sources */,
-				CFD525BD2440F613008616A9 /* Frameworks */,
-				CFD525BE2440F613008616A9 /* Resources */,
-				CF25719924413C2A0053334E /* Copy Integration Test Configuration Files */,
+				B23389374838C0517B771F8842D502B3 /* Sources */,
+				4363078434A01EE8228790807962338D /* Frameworks */,
+				2DC44C2B6E2697AA050BD4F2413C341B /* Resources */,
+				B85180C008ED9147EB7FDA6D69E534E0 /* [Sudo Platform] Copy Integration Test Configuration Files */,
 			);
 			buildRules = (
 			);
@@ -449,36 +857,37 @@
 			);
 			name = SudoTelephonyIntegrationTestHost;
 			productName = SudoTelephonyIntegrationTestHost;
-			productReference = CFD525C02440F613008616A9 /* SudoTelephonyIntegrationTestHost.app */;
+			productReference = 59F9A103382201AD1D1A792E480F9225 /* SudoTelephonyIntegrationTestHost.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		CFD5253E2440E26C008616A9 /* Project object */ = {
+		1AF0D00051EB97238B8AA2966EC08558 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Sudo Platform";
 				TargetAttributes = {
-					CFD525462440E26C008616A9 = {
+					043D8F941A260C7D48B2D35E35C61A2C = {
 						CreatedOnToolsVersion = 11.3.1;
 						LastSwiftMigration = 1130;
 					};
-					CFD5254F2440E26D008616A9 = {
+					1355198AE035D82F1578D6FCEF3324C3 = {
 						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = AFE4013D74A56A422FD63B9C75FD933F;
 					};
-					CFD525852440E552008616A9 = {
+					5C513D7D9C397F77894698EB802DF54A = {
 						CreatedOnToolsVersion = 11.3.1;
-						TestTargetID = CFD525BF2440F613008616A9;
+						TestTargetID = AFE4013D74A56A422FD63B9C75FD933F;
 					};
-					CFD525BF2440F613008616A9 = {
+					AFE4013D74A56A422FD63B9C75FD933F = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
 				};
 			};
-			buildConfigurationList = CFD525412440E26C008616A9 /* Build configuration list for PBXProject "SudoTelephony" */;
+			buildConfigurationList = 07CBBA452AA074D308AFFEB567F7D10C /* Build configuration list for PBXProject "SudoTelephony" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -486,55 +895,59 @@
 				en,
 				Base,
 			);
-			mainGroup = CFD5253D2440E26C008616A9;
-			productRefGroup = CFD525482440E26C008616A9 /* Products */;
+			mainGroup = 6B1024DD7DB5556D3B309AB5F0A0494C;
+			productRefGroup = 187B0A197C5C6A30E88CB9A0678F5EA0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CFD525462440E26C008616A9 /* SudoTelephony */,
-				CFD5254F2440E26D008616A9 /* SudoTelephonyTests */,
-				CFD525852440E552008616A9 /* SudoTelephonyIntegrationTests */,
-				CFD525BF2440F613008616A9 /* SudoTelephonyIntegrationTestHost */,
+				043D8F941A260C7D48B2D35E35C61A2C /* SudoTelephony */,
+				1355198AE035D82F1578D6FCEF3324C3 /* SudoTelephonyTests */,
+				5C513D7D9C397F77894698EB802DF54A /* SudoTelephonyIntegrationTests */,
+				AFE4013D74A56A422FD63B9C75FD933F /* SudoTelephonyIntegrationTestHost */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		CFD525452440E26C008616A9 /* Resources */ = {
+		2DC44C2B6E2697AA050BD4F2413C341B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9EBD1B78D88BC1407D51216D18FD05C3 /* Assets.xcassets in Resources */,
+				C715CC5D0CFFD64192DE0BAA046C908C /* LaunchScreen.storyboard in Resources */,
+				FBCF8E8E20136CC64300DAF7A7948CDC /* Preview Assets.xcassets in Resources */,
+				75F6C926276C0E90001170CE /* testUploadFile.gif in Resources */,
+				75F6C928276C0E90001170CE /* testUploadFile.jpeg in Resources */,
+				75F6C929276C0E90001170CE /* testUploadFile.png in Resources */,
+				75F6C927276C0E90001170CE /* testUploadFile.rtf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		383CBD3CADF92EAB650FD8BC5B3B9437 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CFD5254E2440E26D008616A9 /* Resources */ = {
+		8B7959CD361970D89FC34A56F2DB3E5E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CFD525842440E552008616A9 /* Resources */ = {
+		945D9C4184937E74C5D16891E6D8A3C3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CFD525BE2440F613008616A9 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CFD525CF2440F61A008616A9 /* LaunchScreen.storyboard in Resources */,
-				CFD525CC2440F61A008616A9 /* Preview Assets.xcassets in Resources */,
-				CFD525C92440F61A008616A9 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8BFBFA1AC090ADFF1122E3F6 /* [CP] Embed Pods Frameworks */ = {
+		1AB0722D2C8E4E7F0770F6CA02345739 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -551,51 +964,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SudoTelephonyTests/Pods-SudoTelephonyTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		94823CDA79EC2835A8E07843 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SudoTelephonyIntegrationTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CACCEF063A132D14A0A0AE61 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SudoTelephony-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CD45E2C55736C9B014FF9189 /* [CP] Check Pods Manifest.lock */ = {
+		7F315375BD76D8A71FECBF2E5AF1B29E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -617,7 +986,29 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CF25719924413C2A0053334E /* Copy Integration Test Configuration Files */ = {
+		B4EF2A91A58AEAD86FB9258BFDDAE1D4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SudoTelephony-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B85180C008ED9147EB7FDA6D69E534E0 /* [Sudo Platform] Copy Integration Test Configuration Files */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -626,16 +1017,16 @@
 			);
 			inputPaths = (
 			);
-			name = "Copy Integration Test Configuration Files";
+			name = "[Sudo Platform] Copy Integration Test Configuration Files";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo Copying SSM Keys\ncp -f telephony-system-test-config/anonyome_ssm_parameter_register_key.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\necho Copying Config\ncp -f telephony-system-test-config/sudoplatformconfig.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\n\necho Files copied:\nls ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n";
+			shellScript = "echo \"Copying Config\"\ncp -f config/sudoplatformconfig.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\n\necho \"Copy test key ID to bundle\"\nSOURCE=${PROJECT_DIR}/config/register_key.id \ncp -f ${SOURCE} \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\n\necho \"Copy test key to bundle\"\nSOURCE=${PROJECT_DIR}/config/register_key.private \ncp -f ${SOURCE} \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\n\necho Files copied:\nls ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n";
 		};
-		CFD525BA2440F0D9008616A9 /* Copy Integration Test Configuration Files */ = {
+		CFFCAEF58C8B243D3D6FB4B780F42606 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -643,17 +1034,21 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "Copy Integration Test Configuration Files";
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SudoTelephonyIntegrationTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo Copying SSM Keys\ncp -f telephony-system-test-config/anonyome_ssm_parameter_register_key.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\necho Copying Config\ncp -f telephony-system-test-config/sudoplatformconfig.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\n\necho Files copied:\nls ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
-		D233DC2C6213067111336D29 /* [CP] Embed Pods Frameworks */ = {
+		D4B9260382522B50FDAB4CF1CBA215E4 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -673,100 +1068,200 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		CFD525432440E26C008616A9 /* Sources */ = {
+		923F14E6F1076EF7714C88C8A638186F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFD525A92440E7A3008616A9 /* TelephonyListToken.swift in Sources */,
-				326E74582489824700313EFD /* CallingError.swift in Sources */,
-				3202683D245C75E900F18E66 /* SynchronizedArray.swift in Sources */,
-				CFCF286E24BE28B800B09F5C /* Voicemail.swift in Sources */,
-				3246283C24ABDC8400199C5E /* PushTokenManagement.swift in Sources */,
-				C3C74D1224AA851600699F58 /* CallRecord.swift in Sources */,
-				3225AEE7246B4DC600AF27BD /* MMSUpload.swift in Sources */,
-				3225AEDF246B4B3C00AF27BD /* SubscriptionToken.swift in Sources */,
-				322274D624A26E4600857985 /* SignInStatusBlockObserver.swift in Sources */,
-				CFD525A22440E777008616A9 /* ListConversationsOperation.swift in Sources */,
-				326E7454248981B400313EFD /* CallProviderConfiguration.swift in Sources */,
-				CFD525AB2440E7A3008616A9 /* PhoneMessageConversation.swift in Sources */,
-				3225AEE5246B4D1A00AF27BD /* SudoTelephonyClientError.swift in Sources */,
-				CFD525672440E2B7008616A9 /* SudoTelephonyClient.swift in Sources */,
-				326E745A2489827F00313EFD /* ActiveVoiceCall.swift in Sources */,
-				CF1A3A6824818B73004886BE /* SudoTelephonyCalling.swift in Sources */,
-				3225AEE1246B4B8100AF27BD /* UUIDExtensions.swift in Sources */,
-				3246283824A6A12A00199C5E /* WaitForUserSignInOperation.swift in Sources */,
-				3261489824991B6D0093682C /* IncomingCall.swift in Sources */,
-				329C578624A1477B00A8D6AB /* CallKitDisplayName.swift in Sources */,
-				CFD525A32440E777008616A9 /* SignedInCondition.swift in Sources */,
-				CFD525A62440E7A3008616A9 /* PhoneMessage.swift in Sources */,
-				CFD525A52440E7A3008616A9 /* AvailablePhoneNumberResult.swift in Sources */,
-				329C578424A1475800A8D6AB /* IncomingCallNotificationDelegate.swift in Sources */,
-				CFD525692440E2B7008616A9 /* API.swift in Sources */,
-				3261489624991B0B0093682C /* PushHandler.swift in Sources */,
-				C3C74D1424ABD45100699F58 /* TelephonyKeyManager.swift in Sources */,
-				3225AEE3246B4BBE00AF27BD /* AWSRegionTypeExtensions.swift in Sources */,
-				CFD525A82440E7A3008616A9 /* PhoneNumber.swift in Sources */,
-				326E7456248981F900313EFD /* CallingVendor.swift in Sources */,
-				CFD525A72440E7A3008616A9 /* KeyPair.swift in Sources */,
+				68F4B44893D742E166CFCEC5CDFDCC84 /* InternalUtility.swift in Sources */,
+				80FAC15B7577F15B9B5ADED323350FED /* SudoUserTestHelper.swift in Sources */,
+				5535ECD3FA5142B12F17750A32A32A4D /* TelephonyClientIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CFD5254C2440E26D008616A9 /* Sources */ = {
+		AEE5CBD594060AB58B7F62BAEEE74B13 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFD525AE2440E860008616A9 /* DefaultSudoTelephonyClientTests.swift in Sources */,
-				CFD525B82440EDED008616A9 /* MockSudoProfilesClient.swift in Sources */,
+				073F3628C13C7AE0B70743489FEDDDBD /* API.swift in Sources */,
+				D466EA19CC84B6CF9D7BACAFDAD2C073 /* AWSRegionTypeExtensions.swift in Sources */,
+				9C3F1139C8F6E04F59992BD74A89E793 /* ActiveVoiceCall.swift in Sources */,
+				6E9C5277503A294EF2C7B0C2C7C814E9 /* Array+Operation.swift in Sources */,
+				4CBBD300425C494B9F1BA9DA8347D1A1 /* AvailablePhoneNumberResult.swift in Sources */,
+				AD1C23213709EB419C6F9358779D26C2 /* AvailablePhoneNumberResultQueryOperation.swift in Sources */,
+				28140011757F7E7608FD0D255342AC10 /* CallKitDisplayName.swift in Sources */,
+				F7EA0EED0B94CD28F05320B454F4AA9F /* CallProviderConfiguration.swift in Sources */,
+				17ADA24242384DAF916466D1C6BB6556 /* CallRecord.swift in Sources */,
+				352CCCCBEC1250529A2D26AE238001B2 /* CallingError.swift in Sources */,
+				65CACC8B884D955A87F01A605BD00198 /* CallingVendor.swift in Sources */,
+				7D2324EF6C25183F9EAF047209A1C5E0 /* ConversationIdGenerator.swift in Sources */,
+				E22203D82767F583003E74AF /* ConversationService.swift in Sources */,
+				7B8D188A241328468A202212543E5AC3 /* DefaultSudoTelephonyClient.swift in Sources */,
+				EAFAC767C7D790FE1FE1D660571FD1B7 /* DeleteMessageUseCase.swift in Sources */,
+				358EADAD815F85F331172370161911D6 /* DeletePhoneNumberUseCase.swift in Sources */,
+				A7A16F4BB6496CEE5EBD26AC28800F20 /* DownloadDataUseCase.swift in Sources */,
+				ADC5C12E4AD59E3A7C3F5EAFB75975D4 /* ErrorTransformer.swift in Sources */,
+				E22203E827681437003E74AF /* GetConversationUseCase.swift in Sources */,
+				714054DFC2DE14AC301915B59D6E0C07 /* GetKeyRingIdOperation.swift in Sources */,
+				E22203E227680148003E74AF /* GetMessageOperation.swift in Sources */,
+				471AF3355023CA64FA114F527F26AC95 /* GetMessageUseCase.swift in Sources */,
+				3EA71B806189A3BABD1AEFEF55496DDC /* GetOwnershipProofOperation.swift in Sources */,
+				F4458A1EC54C5FC60502047042899725 /* GetPhoneNumberUseCase.swift in Sources */,
+				B8A6A9159B320ADCA4900DFF4EEEE13B /* GetSupportedCountriesUseCase.swift in Sources */,
+				2044EAB0A238A22A9AE59484970F09EF /* IdentityIdProvider.swift in Sources */,
+				942039CD5B06A8AD56F92BADC90131E0 /* IncomingCall.swift in Sources */,
+				1569CBD0D491DD257AEDCC5CEE385E72 /* IncomingCallNotificationDelegate.swift in Sources */,
+				7E3953D5DC3F2A7239270A42276C03C7 /* KeyPair.swift in Sources */,
+				E22203EC27694781003E74AF /* ListConversationsTransformer.swift in Sources */,
+				E22203E627680195003E74AF /* ListConversationsUseCase.swift in Sources */,
+				A0E22DCE90AB01590C4AF1012A6BCA91 /* ListMessagesUseCase.swift in Sources */,
+				0813BFDD91648DF8E3F9A1227FAF8ADA /* ListPhoneNumbersUseCase.swift in Sources */,
+				D6F2782E180DE8B1EA3A15A2D952EF75 /* Logging.swift in Sources */,
+				DE5FC5E5D2D2B0522446ACF629A4E462 /* MMSUpload.swift in Sources */,
+				C15B8193FD064A320A58966E836129CD /* MessageMediaService.swift in Sources */,
+				4D56B22893B38AB0F8C95D5ACA56C17D /* MessageService.swift in Sources */,
+				1B3B4658D1CA2F5B24B91590EEC19894 /* OperationFactory.swift in Sources */,
+				9AD1257E25B1E369E849C2372E4AC7A3 /* OwnerIdProvider.swift in Sources */,
+				00481F1257D4E927B22C0F99ABAB7A23 /* OwnershipProofProvider.swift in Sources */,
+				D4421AE6DCBD47FB9705D3F0768F1D9F /* PhoneMessage.swift in Sources */,
+				1C8DAC7074921C68C38C869D8011A352 /* PhoneMessageConversation.swift in Sources */,
+				E22203E42768016A003E74AF /* PhoneMessageConversationTransformer.swift in Sources */,
+				DF61544996C6E92EBA7256E00A974A43 /* PhoneMessageTransformer.swift in Sources */,
+				328C5981A0056437D5C1B8CFF642CA20 /* PhoneNumber.swift in Sources */,
+				4240C66D4EBD8EDFF6D376D23011BF53 /* PhoneNumberService.swift in Sources */,
+				CA540B64C8EE0673352A57BD94D1EBA0 /* PhoneNumberTransformer.swift in Sources */,
+				C11C4B9C95033C0A58A02517DA6EB39C /* ProvisionPhoneNumberOperation.swift in Sources */,
+				F5B46C157D6425A6100D585EE1D8FB7B /* ProvisionPhoneNumberUseCase.swift in Sources */,
+				D9A0E95C9E4852E970F72724D5CB6A27 /* PublicKeyGenerating.swift in Sources */,
+				A6F7985369A54769E92373137FF34E79 /* PushHandler.swift in Sources */,
+				DCAA1E10BE56E24B136FF18CCD7D256D /* PushTokenManagement.swift in Sources */,
+				4AE80BD400B7FEE76AD727C2091B4919 /* Result+convenience.swift in Sources */,
+				9FF5F5E033D94279B622965E46A8D233 /* S3ConfigProvider.swift in Sources */,
+				A51B2779912317481B8F23D050867734 /* SearchAvailablePhoneNumbersOperation.swift in Sources */,
+				A67FAB45DD2342299F4F9B002D87D512 /* SendMessageUseCase.swift in Sources */,
+				59C81E9B26E690F19D0019A8A377DFD3 /* ServiceDateTransformations.swift in Sources */,
+				9E12EBA6425B966DF563D874169D2EE7 /* SignInStatusBlockObserver.swift in Sources */,
+				3039C63D743025BFB263EFD517D42C83 /* SignedInCondition.swift in Sources */,
+				E22203DC2767FBDE003E74AF /* SubscribeToMessagesUseCase.swift in Sources */,
+				4BDFEFDD030372EA5F66888EA8F6104D /* SubscriptionService.swift in Sources */,
+				E22203DE2767FC0B003E74AF /* SubscriptionStatus.swift in Sources */,
+				E22203E02767FC20003E74AF /* SubscriptionStatusTransformer.swift in Sources */,
+				857C4426F6E0DA750D4A014A7E5905B5 /* SubscriptionToken.swift in Sources */,
+				EE07B99E3F336492A1B9A82CB0C40920 /* SudoTelephonyCalling.swift in Sources */,
+				4CE26BA4DCBF3694BFE99014A7C9B109 /* SudoTelephonyClient.swift in Sources */,
+				ECC35CC721174ABAADC58123111322E7 /* SudoTelephonyClientError.swift in Sources */,
+				49E9AD3FC5AE484056FEF11A0BEC5CBC /* SudoTelephonyConfig.swift in Sources */,
+				9F85DAA64056EDB2506F731C05DB9A2B /* SynchronizedArray.swift in Sources */,
+				FA86D76F3509B380F10EA4579E77E121 /* TelephonyKeyManager.swift in Sources */,
+				E6D3A5AD90B23A983B95055742ED1D11 /* TelephonyListToken.swift in Sources */,
+				75F6C92D276C16AA001170CE /* TransferUtility.swift in Sources */,
+				C916D776D51018F2EE105DC5BAF88B30 /* UUIDExtensions.swift in Sources */,
+				0F09A0596B5B21E68F66B2D023B8D290 /* UseCaseFactory.swift in Sources */,
+				08482673F530B3EC824FB3F0DD5ADE8B /* Voicemail.swift in Sources */,
+				9B533E207B74B5F7A072F947F668E015 /* WaitForUserSignInOperation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CFD525822440E552008616A9 /* Sources */ = {
+		B23389374838C0517B771F8842D502B3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				327E5A74246318EB00B78DEE /* InternalUtility.swift in Sources */,
-				CFD525B42440E882008616A9 /* TestKeyAuthenticationProvider.swift in Sources */,
-				CFD525B32440E882008616A9 /* TestConfigurationProvider.swift in Sources */,
-				CFD525B52440E882008616A9 /* TestKeyAuthenticationInfo.swift in Sources */,
-				CFD525B62440E882008616A9 /* TelephonyClientIntegrationTests.swift in Sources */,
+				C054FEEE3027B2572A4CE83D5C171E40 /* AppDelegate.swift in Sources */,
+				E851D2AEFD428C4986687E5C2F7A0560 /* ContentView.swift in Sources */,
+				E9E91CA5B149DEBF896A8123A70D44F7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CFD525BC2440F613008616A9 /* Sources */ = {
+		C8BFC6E99D6B0197887291BA76011986 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFD525C32440F613008616A9 /* AppDelegate.swift in Sources */,
-				CFD525C52440F613008616A9 /* SceneDelegate.swift in Sources */,
-				CFD525C72440F613008616A9 /* ContentView.swift in Sources */,
+				B0458AB7B0567B655B7BFC4AD9D979A6 /* AWSMocks.swift in Sources */,
+				3CAEB572D1D77BC1C981498D61BCA0B6 /* AvailablePhoneNumberResultQueryOperationTests.swift in Sources */,
+				E22203DA2767F7FF003E74AF /* ConversationServiceTests.swift in Sources */,
+				5F9E8AD52305B915CE356017E707B0B6 /* DefaultSudoTelephonyClientTests.swift in Sources */,
+				75F6C936276D01D2001170CE /* DeleteMessageTests.swift in Sources */,
+				E26FA9E8276A6744005D38F7 /* DeleteMessageUseCaseTests.swift in Sources */,
+				E26FA9EA276A6B9A005D38F7 /* DeletePhoneNumberUseCaseTests.swift in Sources */,
+				11606117F3D0E082782C65CBA6A3A237 /* DeprovisionNumberTests.swift in Sources */,
+				E26FA9EC276A711E005D38F7 /* DownloadDataUseCaseTests.swift in Sources */,
+				75F6C938276D081D001170CE /* DownloadFileTests.swift in Sources */,
+				E22203F427695B91003E74AF /* GetConversationUseCaseTests.swift in Sources */,
+				A9C13E1E9C9FB178B932C81B1087BABE /* GetKeyRingIdOperationTests.swift in Sources */,
+				75F6C932276D01B2001170CE /* GetMessageTests.swift in Sources */,
+				75F6C94127727E69001170CE /* GetMessageUseCaseTests.swift in Sources */,
+				B13F325F7093689655A9138F8125A658 /* GetOwnershipProofOperationTests.swift in Sources */,
+				75F6C93F2772529A001170CE /* GetPhoneNumberUseCaseTests.swift in Sources */,
+				068CCAA8F902E4F24ABE4622E3F9CE07 /* GetSupportedCountriesUseCaseTests.swift in Sources */,
+				451836E3E5016E640563E1A91D79B5FD /* GrapQLTestUtilities.swift in Sources */,
+				C894456A947C3D94DFE370777855EB30 /* KeyManagerMock.swift in Sources */,
+				E22203EA27681A46003E74AF /* ListConversationsUseCaseTests.swift in Sources */,
+				75F6C943277288D2001170CE /* ListMessagesUseCaseTests.swift in Sources */,
+				EBB4B429B1846FCD44888B8600540767 /* ListPhoneNumbersTests.swift in Sources */,
+				75F6C9452774FDAA001170CE /* ListPhoneNumbersUseCaseTests.swift in Sources */,
+				75F6C921276C0D52001170CE /* MessageServiceMediaTests.swift in Sources */,
+				5950F691C1AE705816F770CEE9165AFF /* MessageServiceTests.swift in Sources */,
+				75F6C92F276C2176001170CE /* MockAWSS3TransferUtility.swift in Sources */,
+				E22203EE276947C4003E74AF /* MockConversationService.swift in Sources */,
+				26058EF7C4C2A5739FDF83536C884974 /* MockGetSupportedCountriesUseCase.swift in Sources */,
+				95F71F3A2D8285C411F94C357AECFF89 /* MockIdentityProvider.swift in Sources */,
+				E26FA9EE276A7916005D38F7 /* MockMessageMediaService.swift in Sources */,
+				E22203F02769480C003E74AF /* MockMessageService.swift in Sources */,
+				A398186AB41BD092F047E873D79CEFE1 /* MockOperationsFactory.swift in Sources */,
+				7AD512380BF4E448E95D6EFE9C4349DA /* MockOwnershipProofProvider.swift in Sources */,
+				7E22AAD4FCB37566D9DD2FD9FB0F99A2 /* MockPhoneNumberService.swift in Sources */,
+				0671098CD6FA8F0DA2465EA67A49F405 /* MockPublicKeyGenerator.swift in Sources */,
+				E9538AE96CDA9F939030411BD50877AB /* MockSubscriptionToken.swift in Sources */,
+				4A94B81FA88C606505FE2F9D706FEFF4 /* MockSudoProfilesClient.swift in Sources */,
+				C98BA998BB53C82E77D3E7580268EE7B /* MockSudoUserClient.swift in Sources */,
+				B7FC584ACEE6C6662887CDA1F3C670DA /* MockUseCaseFactory.swift in Sources */,
+				CB0CA4A01F7CFA7D15378080101D3C6A /* ObjectMocks.swift in Sources */,
+				F1C52B5F0357B16B0FA3CA993CAC64E7 /* PhoneNumberServiceTests.swift in Sources */,
+				7F24E10FEAFDAC77382A2F6A5499B0BE /* ProvisionPhoneNumberOperationTests.swift in Sources */,
+				DF097EE62F7044E1BDE580D239247F18 /* ProvisionPhoneNumberUseCaseTests.swift in Sources */,
+				6AFE4A8610C81C74603E72077084F689 /* ProvisionPhoneNumerServiceTests.swift in Sources */,
+				C5FA14AC87F8F3F0B48847033AF40366 /* SearchAvailablePhoneNumbersOperationTests.swift in Sources */,
+				75F6C94C277522C1001170CE /* SendMMSUseCaseTests.swift in Sources */,
+				75F6C934276D01BC001170CE /* SendMessageTests.swift in Sources */,
+				75F6C9472775209C001170CE /* SendMessageUseCaseTests.swift in Sources */,
+				75F6C94A277522B4001170CE /* SendSMSUseCaseTests.swift in Sources */,
+				E2A0FA8127725149007D71D5 /* SubscribeToMessageUseCaseTests.swift in Sources */,
+				2AAF6838FE2D2F65D69F674AC7F749F8 /* SubscriptionServiceMock.swift in Sources */,
+				EC7B0919DEF1C9A4CFF26C83867F44D0 /* SubscriptionServiceTests.swift in Sources */,
+				75F6C93A276D0828001170CE /* UploadFileTests.swift in Sources */,
+				2801FAC6ECD0463F86DCFF9FA7B8D249 /* XCTestCase+Utility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		CFD525532440E26D008616A9 /* PBXTargetDependency */ = {
+		526C9A128BA1E9C80DF654E6A4C488F0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CFD525462440E26C008616A9 /* SudoTelephony */;
-			targetProxy = CFD525522440E26D008616A9 /* PBXContainerItemProxy */;
+			target = 043D8F941A260C7D48B2D35E35C61A2C /* SudoTelephony */;
+			targetProxy = E4EF32C8C7FCBB860119225FC2C68076 /* PBXContainerItemProxy */;
 		};
-		CFD5258D2440E552008616A9 /* PBXTargetDependency */ = {
+		546791468F021CF74FECD94544DF0A87 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CFD525462440E26C008616A9 /* SudoTelephony */;
-			targetProxy = CFD5258C2440E552008616A9 /* PBXContainerItemProxy */;
+			target = AFE4013D74A56A422FD63B9C75FD933F /* SudoTelephonyIntegrationTestHost */;
+			targetProxy = 3E3B8DF809852AEDC6098A4891BA0A78 /* PBXContainerItemProxy */;
 		};
-		CFD525D52440F64A008616A9 /* PBXTargetDependency */ = {
+		75F6C92B276C0FA0001170CE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CFD525BF2440F613008616A9 /* SudoTelephonyIntegrationTestHost */;
-			targetProxy = CFD525D42440F64A008616A9 /* PBXContainerItemProxy */;
+			target = AFE4013D74A56A422FD63B9C75FD933F /* SudoTelephonyIntegrationTestHost */;
+			targetProxy = 75F6C92A276C0FA0001170CE /* PBXContainerItemProxy */;
+		};
+		FB5FF808284C9F4360EA8238AC1F2C47 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 043D8F941A260C7D48B2D35E35C61A2C /* SudoTelephony */;
+			targetProxy = D858D63E37D0387012888095CA92205C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		CFD525CD2440F61A008616A9 /* LaunchScreen.storyboard */ = {
+		1D114DB82ADD9F1883F7B54B09B09372 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CFD525CE2440F61A008616A9 /* Base */,
+				EA1AB06BEB56105BBA90B90D4AD8BA4A /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -774,9 +1269,10 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		CFD525592440E26D008616A9 /* Debug */ = {
+		086D3E3033EB4262AD70241D3631DD7E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -800,6 +1296,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -825,7 +1322,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -837,9 +1334,59 @@
 			};
 			name = Debug;
 		};
-		CFD5255A2440E26D008616A9 /* Release */ = {
+		3DF97248039F1B3A87751729176B82CF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"SudoTelephonyIntegrationTestHost/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = SudoTelephonyIntegrationTestHost/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.SudoTelephonyIntegrationTestHost;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		549E6EBF52EBEE5AFCE32D02E83BC104 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D4283E7E0B3F6DC748FAFEF51A98795 /* Pods-SudoTelephony.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = UU2W43R8JA;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = SudoTelephony/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.telephony;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6C9E0E1D55FD275A117B1EB6F009587A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -863,6 +1410,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -882,7 +1430,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -894,68 +1442,14 @@
 			};
 			name = Release;
 		};
-		CFD5255C2440E26D008616A9 /* Debug */ = {
+		72FA9A225E52A8035AB731A81D5833C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF6DF052543DE5465608F47C /* Pods-SudoTelephony.debug.xcconfig */;
+			baseConfigurationReference = 9B091C8A86469A9EE0B56604F94E60DD /* Pods-SudoTelephonyTests.debug.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = UU2W43R8JA;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SudoTelephony/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.telephony;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		CFD5255D2440E26D008616A9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A223D98032C8E556CD4BF7CA /* Pods-SudoTelephony.release.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = UU2W43R8JA;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SudoTelephony/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.telephony;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		CFD5255F2440E26D008616A9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 84F24D22805EBF8341B7697F /* Pods-SudoTelephonyTests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SudoTelephonyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -965,36 +1459,19 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SudoTelephonyIntegrationTestHost.app/SudoTelephonyIntegrationTestHost";
 			};
 			name = Debug;
 		};
-		CFD525602440E26D008616A9 /* Release */ = {
+		809B867BD353A80F5B215552383E4ABF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6FF83A2F6F0CC00CEBF114A3 /* Pods-SudoTelephonyTests.release.xcconfig */;
+			baseConfigurationReference = B1DBD0345AC1A9F40874AC5A383D41FB /* Pods-SudoTelephonyIntegrationTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SudoTelephonyTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.SudoTelephonyTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		CFD5258F2440E552008616A9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5259C65D7CD380A439B9B9E1 /* Pods-SudoTelephonyIntegrationTests.debug.xcconfig */;
-			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UU2W43R8JA;
 				INFOPLIST_FILE = SudoTelephonyIntegrationTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1008,14 +1485,15 @@
 			};
 			name = Debug;
 		};
-		CFD525902440E552008616A9 /* Release */ = {
+		8C087F4DE4BE3CA1EC599183C43D6774 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C51E4D2F419F88C25257756F /* Pods-SudoTelephonyIntegrationTests.release.xcconfig */;
+			baseConfigurationReference = 3C9511E0C5E5A289148DB3B53797C2E8 /* Pods-SudoTelephonyIntegrationTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UU2W43R8JA;
 				INFOPLIST_FILE = SudoTelephonyIntegrationTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1029,7 +1507,7 @@
 			};
 			name = Release;
 		};
-		CFD525D22440F61B008616A9 /* Debug */ = {
+		905EFFA929288A9B25E76ACB6C8A51AF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1037,7 +1515,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"SudoTelephonyIntegrationTestHost/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = SudoTelephonyIntegrationTestHost/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1049,75 +1527,104 @@
 			};
 			name = Debug;
 		};
-		CFD525D32440F61B008616A9 /* Release */ = {
+		C769F184E78C3B3B0D4209D4DE2E4B2F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2168B9441D744A48D7525C46862CE997 /* Pods-SudoTelephony.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"SudoTelephonyIntegrationTestHost/Preview Content\"";
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = SudoTelephonyIntegrationTestHost/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = UU2W43R8JA;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = SudoTelephony/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.SudoTelephonyIntegrationTestHost;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.telephony;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F373AC2EE07FABFC71D2AF9820210D94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3A1B98B13FEE4821DBB60CD477E6D66 /* Pods-SudoTelephonyTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SudoTelephonyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.SudoTelephonyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SudoTelephonyIntegrationTestHost.app/SudoTelephonyIntegrationTestHost";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CFD525412440E26C008616A9 /* Build configuration list for PBXProject "SudoTelephony" */ = {
+		07CBBA452AA074D308AFFEB567F7D10C /* Build configuration list for PBXProject "SudoTelephony" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CFD525592440E26D008616A9 /* Debug */,
-				CFD5255A2440E26D008616A9 /* Release */,
+				086D3E3033EB4262AD70241D3631DD7E /* Debug */,
+				6C9E0E1D55FD275A117B1EB6F009587A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CFD5255B2440E26D008616A9 /* Build configuration list for PBXNativeTarget "SudoTelephony" */ = {
+		09DB97786539238CDB6721582932872E /* Build configuration list for PBXNativeTarget "SudoTelephonyIntegrationTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CFD5255C2440E26D008616A9 /* Debug */,
-				CFD5255D2440E26D008616A9 /* Release */,
+				809B867BD353A80F5B215552383E4ABF /* Debug */,
+				8C087F4DE4BE3CA1EC599183C43D6774 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CFD5255E2440E26D008616A9 /* Build configuration list for PBXNativeTarget "SudoTelephonyTests" */ = {
+		1B855E58FA87D3EC85A1B701BB9D5E0A /* Build configuration list for PBXNativeTarget "SudoTelephonyIntegrationTestHost" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CFD5255F2440E26D008616A9 /* Debug */,
-				CFD525602440E26D008616A9 /* Release */,
+				905EFFA929288A9B25E76ACB6C8A51AF /* Debug */,
+				3DF97248039F1B3A87751729176B82CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CFD5258E2440E552008616A9 /* Build configuration list for PBXNativeTarget "SudoTelephonyIntegrationTests" */ = {
+		B8EFFFB408E3C8B148847C7C526E2164 /* Build configuration list for PBXNativeTarget "SudoTelephony" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CFD5258F2440E552008616A9 /* Debug */,
-				CFD525902440E552008616A9 /* Release */,
+				549E6EBF52EBEE5AFCE32D02E83BC104 /* Debug */,
+				C769F184E78C3B3B0D4209D4DE2E4B2F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CFD525D12440F61B008616A9 /* Build configuration list for PBXNativeTarget "SudoTelephonyIntegrationTestHost" */ = {
+		CAABEAA193CA0FE7B7C92195FFE7228C /* Build configuration list for PBXNativeTarget "SudoTelephonyTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CFD525D22440F61B008616A9 /* Debug */,
-				CFD525D32440F61B008616A9 /* Release */,
+				72FA9A225E52A8035AB731A81D5833C7 /* Debug */,
+				F373AC2EE07FABFC71D2AF9820210D94 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = CFD5253E2440E26C008616A9 /* Project object */;
+	rootObject = 1AF0D00051EB97238B8AA2966EC08558 /* Project object */;
 }

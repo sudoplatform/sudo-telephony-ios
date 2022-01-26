@@ -1,0 +1,10 @@
+--swiftversion 5.4
+--minversion 0.48.1
+--exclude Pods,Generated,build
+--allman false
+--indent 4
+--disable elseOnSameLine, blankLinesAtStartOfScope, unusedArguments, redundantReturn, redundantType
+--commas inline
+--patternlet inline
+--maxwidth 160
+

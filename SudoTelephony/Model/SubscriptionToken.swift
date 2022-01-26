@@ -8,7 +8,7 @@ import Foundation
 import AWSAppSync
 
 /// Represents a change subscription. When this object is released, the subscription is canceled.
-public protocol SubscriptionToken: class {
+public protocol SubscriptionToken: AnyObject {
     /// Cancel an in progress action.
     func cancel()
 }

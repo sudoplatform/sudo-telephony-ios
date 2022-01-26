@@ -6,7 +6,7 @@
 
 import Foundation
 
-public protocol IncomingCallNotificationDelegate: class {
+public protocol IncomingCallNotificationDelegate: AnyObject {
 
     /// Called when an incoming call is recieved.  This is called before reporting the call to callkit so the correct
     /// display name can be provided.

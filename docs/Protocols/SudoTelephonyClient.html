@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          SudoTelephony 4.0.0 Docs
+          SudoTelephony 5.0.0 Docs
         </a>
         
       </p>
@@ -53,15 +53,6 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/DefaultSudoTelephonyClient.html">DefaultSudoTelephonyClient</a>
               </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/DefaultSudoTelephonyClient/CacheType.html">– CacheType</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/DefaultSudoTelephonyClient.html#/s:13SudoTelephony07DefaultaB6ClientC6ConfigV">– Config</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/SignedInCondition.html">SignedInCondition</a>
-              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -72,6 +63,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/CallingError.html">CallingError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/SubscriptionStatus.html">SubscriptionStatus</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a>
@@ -142,9 +136,6 @@
             <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Typealiases.html#/s:13SudoTelephony0aB20ClientConfigProvidera">SudoTelephonyClientConfigProvider</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:13SudoTelephony0aB12SearchResulta">SudoTelephonySearchResult</a>
               </li>
             </ul>
@@ -203,9 +194,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP21getSupportedCountries10completionyys6ResultOySaySSGAA0abC5ErrorOGc_tKF"></a>
+                    <a name="/s:13SudoTelephony0aB6ClientP21getSupportedCountries10completionyys6ResultOySaySSGAA0abC5ErrorOGc_tF"></a>
                     <a name="//apple_ref/swift/Method/getSupportedCountries(completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP21getSupportedCountries10completionyys6ResultOySaySSGAA0abC5ErrorOGc_tKF">getSupportedCountries(completion:<wbr>)</a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP21getSupportedCountries10completionyys6ResultOySaySSGAA0abC5ErrorOGc_tF">getSupportedCountries(completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -220,7 +211,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getSupportedCountries</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getSupportedCountries</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">TelephonyClientCompletion</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">String</span><span class="p">]</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -249,9 +240,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbers11countryCode5limit10completionySS_SuSgys6ResultOyAA0ef6NumberL0VAA0abC5ErrorOGctKF"></a>
+                    <a name="/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbers11countryCode5limit10completionySS_SuSgys6ResultOyAA0ef6NumberL0VAA0abC5ErrorOGctF"></a>
                     <a name="//apple_ref/swift/Method/searchAvailablePhoneNumbers(countryCode:limit:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbers11countryCode5limit10completionySS_SuSgys6ResultOyAA0ef6NumberL0VAA0abC5ErrorOGctKF">searchAvailablePhoneNumbers(countryCode:<wbr>limit:<wbr>completion:<wbr>)</a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbers11countryCode5limit10completionySS_SuSgys6ResultOyAA0ef6NumberL0VAA0abC5ErrorOGctF">searchAvailablePhoneNumbers(countryCode:<wbr>limit:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -266,7 +257,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">searchAvailablePhoneNumbers</span><span class="p">(</span><span class="nv">countryCode</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">UInt</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:13SudoTelephony0aB12SearchResulta">SudoTelephonySearchResult</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">searchAvailablePhoneNumbers</span><span class="p">(</span><span class="nv">countryCode</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">UInt</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:13SudoTelephony0aB12SearchResulta">SudoTelephonySearchResult</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -319,9 +310,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbers11countryCode6prefix5limit10completionySS_SSSuSgys6ResultOyAA0ef6NumberM0VAA0abC5ErrorOGctKF"></a>
+                    <a name="/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbers11countryCode6prefix5limit10completionySS_SSSuSgys6ResultOyAA0ef6NumberM0VAA0abC5ErrorOGctF"></a>
                     <a name="//apple_ref/swift/Method/searchAvailablePhoneNumbers(countryCode:prefix:limit:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbers11countryCode6prefix5limit10completionySS_SSSuSgys6ResultOyAA0ef6NumberM0VAA0abC5ErrorOGctKF">searchAvailablePhoneNumbers(countryCode:<wbr>prefix:<wbr>limit:<wbr>completion:<wbr>)</a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbers11countryCode6prefix5limit10completionySS_SSSuSgys6ResultOyAA0ef6NumberM0VAA0abC5ErrorOGctF">searchAvailablePhoneNumbers(countryCode:<wbr>prefix:<wbr>limit:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -336,7 +327,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">searchAvailablePhoneNumbers</span><span class="p">(</span><span class="nv">countryCode</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">prefix</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">UInt</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:13SudoTelephony0aB12SearchResulta">SudoTelephonySearchResult</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">searchAvailablePhoneNumbers</span><span class="p">(</span><span class="nv">countryCode</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">prefix</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">UInt</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:13SudoTelephony0aB12SearchResulta">SudoTelephonySearchResult</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -401,9 +392,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbers11countryCode8latitude9longitude5limit10completionySS_S2dSuSgys6ResultOyAA0ef6NumberN0VAA0abC5ErrorOGctKF"></a>
+                    <a name="/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbers11countryCode8latitude9longitude5limit10completionySS_S2dSuSgys6ResultOyAA0ef6NumberN0VAA0abC5ErrorOGctF"></a>
                     <a name="//apple_ref/swift/Method/searchAvailablePhoneNumbers(countryCode:latitude:longitude:limit:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbers11countryCode8latitude9longitude5limit10completionySS_S2dSuSgys6ResultOyAA0ef6NumberN0VAA0abC5ErrorOGctKF">searchAvailablePhoneNumbers(countryCode:<wbr>latitude:<wbr>longitude:<wbr>limit:<wbr>completion:<wbr>)</a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbers11countryCode8latitude9longitude5limit10completionySS_S2dSuSgys6ResultOyAA0ef6NumberN0VAA0abC5ErrorOGctF">searchAvailablePhoneNumbers(countryCode:<wbr>latitude:<wbr>longitude:<wbr>limit:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -418,7 +409,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">searchAvailablePhoneNumbers</span><span class="p">(</span><span class="nv">countryCode</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">latitude</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">longitude</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">UInt</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:13SudoTelephony0aB12SearchResulta">SudoTelephonySearchResult</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">searchAvailablePhoneNumbers</span><span class="p">(</span><span class="nv">countryCode</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">latitude</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">longitude</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">UInt</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:13SudoTelephony0aB12SearchResulta">SudoTelephonySearchResult</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -495,9 +486,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP20provisionPhoneNumber11countryCode05phoneF06sudoId10completionySS_S2Sys6ResultOyAA0eF0VAA0abC5ErrorOGctKF"></a>
+                    <a name="/s:13SudoTelephony0aB6ClientP20provisionPhoneNumber11countryCode05phoneF06sudoId10completionySS_S2Sys6ResultOyAA0eF0VAA0abC5ErrorOGctF"></a>
                     <a name="//apple_ref/swift/Method/provisionPhoneNumber(countryCode:phoneNumber:sudoId:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP20provisionPhoneNumber11countryCode05phoneF06sudoId10completionySS_S2Sys6ResultOyAA0eF0VAA0abC5ErrorOGctKF">provisionPhoneNumber(countryCode:<wbr>phoneNumber:<wbr>sudoId:<wbr>completion:<wbr>)</a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP20provisionPhoneNumber11countryCode05phoneF06sudoId10completionySS_S2Sys6ResultOyAA0eF0VAA0abC5ErrorOGctF">provisionPhoneNumber(countryCode:<wbr>phoneNumber:<wbr>sudoId:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -512,7 +503,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">provisionPhoneNumber</span><span class="p">(</span><span class="nv">countryCode</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">phoneNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">sudoId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">PhoneNumber</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">provisionPhoneNumber</span><span class="p">(</span><span class="nv">countryCode</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">phoneNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">sudoId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">TelephonyClientCompletion</span><span class="o">&lt;</span><span class="kt">PhoneNumber</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -577,9 +568,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP17deletePhoneNumber05phoneF010completionySS_ys6ResultOySSAA0abC5ErrorOGctKF"></a>
+                    <a name="/s:13SudoTelephony0aB6ClientP17deletePhoneNumber05phoneF010completionySS_ys6ResultOySSAA0abC5ErrorOGctF"></a>
                     <a name="//apple_ref/swift/Method/deletePhoneNumber(phoneNumber:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP17deletePhoneNumber05phoneF010completionySS_ys6ResultOySSAA0abC5ErrorOGctKF">deletePhoneNumber(phoneNumber:<wbr>completion:<wbr>)</a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP17deletePhoneNumber05phoneF010completionySS_ys6ResultOySSAA0abC5ErrorOGctF">deletePhoneNumber(phoneNumber:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -594,7 +585,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">deletePhoneNumber</span><span class="p">(</span><span class="nv">phoneNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">deletePhoneNumber</span><span class="p">(</span><span class="nv">phoneNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">TelephonyClientCompletion</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -635,9 +626,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP16listPhoneNumbers6sudoId5limit9nextToken10completionySSSg_SiSgAIys6ResultOyAA0b4ListK0VyAA0E6NumberVGAA0abC5ErrorOGctKF"></a>
+                    <a name="/s:13SudoTelephony0aB6ClientP16listPhoneNumbers6sudoId5limit9nextToken10completionySSSg_SiSgAIys6ResultOyAA0b4ListK0VyAA0E6NumberVGAA0abC5ErrorOGctF"></a>
                     <a name="//apple_ref/swift/Method/listPhoneNumbers(sudoId:limit:nextToken:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP16listPhoneNumbers6sudoId5limit9nextToken10completionySSSg_SiSgAIys6ResultOyAA0b4ListK0VyAA0E6NumberVGAA0abC5ErrorOGctKF">listPhoneNumbers(sudoId:<wbr>limit:<wbr>nextToken:<wbr>completion:<wbr>)</a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP16listPhoneNumbers6sudoId5limit9nextToken10completionySSSg_SiSgAIys6ResultOyAA0b4ListK0VyAA0E6NumberVGAA0abC5ErrorOGctF">listPhoneNumbers(sudoId:<wbr>limit:<wbr>nextToken:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -653,7 +644,7 @@ The list can be queried in batches, where the limit and the next batch token can
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listPhoneNumbers</span><span class="p">(</span><span class="nv">sudoId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span> <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/TelephonyListToken.html">TelephonyListToken</a></span><span class="o">&lt;</span><span class="kt">PhoneNumber</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listPhoneNumbers</span><span class="p">(</span><span class="nv">sudoId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span> <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">TelephonyClientCompletion</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/TelephonyListToken.html">TelephonyListToken</a></span><span class="o">&lt;</span><span class="kt">PhoneNumber</span><span class="o">&gt;&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -718,9 +709,9 @@ The list can be queried in batches, where the limit and the next batch token can
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP14getPhoneNumber2id10completionySS_ys6ResultOyAA0eF0VSgAA0abC5ErrorOGctKF"></a>
+                    <a name="/s:13SudoTelephony0aB6ClientP14getPhoneNumber2id10completionySS_ys6ResultOyAA0eF0VSgAA0abC5ErrorOGctF"></a>
                     <a name="//apple_ref/swift/Method/getPhoneNumber(id:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP14getPhoneNumber2id10completionySS_ys6ResultOyAA0eF0VSgAA0abC5ErrorOGctKF">getPhoneNumber(id:<wbr>completion:<wbr>)</a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP14getPhoneNumber2id10completionySS_ys6ResultOyAA0eF0VSgAA0abC5ErrorOGctF">getPhoneNumber(id:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -735,7 +726,7 @@ The list can be queried in batches, where the limit and the next batch token can
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getPhoneNumber</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">PhoneNumber</span><span class="p">?,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getPhoneNumber</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">TelephonyClientCompletion</span><span class="o">&lt;</span><span class="kt">PhoneNumber</span><span class="p">?</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -776,9 +767,9 @@ The list can be queried in batches, where the limit and the next batch token can
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP14sendSMSMessage11localNumber06remoteG04body10completionyAA05PhoneG0V_S2Sys6ResultOyAA0K7MessageVAA0abC5ErrorOGctKF"></a>
+                    <a name="/s:13SudoTelephony0aB6ClientP14sendSMSMessage11localNumber06remoteG04body10completionyAA05PhoneG0V_S2Sys6ResultOyAA0K7MessageVAA0abC5ErrorOGctF"></a>
                     <a name="//apple_ref/swift/Method/sendSMSMessage(localNumber:remoteNumber:body:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP14sendSMSMessage11localNumber06remoteG04body10completionyAA05PhoneG0V_S2Sys6ResultOyAA0K7MessageVAA0abC5ErrorOGctKF">sendSMSMessage(localNumber:<wbr>remoteNumber:<wbr>body:<wbr>completion:<wbr>)</a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP14sendSMSMessage11localNumber06remoteG04body10completionyAA05PhoneG0V_S2Sys6ResultOyAA0K7MessageVAA0abC5ErrorOGctF">sendSMSMessage(localNumber:<wbr>remoteNumber:<wbr>body:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -793,7 +784,7 @@ The list can be queried in batches, where the limit and the next batch token can
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">sendSMSMessage</span><span class="p">(</span><span class="nv">localNumber</span><span class="p">:</span> <span class="kt">PhoneNumber</span><span class="p">,</span> <span class="nv">remoteNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">body</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">sendSMSMessage</span><span class="p">(</span><span class="nv">localNumber</span><span class="p">:</span> <span class="kt">PhoneNumber</span><span class="p">,</span> <span class="nv">remoteNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">body</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">TelephonyClientCompletion</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -858,9 +849,9 @@ The list can be queried in batches, where the limit and the next batch token can
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP14sendMMSMessage11localNumber06remoteG04body0F3Url10completionyAA05PhoneG0V_S2SSg10Foundation3URLVys6ResultOyAA0L7MessageVAA0abC5ErrorOGctKF"></a>
+                    <a name="/s:13SudoTelephony0aB6ClientP14sendMMSMessage11localNumber06remoteG04body0F3Url10completionyAA05PhoneG0V_S2SSg10Foundation3URLVys6ResultOyAA0L7MessageVAA0abC5ErrorOGctF"></a>
                     <a name="//apple_ref/swift/Method/sendMMSMessage(localNumber:remoteNumber:body:localUrl:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP14sendMMSMessage11localNumber06remoteG04body0F3Url10completionyAA05PhoneG0V_S2SSg10Foundation3URLVys6ResultOyAA0L7MessageVAA0abC5ErrorOGctKF">sendMMSMessage(localNumber:<wbr>remoteNumber:<wbr>body:<wbr>localUrl:<wbr>completion:<wbr>)</a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP14sendMMSMessage11localNumber06remoteG04body0F3Url10completionyAA05PhoneG0V_S2SSg10Foundation3URLVys6ResultOyAA0L7MessageVAA0abC5ErrorOGctF">sendMMSMessage(localNumber:<wbr>remoteNumber:<wbr>body:<wbr>localUrl:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -875,7 +866,7 @@ The list can be queried in batches, where the limit and the next batch token can
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">sendMMSMessage</span><span class="p">(</span><span class="nv">localNumber</span><span class="p">:</span> <span class="kt">PhoneNumber</span><span class="p">,</span> <span class="nv">remoteNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">body</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">localUrl</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">sendMMSMessage</span><span class="p">(</span><span class="nv">localNumber</span><span class="p">:</span> <span class="kt">PhoneNumber</span><span class="p">,</span> <span class="nv">remoteNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">body</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">localUrl</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">TelephonyClientCompletion</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -952,9 +943,9 @@ The list can be queried in batches, where the limit and the next batch token can
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP19subscribeToMessages13resultHandlerAA17SubscriptionToken_pys6ResultOyAA12PhoneMessageVAA0abC5ErrorOGc_tKF"></a>
-                    <a name="//apple_ref/swift/Method/subscribeToMessages(resultHandler:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP19subscribeToMessages13resultHandlerAA17SubscriptionToken_pys6ResultOyAA12PhoneMessageVAA0abC5ErrorOGc_tKF">subscribeToMessages(resultHandler:<wbr>)</a>
+                    <a name="/s:13SudoTelephony0aB6ClientP19subscribeToMessages14statusObserver13resultHandlerAA17SubscriptionToken_pSgyAA0K6StatusOcSg_yAA12PhoneMessageVctKF"></a>
+                    <a name="//apple_ref/swift/Method/subscribeToMessages(statusObserver:resultHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP19subscribeToMessages14statusObserver13resultHandlerAA17SubscriptionToken_pSgyAA0K6StatusOcSg_yAA12PhoneMessageVctKF">subscribeToMessages(statusObserver:<wbr>resultHandler:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -969,7 +960,8 @@ The list can be queried in batches, where the limit and the next batch token can
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">subscribeToMessages</span><span class="p">(</span><span class="nv">resultHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/SubscriptionToken.html">SubscriptionToken</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">subscribeToMessages</span><span class="p">(</span><span class="nv">statusObserver</span><span class="p">:</span> <span class="kt">SubscriptionHandler</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/SubscriptionStatus.html">SubscriptionStatus</a></span><span class="o">&gt;</span><span class="p">?,</span>
+                                <span class="nv">resultHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">SubscriptionHandler</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/SubscriptionToken.html">SubscriptionToken</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -977,6 +969,18 @@ The list can be queried in batches, where the limit and the next batch token can
                         <h4>Parameters</h4>
                         <table class="graybox">
                           <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>statusObserver</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A callback that provides subscription status events.</p>
+                                </div>
+                              </td>
+                            </tr>
                             <tr>
                               <td>
                                 <code>
@@ -1002,9 +1006,9 @@ The list can be queried in batches, where the limit and the next batch token can
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP10getMessage2id10completionySS_ys6ResultOyAA05PhoneE0VAA0abC5ErrorOGctKF"></a>
+                    <a name="/s:13SudoTelephony0aB6ClientP10getMessage2id10completionySS_ys6ResultOyAA05PhoneE0VAA0abC5ErrorOGctF"></a>
                     <a name="//apple_ref/swift/Method/getMessage(id:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP10getMessage2id10completionySS_ys6ResultOyAA05PhoneE0VAA0abC5ErrorOGctKF">getMessage(id:<wbr>completion:<wbr>)</a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP10getMessage2id10completionySS_ys6ResultOyAA05PhoneE0VAA0abC5ErrorOGctF">getMessage(id:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1019,7 +1023,7 @@ The list can be queried in batches, where the limit and the next batch token can
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getMessage</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getMessage</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">TelephonyClientCompletion</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1060,9 +1064,9 @@ The list can be queried in batches, where the limit and the next batch token can
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP11getMessages11localNumber06remoteG05limit9nextToken10completionyAA05PhoneG0V_SSSiSgSSSgys6ResultOyAA0b4ListK0VyAA0M7MessageVGAA0abC5ErrorOGctKF"></a>
+                    <a name="/s:13SudoTelephony0aB6ClientP11getMessages11localNumber06remoteG05limit9nextToken10completionyAA05PhoneG0V_SSSiSgSSSgys6ResultOyAA0b4ListK0VyAA0M7MessageVGAA0abC5ErrorOGctF"></a>
                     <a name="//apple_ref/swift/Method/getMessages(localNumber:remoteNumber:limit:nextToken:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP11getMessages11localNumber06remoteG05limit9nextToken10completionyAA05PhoneG0V_SSSiSgSSSgys6ResultOyAA0b4ListK0VyAA0M7MessageVGAA0abC5ErrorOGctKF">getMessages(localNumber:<wbr>remoteNumber:<wbr>limit:<wbr>nextToken:<wbr>completion:<wbr>)</a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP11getMessages11localNumber06remoteG05limit9nextToken10completionyAA05PhoneG0V_SSSiSgSSSgys6ResultOyAA0b4ListK0VyAA0M7MessageVGAA0abC5ErrorOGctF">getMessages(localNumber:<wbr>remoteNumber:<wbr>limit:<wbr>nextToken:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1077,7 +1081,7 @@ The list can be queried in batches, where the limit and the next batch token can
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getMessages</span><span class="p">(</span><span class="nv">localNumber</span><span class="p">:</span> <span class="kt">PhoneNumber</span><span class="p">,</span> <span class="nv">remoteNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span> <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/TelephonyListToken.html">TelephonyListToken</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getMessages</span><span class="p">(</span><span class="nv">localNumber</span><span class="p">:</span> <span class="kt">PhoneNumber</span><span class="p">,</span> <span class="nv">remoteNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span> <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">TelephonyClientCompletion</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/TelephonyListToken.html">TelephonyListToken</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="o">&gt;&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1154,9 +1158,9 @@ The list can be queried in batches, where the limit and the next batch token can
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP11getMessages14conversationId5limit9nextToken10completionySS_SiSgSSSgys6ResultOyAA0b4ListJ0VyAA12PhoneMessageVGAA0abC5ErrorOGctKF"></a>
+                    <a name="/s:13SudoTelephony0aB6ClientP11getMessages14conversationId5limit9nextToken10completionySS_SiSgSSSgys6ResultOyAA0b4ListJ0VyAA12PhoneMessageVGAA0abC5ErrorOGctF"></a>
                     <a name="//apple_ref/swift/Method/getMessages(conversationId:limit:nextToken:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP11getMessages14conversationId5limit9nextToken10completionySS_SiSgSSSgys6ResultOyAA0b4ListJ0VyAA12PhoneMessageVGAA0abC5ErrorOGctKF">getMessages(conversationId:<wbr>limit:<wbr>nextToken:<wbr>completion:<wbr>)</a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP11getMessages14conversationId5limit9nextToken10completionySS_SiSgSSSgys6ResultOyAA0b4ListJ0VyAA12PhoneMessageVGAA0abC5ErrorOGctF">getMessages(conversationId:<wbr>limit:<wbr>nextToken:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1171,7 +1175,7 @@ The list can be queried in batches, where the limit and the next batch token can
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getMessages</span><span class="p">(</span><span class="nv">conversationId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span> <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/TelephonyListToken.html">TelephonyListToken</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getMessages</span><span class="p">(</span><span class="nv">conversationId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span> <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">TelephonyClientCompletion</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/TelephonyListToken.html">TelephonyListToken</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessage.html">PhoneMessage</a></span><span class="o">&gt;&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1253,7 +1257,7 @@ The list can be queried in batches, where the limit and the next batch token can
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">downloadData</span><span class="p">(</span><span class="k">for</span> <span class="nv">media</span><span class="p">:</span> <span class="kt"><a href="../Structs.html#/s:13SudoTelephony11MediaObjectV">MediaObject</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">Data</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">downloadData</span><span class="p">(</span><span class="k">for</span> <span class="nv">media</span><span class="p">:</span> <span class="kt"><a href="../Structs.html#/s:13SudoTelephony11MediaObjectV">MediaObject</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">TelephonyClientCompletion</span><span class="o">&lt;</span><span class="kt">Data</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1294,9 +1298,9 @@ The list can be queried in batches, where the limit and the next batch token can
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP13deleteMessage2id10completionySS_ys6ResultOySSAA0abC5ErrorOGctKF"></a>
+                    <a name="/s:13SudoTelephony0aB6ClientP13deleteMessage2id10completionySS_ys6ResultOySSAA0abC5ErrorOGctF"></a>
                     <a name="//apple_ref/swift/Method/deleteMessage(id:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP13deleteMessage2id10completionySS_ys6ResultOySSAA0abC5ErrorOGctKF">deleteMessage(id:<wbr>completion:<wbr>)</a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP13deleteMessage2id10completionySS_ys6ResultOySSAA0abC5ErrorOGctF">deleteMessage(id:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1311,7 +1315,7 @@ The list can be queried in batches, where the limit and the next batch token can
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">deleteMessage</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">deleteMessage</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">TelephonyClientCompletion</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1352,9 +1356,9 @@ The list can be queried in batches, where the limit and the next batch token can
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP15getConversation14conversationId10completionySS_ys6ResultOyAA012PhoneMessageE0VAA0abC5ErrorOGctKF"></a>
+                    <a name="/s:13SudoTelephony0aB6ClientP15getConversation14conversationId10completionySS_ys6ResultOyAA012PhoneMessageE0VAA0abC5ErrorOGctF"></a>
                     <a name="//apple_ref/swift/Method/getConversation(conversationId:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP15getConversation14conversationId10completionySS_ys6ResultOyAA012PhoneMessageE0VAA0abC5ErrorOGctKF">getConversation(conversationId:<wbr>completion:<wbr>)</a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP15getConversation14conversationId10completionySS_ys6ResultOyAA012PhoneMessageE0VAA0abC5ErrorOGctF">getConversation(conversationId:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1369,7 +1373,7 @@ The list can be queried in batches, where the limit and the next batch token can
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getConversation</span><span class="p">(</span><span class="nv">conversationId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessageConversation.html">PhoneMessageConversation</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getConversation</span><span class="p">(</span><span class="nv">conversationId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">TelephonyClientCompletion</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessageConversation.html">PhoneMessageConversation</a></span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1410,9 +1414,9 @@ The list can be queried in batches, where the limit and the next batch token can
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP15getConversation11localNumber06remoteG010completionyAA05PhoneG0V_SSys6ResultOyAA0j7MessageE0VAA0abC5ErrorOGctKF"></a>
+                    <a name="/s:13SudoTelephony0aB6ClientP15getConversation11localNumber06remoteG010completionyAA05PhoneG0V_SSys6ResultOyAA0j7MessageE0VAA0abC5ErrorOGctF"></a>
                     <a name="//apple_ref/swift/Method/getConversation(localNumber:remoteNumber:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP15getConversation11localNumber06remoteG010completionyAA05PhoneG0V_SSys6ResultOyAA0j7MessageE0VAA0abC5ErrorOGctKF">getConversation(localNumber:<wbr>remoteNumber:<wbr>completion:<wbr>)</a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP15getConversation11localNumber06remoteG010completionyAA05PhoneG0V_SSys6ResultOyAA0j7MessageE0VAA0abC5ErrorOGctF">getConversation(localNumber:<wbr>remoteNumber:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1427,7 +1431,7 @@ The list can be queried in batches, where the limit and the next batch token can
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getConversation</span><span class="p">(</span><span class="nv">localNumber</span><span class="p">:</span> <span class="kt">PhoneNumber</span><span class="p">,</span> <span class="nv">remoteNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessageConversation.html">PhoneMessageConversation</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getConversation</span><span class="p">(</span><span class="nv">localNumber</span><span class="p">:</span> <span class="kt">PhoneNumber</span><span class="p">,</span> <span class="nv">remoteNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">TelephonyClientCompletion</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessageConversation.html">PhoneMessageConversation</a></span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1480,9 +1484,9 @@ The list can be queried in batches, where the limit and the next batch token can
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP16getConversations11localNumber5limit9nextToken10completionyAA05PhoneG0V_SiSgSSSgys6ResultOyAA0b4ListJ0VyAA0L19MessageConversationVGAA0abC5ErrorOGctKF"></a>
+                    <a name="/s:13SudoTelephony0aB6ClientP16getConversations11localNumber5limit9nextToken10completionyAA05PhoneG0V_SiSgSSSgys6ResultOyAA0b4ListJ0VyAA0L19MessageConversationVGAA0abC5ErrorOGctF"></a>
                     <a name="//apple_ref/swift/Method/getConversations(localNumber:limit:nextToken:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP16getConversations11localNumber5limit9nextToken10completionyAA05PhoneG0V_SiSgSSSgys6ResultOyAA0b4ListJ0VyAA0L19MessageConversationVGAA0abC5ErrorOGctKF">getConversations(localNumber:<wbr>limit:<wbr>nextToken:<wbr>completion:<wbr>)</a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP16getConversations11localNumber5limit9nextToken10completionyAA05PhoneG0V_SiSgSSSgys6ResultOyAA0b4ListJ0VyAA0L19MessageConversationVGAA0abC5ErrorOGctF">getConversations(localNumber:<wbr>limit:<wbr>nextToken:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1497,7 +1501,7 @@ The list can be queried in batches, where the limit and the next batch token can
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getConversations</span><span class="p">(</span><span class="nv">localNumber</span><span class="p">:</span> <span class="kt">PhoneNumber</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span> <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/TelephonyListToken.html">TelephonyListToken</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessageConversation.html">PhoneMessageConversation</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="../Enums/SudoTelephonyClientError.html">SudoTelephonyClientError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getConversations</span><span class="p">(</span><span class="nv">localNumber</span><span class="p">:</span> <span class="kt">PhoneNumber</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span> <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">TelephonyClientCompletion</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/TelephonyListToken.html">TelephonyListToken</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PhoneMessageConversation.html">PhoneMessageConversation</a></span><span class="o">&gt;&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -2276,7 +2280,7 @@ The list can be queried in batches, where the limit and the next batch token can
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2020-08-18)</p>
+      <p>&copy; 2022 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2022-01-27)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

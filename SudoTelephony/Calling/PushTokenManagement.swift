@@ -6,6 +6,7 @@
 import AWSAppSync
 import CallKit
 import Foundation
+import SudoApiClient
 import SudoLogging
 import SudoOperations
 import SudoUser
@@ -28,7 +29,7 @@ class PushTokenManagement {
         }
     }
 
-    let graphQLClient: AWSAppSyncClient
+    let graphQLClient: SudoApiClient
     let apiResultQueue: DispatchQueue
     let sudoUserClient: SudoUserClient
     let logger: Logger
@@ -36,7 +37,7 @@ class PushTokenManagement {
 
     /// Instantiates the calling feature.
     init(
-        graphQLClient: AWSAppSyncClient,
+        graphQLClient: SudoApiClient,
         apiResultQueue: DispatchQueue,
         sudoUserClient: SudoUserClient,
         logger: Logger
@@ -72,8 +73,8 @@ class PushTokenManagement {
     private func registerPushToken(data: Data, vendorAuthorizations: [DeviceRegistrationOutput.VendorAuthorization], completion: ((SudoTelephonyClientError?) -> Void)?) {
 
         if let twilioAuth = vendorAuthorizations.filter({ $0.vendor == "Twilio" }).first {
-            TwilioVoice.register(withAccessToken: twilioAuth.accessToken, deviceToken: data) { (error) in
-
+            TwilioVoiceSDK.register(accessToken: twilioAuth.accessToken,
+                                    deviceToken: data) { error in
                 if let error = error {
                     self.logger.error("Failed to register push token with provider: \(error)")
                 }
@@ -114,7 +115,8 @@ class PushTokenManagement {
     private func deregisterPushToken(data: Data, vendorAuthorizations: [DeviceRegistrationOutput.VendorAuthorization], completion: ((SudoTelephonyClientError?) -> Void)?) {
 
         if let twilioAuth = vendorAuthorizations.filter({ $0.vendor == "Twilio" }).first {
-            TwilioVoice.unregister(withAccessToken: twilioAuth.accessToken, deviceToken: data) { (maybeError) in
+            TwilioVoiceSDK.unregister(accessToken: twilioAuth.accessToken,
+                                      deviceToken: data) { (maybeError) in
                 if let error = maybeError {
                     self.logger.error("Failed to de-register push token with provider: \(error)")
                 }
@@ -171,16 +173,28 @@ class PushTokenManagement {
 
         if register {
             let register = RegisterForIncomingCallsMutation(input: input)
-            self.graphQLClient.perform(mutation: register, queue: self.apiResultQueue) { (result, error) in
-                let output = result?.data?.registerDeviceForIncomingCalls.fragments.deviceRegistrationOutput
-                handler(data: output, error: error ?? result?.errors?.first)
+            // error only thrown if not signed in
+            do {
+                try self.graphQLClient.perform(mutation: register, queue: self.apiResultQueue, resultHandler:  { (result, error) in
+                    let output = result?.data?.registerDeviceForIncomingCalls.fragments.deviceRegistrationOutput
+                    handler(data: output, error: error ?? result?.errors?.first)
+                })
+            } catch {
+                let error = SudoTelephonyClientError(serviceError: error)
+                handler(data: nil, error: error)
             }
         }
         else {
             let unregister = UnregisterForIncomingCallsMutation(input: input)
-            self.graphQLClient.perform(mutation: unregister, queue: self.apiResultQueue) { (result, error) in
-                let output = result?.data?.unregisterDeviceForIncomingCalls.fragments.deviceRegistrationOutput
-                handler(data: output, error: error ?? result?.errors?.first)
+            // error only thrown if not signed in
+            do {
+                try self.graphQLClient.perform(mutation: unregister, queue: self.apiResultQueue, resultHandler:  { (result, error) in
+                    let output = result?.data?.unregisterDeviceForIncomingCalls.fragments.deviceRegistrationOutput
+                    handler(data: output, error: error ?? result?.errors?.first)
+                })
+            } catch {
+                let error = SudoTelephonyClientError(serviceError: error)
+                handler(data: nil, error: error)
             }
         }
     }

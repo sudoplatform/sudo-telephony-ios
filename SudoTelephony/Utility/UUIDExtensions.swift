@@ -11,6 +11,8 @@ extension UUID {
     init(v5WithNameSpace nameSpace: String, name: String) {
         // Get UUID bytes from namespace
         let newUUID = UUID(uuidString: nameSpace)
+
+        //TODO: remove this force unwrapped optional.
         let spaceUID = newUUID!.uuid
         var localVar = spaceUID
         var data = withUnsafePointer(to: &localVar) {
@@ -22,7 +24,9 @@ extension UUID {
 
         // Compute digest
         var digest = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
-        data.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) -> Void in CC_SHA1(ptr, CC_LONG(data.count), &digest) }
+        _ = data.withUnsafeBytes { (ptr: UnsafeRawBufferPointer) in
+            CC_SHA1(ptr.baseAddress, CC_LONG(data.count), &digest)
+        }
 
         // Set version bits:
         digest[6] &= 0x0F

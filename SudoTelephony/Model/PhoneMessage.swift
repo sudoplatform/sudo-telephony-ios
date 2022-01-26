@@ -8,13 +8,13 @@ import Foundation
 
 /// A Message that has been either received or sent by the user.
 public struct PhoneMessage {
-    
+
     /// Enum that represents the direction of the message.
     public enum Direction {
         case inbound
         case outbound
         case unknown
-        
+
         init(internalDirection: SudoTelephony.Direction) {
             switch internalDirection {
             case .inbound:
@@ -26,7 +26,7 @@ public struct PhoneMessage {
             }
         }
     }
-    
+
     /// The state of the message
     public enum State {
         case queued
@@ -36,7 +36,7 @@ public struct PhoneMessage {
         case failed
         case received
         case unknown
-        
+
         init(internalState: MessageState) {
             switch internalState {
             case .queued:
@@ -56,7 +56,7 @@ public struct PhoneMessage {
             }
         }
     }
-    
+
     /// Unique ID of the message
     public let id: String
     /// The ID of the owner of the message
@@ -86,6 +86,15 @@ public struct MediaObject {
     public let key: String
     public let bucket: String
     public let region: String
+
+    internal init(key: String,
+                  bucket: String,
+                  region: String)
+    {
+        self.key = key
+        self.bucket = bucket
+        self.region = region
+    }
 
     internal init(media: S3MediaObject) {
         self.key = media.key

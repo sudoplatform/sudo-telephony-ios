@@ -9,24 +9,24 @@ import SudoUser
 import SudoOperations
 
 /// Check if the user is signed in.
-public class SignedInCondition: PlatformOperationCondition {
+class SignedInCondition: PlatformOperationCondition {
 
     public static var name: String {
         return "SignedInCondition"
     }
 
-    private unowned let userClient: SudoUserClient
+    private let ownerIdProvider: OwnerIdProvider
 
-    public init(userClient: SudoUserClient) {
-        self.userClient = userClient
+    init(ownerIdProvider: OwnerIdProvider) {
+        self.ownerIdProvider = ownerIdProvider
     }
 
-    public func dependencyForOperation(_ operation: PlatformOperation) -> Operation? {
+    func dependencyForOperation(_ operation: PlatformOperation) -> Operation? {
         return nil
     }
 
-    public func evaluateForOperation(_ operation: PlatformOperation, completion: (PlatformOperationConditionResult) -> Void) {
-        guard (try? userClient.getSubject()) != nil else {
+    func evaluateForOperation(_ operation: PlatformOperation, completion: (PlatformOperationConditionResult) -> Void) {
+        guard ownerIdProvider.resolveOwnerId() != nil else {
             completion(.failure(PlatformOperationErrors.conditionFailed))
             return
         }

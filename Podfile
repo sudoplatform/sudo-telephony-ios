@@ -1,11 +1,11 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '11.0'
+platform :ios, '14.0'
 use_frameworks!
 
 use_modular_headers!
 inhibit_all_warnings!
 
-source 'https://github.com/CocoaPods/Specs.git'
+source 'https://cdn.cocoapods.org/'
 
 target 'SudoTelephony' do
 
@@ -20,6 +20,7 @@ target 'SudoTelephony' do
   target 'SudoTelephonyIntegrationTests' do
     inherit! :search_paths
     podspec :name => 'SudoTelephony'
+    pod 'SudoEntitlements'
   end
 
 end

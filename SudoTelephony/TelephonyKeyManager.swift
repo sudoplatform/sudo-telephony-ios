@@ -9,17 +9,38 @@ import AWSAppSync
 import SudoKeyManager
 import SudoLogging
 import SudoUser
+import SudoApiClient
 
-protocol TelephonyKeyManager {
+protocol TelephonyKeyManager: AnyObject {
     func removeAllKeys() throws
-    func generateKeyPair(apiResultQueue: DispatchQueue, completion: @escaping (Swift.Result<PublicKey, SudoTelephonyClientError>) -> Void) throws
     func getKeyPair() -> KeyPair?
     func getKeyId() -> String?
     func getKeyRingId() -> String?
     func decryptSealedData(data: Data) throws -> Data
+
+    /// Generates a unique key id that does not collide with any existing key ids.
+    ///
+    /// - Throws:
+    ///     `SudoKeyManagerError.uuidGenerationLimitExceeded`
+    func generateKeyId() throws -> String
+
+    /// Generates and securely stores a key pair for public key cryptography.
+    ///
+    /// - Parameter name: Name of the key pair to be generated.
+    ///
+    /// - Throws:
+    ///     `SudoKeyManagerError.duplicateKey`,
+    ///     `SudoKeyManagerError.unhandledUnderlyingSecAPIError`,
+    ///     `SudoKeyManagerError.fatalError`
+    func generateKeyPair(_ name: String) throws
+
+    func setKeyId(value: String) throws
+
+    func setKeyRingId(value: String) throws
 }
 
 class DefaultTelephonyKeyManager: TelephonyKeyManager {
+
     private struct Constants {
         static let defaultKeyManagerServiceName = "com.sudoplatform.appservicename"
         static let defaultKeyManagerKeyTag = "com.sudoplatform"
@@ -29,12 +50,12 @@ class DefaultTelephonyKeyManager: TelephonyKeyManager {
 
     private let sudoKeyManager: SudoKeyManager
     private let sudoUserClient: SudoUserClient
-    private let graphQLClient: AWSAppSyncClient
+    private let graphQLClient: SudoApiClient
     private let logger: Logger
 
     init(keyNamespace: String,
          sudoUserClient: SudoUserClient,
-         graphQLClient: AWSAppSyncClient,
+         graphQLClient: SudoApiClient,
          logger: Logger) {
 
         self.sudoKeyManager = SudoKeyManagerImpl(
@@ -47,82 +68,32 @@ class DefaultTelephonyKeyManager: TelephonyKeyManager {
         self.logger = logger
     }
 
+    /// Generates a unique key id that does not collide with any existing key ids.
+    func generateKeyId() throws -> String {
+        return try self.sudoKeyManager.generateKeyId()
+    }
+
+    func generateKeyPair(_ name: String) throws {
+        return try self.sudoKeyManager.generateKeyPair(name)
+    }
+
+    func addPassword(_ password: Data, name: String) throws {
+        return try self.sudoKeyManager.addPassword(password, name: name)
+    }
+
     internal func removeAllKeys() throws {
         try sudoKeyManager.removeAllKeys()
     }
 
-    internal func generateKeyPair(apiResultQueue: DispatchQueue, completion: @escaping (Swift.Result<PublicKey, SudoTelephonyClientError>) -> Void) throws {
-        self.logger.info("Generating public/private keypair")
 
-        guard let identityId = self.sudoUserClient.getIdentityId() else {
-            completion(.failure(SudoTelephonyClientError.keyGenerationFailed))
-            return
-        }
-        let keyRingId = UUID().uuidString
-        let keyId = try self.sudoKeyManager.generateKeyId()
-
-        do {
-            try self.sudoKeyManager.generateKeyPair(identityId)
-        } catch {
-            throw SudoTelephonyClientError.keyGenerationFailed
-        }
-
-        guard let keyPair = getKeyPair() else {
-            completion(.failure(SudoTelephonyClientError.keyGenerationFailed))
-            return
-        }
-
-        let publicKey = keyPair.publicKey.base64EncodedString()
-
-        let publicKeyInput = CreatePublicKeyInput.init(keyId: keyId, keyRingId: keyRingId, algorithm: "RSAEncryptionOAEPAESCBC", publicKey: publicKey)
-
-        let mutation = CreatePublicKeyMutation(input: publicKeyInput)
-
-        graphQLClient.perform(mutation: mutation, queue: apiResultQueue, optimisticUpdate: nil, conflictResolutionBlock: nil) { (result, error) in
-            guard error == nil else {
-                completion(.failure(SudoTelephonyClientError(serviceError: error)))
-                return
-            }
-
-            guard let publicKey = result?.data?.createPublicKeyForTelephony else {
-                self.logger.error("Public key not registered with service")
-                completion(.failure(SudoTelephonyClientError.keyGenerationFailed))
-                return
-            }
-
-            // Save the key ID as a password in the key manager
-            guard let keyIdData = keyId.data(using: String.Encoding.utf8) else {
-                completion(.failure(SudoTelephonyClientError.keyGenerationFailed))
-                return
-            }
-            do {
-                try self.sudoKeyManager.addPassword(keyIdData, name: Constants.keyIdName + identityId)
-            } catch {
-                completion(.failure(SudoTelephonyClientError.keyGenerationFailed))
-            }
-
-            // Save the key ring ID as a password in the key manager
-            guard let keyRingIdData = keyRingId.data(using: String.Encoding.utf8) else {
-                completion(.failure(SudoTelephonyClientError.keyGenerationFailed))
-                return
-            }
-            do {
-                try self.sudoKeyManager.addPassword(keyRingIdData, name: Constants.keyRingIdName + identityId)
-            } catch {
-                completion(.failure(SudoTelephonyClientError.keyGenerationFailed))
-            }
-
-
-            completion(.success(publicKey.fragments.publicKey))
-        }
-    }
 
     internal func getKeyPair() -> KeyPair? {
         do {
             guard let identityId = sudoUserClient.getIdentityId() else { return nil }
-            guard let privateKey = try self.sudoKeyManager.getPrivateKey(identityId), let publicKey = try self.sudoKeyManager.getPublicKey(identityId) else {
-                return nil
-            }
+            guard let privateKey = try self.sudoKeyManager.getPrivateKey(identityId),
+                  let publicKey = try self.sudoKeyManager.getPublicKey(identityId) else {
+                      return nil
+                  }
 
             return KeyPair(publicKey: publicKey, privateKey: privateKey)
         } catch {
@@ -141,6 +112,15 @@ class DefaultTelephonyKeyManager: TelephonyKeyManager {
         }
     }
 
+    internal func setKeyId(value: String) throws {
+        guard let identityId = sudoUserClient.getIdentityId(),
+              let data = value.data(using: .utf8)
+        else {
+            throw SudoTelephonyClientError.keyGenerationFailed
+        }
+        try self.addPassword(data, name: Constants.keyIdName + identityId)
+    }
+
     internal func getKeyRingId() -> String? {
         do {
             guard let identityId = sudoUserClient.getIdentityId() else { return nil }
@@ -150,6 +130,15 @@ class DefaultTelephonyKeyManager: TelephonyKeyManager {
         } catch {
             return nil
         }
+    }
+
+    internal func setKeyRingId(value: String) throws {
+        guard let identityId = sudoUserClient.getIdentityId(),
+              let data = value.data(using: .utf8)
+        else {
+            throw SudoTelephonyClientError.keyGenerationFailed
+        }
+        try self.addPassword(data, name: Constants.keyRingIdName + identityId)
     }
 
     internal func decryptSealedData(data: Data) throws -> Data {
@@ -169,8 +158,6 @@ class DefaultTelephonyKeyManager: TelephonyKeyManager {
             throw SudoTelephonyClientError.sealedDataDecryptionFailed
         }
     }
-
-
 
     private func deleteKeyPair() throws {
         do {
