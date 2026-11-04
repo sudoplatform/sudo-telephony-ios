@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SudoTelephonyClient Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/SudoTelephonyClient" class="dashAnchor"></a>
+    <a title="SudoTelephonyClient Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">SudoTelephony Docs</a> (100% documented)</p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">SudoTelephony Reference</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        SudoTelephonyClient Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/DefaultSudoTelephonyClient.html">DefaultSudoTelephonyClient</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/SudoTelephonyClient.html">SudoTelephonyClient</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>SudoTelephonyClient</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">SudoTelephonyClient</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>The consumer-facing API for the Sudo Telephony SDK.</p>
+
+<p>Consumers should code to this protocol, not to the concrete
+<code><a href="../Classes/DefaultSudoTelephonyClient.html">DefaultSudoTelephonyClient</a></code>.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Supported%20Countries"></a>
+                <a name="//apple_ref/swift/Section/Supported Countries" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Supported%20Countries"></a>
+                  <h3 class="section-name"><span>Supported Countries</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP21getSupportedCountriesSaySSGyYaKF"></a>
+                    <a name="//apple_ref/swift/Method/getSupportedCountries()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP21getSupportedCountriesSaySSGyYaKF">getSupportedCountries()</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Fetch the countries the telephony service currently supports.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <code>SudoTelephonyError</code> if the operation fails.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getSupportedCountries</span><span class="p">()</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The supported countries as ISO 3166-1 alpha-2 country codes.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Phone%20Number%20Management"></a>
+                <a name="//apple_ref/swift/Section/Phone Number Management" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Phone%20Number%20Management"></a>
+                  <h3 class="section-name"><span>Phone Number Management</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbersy0aB6Common0F18NumberSearchResultVAE0jefG5InputVYaKF"></a>
+                    <a name="//apple_ref/swift/Method/searchAvailablePhoneNumbers(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbersy0aB6Common0F18NumberSearchResultVAE0jefG5InputVYaKF">searchAvailablePhoneNumbers(_:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Search the carrier for phone numbers available to provision.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">searchAvailablePhoneNumbers</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">SearchAvailablePhoneNumbersInput</span>
+<span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneNumberSearchResult</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP20provisionPhoneNumbery0aB6Common0eF0VAE09ProvisioneF5InputVYaKF"></a>
+                    <a name="//apple_ref/swift/Method/provisionPhoneNumber(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP20provisionPhoneNumbery0aB6Common0eF0VAE09ProvisioneF5InputVYaKF">provisionPhoneNumber(_:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Provision a number returned by a prior search. The SDK generates and registers
+the key its inbound messages are sealed to.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">provisionPhoneNumber</span><span class="p">(</span><span class="n">_</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ProvisionPhoneNumberInput</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneNumber</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP22deprovisionPhoneNumber2id0aB6Common0eF0VSS_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/deprovisionPhoneNumber(id:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP22deprovisionPhoneNumber2id0aB6Common0eF0VSS_tYaKF">deprovisionPhoneNumber(id:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Release a provisioned number back to the carrier.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">deprovisionPhoneNumber</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneNumber</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP14getPhoneNumber2id0aB6Common0eF0VSgSS_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/getPhoneNumber(id:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP14getPhoneNumber2id0aB6Common0eF0VSgSS_tYaKF">getPhoneNumber(id:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Fetch a single provisioned number by ID (<code>nil</code> if absent or not the caller&rsquo;s).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getPhoneNumber</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneNumber</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP16listPhoneNumbersy0aB6Common0E15NumberListTokenVAE0ieF5InputVYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listPhoneNumbers(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP16listPhoneNumbersy0aB6Common0E15NumberListTokenVAE0ieF5InputVYaKF">listPhoneNumbers(_:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>List the caller&rsquo;s provisioned numbers.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listPhoneNumbers</span><span class="p">(</span><span class="n">_</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ListPhoneNumbersInput</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneNumberListToken</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/SMS"></a>
+                <a name="//apple_ref/swift/Section/SMS" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/SMS"></a>
+                  <h3 class="section-name"><span>SMS</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP15getPhoneMessage2id0aB6Common0eF0VSgSS_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/getPhoneMessage(id:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP15getPhoneMessage2id0aB6Common0eF0VSgSS_tYaKF">getPhoneMessage(id:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Fetch and unseal a single message by ID (<code>nil</code> if absent or not the caller&rsquo;s).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getPhoneMessage</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneMessage</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP17listPhoneMessagesy0aB6Common0E16MessageListTokenVAE0ieF5InputVYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listPhoneMessages(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP17listPhoneMessagesy0aB6Common0E16MessageListTokenVAE0ieF5InputVYaKF">listPhoneMessages(_:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>List and unseal a phone number&rsquo;s inbox.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listPhoneMessages</span><span class="p">(</span><span class="n">_</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ListPhoneMessagesInput</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneMessageListToken</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP19deletePhoneMessages3ids0aB6Common0E18MessageBatchResultVSaySSG_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/deletePhoneMessages(ids:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP19deletePhoneMessages3ids0aB6Common0E18MessageBatchResultVSaySSG_tYaKF">deletePhoneMessages(ids:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delete up to 100 of the caller&rsquo;s messages.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">deletePhoneMessages</span><span class="p">(</span><span class="nv">ids</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneMessageBatchResult</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP19updatePhoneMessages3ids4seen0aB6Common0E18MessageBatchResultVSaySSG_SbtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/updatePhoneMessages(ids:seen:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP19updatePhoneMessages3ids4seen0aB6Common0E18MessageBatchResultVSaySSG_SbtYaKF">updatePhoneMessages(ids:<wbr>seen:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Set the read state of up to 100 of the caller&rsquo;s messages.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">updatePhoneMessages</span><span class="p">(</span><span class="nv">ids</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">seen</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneMessageBatchResult</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Subscriptions"></a>
+                <a name="//apple_ref/swift/Section/Subscriptions" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Subscriptions"></a>
+                  <h3 class="section-name"><span>Subscriptions</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP29subscribeToPhoneNumberUpdates5owner8onUpdate0aB6Common17SubscriptionToken_pSS_ys6ResultOyAG0fG0Vs5Error_pGYbctYaKF"></a>
+                    <a name="//apple_ref/swift/Method/subscribeToPhoneNumberUpdates(owner:onUpdate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP29subscribeToPhoneNumberUpdates5owner8onUpdate0aB6Common17SubscriptionToken_pSS_ys6ResultOyAG0fG0Vs5Error_pGYbctYaKF">subscribeToPhoneNumberUpdates(owner:<wbr>onUpdate:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Subscribe to real-time changes to the caller&rsquo;s phone numbers. Retain the token
+while updates are wanted; cancel or release it to stop.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">subscribeToPhoneNumberUpdates</span><span class="p">(</span>
+    <span class="nv">owner</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">onUpdate</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kd">@Sendable</span> <span class="p">(</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">PhoneNumber</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span>
+<span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">SubscriptionToken</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP29subscribeToPhoneMessageEvents5owner7onEvent0aB6Common17SubscriptionToken_pSS_ys6ResultOyAG0fgK0Vs5Error_pGYbctYaKF"></a>
+                    <a name="//apple_ref/swift/Method/subscribeToPhoneMessageEvents(owner:onEvent:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP29subscribeToPhoneMessageEvents5owner7onEvent0aB6Common17SubscriptionToken_pSS_ys6ResultOyAG0fgK0Vs5Error_pGYbctYaKF">subscribeToPhoneMessageEvents(owner:<wbr>onEvent:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Subscribe to real-time message events (metadata only; fetch content with
+<code><a href="../Protocols/SudoTelephonyClient.html#/s:13SudoTelephony0aB6ClientP15getPhoneMessage2id0aB6Common0eF0VSgSS_tYaKF">getPhoneMessage(id:)</a></code>). Retain the token while events are wanted.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">subscribeToPhoneMessageEvents</span><span class="p">(</span>
+    <span class="nv">owner</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">onEvent</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kd">@Sendable</span> <span class="p">(</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">PhoneMessageEvent</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span>
+<span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">SubscriptionToken</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Lifecycle"></a>
+                <a name="//apple_ref/swift/Section/Lifecycle" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Lifecycle"></a>
+                  <h3 class="section-name"><span>Lifecycle</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP5resetyyKF"></a>
+                    <a name="//apple_ref/swift/Method/reset()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP5resetyyKF">reset()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Remove all on-device key material held by the SDK.</p>
+
+<p>Call when the user signs out or resets, to tear down local keys. Per-number
+keys are not deleted on deprovision; key lifetime is tied to this reset, in
+line with the platform convention.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <code>SudoTelephonyError</code> if the removal fails.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">reset</span><span class="p">()</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP10exportKeys10Foundation4DataVyKF"></a>
+                    <a name="//apple_ref/swift/Method/exportKeys()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP10exportKeys10Foundation4DataVyKF">exportKeys()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Export the SDK&rsquo;s cryptographic keys to a portable key archive.</p>
+
+<p>Use this to move a user&rsquo;s message-sealing keys to another device or to back
+them up before a reinstall, so retained sealed messages remain readable. The
+returned data contains private key material and must be stored securely.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <code>SudoTelephonyError</code> if the export fails.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">exportKeys</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Data</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The serialized key archive.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP10importKeys11archiveDatay10Foundation0G0V_tKF"></a>
+                    <a name="//apple_ref/swift/Method/importKeys(archiveData:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP10importKeys11archiveDatay10Foundation0G0V_tKF">importKeys(archiveData:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Import cryptographic keys from an archive produced by <code><a href="../Protocols/SudoTelephonyClient.html#/s:13SudoTelephony0aB6ClientP10exportKeys10Foundation4DataVyKF">exportKeys()</a></code>.</p>
+
+<p>Existing on-device keys are removed before the archive is restored.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <code>SudoTelephonyError</code> if the archive is invalid or the import fails.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">importKeys</span><span class="p">(</span><span class="nv">archiveData</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>archiveData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The key archive to import.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-11-04)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>

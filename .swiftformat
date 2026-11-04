@@ -1,0 +1,10 @@
+--swiftversion 5.4
+--indent 4
+--allman false
+--commas inline
+--patternlet inline
+--maxwidth 180
+
+--disable elseOnSameLine,blankLinesAtStartOfScope,unusedArguments,redundantReturn,redundantType,wrapMultilineStatementBraces
+
+--exclude Generated,build,SudoTelephony/Source/Internal/Data/GraphQLAPI.swift,SudoTelephony/Source/Internal/Data/PhoneNumbersGraphQLAPI.swift,SudoTelephony/Source/Internal/Data/PhoneMessagesGraphQLAPI.swift,SudoTelephony/Source/Internal/Data/SubscriptionsGraphQLAPI.swift
