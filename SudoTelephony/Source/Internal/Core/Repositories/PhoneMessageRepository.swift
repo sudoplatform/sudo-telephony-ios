@@ -25,10 +25,20 @@ protocol PhoneMessageRepository {
 
     /// List and unseal a phone number's messages.
     ///
-    /// - Parameter input: The phone number, optional conversation filter, and paging.
-    /// - Returns: A page of unsealed messages with an optional continuation token.
-    /// - Throws: `SudoTelephonyError` if the fetch or unsealing fails.
-    func listPhoneMessages(_ input: ListPhoneMessagesInput) async throws -> PhoneMessageListToken
+    /// - Parameter input: The phone number, sort order and paging.
+    /// - Returns: A page of unsealed messages with an optional continuation token. If
+    ///   some messages can't be unsealed, the page is `partial` and lists them as
+    ///   `PartialPhoneMessage`s with the reason, rather than failing.
+    /// - Throws: `SudoTelephonyError` if the fetch fails.
+    func listPhoneMessagesForPhoneNumberId(
+        _ input: ListPhoneMessagesForPhoneNumberIdInput
+    ) async throws -> ListAPIResult<PhoneMessage, PartialPhoneMessage>
+
+    /// List and unseal a conversation's messages, as for
+    /// `listPhoneMessagesForPhoneNumberId(_:)`.
+    func listPhoneMessagesForConversationId(
+        _ input: ListPhoneMessagesForConversationIdInput
+    ) async throws -> ListAPIResult<PhoneMessage, PartialPhoneMessage>
 
     /// Delete up to 100 of the caller's messages.
     ///

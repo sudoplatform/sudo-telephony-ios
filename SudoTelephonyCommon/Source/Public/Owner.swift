@@ -9,7 +9,7 @@ import Foundation
 /// Something that owns a resource, identified by an ID and the service that issued it.
 ///
 /// A phone number provisioned with a Sudo ownership proof is owned by that Sudo: its
-/// `owners` include an owner whose `issuer` is `"sudoplatform.sudoservice"` and whose
+/// `owners` include an owner whose `issuer` is `Constants.sudoOwnerIssuer` and whose
 /// `id` is the Sudo's ID.
 public struct Owner: Hashable, Sendable {
 
@@ -23,5 +23,13 @@ public struct Owner: Hashable, Sendable {
     public init(id: String, issuer: String) {
         self.id = id
         self.issuer = issuer
+    }
+}
+
+public extension Array where Element == Owner {
+
+    /// ID of the Sudo among these owners, or `nil` if there isn't one.
+    var sudoId: String? {
+        first { $0.issuer == Constants.sudoOwnerIssuer }?.id
     }
 }

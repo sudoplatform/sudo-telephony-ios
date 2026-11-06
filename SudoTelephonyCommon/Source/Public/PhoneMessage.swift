@@ -20,14 +20,18 @@ public enum PhoneMessageDirection: String, Equatable, Sendable, Codable {
     case inbound = "INBOUND"
 }
 
-/// A phone message with its sensitive fields unsealed.
-///
-/// `body` and `remotePhoneNumber` are decrypted by the SDK before the message reaches
-/// a consumer; the sealed forms never leave the data layer.
+/// A message received on one of the user's phone numbers, with its content unsealed.
 public struct PhoneMessage: Equatable, Sendable {
 
     /// ID of the message.
     public let id: String
+
+    /// The user who owns the message: their subject.
+    public let owner: String
+
+    /// What else owns the message, from the phone number that received it, for
+    /// example a Sudo.
+    public let owners: [Owner]
 
     /// ID of the phone number that received the message.
     public let phoneNumberId: String
@@ -62,19 +66,28 @@ public struct PhoneMessage: Equatable, Sendable {
     /// Whether the user has marked the message as read.
     public let seen: Bool
 
-    /// Time in milliseconds since the Unix epoch when the service received the
-    /// message from the telephony provider.
-    public let receivedAtEpochMs: Double
+    /// Version of the record, increased on each change.
+    public let version: Int
 
-    /// Time in milliseconds since the Unix epoch when the message was created.
-    public let createdAtEpochMs: Double
+    /// When the service received the message from the telephony provider.
+    public let receivedAt: Date
 
-    /// Time in milliseconds since the Unix epoch when the message was last updated.
-    public let updatedAtEpochMs: Double
+    /// When the message was created.
+    public let createdAt: Date
+
+    /// When the message was last updated.
+    public let updatedAt: Date
+
+    /// ID of the Sudo that owns the message, or `nil` if its phone number has none.
+    public var sudoId: String? {
+        owners.sudoId
+    }
 
     /// Create a phone message.
     public init(
         id: String,
+        owner: String,
+        owners: [Owner],
         phoneNumberId: String,
         conversationId: String,
         type: PhoneMessageType,
@@ -85,11 +98,14 @@ public struct PhoneMessage: Equatable, Sendable {
         segmentCount: Int,
         mediaOmitted: Bool,
         seen: Bool,
-        receivedAtEpochMs: Double,
-        createdAtEpochMs: Double,
-        updatedAtEpochMs: Double
+        version: Int,
+        receivedAt: Date,
+        createdAt: Date,
+        updatedAt: Date
     ) {
         self.id = id
+        self.owner = owner
+        self.owners = owners
         self.phoneNumberId = phoneNumberId
         self.conversationId = conversationId
         self.type = type
@@ -100,25 +116,101 @@ public struct PhoneMessage: Equatable, Sendable {
         self.segmentCount = segmentCount
         self.mediaOmitted = mediaOmitted
         self.seen = seen
-        self.receivedAtEpochMs = receivedAtEpochMs
-        self.createdAtEpochMs = createdAtEpochMs
-        self.updatedAtEpochMs = updatedAtEpochMs
+        self.version = version
+        self.receivedAt = receivedAt
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
     }
 }
 
-/// A page of phone messages.
-public struct PhoneMessageListToken: Equatable, Sendable {
+/// A message whose sealed content couldn't be unsealed, for example because this
+/// device doesn't have the key it was sealed to. It has everything about the
+/// message except the sender and text.
+public struct PartialPhoneMessage: Equatable, Sendable {
 
-    /// The messages on this page, with content unsealed.
-    public let items: [PhoneMessage]
+    /// ID of the message.
+    public let id: String
 
-    /// An opaque token to fetch the next page, or `nil` when there are no more.
-    public let nextToken: String?
+    /// The user who owns the message: their subject.
+    public let owner: String
 
-    /// Create a page of phone messages.
-    public init(items: [PhoneMessage], nextToken: String?) {
-        self.items = items
-        self.nextToken = nextToken
+    /// What else owns the message, for example a Sudo.
+    public let owners: [Owner]
+
+    /// ID of the phone number that received the message.
+    public let phoneNumberId: String
+
+    /// ID of the conversation the message belongs to.
+    public let conversationId: String
+
+    /// The kind of message.
+    public let type: PhoneMessageType
+
+    /// Whether the message was received or sent.
+    public let direction: PhoneMessageDirection
+
+    /// The user's number, in E.164 format.
+    public let localPhoneNumber: String
+
+    /// The number of SMS segments the message was carried in.
+    public let segmentCount: Int
+
+    /// True for an inbound MMS whose media was dropped and only its text kept.
+    public let mediaOmitted: Bool
+
+    /// Whether the user has marked the message as read.
+    public let seen: Bool
+
+    /// Version of the record, increased on each change.
+    public let version: Int
+
+    /// When the service received the message from the telephony provider.
+    public let receivedAt: Date
+
+    /// When the message was created.
+    public let createdAt: Date
+
+    /// When the message was last updated.
+    public let updatedAt: Date
+
+    /// ID of the Sudo that owns the message, or `nil` if its phone number has none.
+    public var sudoId: String? {
+        owners.sudoId
+    }
+
+    /// Create a partial phone message.
+    public init(
+        id: String,
+        owner: String,
+        owners: [Owner],
+        phoneNumberId: String,
+        conversationId: String,
+        type: PhoneMessageType,
+        direction: PhoneMessageDirection,
+        localPhoneNumber: String,
+        segmentCount: Int,
+        mediaOmitted: Bool,
+        seen: Bool,
+        version: Int,
+        receivedAt: Date,
+        createdAt: Date,
+        updatedAt: Date
+    ) {
+        self.id = id
+        self.owner = owner
+        self.owners = owners
+        self.phoneNumberId = phoneNumberId
+        self.conversationId = conversationId
+        self.type = type
+        self.direction = direction
+        self.localPhoneNumber = localPhoneNumber
+        self.segmentCount = segmentCount
+        self.mediaOmitted = mediaOmitted
+        self.seen = seen
+        self.version = version
+        self.receivedAt = receivedAt
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
     }
 }
 
@@ -149,18 +241,16 @@ public struct PhoneMessageBatchResult: Equatable, Sendable {
 }
 
 /// Input for listing a phone number's messages.
-public struct ListPhoneMessagesInput: Equatable, Sendable {
+public struct ListPhoneMessagesForPhoneNumberIdInput: Equatable, Sendable {
 
     /// ID of the phone number whose messages to list.
     public let phoneNumberId: String
 
-    /// Limit the list to a single conversation.
-    public let conversationId: String?
-
     /// Order of the messages. Defaults to newest first.
     public let sortOrder: MessageSortOrder?
 
-    /// Maximum number of messages per page.
+    /// Maximum number of messages per page. See
+    /// `TelephonyConfigurationData.listDefaultLimit` and `listMaxLimit`.
     public let limit: Int?
 
     /// An opaque token from a prior page.
@@ -169,12 +259,41 @@ public struct ListPhoneMessagesInput: Equatable, Sendable {
     /// Create a list input.
     public init(
         phoneNumberId: String,
-        conversationId: String? = nil,
         sortOrder: MessageSortOrder? = nil,
         limit: Int? = nil,
         nextToken: String? = nil
     ) {
         self.phoneNumberId = phoneNumberId
+        self.sortOrder = sortOrder
+        self.limit = limit
+        self.nextToken = nextToken
+    }
+}
+
+/// Input for listing the messages of one conversation, which belongs to one phone
+/// number.
+public struct ListPhoneMessagesForConversationIdInput: Equatable, Sendable {
+
+    /// ID of the conversation whose messages to list.
+    public let conversationId: String
+
+    /// Order of the messages. Defaults to newest first.
+    public let sortOrder: MessageSortOrder?
+
+    /// Maximum number of messages per page. See
+    /// `TelephonyConfigurationData.listDefaultLimit` and `listMaxLimit`.
+    public let limit: Int?
+
+    /// An opaque token from a prior page.
+    public let nextToken: String?
+
+    /// Create a list input.
+    public init(
+        conversationId: String,
+        sortOrder: MessageSortOrder? = nil,
+        limit: Int? = nil,
+        nextToken: String? = nil
+    ) {
         self.conversationId = conversationId
         self.sortOrder = sortOrder
         self.limit = limit

@@ -8,6 +8,7 @@ import Foundation
 import SudoApiClient
 import SudoKeyManager
 import SudoTelephonyCommon
+import SudoUser
 
 /// The default `SudoTelephonyClient` implementation and composition root.
 ///
@@ -20,16 +21,22 @@ public final class DefaultSudoTelephonyClient: SudoTelephonyClient {
     private let useCaseFactory: UseCaseFactory
     private let deviceKeyManager: DeviceKeyManager
 
+    /// The signed-in user's subject, which subscriptions are scoped to.
+    private let subject: @Sendable () async throws -> String?
+
+    /// Signs the user in through the app's sign-in delegate, if it has set one, before an operation that needs it.
+    private let signInGuard: SignInGuard?
+
     // MARK: - Lifecycle
 
-    /// Create the client with a configured `SudoApiClient`.
+    /// Create the client for the signed-in user of `userClient`, using the
+    /// `telephonyService` section of `sudoplatformconfig.json`.
     ///
     /// - Parameters:
-    ///   - sudoApiClient: The client used to reach the telephony service's AppSync
-    ///     GraphQL endpoint, resolved from the `telephonyService` configuration.
     ///   - keyNamespace: Namespace isolating this SDK's keys in the keychain. Used only
     ///     when `keyManager` is `nil`, to build the SDK's own key manager. Defaults to
-    ///     `"sudo-telephony"`.
+    ///     `Constants.defaultKeyNamespace`.
+    ///   - userClient: The user client the app signs in with.
     ///   - keyManager: An optional caller-supplied `SudoKeyManager` to back on-device
     ///     key generation, storage, and unsealing. Leave `nil` (the default) to let the
     ///     SDK build a `DefaultSudoKeyManager` from `keyNamespace`.
@@ -41,14 +48,46 @@ public final class DefaultSudoTelephonyClient: SudoTelephonyClient {
     ///       manager is opt-in for callers who need to control the keychain
     ///       configuration (service name, key tag, access group); the default path
     ///       remains unchanged for everyone else.
+    /// - Throws: `SudoTelephonyError.invalidConfig` if the configuration has no
+    ///   `telephonyService` section.
+    public convenience init(
+        keyNamespace: String = Constants.defaultKeyNamespace,
+        userClient: SudoUserClient,
+        keyManager: SudoKeyManager? = nil
+    ) throws {
+        let sudoApiClient: SudoApiClient?
+        do {
+            sudoApiClient = try SudoApiClientManager.instance?.getClient(sudoUserClient: userClient, configNamespace: Self.configNamespace)
+        } catch ApiOperationError.invalidArgument {
+            // The client manager reports a missing configuration section this way.
+            throw SudoTelephonyError.invalidConfig
+        }
+        guard let sudoApiClient else {
+            throw SudoTelephonyError.invalidConfig
+        }
+        self.init(sudoApiClient: sudoApiClient, userClient: userClient, keyNamespace: keyNamespace, keyManager: keyManager)
+    }
+
+    /// Create the client with an already configured `SudoApiClient`, for apps that
+    /// build their own, for example to point at a different endpoint. Most apps use
+    /// `init(keyNamespace:userClient:keyManager:)`.
+    ///
+    /// - Parameters:
+    ///   - sudoApiClient: The client used to reach the telephony service's AppSync
+    ///     GraphQL endpoint.
+    ///   - userClient: The user client the app signs in with.
+    ///   - keyNamespace: As for `init(keyNamespace:userClient:keyManager:)`.
+    ///   - keyManager: As for `init(keyNamespace:userClient:keyManager:)`.
     public init(
         sudoApiClient: SudoApiClient,
-        keyNamespace: String = "sudo-telephony",
+        userClient: SudoUserClient,
+        keyNamespace: String = Constants.defaultKeyNamespace,
         keyManager: SudoKeyManager? = nil
     ) {
         let deviceKeyManager: DeviceKeyManager = keyManager.map(DefaultDeviceKeyManager.init(keyManager:))
             ?? DefaultDeviceKeyManager(keyNamespace: keyNamespace)
         let supportedCountriesRepository = DefaultSupportedCountriesRepository(sudoApiClient: sudoApiClient)
+        let configurationRepository = DefaultConfigurationRepository(sudoApiClient: sudoApiClient)
         let phoneNumberRepository = DefaultPhoneNumberRepository(
             sudoApiClient: sudoApiClient,
             deviceKeyManager: deviceKeyManager
@@ -60,8 +99,11 @@ public final class DefaultSudoTelephonyClient: SudoTelephonyClient {
         )
         let subscriptionRepository = DefaultSubscriptionRepository(sudoApiClient: sudoApiClient)
         self.deviceKeyManager = deviceKeyManager
+        subject = { [weak userClient] in try await userClient?.getSubject() }
+        signInGuard = SignInGuard(userClient: userClient)
         useCaseFactory = UseCaseFactory(
             supportedCountriesRepository: supportedCountriesRepository,
+            configurationRepository: configurationRepository,
             phoneNumberRepository: phoneNumberRepository,
             phoneMessageRepository: phoneMessageRepository,
             subscriptionRepository: subscriptionRepository
@@ -71,16 +113,31 @@ public final class DefaultSudoTelephonyClient: SudoTelephonyClient {
     /// Create the client with a pre-built `UseCaseFactory` and device key manager.
     ///
     /// Used by unit tests to inject mock repositories without touching the data layer.
-    init(useCaseFactory: UseCaseFactory, deviceKeyManager: DeviceKeyManager) {
+    init(
+        useCaseFactory: UseCaseFactory,
+        deviceKeyManager: DeviceKeyManager,
+        signInGuard: SignInGuard? = nil,
+        subject: @escaping @Sendable () async throws -> String? = { nil }
+    ) {
         self.useCaseFactory = useCaseFactory
         self.deviceKeyManager = deviceKeyManager
+        self.signInGuard = signInGuard
+        self.subject = subject
     }
 
     // MARK: - Supported Countries
 
     public func getSupportedCountries() async throws -> [String] {
+        try await ensureSignedIn()
         let useCase = useCaseFactory.generateGetSupportedCountriesUseCase()
         return try await useCase.execute()
+    }
+
+    // MARK: - Configuration
+
+    public func getConfigurationData() async throws -> TelephonyConfigurationData {
+        try await ensureSignedIn()
+        return try await useCaseFactory.generateGetConfigurationDataUseCase().execute()
     }
 
     // MARK: - Phone Number Management
@@ -88,59 +145,86 @@ public final class DefaultSudoTelephonyClient: SudoTelephonyClient {
     public func searchAvailablePhoneNumbers(
         _ input: SearchAvailablePhoneNumbersInput
     ) async throws -> PhoneNumberSearchResult {
-        try await useCaseFactory.generateSearchAvailablePhoneNumbersUseCase().execute(input)
+        try await ensureSignedIn()
+        return try await useCaseFactory.generateSearchAvailablePhoneNumbersUseCase().execute(input)
     }
 
     public func provisionPhoneNumber(_ input: ProvisionPhoneNumberInput) async throws -> PhoneNumber {
-        try await useCaseFactory.generateProvisionPhoneNumberUseCase().execute(input)
+        try await ensureSignedIn()
+        return try await useCaseFactory.generateProvisionPhoneNumberUseCase().execute(input)
     }
 
     public func deprovisionPhoneNumber(id: String) async throws -> PhoneNumber {
-        try await useCaseFactory.generateDeprovisionPhoneNumberUseCase().execute(id: id)
+        try await ensureSignedIn()
+        return try await useCaseFactory.generateDeprovisionPhoneNumberUseCase().execute(id: id)
     }
 
     public func getPhoneNumber(id: String) async throws -> PhoneNumber? {
-        try await useCaseFactory.generateGetPhoneNumberUseCase().execute(id: id)
+        try await ensureSignedIn()
+        return try await useCaseFactory.generateGetPhoneNumberUseCase().execute(id: id)
     }
 
-    public func listPhoneNumbers(_ input: ListPhoneNumbersInput) async throws -> PhoneNumberListToken {
-        try await useCaseFactory.generateListPhoneNumbersUseCase().execute(input)
+    public func listPhoneNumbers(_ input: ListPhoneNumbersInput) async throws -> ListOutput<PhoneNumber> {
+        try await ensureSignedIn()
+        return try await useCaseFactory.generateListPhoneNumbersUseCase().execute(input)
+    }
+
+    public func listPhoneNumbersForSudoId(_ input: ListPhoneNumbersForSudoIdInput) async throws -> ListOutput<PhoneNumber> {
+        try await ensureSignedIn()
+        return try await useCaseFactory.generateListPhoneNumbersForSudoIdUseCase().execute(input)
     }
 
     // MARK: - SMS
 
     public func getPhoneMessage(id: String) async throws -> PhoneMessage? {
-        try await useCaseFactory.generateGetPhoneMessageUseCase().execute(id: id)
+        try await ensureSignedIn()
+        return try await useCaseFactory.generateGetPhoneMessageUseCase().execute(id: id)
     }
 
-    public func listPhoneMessages(_ input: ListPhoneMessagesInput) async throws -> PhoneMessageListToken {
-        try await useCaseFactory.generateListPhoneMessagesUseCase().execute(input)
+    public func listPhoneMessagesForPhoneNumberId(
+        _ input: ListPhoneMessagesForPhoneNumberIdInput
+    ) async throws -> ListAPIResult<PhoneMessage, PartialPhoneMessage> {
+        try await ensureSignedIn()
+        return try await useCaseFactory.generateListPhoneMessagesForPhoneNumberIdUseCase().execute(input)
+    }
+
+    public func listPhoneMessagesForConversationId(
+        _ input: ListPhoneMessagesForConversationIdInput
+    ) async throws -> ListAPIResult<PhoneMessage, PartialPhoneMessage> {
+        try await ensureSignedIn()
+        return try await useCaseFactory.generateListPhoneMessagesForConversationIdUseCase().execute(input)
     }
 
     public func deletePhoneMessages(ids: [String]) async throws -> PhoneMessageBatchResult {
-        try await useCaseFactory.generateDeletePhoneMessagesUseCase().execute(ids: ids)
+        try await ensureSignedIn()
+        return try await useCaseFactory.generateDeletePhoneMessagesUseCase().execute(ids: ids)
     }
 
     public func updatePhoneMessages(ids: [String], seen: Bool) async throws -> PhoneMessageBatchResult {
-        try await useCaseFactory.generateUpdatePhoneMessagesUseCase().execute(ids: ids, seen: seen)
+        try await ensureSignedIn()
+        return try await useCaseFactory.generateUpdatePhoneMessagesUseCase().execute(ids: ids, seen: seen)
     }
 
     // MARK: - Subscriptions
 
     public func subscribeToPhoneNumberUpdates(
-        owner: String,
         onUpdate: @escaping @Sendable (Result<PhoneNumber, Error>) -> Void
     ) async throws -> SubscriptionToken {
         try await useCaseFactory.generateSubscribeToPhoneNumberUpdatesUseCase()
-            .execute(owner: owner, onUpdate: onUpdate)
+            .execute(owner: requireSubject(), onUpdate: onUpdate)
     }
 
     public func subscribeToPhoneMessageEvents(
-        owner: String,
         onEvent: @escaping @Sendable (Result<PhoneMessageEvent, Error>) -> Void
     ) async throws -> SubscriptionToken {
         try await useCaseFactory.generateSubscribeToPhoneMessageEventsUseCase()
-            .execute(owner: owner, onEvent: onEvent)
+            .execute(owner: requireSubject(), onEvent: onEvent)
+    }
+
+    // MARK: - Sign-In Delegate
+
+    public func setSignInDelegate(_ delegate: SudoPlatformSignInDelegate?) async {
+        await signInGuard?.setDelegate(delegate)
     }
 
     // MARK: - Lifecycle
@@ -155,5 +239,23 @@ public final class DefaultSudoTelephonyClient: SudoTelephonyClient {
 
     public func importKeys(archiveData: Data) throws {
         try deviceKeyManager.importKeys(archiveData: archiveData)
+    }
+
+    // MARK: - Helpers
+
+    /// The stanza in `sudoplatformconfig.json` holding the telephony service's configuration.
+    private static let configNamespace = "telephonyService"
+
+    /// Signs the user in through the app's sign-in delegate first, if it has set one and the user isn't signed in.
+    private func ensureSignedIn() async throws {
+        try await signInGuard?.ensureSignedIn()
+    }
+
+    /// The signed-in user's subject, which subscriptions are scoped to.
+    private func requireSubject() async throws -> String {
+        guard let subject = try await subject() else {
+            throw SudoTelephonyError.notSignedIn
+        }
+        return subject
     }
 }

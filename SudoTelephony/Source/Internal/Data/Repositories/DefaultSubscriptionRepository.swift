@@ -35,8 +35,8 @@ final class DefaultSubscriptionRepository: SubscriptionRepository {
             subscription: GraphQL.OnPhoneNumberUpdateSubscription(owner: owner)
         ) { result in
             onUpdate(Self.mapResult(result) { data in
-                guard let fragment = data.onPhoneNumberUpdate else { return nil }
-                return try PhoneNumberTransformer.transform(fragment)
+                guard let number = data.onPhoneNumberUpdate else { return nil }
+                return try PhoneNumberTransformer.transform(number.fragments.phoneNumberFields)
             })
         }
         return ApiSubscriptionToken(subscription: subscription)

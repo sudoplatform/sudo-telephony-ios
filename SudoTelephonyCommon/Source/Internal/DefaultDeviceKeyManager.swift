@@ -92,13 +92,13 @@ public final class DefaultDeviceKeyManager: DeviceKeyManager, @unchecked Sendabl
 
     public func unsealString(_ sealed: String, withKeyId keyId: String, algorithm: String) throws -> String {
         guard algorithm == Defaults.algorithm else {
-            throw SudoTelephonyError.internalError("Unsupported sealing algorithm: \(algorithm)")
+            throw SudoTelephonyError.unsealingFailed("Unsupported sealing algorithm: \(algorithm)")
         }
         guard let payload = Data(base64Encoded: sealed) else {
-            throw SudoTelephonyError.internalError("Sealed value is not valid base64")
+            throw SudoTelephonyError.unsealingFailed("Sealed value is not valid base64")
         }
         guard payload.count > Defaults.rsaBlockSize else {
-            throw SudoTelephonyError.internalError("Sealed value is too short to contain an envelope")
+            throw SudoTelephonyError.unsealingFailed("Sealed value is too short to contain an envelope")
         }
         do {
             // The first RSA block is the AES key sealed to the public key; the
@@ -113,13 +113,13 @@ public final class DefaultDeviceKeyManager: DeviceKeyManager, @unchecked Sendabl
             let cipherData = payload.subdata(in: Defaults.rsaBlockSize ..< payload.count)
             let plaintext = try keyManager.decryptWithSymmetricKey(symmetricKey, data: cipherData)
             guard let string = String(data: plaintext, encoding: .utf8) else {
-                throw SudoTelephonyError.internalError("Unsealed value is not valid UTF-8")
+                throw SudoTelephonyError.unsealingFailed("Unsealed value is not valid UTF-8")
             }
             return string
         } catch let error as SudoTelephonyError {
             throw error
         } catch {
-            throw SudoTelephonyError.internalError("Unsealing failed: \(error)")
+            throw SudoTelephonyError.unsealingFailed("\(error)")
         }
     }
 

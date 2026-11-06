@@ -15,6 +15,7 @@ final class UseCaseFactory {
     // MARK: - Properties
 
     private let supportedCountriesRepository: SupportedCountriesRepository
+    private let configurationRepository: ConfigurationRepository
     private let phoneNumberRepository: PhoneNumberRepository
     private let phoneMessageRepository: PhoneMessageRepository
     private let subscriptionRepository: SubscriptionRepository
@@ -23,11 +24,13 @@ final class UseCaseFactory {
 
     init(
         supportedCountriesRepository: SupportedCountriesRepository,
+        configurationRepository: ConfigurationRepository,
         phoneNumberRepository: PhoneNumberRepository,
         phoneMessageRepository: PhoneMessageRepository,
         subscriptionRepository: SubscriptionRepository
     ) {
         self.supportedCountriesRepository = supportedCountriesRepository
+        self.configurationRepository = configurationRepository
         self.phoneNumberRepository = phoneNumberRepository
         self.phoneMessageRepository = phoneMessageRepository
         self.subscriptionRepository = subscriptionRepository
@@ -37,6 +40,12 @@ final class UseCaseFactory {
 
     func generateGetSupportedCountriesUseCase() -> GetSupportedCountriesUseCase {
         GetSupportedCountriesUseCase(repository: supportedCountriesRepository)
+    }
+
+    // MARK: - Configuration
+
+    func generateGetConfigurationDataUseCase() -> GetConfigurationDataUseCase {
+        GetConfigurationDataUseCase(repository: configurationRepository)
     }
 
     // MARK: - Phone Numbers
@@ -61,14 +70,22 @@ final class UseCaseFactory {
         ListPhoneNumbersUseCase(repository: phoneNumberRepository)
     }
 
+    func generateListPhoneNumbersForSudoIdUseCase() -> ListPhoneNumbersForSudoIdUseCase {
+        ListPhoneNumbersForSudoIdUseCase(repository: phoneNumberRepository)
+    }
+
     // MARK: - Phone Messages
 
     func generateGetPhoneMessageUseCase() -> GetPhoneMessageUseCase {
         GetPhoneMessageUseCase(repository: phoneMessageRepository)
     }
 
-    func generateListPhoneMessagesUseCase() -> ListPhoneMessagesUseCase {
-        ListPhoneMessagesUseCase(repository: phoneMessageRepository)
+    func generateListPhoneMessagesForPhoneNumberIdUseCase() -> ListPhoneMessagesForPhoneNumberIdUseCase {
+        ListPhoneMessagesForPhoneNumberIdUseCase(repository: phoneMessageRepository)
+    }
+
+    func generateListPhoneMessagesForConversationIdUseCase() -> ListPhoneMessagesForConversationIdUseCase {
+        ListPhoneMessagesForConversationIdUseCase(repository: phoneMessageRepository)
     }
 
     func generateDeletePhoneMessagesUseCase() -> DeletePhoneMessagesUseCase {

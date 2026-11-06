@@ -38,34 +38,62 @@ final class DefaultPhoneMessageRepository: PhoneMessageRepository, SudoApiGraphQ
     func getPhoneMessage(id: String) async throws -> PhoneMessage? {
         let query = GraphQL.GetPhoneMessageQuery(id: id)
         let data = try await fetch(query)
-        guard let fragment = data.getPhoneMessage else { return nil }
-        let keyId = try await requireSealingKeyId(for: fragment.phoneNumberId)
+        guard let message = data.getPhoneMessage else { return nil }
+        let keyId = try await requireSealingKeyId(for: message.phoneNumberId)
         return try PhoneMessageTransformer.transform(
-            fragment,
+            message.fragments.sealedPhoneMessageFields,
             keyId: keyId,
             deviceKeyManager: deviceKeyManager
         )
     }
 
-    func listPhoneMessages(_ input: ListPhoneMessagesInput) async throws -> PhoneMessageListToken {
-        let query = GraphQL.ListPhoneMessagesQuery(
-            input: GraphQL.ListPhoneMessagesInput(
-                phoneNumberId: input.phoneNumberId,
-                conversationId: input.conversationId,
-                sortOrder: input.sortOrder.map { GraphQL.SortOrder(rawValue: $0.rawValue) } ?? nil,
+    func listPhoneMessagesForPhoneNumberId(
+        _ input: ListPhoneMessagesForPhoneNumberIdInput
+    ) async throws -> ListAPIResult<PhoneMessage, PartialPhoneMessage> {
+        let query = GraphQL.ListPhoneMessagesForPhoneNumberIdQuery(
+            input: GraphQL.ListPhoneMessagesForPhoneNumberIdInput(
                 limit: input.limit,
-                nextToken: input.nextToken
+                nextToken: input.nextToken,
+                phoneNumberId: input.phoneNumberId,
+                sortOrder: input.sortOrder.map { GraphQL.SortOrder(rawValue: $0.rawValue) } ?? nil
             )
         )
-        let data = try await fetch(query)
-
+        let page = try await fetch(query).listPhoneMessagesForPhoneNumberId
         // Every message in the page belongs to the same phone number, so the sealing
         // key is resolved once.
         let keyId = try await requireSealingKeyId(for: input.phoneNumberId)
-        let items = try data.listPhoneMessages.items.map {
-            try PhoneMessageTransformer.transform($0, keyId: keyId, deviceKeyManager: deviceKeyManager)
+        return try PhoneMessageTransformer.transform(
+            items: page.items.map(\.fragments.sealedPhoneMessageFields),
+            nextToken: page.nextToken,
+            keyId: keyId,
+            deviceKeyManager: deviceKeyManager
+        )
+    }
+
+    func listPhoneMessagesForConversationId(
+        _ input: ListPhoneMessagesForConversationIdInput
+    ) async throws -> ListAPIResult<PhoneMessage, PartialPhoneMessage> {
+        let query = GraphQL.ListPhoneMessagesForConversationIdQuery(
+            input: GraphQL.ListPhoneMessagesForConversationIdInput(
+                conversationId: input.conversationId,
+                limit: input.limit,
+                nextToken: input.nextToken,
+                sortOrder: input.sortOrder.map { GraphQL.SortOrder(rawValue: $0.rawValue) } ?? nil
+            )
+        )
+        let page = try await fetch(query).listPhoneMessagesForConversationId
+        // A conversation belongs to one phone number, which the input doesn't name, so
+        // the sealing key is resolved from the messages themselves.
+        guard let phoneNumberId = page.items.first?.phoneNumberId else {
+            return .success(.init(items: [], nextToken: page.nextToken))
         }
-        return PhoneMessageListToken(items: items, nextToken: data.listPhoneMessages.nextToken)
+        let keyId = try await requireSealingKeyId(for: phoneNumberId)
+        return try PhoneMessageTransformer.transform(
+            items: page.items.map(\.fragments.sealedPhoneMessageFields),
+            nextToken: page.nextToken,
+            keyId: keyId,
+            deviceKeyManager: deviceKeyManager
+        )
     }
 
     func deletePhoneMessages(ids: [String]) async throws -> PhoneMessageBatchResult {
@@ -73,7 +101,7 @@ final class DefaultPhoneMessageRepository: PhoneMessageRepository, SudoApiGraphQ
             input: GraphQL.DeletePhoneMessagesInput(ids: ids)
         )
         let data = try await perform(mutation)
-        return PhoneMessageTransformer.transform(data.deletePhoneMessages)
+        return PhoneMessageTransformer.transform(data.deletePhoneMessages.fragments.phoneMessageBatchResultFields)
     }
 
     func updatePhoneMessages(ids: [String], seen: Bool) async throws -> PhoneMessageBatchResult {
@@ -81,7 +109,7 @@ final class DefaultPhoneMessageRepository: PhoneMessageRepository, SudoApiGraphQ
             input: GraphQL.UpdatePhoneMessagesInput(ids: ids, seen: seen)
         )
         let data = try await perform(mutation)
-        return PhoneMessageTransformer.transform(data.updatePhoneMessages)
+        return PhoneMessageTransformer.transform(data.updatePhoneMessages.fragments.phoneMessageBatchResultFields)
     }
 
     // MARK: - Helpers

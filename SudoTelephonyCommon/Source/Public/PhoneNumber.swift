@@ -83,7 +83,7 @@ public struct AvailablePhoneNumber: Equatable, Sendable {
 ///
 /// The search is kept for 15 minutes so provisioning can confirm the requested
 /// number came from it. The carrier does not reserve the numbers, so a result can
-/// be taken by someone else before `expiresAtEpochMs`.
+/// be taken by someone else before `expiresAt`.
 public struct PhoneNumberSearchResult: Equatable, Sendable {
 
     /// ID of the search. Pass it as `searchId` when provisioning.
@@ -98,9 +98,8 @@ public struct PhoneNumberSearchResult: Equatable, Sendable {
     /// The available numbers, without duplicates and at most the requested limit.
     public let results: [AvailablePhoneNumber]
 
-    /// Time in milliseconds since the Unix epoch after which provisioning from this
-    /// search is refused.
-    public let expiresAtEpochMs: Double
+    /// When provisioning from this search stops being accepted.
+    public let expiresAt: Date
 
     /// Create a phone number search result.
     public init(
@@ -108,21 +107,41 @@ public struct PhoneNumberSearchResult: Equatable, Sendable {
         countryCode: String,
         areaCode: String?,
         results: [AvailablePhoneNumber],
-        expiresAtEpochMs: Double
+        expiresAt: Date
     ) {
         self.id = id
         self.countryCode = countryCode
         self.areaCode = areaCode
         self.results = results
-        self.expiresAtEpochMs = expiresAtEpochMs
+        self.expiresAt = expiresAt
     }
 }
 
 /// A phone number provisioned for a user.
+///
+/// The user always owns the number (`owner`). If it was provisioned with a Sudo
+/// ownership proof, the Sudo owns it too, and is listed in `owners` and returned
+/// by `sudoId`.
 public struct PhoneNumber: Equatable, Sendable {
 
     /// ID of the phone number.
     public let id: String
+
+    /// The user who owns the number: their subject.
+    public let owner: String
+
+    /// What else owns the number, for example the Sudo whose ownership proof it was
+    /// provisioned with. Empty for a number provisioned without a proof.
+    public let owners: [Owner]
+
+    /// ID of the user's identity, which the number's message keys are registered to.
+    public let identityId: String
+
+    /// ID of the key ring holding the number's message keys.
+    public let keyRingId: String
+
+    /// IDs of the keys the number's inbound messages are sealed to.
+    public let keyIds: [String]
 
     /// The number in E.164 format, for example `+14155550123`.
     public let phoneNumber: String
@@ -142,65 +161,63 @@ public struct PhoneNumber: Equatable, Sendable {
     /// Why provisioning failed, set only when `state` is `.failed`.
     public let failureReason: PhoneNumberFailureReason?
 
-    /// Time in milliseconds since the Unix epoch when the suspension grace period
-    /// ends. Set only while `state` is `.suspended`.
-    public let gracePeriodEndsAtEpochMs: Double?
+    /// When the suspension grace period ends. Set only while `state` is `.suspended`.
+    public let gracePeriodEndsAt: Date?
 
     /// An optional caller-supplied reference string set at provisioning time.
     public let clientRefId: String?
 
-    /// What owns the number besides the user, for example the Sudo whose ownership proof
-    /// it was provisioned with. Empty for a number provisioned without a proof.
-    public let owners: [Owner]
+    /// Version of the record, increased on each change.
+    public let version: Int
 
-    /// Time in milliseconds since the Unix epoch when the number was created.
-    public let createdAtEpochMs: Double
+    /// When the number was created.
+    public let createdAt: Date
 
-    /// Time in milliseconds since the Unix epoch when the number was last updated.
-    public let updatedAtEpochMs: Double
+    /// When the number was last updated.
+    public let updatedAt: Date
+
+    /// ID of the Sudo that owns the number, or `nil` if it was provisioned without
+    /// a Sudo ownership proof.
+    public var sudoId: String? {
+        owners.sudoId
+    }
 
     /// Create a phone number.
     public init(
         id: String,
+        owner: String,
+        owners: [Owner],
+        identityId: String,
+        keyRingId: String,
+        keyIds: [String],
         phoneNumber: String,
         countryCode: String,
         numberType: PhoneNumberType,
         areaCode: String?,
         state: PhoneNumberState,
         failureReason: PhoneNumberFailureReason?,
-        gracePeriodEndsAtEpochMs: Double?,
+        gracePeriodEndsAt: Date?,
         clientRefId: String?,
-        owners: [Owner],
-        createdAtEpochMs: Double,
-        updatedAtEpochMs: Double
+        version: Int,
+        createdAt: Date,
+        updatedAt: Date
     ) {
         self.id = id
+        self.owner = owner
+        self.owners = owners
+        self.identityId = identityId
+        self.keyRingId = keyRingId
+        self.keyIds = keyIds
         self.phoneNumber = phoneNumber
         self.countryCode = countryCode
         self.numberType = numberType
         self.areaCode = areaCode
         self.state = state
         self.failureReason = failureReason
-        self.gracePeriodEndsAtEpochMs = gracePeriodEndsAtEpochMs
+        self.gracePeriodEndsAt = gracePeriodEndsAt
         self.clientRefId = clientRefId
-        self.owners = owners
-        self.createdAtEpochMs = createdAtEpochMs
-        self.updatedAtEpochMs = updatedAtEpochMs
-    }
-}
-
-/// A page of provisioned phone numbers.
-public struct PhoneNumberListToken: Equatable, Sendable {
-
-    /// The phone numbers in this page.
-    public let items: [PhoneNumber]
-
-    /// An opaque token to fetch the next page, or `nil` when there are no more.
-    public let nextToken: String?
-
-    /// Create a page of phone numbers.
-    public init(items: [PhoneNumber], nextToken: String?) {
-        self.items = items
-        self.nextToken = nextToken
+        self.version = version
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
     }
 }

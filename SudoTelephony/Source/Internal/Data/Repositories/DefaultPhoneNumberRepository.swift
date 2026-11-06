@@ -34,13 +34,13 @@ final class DefaultPhoneNumberRepository: PhoneNumberRepository, SudoApiGraphQLE
     ) async throws -> PhoneNumberSearchResult {
         let query = GraphQL.SearchAvailablePhoneNumbersQuery(
             input: GraphQL.SearchAvailablePhoneNumbersInput(
-                countryCode: input.countryCode,
                 areaCode: input.areaCode,
+                countryCode: input.countryCode,
                 limit: input.limit
             )
         )
         let data = try await fetch(query)
-        return try PhoneNumberTransformer.transform(data.searchAvailablePhoneNumbers)
+        return try PhoneNumberTransformer.transform(data.searchAvailablePhoneNumbers.fragments.phoneNumberSearchFields)
     }
 
     func provisionPhoneNumber(_ input: ProvisionPhoneNumberInput) async throws -> PhoneNumber {
@@ -49,49 +49,61 @@ final class DefaultPhoneNumberRepository: PhoneNumberRepository, SudoApiGraphQLE
         let key = try deviceKeyManager.generateKeyPair()
         let mutation = GraphQL.ProvisionPhoneNumberMutation(
             input: GraphQL.ProvisionPhoneNumberInput(
-                searchId: input.searchId,
-                phoneNumber: input.phoneNumber,
+                clientRefId: input.clientRefId,
                 key: GraphQL.ProvisionPhoneNumberPublicKeyInput(
-                    keyId: key.keyId,
                     algorithm: key.algorithm,
                     keyFormat: GraphQL.KeyFormat(rawValue: key.keyFormat.rawValue),
+                    keyId: key.keyId,
                     publicKey: key.publicKey
                 ),
-                ownershipProofTokens: input.ownershipProofTokens,
-                clientRefId: input.clientRefId
+                // The service takes a list, but accepts exactly one Sudo proof.
+                ownershipProofTokens: input.ownershipProofToken.map { [$0] },
+                phoneNumber: input.phoneNumber,
+                searchId: input.searchId
             )
         )
         let data = try await perform(mutation)
-        return try PhoneNumberTransformer.transform(data.provisionPhoneNumber)
+        return try PhoneNumberTransformer.transform(data.provisionPhoneNumber.fragments.phoneNumberFields)
     }
 
     func deprovisionPhoneNumber(id: String) async throws -> PhoneNumber {
         let mutation = GraphQL.DeprovisionPhoneNumberMutation(id: id)
         let data = try await perform(mutation)
-        return try PhoneNumberTransformer.transform(data.deprovisionPhoneNumber)
+        return try PhoneNumberTransformer.transform(data.deprovisionPhoneNumber.fragments.phoneNumberFields)
     }
 
     func getPhoneNumber(id: String) async throws -> PhoneNumber? {
         let query = GraphQL.GetPhoneNumberQuery(id: id)
         let data = try await fetch(query)
-        guard let fragment = data.getPhoneNumber else { return nil }
-        return try PhoneNumberTransformer.transform(fragment)
+        guard let number = data.getPhoneNumber else { return nil }
+        return try PhoneNumberTransformer.transform(number.fragments.phoneNumberFields)
     }
 
-    func listPhoneNumbers(_ input: ListPhoneNumbersInput) async throws -> PhoneNumberListToken {
+    func listPhoneNumbers(_ input: ListPhoneNumbersInput) async throws -> ListOutput<PhoneNumber> {
         let query = GraphQL.ListPhoneNumbersQuery(
             input: GraphQL.ListPhoneNumbersInput(limit: input.limit, nextToken: input.nextToken)
         )
         let data = try await fetch(query)
         return try PhoneNumberTransformer.transform(
-            items: data.listPhoneNumbers.items,
+            items: data.listPhoneNumbers.items.map(\.fragments.phoneNumberFields),
             nextToken: data.listPhoneNumbers.nextToken
+        )
+    }
+
+    func listPhoneNumbersForSudoId(_ input: ListPhoneNumbersForSudoIdInput) async throws -> ListOutput<PhoneNumber> {
+        let query = GraphQL.ListPhoneNumbersForSudoIdQuery(
+            input: GraphQL.ListPhoneNumbersForSudoIdInput(limit: input.limit, nextToken: input.nextToken, sudoId: input.sudoId)
+        )
+        let data = try await fetch(query)
+        return try PhoneNumberTransformer.transform(
+            items: data.listPhoneNumbersForSudoId.items.map(\.fragments.phoneNumberFields),
+            nextToken: data.listPhoneNumbersForSudoId.nextToken
         )
     }
 
     func sealingKeyId(forPhoneNumberId phoneNumberId: String) async throws -> String? {
         let query = GraphQL.GetPhoneNumberQuery(id: phoneNumberId)
         let data = try await fetch(query)
-        return data.getPhoneNumber?.keyIds?.first
+        return data.getPhoneNumber?.keyIds.first
     }
 }

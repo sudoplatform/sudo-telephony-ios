@@ -6,6 +6,7 @@
 
 import Foundation
 import SudoTelephonyCommon
+import SudoUser
 
 /// The consumer-facing API for the Sudo Telephony SDK.
 ///
@@ -20,6 +21,12 @@ public protocol SudoTelephonyClient: AnyObject {
     /// - Returns: The supported countries as ISO 3166-1 alpha-2 country codes.
     /// - Throws: `SudoTelephonyError` if the operation fails.
     func getSupportedCountries() async throws -> [String]
+
+    // MARK: - Configuration
+
+    /// Fetch how the telephony service is configured, for example whether provisioning
+    /// requires a Sudo ownership proof, and the search and list limits.
+    func getConfigurationData() async throws -> TelephonyConfigurationData
 
     // MARK: - Phone Number Management
 
@@ -38,16 +45,34 @@ public protocol SudoTelephonyClient: AnyObject {
     /// Fetch a single provisioned number by ID (`nil` if absent or not the caller's).
     func getPhoneNumber(id: String) async throws -> PhoneNumber?
 
-    /// List the caller's provisioned numbers.
-    func listPhoneNumbers(_ input: ListPhoneNumbersInput) async throws -> PhoneNumberListToken
+    /// List the caller's provisioned numbers, including any belonging to their Sudos.
+    /// Use `PhoneNumber.sudoId` to find a Sudo's numbers.
+    func listPhoneNumbers(_ input: ListPhoneNumbersInput) async throws -> ListOutput<PhoneNumber>
+
+    /// List the numbers a Sudo owns, oldest first. Released numbers aren't included,
+    /// and another user's Sudo lists nothing.
+    func listPhoneNumbersForSudoId(_ input: ListPhoneNumbersForSudoIdInput) async throws -> ListOutput<PhoneNumber>
 
     // MARK: - SMS
 
     /// Fetch and unseal a single message by ID (`nil` if absent or not the caller's).
     func getPhoneMessage(id: String) async throws -> PhoneMessage?
 
-    /// List and unseal a phone number's inbox.
-    func listPhoneMessages(_ input: ListPhoneMessagesInput) async throws -> PhoneMessageListToken
+    /// List and unseal a phone number's messages, newest first by default.
+    ///
+    /// - Returns: `success` with the page if every message was unsealed, or `partial`
+    ///   with the readable messages and, for each message that couldn't be unsealed
+    ///   (for example because this device doesn't have its key), a
+    ///   `PartialPhoneMessage` and the reason.
+    func listPhoneMessagesForPhoneNumberId(
+        _ input: ListPhoneMessagesForPhoneNumberIdInput
+    ) async throws -> ListAPIResult<PhoneMessage, PartialPhoneMessage>
+
+    /// List and unseal the messages of one conversation, newest first by default,
+    /// with partial results as for `listPhoneMessagesForPhoneNumberId(_:)`.
+    func listPhoneMessagesForConversationId(
+        _ input: ListPhoneMessagesForConversationIdInput
+    ) async throws -> ListAPIResult<PhoneMessage, PartialPhoneMessage>
 
     /// Delete up to 100 of the caller's messages.
     func deletePhoneMessages(ids: [String]) async throws -> PhoneMessageBatchResult
@@ -59,17 +84,33 @@ public protocol SudoTelephonyClient: AnyObject {
 
     /// Subscribe to real-time changes to the caller's phone numbers. Retain the token
     /// while updates are wanted; cancel or release it to stop.
+    ///
+    /// - Throws: `SudoTelephonyError.notSignedIn` if no user is signed in.
     func subscribeToPhoneNumberUpdates(
-        owner: String,
         onUpdate: @escaping @Sendable (Result<PhoneNumber, Error>) -> Void
     ) async throws -> SubscriptionToken
 
     /// Subscribe to real-time message events (metadata only; fetch content with
     /// `getPhoneMessage(id:)`). Retain the token while events are wanted.
+    ///
+    /// - Throws: `SudoTelephonyError.notSignedIn` if no user is signed in.
     func subscribeToPhoneMessageEvents(
-        owner: String,
         onEvent: @escaping @Sendable (Result<PhoneMessageEvent, Error>) -> Void
     ) async throws -> SubscriptionToken
+
+    // MARK: - Sign-In Delegate
+
+    /// Set a delegate to sign the user in when an operation is attempted while they
+    /// aren't signed in, so an app can launch without waiting to sign in first.
+    ///
+    /// When set, every operation except subscriptions and the on-device key
+    /// operations (`reset()`, `exportKeys()`, `importKeys(archiveData:)`) first checks
+    /// whether the user is signed in, and if not calls the delegate's `signIn()`. If
+    /// `signIn()` throws, the error is passed to the caller and the operation doesn't
+    /// run.
+    ///
+    /// - Parameter delegate: The delegate, or `nil` to stop checking.
+    func setSignInDelegate(_ delegate: SudoPlatformSignInDelegate?) async
 
     // MARK: - Lifecycle
 

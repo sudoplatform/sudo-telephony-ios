@@ -17,7 +17,7 @@ import PackageDescription
 //
 // Because these are iOS-only and build against Amplify/AWS, the package does not
 // build with a plain host `swift build`. Build and test on an iOS Simulator with
-// `xcodebuild -scheme SudoTelephony-Package -destination "platform=iOS Simulator,..."`.
+// `xcodebuild -workspace .swiftpm/xcode/package.xcworkspace -scheme SudoTelephony-Package`.
 
 let package = Package(
     name: "SudoTelephony",
@@ -78,12 +78,7 @@ let package = Package(
             ],
             path: "SudoTelephony/Source",
             swiftSettings: [.swiftLanguageMode(.v5)]
-        ),
-        .testTarget(
-            name: "SudoTelephonyTests",
-            dependencies: ["SudoTelephony", "SudoTelephonyCommon"],
-            path: "SudoTelephonyTests",
-            swiftSettings: [.swiftLanguageMode(.v5)]
         )
+        // The unit tests are internal: they run through SudoTelephony.xcodeproj and aren't published.
     ]
 )

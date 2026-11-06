@@ -23,7 +23,7 @@ final class GetPhoneMessageUseCase {
 }
 
 /// Business operation: list and unseal a phone number's messages.
-final class ListPhoneMessagesUseCase {
+final class ListPhoneMessagesForPhoneNumberIdUseCase {
 
     private let repository: PhoneMessageRepository
 
@@ -32,8 +32,23 @@ final class ListPhoneMessagesUseCase {
     }
 
     /// Execute the list.
-    func execute(_ input: ListPhoneMessagesInput) async throws -> PhoneMessageListToken {
-        try await repository.listPhoneMessages(input)
+    func execute(_ input: ListPhoneMessagesForPhoneNumberIdInput) async throws -> ListAPIResult<PhoneMessage, PartialPhoneMessage> {
+        try await repository.listPhoneMessagesForPhoneNumberId(input)
+    }
+}
+
+/// Business operation: list and unseal a conversation's messages.
+final class ListPhoneMessagesForConversationIdUseCase {
+
+    private let repository: PhoneMessageRepository
+
+    init(repository: PhoneMessageRepository) {
+        self.repository = repository
+    }
+
+    /// Execute the list.
+    func execute(_ input: ListPhoneMessagesForConversationIdInput) async throws -> ListAPIResult<PhoneMessage, PartialPhoneMessage> {
+        try await repository.listPhoneMessagesForConversationId(input)
     }
 }
 

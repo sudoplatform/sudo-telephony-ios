@@ -36,14 +36,24 @@ extension SudoTelephonyError {
         switch apiError {
         case .notSignedIn:
             return .notSignedIn
+        case .notAuthorized:
+            return .notAuthorized
         case .insufficientEntitlements:
             return .insufficientEntitlements
         case .invalidArgument, .invalidRequest:
             return .invalidArgument(nil)
-        case .serviceError, .accountLocked, .notAuthorized, .preconditionFailure,
-             .versionMismatch, .limitExceeded, .rateLimitExceeded:
+        case .limitExceeded, .rateLimitExceeded:
+            return .limitExceeded
+        case .accountLocked:
+            return .accountLocked
+        case .versionMismatch:
+            return .versionMismatch
+        case .serviceError, .preconditionFailure:
             return .serviceError
         case .graphQLError(let cause):
+            if let error = fromServiceErrorType(serviceErrorType(from: cause)) {
+                return error
+            }
             // An unclassified GraphQL error keeps the service's human-readable
             // message; surface it rather than discarding it. A message mentioning an
             // argument (e.g. a required area code) is reported as `.invalidArgument`
@@ -62,6 +72,58 @@ extension SudoTelephonyError {
         default:
             return .internalError("\(apiError)")
         }
+    }
+
+    /// The SDK error for an error type the service returns that `SudoApiClient`
+    /// doesn't classify itself, or `nil` if it isn't one the SDK knows.
+    static func fromServiceErrorType(_ errorType: String?) -> SudoTelephonyError? {
+        switch errorType {
+        case ServiceErrorType.invalidToken:
+            return .invalidToken
+        case ServiceErrorType.noEntitlements:
+            return .insufficientEntitlements
+        case ServiceErrorType.unsupportedCountry:
+            return .unsupportedCountry
+        case ServiceErrorType.invalidAreaCode:
+            return .invalidAreaCode
+        case ServiceErrorType.identityContextMissing:
+            return .identityContextMissing
+        case ServiceErrorType.phoneNumberSearchExpired:
+            return .phoneNumberSearchExpired
+        case ServiceErrorType.phoneNumberNotInSearch:
+            return .phoneNumberNotInSearch
+        case ServiceErrorType.phoneNumberUnavailable:
+            return .phoneNumberUnavailable
+        case ServiceErrorType.phoneNumberNotFound:
+            return .phoneNumberNotFound
+        case ServiceErrorType.invalidPhoneNumberState:
+            return .invalidPhoneNumberState
+        case ServiceErrorType.supportedCountriesUnavailable:
+            return .serviceError
+        default:
+            return nil
+        }
+    }
+
+    /// Error types from the telephony service (`src/util/errors.ts`) and the
+    /// platform errors it uses that `SudoApiClient` passes through unclassified.
+    enum ServiceErrorType {
+        static let invalidToken = "sudoplatform.InvalidTokenError"
+        static let noEntitlements = "sudoplatform.NoEntitlementsError"
+        static let unsupportedCountry = "sudoplatform.telephony.UnsupportedCountry"
+        static let invalidAreaCode = "sudoplatform.telephony.InvalidAreaCode"
+        static let identityContextMissing = "sudoplatform.telephony.IdentityContextMissing"
+        static let phoneNumberSearchExpired = "sudoplatform.telephony.PhoneNumberSearchExpired"
+        static let phoneNumberNotInSearch = "sudoplatform.telephony.PhoneNumberNotInSearch"
+        static let phoneNumberUnavailable = "sudoplatform.telephony.PhoneNumberUnavailable"
+        static let phoneNumberNotFound = "sudoplatform.telephony.PhoneNumberNotFound"
+        static let invalidPhoneNumberState = "sudoplatform.telephony.InvalidPhoneNumberState"
+        static let supportedCountriesUnavailable = "sudoplatform.telephony.SupportedCountriesUnavailable"
+    }
+
+    /// The service's error type from a GraphQL error cause, if any.
+    private static func serviceErrorType(from cause: Error) -> String? {
+        (cause as? GraphQLError)?.extensions?["errorType"]?.stringValue
     }
 
     /// The service's human-readable message from a GraphQL error cause, if any.

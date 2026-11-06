@@ -22,7 +22,8 @@ public struct SearchAvailablePhoneNumbersInput: Equatable, Sendable {
     /// deployments in service today.
     public let areaCode: String?
 
-    /// Maximum number of results. The service default is 10 and the maximum is 20.
+    /// Maximum number of results. See `TelephonyConfigurationData.phoneNumberSearchDefaultLimit`
+    /// and `phoneNumberSearchMaxLimit`.
     public let limit: Int?
 
     /// Create a search input.
@@ -46,15 +47,16 @@ public struct ProvisionPhoneNumberInput: Equatable, Sendable {
     /// The number to provision, in E.164 format. Must be one of the search results.
     public let phoneNumber: String
 
-    /// Proofs that the caller owns the Sudo the number will belong to. Required only
-    /// in deployments that enforce Sudo ownership; when given, must include exactly
-    /// one proof issued by the Sudo service.
-    ///
-    /// Get the proof from SudoProfiles with the audience
-    /// `"sudoplatform.telephony.phone-number"`, for example
+    /// Proof that the caller owns the Sudo the number will belong to. Get it from
+    /// SudoProfiles with `Constants.ownershipProofAudience`, for example
     /// `getOwnershipProof(sudoId:audience:)`. The provisioned number's `owners` then
     /// include the Sudo.
-    public let ownershipProofTokens: [String]?
+    ///
+    /// Sudo ownership is the recommended path. Leave it `nil` to provision a number the
+    /// user owns without a Sudo, where the deployment allows it: check
+    /// `getConfigurationData().sudoOwnershipProofRequired` first. A deployment that
+    /// requires Sudo ownership rejects the request with `SudoTelephonyError.invalidToken`.
+    public let ownershipProofToken: String?
 
     /// An optional caller-supplied reference string stored with the number. Repeating
     /// a request with the same value returns the number the first request
@@ -65,12 +67,12 @@ public struct ProvisionPhoneNumberInput: Equatable, Sendable {
     public init(
         searchId: String,
         phoneNumber: String,
-        ownershipProofTokens: [String]? = nil,
+        ownershipProofToken: String? = nil,
         clientRefId: String? = nil
     ) {
         self.searchId = searchId
         self.phoneNumber = phoneNumber
-        self.ownershipProofTokens = ownershipProofTokens
+        self.ownershipProofToken = ownershipProofToken
         self.clientRefId = clientRefId
     }
 }
@@ -86,6 +88,26 @@ public struct ListPhoneNumbersInput: Equatable, Sendable {
 
     /// Create a list input.
     public init(limit: Int? = nil, nextToken: String? = nil) {
+        self.limit = limit
+        self.nextToken = nextToken
+    }
+}
+
+/// Input for listing the phone numbers a Sudo owns.
+public struct ListPhoneNumbersForSudoIdInput: Equatable, Sendable {
+
+    /// ID of the Sudo whose numbers to list. Another user's Sudo lists nothing.
+    public let sudoId: String
+
+    /// Maximum number of numbers to return in the page.
+    public let limit: Int?
+
+    /// An opaque token from a prior page, to fetch the next page.
+    public let nextToken: String?
+
+    /// Create a list input.
+    public init(sudoId: String, limit: Int? = nil, nextToken: String? = nil) {
+        self.sudoId = sudoId
         self.limit = limit
         self.nextToken = nextToken
     }

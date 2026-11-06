@@ -48,7 +48,14 @@ protocol PhoneNumberRepository {
     /// - Parameter input: Optional paging controls.
     /// - Returns: A page of numbers with an optional continuation token.
     /// - Throws: `SudoTelephonyError` if the fetch fails.
-    func listPhoneNumbers(_ input: ListPhoneNumbersInput) async throws -> PhoneNumberListToken
+    func listPhoneNumbers(_ input: ListPhoneNumbersInput) async throws -> ListOutput<PhoneNumber>
+
+    /// List the numbers a Sudo owns.
+    ///
+    /// - Parameter input: The Sudo, and optional paging controls.
+    /// - Returns: A page of numbers with an optional continuation token.
+    /// - Throws: `SudoTelephonyError` if the fetch fails.
+    func listPhoneNumbersForSudoId(_ input: ListPhoneNumbersForSudoIdInput) async throws -> ListOutput<PhoneNumber>
 
     /// Resolve the key the given phone number's messages are sealed to.
     ///

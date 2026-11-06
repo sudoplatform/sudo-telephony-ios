@@ -15,14 +15,16 @@ import SudoTelephonyCommon
 enum PhoneNumberTransformer {
 
     /// Transform a `PhoneNumber` fragment into the public `PhoneNumber`.
-    static func transform(_ fragment: GraphQL.PhoneNumberFragment) throws -> PhoneNumber {
-        guard let numberType = PhoneNumberType(rawValue: fragment.numberType) else {
-            throw SudoTelephonyError.internalError("Unknown PhoneNumberType: \(fragment.numberType)")
+    static func transform(_ fragment: GraphQL.PhoneNumberFields) throws -> PhoneNumber {
+        let rawNumberType = fragment.enumRawValue("numberType")
+        guard let numberType = rawNumberType.flatMap(PhoneNumberType.init(rawValue:)) else {
+            throw SudoTelephonyError.internalError("Unknown PhoneNumberType: \(rawNumberType ?? "nil")")
         }
-        guard let state = PhoneNumberState(rawValue: fragment.state) else {
-            throw SudoTelephonyError.internalError("Unknown PhoneNumberState: \(fragment.state)")
+        let rawState = fragment.enumRawValue("state")
+        guard let state = rawState.flatMap(PhoneNumberState.init(rawValue:)) else {
+            throw SudoTelephonyError.internalError("Unknown PhoneNumberState: \(rawState ?? "nil")")
         }
-        let failureReason = try fragment.failureReason.map { raw -> PhoneNumberFailureReason in
+        let failureReason = try fragment.enumRawValue("failureReason").map { raw -> PhoneNumberFailureReason in
             guard let reason = PhoneNumberFailureReason(rawValue: raw) else {
                 throw SudoTelephonyError.internalError("Unknown PhoneNumberFailureReason: \(raw)")
             }
@@ -30,26 +32,32 @@ enum PhoneNumberTransformer {
         }
         return PhoneNumber(
             id: fragment.id,
+            owner: fragment.owner,
+            owners: fragment.owners.map { Owner(id: $0.id, issuer: $0.issuer) },
+            identityId: fragment.identityId,
+            keyRingId: fragment.keyRingId,
+            keyIds: fragment.keyIds,
             phoneNumber: fragment.phoneNumber,
             countryCode: fragment.countryCode,
             numberType: numberType,
             areaCode: fragment.areaCode,
             state: state,
             failureReason: failureReason,
-            gracePeriodEndsAtEpochMs: fragment.gracePeriodEndsAtEpochMs,
+            gracePeriodEndsAt: fragment.gracePeriodEndsAtEpochMs.map(Date.init(epochMs:)),
             clientRefId: fragment.clientRefId,
-            owners: fragment.owners.map { Owner(id: $0.id, issuer: $0.issuer) },
-            createdAtEpochMs: fragment.createdAtEpochMs,
-            updatedAtEpochMs: fragment.updatedAtEpochMs
+            version: fragment.version,
+            createdAt: Date(epochMs: fragment.createdAtEpochMs),
+            updatedAt: Date(epochMs: fragment.updatedAtEpochMs)
         )
     }
 
     /// Transform an available-number search result row into the public type.
     static func transform(
-        _ result: GraphQL.SearchAvailablePhoneNumbersQuery.Data.Search.Result
+        _ result: GraphQL.AvailablePhoneNumberFields
     ) throws -> AvailablePhoneNumber {
-        guard let numberType = PhoneNumberType(rawValue: result.numberType) else {
-            throw SudoTelephonyError.internalError("Unknown PhoneNumberType: \(result.numberType)")
+        let rawNumberType = result.enumRawValue("numberType")
+        guard let numberType = rawNumberType.flatMap(PhoneNumberType.init(rawValue:)) else {
+            throw SudoTelephonyError.internalError("Unknown PhoneNumberType: \(rawNumberType ?? "nil")")
         }
         return AvailablePhoneNumber(
             phoneNumber: result.phoneNumber,
@@ -62,23 +70,23 @@ enum PhoneNumberTransformer {
 
     /// Transform a search response into the public search result.
     static func transform(
-        _ search: GraphQL.SearchAvailablePhoneNumbersQuery.Data.Search
+        _ search: GraphQL.PhoneNumberSearchFields
     ) throws -> PhoneNumberSearchResult {
         try PhoneNumberSearchResult(
             id: search.id,
             countryCode: search.countryCode,
             areaCode: search.areaCode,
-            results: search.results.map { try transform($0) },
-            expiresAtEpochMs: search.expiresAtEpochMs
+            results: search.results.map { try transform($0.fragments.availablePhoneNumberFields) },
+            expiresAt: Date(epochMs: search.expiresAtEpochMs)
         )
     }
 
     /// Transform a list connection into the public page type.
     static func transform(
-        items: [GraphQL.PhoneNumberFragment],
+        items: [GraphQL.PhoneNumberFields],
         nextToken: String?
-    ) throws -> PhoneNumberListToken {
-        try PhoneNumberListToken(
+    ) throws -> ListOutput<PhoneNumber> {
+        try ListOutput(
             items: items.map { try transform($0) },
             nextToken: nextToken
         )
