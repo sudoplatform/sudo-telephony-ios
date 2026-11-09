@@ -32,31 +32,31 @@ public protocol SudoTelephonyClient: AnyObject {
 
     /// Search the carrier for phone numbers available to provision.
     func searchAvailablePhoneNumbers(
-        _ input: SearchAvailablePhoneNumbersInput
+        withInput input: SearchAvailablePhoneNumbersInput
     ) async throws -> PhoneNumberSearchResult
 
     /// Provision a number returned by a prior search. The SDK generates and registers
     /// the key its inbound messages are sealed to.
-    func provisionPhoneNumber(_ input: ProvisionPhoneNumberInput) async throws -> PhoneNumber
+    func provisionPhoneNumber(withInput input: ProvisionPhoneNumberInput) async throws -> PhoneNumber
 
     /// Release a provisioned number back to the carrier.
-    func deprovisionPhoneNumber(id: String) async throws -> PhoneNumber
+    func deprovisionPhoneNumber(withId id: String) async throws -> PhoneNumber
 
     /// Fetch a single provisioned number by ID (`nil` if absent or not the caller's).
-    func getPhoneNumber(id: String) async throws -> PhoneNumber?
+    func getPhoneNumber(withId id: String) async throws -> PhoneNumber?
 
     /// List the caller's provisioned numbers, including any belonging to their Sudos.
     /// Use `PhoneNumber.sudoId` to find a Sudo's numbers.
-    func listPhoneNumbers(_ input: ListPhoneNumbersInput) async throws -> ListOutput<PhoneNumber>
+    func listPhoneNumbers(withInput input: ListPhoneNumbersInput) async throws -> ListOutput<PhoneNumber>
 
     /// List the numbers a Sudo owns, oldest first. Released numbers aren't included,
     /// and another user's Sudo lists nothing.
-    func listPhoneNumbersForSudoId(_ input: ListPhoneNumbersForSudoIdInput) async throws -> ListOutput<PhoneNumber>
+    func listPhoneNumbersForSudoId(withInput input: ListPhoneNumbersForSudoIdInput) async throws -> ListOutput<PhoneNumber>
 
     // MARK: - SMS
 
     /// Fetch and unseal a single message by ID (`nil` if absent or not the caller's).
-    func getPhoneMessage(id: String) async throws -> PhoneMessage?
+    func getPhoneMessage(withId id: String) async throws -> PhoneMessage?
 
     /// List and unseal a phone number's messages, newest first by default.
     ///
@@ -65,38 +65,44 @@ public protocol SudoTelephonyClient: AnyObject {
     ///   (for example because this device doesn't have its key), a
     ///   `PartialPhoneMessage` and the reason.
     func listPhoneMessagesForPhoneNumberId(
-        _ input: ListPhoneMessagesForPhoneNumberIdInput
+        withInput input: ListPhoneMessagesForPhoneNumberIdInput
     ) async throws -> ListAPIResult<PhoneMessage, PartialPhoneMessage>
 
     /// List and unseal the messages of one conversation, newest first by default,
-    /// with partial results as for `listPhoneMessagesForPhoneNumberId(_:)`.
+    /// with partial results as for `listPhoneMessagesForPhoneNumberId(withInput:)`.
     func listPhoneMessagesForConversationId(
-        _ input: ListPhoneMessagesForConversationIdInput
+        withInput input: ListPhoneMessagesForConversationIdInput
     ) async throws -> ListAPIResult<PhoneMessage, PartialPhoneMessage>
 
-    /// Delete up to 100 of the caller's messages.
-    func deletePhoneMessages(ids: [String]) async throws -> PhoneMessageBatchResult
+    /// Delete a batch of the caller's messages, up to
+    /// `TelephonyConfigurationData.deletePhoneMessagesLimit`.
+    func deletePhoneMessages(withInput input: DeletePhoneMessagesInput) async throws -> PhoneMessageBatchResult
 
-    /// Set the read state of up to 100 of the caller's messages.
-    func updatePhoneMessages(ids: [String], seen: Bool) async throws -> PhoneMessageBatchResult
+    /// Set the read state of a batch of the caller's messages, up to
+    /// `TelephonyConfigurationData.updatePhoneMessagesLimit`.
+    func updatePhoneMessages(withInput input: UpdatePhoneMessagesInput) async throws -> PhoneMessageBatchResult
 
     // MARK: - Subscriptions
 
-    /// Subscribe to real-time changes to the caller's phone numbers. Retain the token
-    /// while updates are wanted; cancel or release it to stop.
+    /// Subscribe to real-time changes to the caller's phone numbers, for example a number
+    /// being provisioned becoming `active` or `failed`.
+    ///
+    /// The subscriber is told when the subscription connects, and when it disconnects
+    /// with the cause. After a disconnect the subscription has ended, and the caller must
+    /// subscribe again. Retain the token while updates are wanted; cancel or release it to
+    /// stop. The subscriber is held weakly.
     ///
     /// - Throws: `SudoTelephonyError.notSignedIn` if no user is signed in.
-    func subscribeToPhoneNumberUpdates(
-        onUpdate: @escaping @Sendable (Result<PhoneNumber, Error>) -> Void
-    ) async throws -> SubscriptionToken
+    func subscribeToPhoneNumbers(subscriber: PhoneNumberSubscriber) async throws -> SubscriptionToken
 
-    /// Subscribe to real-time message events (metadata only; fetch content with
-    /// `getPhoneMessage(id:)`). Retain the token while events are wanted.
+    /// Subscribe to real-time changes to the caller's phone messages: received, updated or
+    /// deleted. An event carries no message content; fetch the message with
+    /// `getPhoneMessage(withId:)` to read its text.
+    ///
+    /// Connection state and the token behave as for `subscribeToPhoneNumbers(subscriber:)`.
     ///
     /// - Throws: `SudoTelephonyError.notSignedIn` if no user is signed in.
-    func subscribeToPhoneMessageEvents(
-        onEvent: @escaping @Sendable (Result<PhoneMessageEvent, Error>) -> Void
-    ) async throws -> SubscriptionToken
+    func subscribeToPhoneMessages(subscriber: PhoneMessageSubscriber) async throws -> SubscriptionToken
 
     // MARK: - Sign-In Delegate
 

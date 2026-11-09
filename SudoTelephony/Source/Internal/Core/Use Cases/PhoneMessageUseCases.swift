@@ -62,8 +62,8 @@ final class DeletePhoneMessagesUseCase {
     }
 
     /// Execute the delete.
-    func execute(ids: [String]) async throws -> PhoneMessageBatchResult {
-        try await repository.deletePhoneMessages(ids: ids)
+    func execute(_ input: DeletePhoneMessagesInput) async throws -> PhoneMessageBatchResult {
+        try await repository.deletePhoneMessages(input)
     }
 }
 
@@ -77,7 +77,7 @@ final class UpdatePhoneMessagesUseCase {
     }
 
     /// Execute the update.
-    func execute(ids: [String], seen: Bool) async throws -> PhoneMessageBatchResult {
-        try await repository.updatePhoneMessages(ids: ids, seen: seen)
+    func execute(_ input: UpdatePhoneMessagesInput) async throws -> PhoneMessageBatchResult {
+        try await repository.updatePhoneMessages(input)
     }
 }

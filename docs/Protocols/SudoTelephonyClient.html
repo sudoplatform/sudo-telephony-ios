@@ -181,9 +181,9 @@ requires a Sudo ownership proof, and the search and list limits.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbersy0aB6Common0F18NumberSearchResultVAE0jefG5InputVYaKF"></a>
-                    <a name="//apple_ref/swift/Method/searchAvailablePhoneNumbers(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbersy0aB6Common0F18NumberSearchResultVAE0jefG5InputVYaKF">searchAvailablePhoneNumbers(_:<wbr>)</a>
+                    <a name="/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbers9withInput0aB6Common0F18NumberSearchResultVAF0lefgI0V_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/searchAvailablePhoneNumbers(withInput:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP27searchAvailablePhoneNumbers9withInput0aB6Common0F18NumberSearchResultVAF0lefgI0V_tYaKF">searchAvailablePhoneNumbers(withInput:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -202,7 +202,7 @@ requires a Sudo ownership proof, and the search and list limits.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">searchAvailablePhoneNumbers</span><span class="p">(</span>
-    <span class="n">_</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">SearchAvailablePhoneNumbersInput</span>
+    <span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">SearchAvailablePhoneNumbersInput</span>
 <span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneNumberSearchResult</span></code></pre>
 
                         </div>
@@ -213,9 +213,9 @@ requires a Sudo ownership proof, and the search and list limits.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP20provisionPhoneNumbery0aB6Common0eF0VAE09ProvisioneF5InputVYaKF"></a>
-                    <a name="//apple_ref/swift/Method/provisionPhoneNumber(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP20provisionPhoneNumbery0aB6Common0eF0VAE09ProvisioneF5InputVYaKF">provisionPhoneNumber(_:<wbr>)</a>
+                    <a name="/s:13SudoTelephony0aB6ClientP20provisionPhoneNumber9withInput0aB6Common0eF0VAF09ProvisionefH0V_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/provisionPhoneNumber(withInput:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP20provisionPhoneNumber9withInput0aB6Common0eF0VAF09ProvisionefH0V_tYaKF">provisionPhoneNumber(withInput:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -234,7 +234,7 @@ the key its inbound messages are sealed to.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">provisionPhoneNumber</span><span class="p">(</span><span class="n">_</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ProvisionPhoneNumberInput</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneNumber</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">provisionPhoneNumber</span><span class="p">(</span><span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ProvisionPhoneNumberInput</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneNumber</span></code></pre>
 
                         </div>
                       </div>
@@ -244,9 +244,9 @@ the key its inbound messages are sealed to.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP22deprovisionPhoneNumber2id0aB6Common0eF0VSS_tYaKF"></a>
-                    <a name="//apple_ref/swift/Method/deprovisionPhoneNumber(id:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP22deprovisionPhoneNumber2id0aB6Common0eF0VSS_tYaKF">deprovisionPhoneNumber(id:<wbr>)</a>
+                    <a name="/s:13SudoTelephony0aB6ClientP22deprovisionPhoneNumber6withId0aB6Common0eF0VSS_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/deprovisionPhoneNumber(withId:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP22deprovisionPhoneNumber6withId0aB6Common0eF0VSS_tYaKF">deprovisionPhoneNumber(withId:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -264,7 +264,7 @@ the key its inbound messages are sealed to.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">deprovisionPhoneNumber</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneNumber</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">deprovisionPhoneNumber</span><span class="p">(</span><span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneNumber</span></code></pre>
 
                         </div>
                       </div>
@@ -274,9 +274,9 @@ the key its inbound messages are sealed to.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP14getPhoneNumber2id0aB6Common0eF0VSgSS_tYaKF"></a>
-                    <a name="//apple_ref/swift/Method/getPhoneNumber(id:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP14getPhoneNumber2id0aB6Common0eF0VSgSS_tYaKF">getPhoneNumber(id:<wbr>)</a>
+                    <a name="/s:13SudoTelephony0aB6ClientP14getPhoneNumber6withId0aB6Common0eF0VSgSS_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/getPhoneNumber(withId:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP14getPhoneNumber6withId0aB6Common0eF0VSgSS_tYaKF">getPhoneNumber(withId:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -294,7 +294,7 @@ the key its inbound messages are sealed to.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getPhoneNumber</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneNumber</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getPhoneNumber</span><span class="p">(</span><span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneNumber</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -304,9 +304,9 @@ the key its inbound messages are sealed to.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP16listPhoneNumbersy0aB6Common10ListOutputVyAE0E6NumberVGAE0heF5InputVYaKF"></a>
-                    <a name="//apple_ref/swift/Method/listPhoneNumbers(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP16listPhoneNumbersy0aB6Common10ListOutputVyAE0E6NumberVGAE0heF5InputVYaKF">listPhoneNumbers(_:<wbr>)</a>
+                    <a name="/s:13SudoTelephony0aB6ClientP16listPhoneNumbers9withInput0aB6Common10ListOutputVyAF0E6NumberVGAF0jefH0V_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listPhoneNumbers(withInput:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP16listPhoneNumbers9withInput0aB6Common10ListOutputVyAF0E6NumberVGAF0jefH0V_tYaKF">listPhoneNumbers(withInput:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -325,7 +325,7 @@ Use <code>PhoneNumber.sudoId</code> to find a Sudo&rsquo;s numbers.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listPhoneNumbers</span><span class="p">(</span><span class="n">_</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ListPhoneNumbersInput</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">ListOutput</span><span class="o">&lt;</span><span class="kt">PhoneNumber</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listPhoneNumbers</span><span class="p">(</span><span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ListPhoneNumbersInput</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">ListOutput</span><span class="o">&lt;</span><span class="kt">PhoneNumber</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -335,9 +335,9 @@ Use <code>PhoneNumber.sudoId</code> to find a Sudo&rsquo;s numbers.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP019listPhoneNumbersForA2Idy0aB6Common10ListOutputVyAE0E6NumberVGAE0jefgaH5InputVYaKF"></a>
-                    <a name="//apple_ref/swift/Method/listPhoneNumbersForSudoId(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP019listPhoneNumbersForA2Idy0aB6Common10ListOutputVyAE0E6NumberVGAE0jefgaH5InputVYaKF">listPhoneNumbersForSudoId(_:<wbr>)</a>
+                    <a name="/s:13SudoTelephony0aB6ClientP019listPhoneNumbersForA2Id9withInput0aB6Common10ListOutputVyAF0E6NumberVGAF0lefgahJ0V_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listPhoneNumbersForSudoId(withInput:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP019listPhoneNumbersForA2Id9withInput0aB6Common10ListOutputVyAF0E6NumberVGAF0lefgahJ0V_tYaKF">listPhoneNumbersForSudoId(withInput:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -356,7 +356,7 @@ and another user&rsquo;s Sudo lists nothing.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listPhoneNumbersForSudoId</span><span class="p">(</span><span class="n">_</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ListPhoneNumbersForSudoIdInput</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">ListOutput</span><span class="o">&lt;</span><span class="kt">PhoneNumber</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listPhoneNumbersForSudoId</span><span class="p">(</span><span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ListPhoneNumbersForSudoIdInput</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">ListOutput</span><span class="o">&lt;</span><span class="kt">PhoneNumber</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -379,9 +379,9 @@ and another user&rsquo;s Sudo lists nothing.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP15getPhoneMessage2id0aB6Common0eF0VSgSS_tYaKF"></a>
-                    <a name="//apple_ref/swift/Method/getPhoneMessage(id:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP15getPhoneMessage2id0aB6Common0eF0VSgSS_tYaKF">getPhoneMessage(id:<wbr>)</a>
+                    <a name="/s:13SudoTelephony0aB6ClientP15getPhoneMessage6withId0aB6Common0eF0VSgSS_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/getPhoneMessage(withId:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP15getPhoneMessage6withId0aB6Common0eF0VSgSS_tYaKF">getPhoneMessage(withId:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -399,7 +399,7 @@ and another user&rsquo;s Sudo lists nothing.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getPhoneMessage</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneMessage</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getPhoneMessage</span><span class="p">(</span><span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneMessage</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -409,9 +409,9 @@ and another user&rsquo;s Sudo lists nothing.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP020listPhoneMessagesForE8NumberIdy0aB6Common13ListAPIResultOyAE0E7MessageVAE07PartialeM0VGAE0kefgehI5InputVYaKF"></a>
-                    <a name="//apple_ref/swift/Method/listPhoneMessagesForPhoneNumberId(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP020listPhoneMessagesForE8NumberIdy0aB6Common13ListAPIResultOyAE0E7MessageVAE07PartialeM0VGAE0kefgehI5InputVYaKF">listPhoneMessagesForPhoneNumberId(_:<wbr>)</a>
+                    <a name="/s:13SudoTelephony0aB6ClientP020listPhoneMessagesForE8NumberId9withInput0aB6Common13ListAPIResultOyAF0E7MessageVAF07PartialeO0VGAF0mefgehiK0V_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listPhoneMessagesForPhoneNumberId(withInput:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP020listPhoneMessagesForE8NumberId9withInput0aB6Common13ListAPIResultOyAF0E7MessageVAF07PartialeO0VGAF0mefgehiK0V_tYaKF">listPhoneMessagesForPhoneNumberId(withInput:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -430,7 +430,7 @@ and another user&rsquo;s Sudo lists nothing.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listPhoneMessagesForPhoneNumberId</span><span class="p">(</span>
-    <span class="n">_</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ListPhoneMessagesForPhoneNumberIdInput</span>
+    <span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ListPhoneMessagesForPhoneNumberIdInput</span>
 <span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">ListAPIResult</span><span class="o">&lt;</span><span class="kt">PhoneMessage</span><span class="p">,</span> <span class="kt">PartialPhoneMessage</span><span class="o">&gt;</span></code></pre>
 
                         </div>
@@ -448,9 +448,9 @@ with the readable messages and, for each message that couldn&rsquo;t be unsealed
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP34listPhoneMessagesForConversationIdy0aB6Common13ListAPIResultOyAE0E7MessageVAE07PartialeM0VGAE0kefghI5InputVYaKF"></a>
-                    <a name="//apple_ref/swift/Method/listPhoneMessagesForConversationId(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP34listPhoneMessagesForConversationIdy0aB6Common13ListAPIResultOyAE0E7MessageVAE07PartialeM0VGAE0kefghI5InputVYaKF">listPhoneMessagesForConversationId(_:<wbr>)</a>
+                    <a name="/s:13SudoTelephony0aB6ClientP34listPhoneMessagesForConversationId9withInput0aB6Common13ListAPIResultOyAF0E7MessageVAF07PartialeO0VGAF0mefghiK0V_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listPhoneMessagesForConversationId(withInput:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP34listPhoneMessagesForConversationId9withInput0aB6Common13ListAPIResultOyAF0E7MessageVAF07PartialeO0VGAF0mefghiK0V_tYaKF">listPhoneMessagesForConversationId(withInput:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -462,7 +462,7 @@ with the readable messages and, for each message that couldn&rsquo;t be unsealed
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>List and unseal the messages of one conversation, newest first by default,
-with partial results as for <code><a href="../Protocols/SudoTelephonyClient.html#/s:13SudoTelephony0aB6ClientP020listPhoneMessagesForE8NumberIdy0aB6Common13ListAPIResultOyAE0E7MessageVAE07PartialeM0VGAE0kefgehI5InputVYaKF">listPhoneMessagesForPhoneNumberId(_:)</a></code>.</p>
+with partial results as for <code><a href="../Protocols/SudoTelephonyClient.html#/s:13SudoTelephony0aB6ClientP020listPhoneMessagesForE8NumberId9withInput0aB6Common13ListAPIResultOyAF0E7MessageVAF07PartialeO0VGAF0mefgehiK0V_tYaKF">listPhoneMessagesForPhoneNumberId(withInput:)</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -470,7 +470,7 @@ with partial results as for <code><a href="../Protocols/SudoTelephonyClient.html
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listPhoneMessagesForConversationId</span><span class="p">(</span>
-    <span class="n">_</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ListPhoneMessagesForConversationIdInput</span>
+    <span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ListPhoneMessagesForConversationIdInput</span>
 <span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">ListAPIResult</span><span class="o">&lt;</span><span class="kt">PhoneMessage</span><span class="p">,</span> <span class="kt">PartialPhoneMessage</span><span class="o">&gt;</span></code></pre>
 
                         </div>
@@ -481,9 +481,9 @@ with partial results as for <code><a href="../Protocols/SudoTelephonyClient.html
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP19deletePhoneMessages3ids0aB6Common0E18MessageBatchResultVSaySSG_tYaKF"></a>
-                    <a name="//apple_ref/swift/Method/deletePhoneMessages(ids:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP19deletePhoneMessages3ids0aB6Common0E18MessageBatchResultVSaySSG_tYaKF">deletePhoneMessages(ids:<wbr>)</a>
+                    <a name="/s:13SudoTelephony0aB6ClientP19deletePhoneMessages9withInput0aB6Common0E18MessageBatchResultVAF06DeleteefH0V_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/deletePhoneMessages(withInput:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP19deletePhoneMessages9withInput0aB6Common0E18MessageBatchResultVAF06DeleteefH0V_tYaKF">deletePhoneMessages(withInput:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -494,14 +494,15 @@ with partial results as for <code><a href="../Protocols/SudoTelephonyClient.html
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Delete up to 100 of the caller&rsquo;s messages.</p>
+                        <p>Delete a batch of the caller&rsquo;s messages, up to
+<code>TelephonyConfigurationData.deletePhoneMessagesLimit</code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">deletePhoneMessages</span><span class="p">(</span><span class="nv">ids</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneMessageBatchResult</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">deletePhoneMessages</span><span class="p">(</span><span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">DeletePhoneMessagesInput</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneMessageBatchResult</span></code></pre>
 
                         </div>
                       </div>
@@ -511,9 +512,9 @@ with partial results as for <code><a href="../Protocols/SudoTelephonyClient.html
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP19updatePhoneMessages3ids4seen0aB6Common0E18MessageBatchResultVSaySSG_SbtYaKF"></a>
-                    <a name="//apple_ref/swift/Method/updatePhoneMessages(ids:seen:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP19updatePhoneMessages3ids4seen0aB6Common0E18MessageBatchResultVSaySSG_SbtYaKF">updatePhoneMessages(ids:<wbr>seen:<wbr>)</a>
+                    <a name="/s:13SudoTelephony0aB6ClientP19updatePhoneMessages9withInput0aB6Common0E18MessageBatchResultVAF06UpdateefH0V_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/updatePhoneMessages(withInput:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP19updatePhoneMessages9withInput0aB6Common0E18MessageBatchResultVAF06UpdateefH0V_tYaKF">updatePhoneMessages(withInput:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -524,14 +525,15 @@ with partial results as for <code><a href="../Protocols/SudoTelephonyClient.html
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Set the read state of up to 100 of the caller&rsquo;s messages.</p>
+                        <p>Set the read state of a batch of the caller&rsquo;s messages, up to
+<code>TelephonyConfigurationData.updatePhoneMessagesLimit</code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">updatePhoneMessages</span><span class="p">(</span><span class="nv">ids</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">seen</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneMessageBatchResult</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">updatePhoneMessages</span><span class="p">(</span><span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">UpdatePhoneMessagesInput</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneMessageBatchResult</span></code></pre>
 
                         </div>
                       </div>
@@ -554,9 +556,9 @@ with partial results as for <code><a href="../Protocols/SudoTelephonyClient.html
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP29subscribeToPhoneNumberUpdates8onUpdate0aB6Common17SubscriptionToken_pys6ResultOyAF0fG0Vs5Error_pGYbc_tYaKF"></a>
-                    <a name="//apple_ref/swift/Method/subscribeToPhoneNumberUpdates(onUpdate:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP29subscribeToPhoneNumberUpdates8onUpdate0aB6Common17SubscriptionToken_pys6ResultOyAF0fG0Vs5Error_pGYbc_tYaKF">subscribeToPhoneNumberUpdates(onUpdate:<wbr>)</a>
+                    <a name="/s:13SudoTelephony0aB6ClientP23subscribeToPhoneNumbers10subscriber0aB6Common17SubscriptionToken_pAF0F16NumberSubscriber_p_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/subscribeToPhoneNumbers(subscriber:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP23subscribeToPhoneNumbers10subscriber0aB6Common17SubscriptionToken_pAF0F16NumberSubscriber_p_tYaKF">subscribeToPhoneNumbers(subscriber:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -567,8 +569,13 @@ with partial results as for <code><a href="../Protocols/SudoTelephonyClient.html
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Subscribe to real-time changes to the caller&rsquo;s phone numbers. Retain the token
-while updates are wanted; cancel or release it to stop.</p>
+                        <p>Subscribe to real-time changes to the caller&rsquo;s phone numbers, for example a number
+being provisioned becoming <code>active</code> or <code>failed</code>.</p>
+
+<p>The subscriber is told when the subscription connects, and when it disconnects
+with the cause. After a disconnect the subscription has ended, and the caller must
+subscribe again. Retain the token while updates are wanted; cancel or release it to
+stop. The subscriber is held weakly.</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
     <code>SudoTelephonyError.notSignedIn</code> if no user is signed in.
@@ -580,9 +587,7 @@ while updates are wanted; cancel or release it to stop.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">subscribeToPhoneNumberUpdates</span><span class="p">(</span>
-    <span class="nv">onUpdate</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kd">@Sendable</span> <span class="p">(</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">PhoneNumber</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span>
-<span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">SubscriptionToken</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">subscribeToPhoneNumbers</span><span class="p">(</span><span class="nv">subscriber</span><span class="p">:</span> <span class="kt">PhoneNumberSubscriber</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">SubscriptionToken</span></code></pre>
 
                         </div>
                       </div>
@@ -592,9 +597,9 @@ while updates are wanted; cancel or release it to stop.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13SudoTelephony0aB6ClientP29subscribeToPhoneMessageEvents7onEvent0aB6Common17SubscriptionToken_pys6ResultOyAF0fgJ0Vs5Error_pGYbc_tYaKF"></a>
-                    <a name="//apple_ref/swift/Method/subscribeToPhoneMessageEvents(onEvent:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP29subscribeToPhoneMessageEvents7onEvent0aB6Common17SubscriptionToken_pys6ResultOyAF0fgJ0Vs5Error_pGYbc_tYaKF">subscribeToPhoneMessageEvents(onEvent:<wbr>)</a>
+                    <a name="/s:13SudoTelephony0aB6ClientP24subscribeToPhoneMessages10subscriber0aB6Common17SubscriptionToken_pAF0F17MessageSubscriber_p_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/subscribeToPhoneMessages(subscriber:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP24subscribeToPhoneMessages10subscriber0aB6Common17SubscriptionToken_pAF0F17MessageSubscriber_p_tYaKF">subscribeToPhoneMessages(subscriber:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -605,8 +610,11 @@ while updates are wanted; cancel or release it to stop.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Subscribe to real-time message events (metadata only; fetch content with
-<code><a href="../Protocols/SudoTelephonyClient.html#/s:13SudoTelephony0aB6ClientP15getPhoneMessage2id0aB6Common0eF0VSgSS_tYaKF">getPhoneMessage(id:)</a></code>). Retain the token while events are wanted.</p>
+                        <p>Subscribe to real-time changes to the caller&rsquo;s phone messages: received, updated or
+deleted. An event carries no message content; fetch the message with
+<code><a href="../Protocols/SudoTelephonyClient.html#/s:13SudoTelephony0aB6ClientP15getPhoneMessage6withId0aB6Common0eF0VSgSS_tYaKF">getPhoneMessage(withId:)</a></code> to read its text.</p>
+
+<p>Connection state and the token behave as for <code><a href="../Protocols/SudoTelephonyClient.html#/s:13SudoTelephony0aB6ClientP23subscribeToPhoneNumbers10subscriber0aB6Common17SubscriptionToken_pAF0F16NumberSubscriber_p_tYaKF">subscribeToPhoneNumbers(subscriber:)</a></code>.</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
     <code>SudoTelephonyError.notSignedIn</code> if no user is signed in.
@@ -618,9 +626,7 @@ while updates are wanted; cancel or release it to stop.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">subscribeToPhoneMessageEvents</span><span class="p">(</span>
-    <span class="nv">onEvent</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kd">@Sendable</span> <span class="p">(</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">PhoneMessageEvent</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span>
-<span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">SubscriptionToken</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">subscribeToPhoneMessages</span><span class="p">(</span><span class="nv">subscriber</span><span class="p">:</span> <span class="kt">PhoneMessageSubscriber</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">SubscriptionToken</span></code></pre>
 
                         </div>
                       </div>
@@ -843,7 +849,7 @@ returned data contains private key material and must be stored securely.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-11-06)</p>
+          <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-11-09)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

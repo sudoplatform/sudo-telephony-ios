@@ -9,27 +9,16 @@ import SudoTelephonyCommon
 
 /// Maps the generated phone-number response types to the public domain types.
 ///
-/// Pure and independently testable — it performs no I/O. Unknown enum raw values
-/// surface as `SudoTelephonyError.internalError` so a backend that adds a value the
-/// SDK does not yet model fails loudly rather than silently.
+/// Pure and independently testable — it performs no I/O. An enum value the SDK doesn't
+/// recognise maps to the enum's `unknown` case, carrying the value, so a value the
+/// service adds later doesn't stop a number being read.
 enum PhoneNumberTransformer {
 
     /// Transform a `PhoneNumber` fragment into the public `PhoneNumber`.
     static func transform(_ fragment: GraphQL.PhoneNumberFields) throws -> PhoneNumber {
-        let rawNumberType = fragment.enumRawValue("numberType")
-        guard let numberType = rawNumberType.flatMap(PhoneNumberType.init(rawValue:)) else {
-            throw SudoTelephonyError.internalError("Unknown PhoneNumberType: \(rawNumberType ?? "nil")")
-        }
-        let rawState = fragment.enumRawValue("state")
-        guard let state = rawState.flatMap(PhoneNumberState.init(rawValue:)) else {
-            throw SudoTelephonyError.internalError("Unknown PhoneNumberState: \(rawState ?? "nil")")
-        }
-        let failureReason = try fragment.enumRawValue("failureReason").map { raw -> PhoneNumberFailureReason in
-            guard let reason = PhoneNumberFailureReason(rawValue: raw) else {
-                throw SudoTelephonyError.internalError("Unknown PhoneNumberFailureReason: \(raw)")
-            }
-            return reason
-        }
+        let numberType: PhoneNumberType = try fragment.enumValue("numberType")
+        let state: PhoneNumberState = try fragment.enumValue("state")
+        let failureReason: PhoneNumberFailureReason? = fragment.optionalEnumValue("failureReason")
         return PhoneNumber(
             id: fragment.id,
             owner: fragment.owner,
@@ -55,10 +44,7 @@ enum PhoneNumberTransformer {
     static func transform(
         _ result: GraphQL.AvailablePhoneNumberFields
     ) throws -> AvailablePhoneNumber {
-        let rawNumberType = result.enumRawValue("numberType")
-        guard let numberType = rawNumberType.flatMap(PhoneNumberType.init(rawValue:)) else {
-            throw SudoTelephonyError.internalError("Unknown PhoneNumberType: \(rawNumberType ?? "nil")")
-        }
+        let numberType: PhoneNumberType = try result.enumValue("numberType")
         return AvailablePhoneNumber(
             phoneNumber: result.phoneNumber,
             countryCode: result.countryCode,

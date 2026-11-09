@@ -75,14 +75,8 @@ enum PhoneMessageTransformer {
 
     /// Transform the parts of a message fragment that aren't sealed, for a message whose content can't be unsealed.
     static func partial(_ fragment: GraphQL.SealedPhoneMessageFields) throws -> PartialPhoneMessage {
-        let rawType = fragment.enumRawValue("type")
-        guard let type = rawType.flatMap(PhoneMessageType.init(rawValue:)) else {
-            throw SudoTelephonyError.internalError("Unknown PhoneMessageType: \(rawType ?? "nil")")
-        }
-        let rawDirection = fragment.enumRawValue("direction")
-        guard let direction = rawDirection.flatMap(PhoneMessageDirection.init(rawValue:)) else {
-            throw SudoTelephonyError.internalError("Unknown PhoneMessageDirection: \(rawDirection ?? "nil")")
-        }
+        let type: PhoneMessageType = try fragment.enumValue("type")
+        let direction: PhoneMessageDirection = try fragment.enumValue("direction")
         return PartialPhoneMessage(
             id: fragment.id,
             owner: fragment.owner,
@@ -114,18 +108,9 @@ enum PhoneMessageTransformer {
     static func transform(
         _ event: GraphQL.OnPhoneMessageEventSubscription.Data.OnPhoneMessageEvent
     ) throws -> PhoneMessageEvent {
-        let rawType = event.enumRawValue("type")
-        guard let type = rawType.flatMap(PhoneMessageType.init(rawValue:)) else {
-            throw SudoTelephonyError.internalError("Unknown PhoneMessageType: \(rawType ?? "nil")")
-        }
-        let rawDirection = event.enumRawValue("direction")
-        guard let direction = rawDirection.flatMap(PhoneMessageDirection.init(rawValue:)) else {
-            throw SudoTelephonyError.internalError("Unknown PhoneMessageDirection: \(rawDirection ?? "nil")")
-        }
-        let rawChangeType = event.enumRawValue("changeType")
-        guard let changeType = rawChangeType.flatMap(PhoneMessageChangeType.init(rawValue:)) else {
-            throw SudoTelephonyError.internalError("Unknown PhoneMessageChangeType: \(rawChangeType ?? "nil")")
-        }
+        let type: PhoneMessageType = try event.enumValue("type")
+        let direction: PhoneMessageDirection = try event.enumValue("direction")
+        let changeType: PhoneMessageChangeType = try event.enumValue("changeType")
         return PhoneMessageEvent(
             id: event.id,
             owner: event.owner,

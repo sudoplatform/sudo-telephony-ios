@@ -7,42 +7,129 @@
 import Foundation
 
 /// The kind of phone number.
-public enum PhoneNumberType: String, Equatable, Sendable, Codable {
+///
+/// `unknown` carries a value that this version of the SDK doesn't recognise, for example one the service added after it was
+/// released, so a number with a new type can still be read.
+public enum PhoneNumberType: Hashable, Sendable {
 
     /// A geographic number tied to an area code.
-    case local = "LOCAL"
+    case local
+
+    /// A type this version of the SDK doesn't recognise, with the value the service sent.
+    case unknown(String)
+}
+
+extension PhoneNumberType: RawRepresentable, Codable {
+
+    /// Create a number type from the service's value. An unrecognised value becomes `unknown`.
+    public init(rawValue: String) {
+        switch rawValue {
+        case "LOCAL": self = .local
+        default: self = .unknown(rawValue)
+        }
+    }
+
+    /// The service's value for this number type.
+    public var rawValue: String {
+        switch self {
+        case .local: "LOCAL"
+        case .unknown(let rawValue): rawValue
+        }
+    }
 }
 
 /// The lifecycle state of a provisioned phone number.
 ///
-/// The usual progression is `provisioning → active ⇄ suspended → released`, or
-/// `provisioning → failed`.
-public enum PhoneNumberState: String, Equatable, Sendable, Codable {
+/// The usual progression is `provisioning → active ⇄ suspended → released`, or `provisioning → failed`. `unknown` carries a
+/// state that this version of the SDK doesn't recognise, so a number in a new state can still be read.
+public enum PhoneNumberState: Hashable, Sendable {
 
     /// The carrier order is in progress.
-    case provisioning = "PROVISIONING"
+    case provisioning
 
     /// The number is active and receives messages.
-    case active = "ACTIVE"
+    case active
 
     /// A grace period: the number still receives messages but is pending release.
-    case suspended = "SUSPENDED"
+    case suspended
 
     /// The number has been returned to the carrier.
-    case released = "RELEASED"
+    case released
 
     /// Provisioning failed. Inspect `PhoneNumber.failureReason` for the cause.
-    case failed = "FAILED"
+    case failed
+
+    /// A state this version of the SDK doesn't recognise, with the value the service sent.
+    case unknown(String)
+}
+
+extension PhoneNumberState: RawRepresentable, Codable {
+
+    /// Create a state from the service's value. An unrecognised value becomes `unknown`.
+    public init(rawValue: String) {
+        switch rawValue {
+        case "PROVISIONING": self = .provisioning
+        case "ACTIVE": self = .active
+        case "SUSPENDED": self = .suspended
+        case "RELEASED": self = .released
+        case "FAILED": self = .failed
+        default: self = .unknown(rawValue)
+        }
+    }
+
+    /// The service's value for this state.
+    public var rawValue: String {
+        switch self {
+        case .provisioning: "PROVISIONING"
+        case .active: "ACTIVE"
+        case .suspended: "SUSPENDED"
+        case .released: "RELEASED"
+        case .failed: "FAILED"
+        case .unknown(let rawValue): rawValue
+        }
+    }
 }
 
 /// The reason provisioning a phone number failed.
-public enum PhoneNumberFailureReason: String, Equatable, Sendable, Codable {
+///
+/// `unknown` carries a reason that this version of the SDK doesn't recognise, so a failed number with a new reason can
+/// still be read.
+public enum PhoneNumberFailureReason: Hashable, Sendable {
 
     /// The number was taken by someone else after the search returned it.
-    case numberUnavailable = "NUMBER_UNAVAILABLE"
+    case numberUnavailable
 
     /// The carrier rejected or failed the order.
-    case carrierError = "CARRIER_ERROR"
+    case carrierError
+
+    /// The Sudo or user that owned the number was deleted before its order was placed.
+    case ownerDeleted
+
+    /// A reason this version of the SDK doesn't recognise, with the value the service sent.
+    case unknown(String)
+}
+
+extension PhoneNumberFailureReason: RawRepresentable, Codable {
+
+    /// Create a failure reason from the service's value. An unrecognised value becomes `unknown`.
+    public init(rawValue: String) {
+        switch rawValue {
+        case "NUMBER_UNAVAILABLE": self = .numberUnavailable
+        case "CARRIER_ERROR": self = .carrierError
+        case "OWNER_DELETED": self = .ownerDeleted
+        default: self = .unknown(rawValue)
+        }
+    }
+
+    /// The service's value for this failure reason.
+    public var rawValue: String {
+        switch self {
+        case .numberUnavailable: "NUMBER_UNAVAILABLE"
+        case .carrierError: "CARRIER_ERROR"
+        case .ownerDeleted: "OWNER_DELETED"
+        case .unknown(let rawValue): rawValue
+        }
+    }
 }
 
 /// A phone number that a search found available to provision.

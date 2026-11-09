@@ -28,10 +28,10 @@ public struct TelephonyConfigurationData: Equatable, Sendable {
     /// The largest page the list operations return. A larger limit returns this many items at most.
     public let listMaxLimit: Int
 
-    /// The most message IDs one `deletePhoneMessages(ids:)` call may name.
+    /// The most message IDs one `deletePhoneMessages(withInput:)` call may name.
     public let deletePhoneMessagesLimit: Int
 
-    /// The most message IDs one `updatePhoneMessages(ids:seen:)` call may name.
+    /// The most message IDs one `updatePhoneMessages(withInput:)` call may name.
     public let updatePhoneMessagesLimit: Int
 
     /// Create configuration data.

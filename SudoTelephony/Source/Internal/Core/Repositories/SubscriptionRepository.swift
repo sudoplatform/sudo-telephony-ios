@@ -18,24 +18,17 @@ protocol SubscriptionRepository {
     ///
     /// - Parameters:
     ///   - owner: The owner subject the subscription is scoped to.
-    ///   - onUpdate: Called with each phone-number change, or a failure.
+    ///   - subscriber: Told of connection state changes and each phone number change.
     /// - Returns: A token that ends the subscription when cancelled or released.
     /// - Throws: `SudoTelephonyError` if the subscription cannot be established.
-    func subscribeToPhoneNumberUpdates(
-        owner: String,
-        onUpdate: @escaping @Sendable (Result<PhoneNumber, Error>) -> Void
-    ) async throws -> SubscriptionToken
+    func subscribeToPhoneNumbers(owner: String, subscriber: PhoneNumberSubscriber) async throws -> SubscriptionToken
 
     /// Subscribe to changes to the caller's messages.
     ///
     /// - Parameters:
     ///   - owner: The owner subject the subscription is scoped to.
-    ///   - onEvent: Called with each message event, or a failure. The event carries
-    ///     metadata only; fetch content with `getPhoneMessage(id:)`.
+    ///   - subscriber: Told of connection state changes and each message event.
     /// - Returns: A token that ends the subscription when cancelled or released.
     /// - Throws: `SudoTelephonyError` if the subscription cannot be established.
-    func subscribeToPhoneMessageEvents(
-        owner: String,
-        onEvent: @escaping @Sendable (Result<PhoneMessageEvent, Error>) -> Void
-    ) async throws -> SubscriptionToken
+    func subscribeToPhoneMessages(owner: String, subscriber: PhoneMessageSubscriber) async throws -> SubscriptionToken
 }

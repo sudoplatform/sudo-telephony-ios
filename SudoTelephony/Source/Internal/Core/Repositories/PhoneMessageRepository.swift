@@ -40,19 +40,17 @@ protocol PhoneMessageRepository {
         _ input: ListPhoneMessagesForConversationIdInput
     ) async throws -> ListAPIResult<PhoneMessage, PartialPhoneMessage>
 
-    /// Delete up to 100 of the caller's messages.
+    /// Delete a batch of the caller's messages.
     ///
-    /// - Parameter ids: The IDs to delete.
+    /// - Parameter input: The IDs to delete.
     /// - Returns: Which IDs were deleted and which were not found or not the caller's.
     /// - Throws: `SudoTelephonyError` if the request fails.
-    func deletePhoneMessages(ids: [String]) async throws -> PhoneMessageBatchResult
+    func deletePhoneMessages(_ input: DeletePhoneMessagesInput) async throws -> PhoneMessageBatchResult
 
     /// Set the read state of up to 100 of the caller's messages.
     ///
-    /// - Parameters:
-    ///   - ids: The IDs to update.
-    ///   - seen: The read state to set.
+    /// - Parameter input: The IDs to update and the read state to set.
     /// - Returns: Which IDs were updated and which were not found or not the caller's.
     /// - Throws: `SudoTelephonyError` if the request fails.
-    func updatePhoneMessages(ids: [String], seen: Bool) async throws -> PhoneMessageBatchResult
+    func updatePhoneMessages(_ input: UpdatePhoneMessagesInput) async throws -> PhoneMessageBatchResult
 }

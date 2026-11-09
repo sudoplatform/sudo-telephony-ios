@@ -96,17 +96,17 @@ final class DefaultPhoneMessageRepository: PhoneMessageRepository, SudoApiGraphQ
         )
     }
 
-    func deletePhoneMessages(ids: [String]) async throws -> PhoneMessageBatchResult {
+    func deletePhoneMessages(_ input: DeletePhoneMessagesInput) async throws -> PhoneMessageBatchResult {
         let mutation = GraphQL.DeletePhoneMessagesMutation(
-            input: GraphQL.DeletePhoneMessagesInput(ids: ids)
+            input: GraphQL.DeletePhoneMessagesInput(ids: input.ids)
         )
         let data = try await perform(mutation)
         return PhoneMessageTransformer.transform(data.deletePhoneMessages.fragments.phoneMessageBatchResultFields)
     }
 
-    func updatePhoneMessages(ids: [String], seen: Bool) async throws -> PhoneMessageBatchResult {
+    func updatePhoneMessages(_ input: UpdatePhoneMessagesInput) async throws -> PhoneMessageBatchResult {
         let mutation = GraphQL.UpdatePhoneMessagesMutation(
-            input: GraphQL.UpdatePhoneMessagesInput(ids: ids, seen: seen)
+            input: GraphQL.UpdatePhoneMessagesInput(ids: input.ids, seen: input.seen)
         )
         let data = try await perform(mutation)
         return PhoneMessageTransformer.transform(data.updatePhoneMessages.fragments.phoneMessageBatchResultFields)

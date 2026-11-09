@@ -7,17 +7,65 @@
 import Foundation
 
 /// The kind of phone message. MMS and voicemail are planned but not yet delivered.
-public enum PhoneMessageType: String, Equatable, Sendable, Codable {
+///
+/// `unknown` carries a type that this version of the SDK doesn't recognise, so a message of a new type can still be read.
+public enum PhoneMessageType: Hashable, Sendable {
 
     /// A text message.
-    case sms = "SMS"
+    case sms
+
+    /// A type this version of the SDK doesn't recognise, with the value the service sent.
+    case unknown(String)
+}
+
+extension PhoneMessageType: RawRepresentable, Codable {
+
+    /// Create a message type from the service's value. An unrecognised value becomes `unknown`.
+    public init(rawValue: String) {
+        switch rawValue {
+        case "SMS": self = .sms
+        default: self = .unknown(rawValue)
+        }
+    }
+
+    /// The service's value for this message type.
+    public var rawValue: String {
+        switch self {
+        case .sms: "SMS"
+        case .unknown(let rawValue): rawValue
+        }
+    }
 }
 
 /// The direction of a phone message. Only inbound is delivered today.
-public enum PhoneMessageDirection: String, Equatable, Sendable, Codable {
+///
+/// `unknown` carries a direction that this version of the SDK doesn't recognise, so such a message can still be read.
+public enum PhoneMessageDirection: Hashable, Sendable {
 
     /// Received on the user's number from the other party.
-    case inbound = "INBOUND"
+    case inbound
+
+    /// A direction this version of the SDK doesn't recognise, with the value the service sent.
+    case unknown(String)
+}
+
+extension PhoneMessageDirection: RawRepresentable, Codable {
+
+    /// Create a direction from the service's value. An unrecognised value becomes `unknown`.
+    public init(rawValue: String) {
+        switch rawValue {
+        case "INBOUND": self = .inbound
+        default: self = .unknown(rawValue)
+        }
+    }
+
+    /// The service's value for this direction.
+    public var rawValue: String {
+        switch self {
+        case .inbound: "INBOUND"
+        case .unknown(let rawValue): rawValue
+        }
+    }
 }
 
 /// A message received on one of the user's phone numbers, with its content unsealed.
@@ -237,6 +285,36 @@ public struct PhoneMessageBatchResult: Equatable, Sendable {
     public init(succeededIds: [String], failedIds: [String]) {
         self.succeededIds = succeededIds
         self.failedIds = failedIds
+    }
+}
+
+/// Input for deleting a batch of the caller's messages.
+public struct DeletePhoneMessagesInput: Equatable, Sendable {
+
+    /// IDs of the messages to delete. At most
+    /// `TelephonyConfigurationData.deletePhoneMessagesLimit`.
+    public let ids: [String]
+
+    /// Create a delete input.
+    public init(ids: [String]) {
+        self.ids = ids
+    }
+}
+
+/// Input for setting the read state of a batch of the caller's messages.
+public struct UpdatePhoneMessagesInput: Equatable, Sendable {
+
+    /// IDs of the messages to update. At most
+    /// `TelephonyConfigurationData.updatePhoneMessagesLimit`.
+    public let ids: [String]
+
+    /// Whether the messages are marked read.
+    public let seen: Bool
+
+    /// Create an update input.
+    public init(ids: [String], seen: Bool) {
+        self.ids = ids
+        self.seen = seen
     }
 }
 

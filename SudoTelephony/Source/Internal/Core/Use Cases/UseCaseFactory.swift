@@ -98,11 +98,11 @@ final class UseCaseFactory {
 
     // MARK: - Subscriptions
 
-    func generateSubscribeToPhoneNumberUpdatesUseCase() -> SubscribeToPhoneNumberUpdatesUseCase {
-        SubscribeToPhoneNumberUpdatesUseCase(repository: subscriptionRepository)
+    func generateSubscribeToPhoneNumbersUseCase() -> SubscribeToPhoneNumbersUseCase {
+        SubscribeToPhoneNumbersUseCase(repository: subscriptionRepository)
     }
 
-    func generateSubscribeToPhoneMessageEventsUseCase() -> SubscribeToPhoneMessageEventsUseCase {
-        SubscribeToPhoneMessageEventsUseCase(repository: subscriptionRepository)
+    func generateSubscribeToPhoneMessagesUseCase() -> SubscribeToPhoneMessagesUseCase {
+        SubscribeToPhoneMessagesUseCase(repository: subscriptionRepository)
     }
 }

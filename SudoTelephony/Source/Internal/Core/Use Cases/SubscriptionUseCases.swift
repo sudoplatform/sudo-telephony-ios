@@ -8,7 +8,7 @@ import Foundation
 import SudoTelephonyCommon
 
 /// Business operation: subscribe to phone-number changes.
-final class SubscribeToPhoneNumberUpdatesUseCase {
+final class SubscribeToPhoneNumbersUseCase {
 
     private let repository: SubscriptionRepository
 
@@ -17,16 +17,13 @@ final class SubscribeToPhoneNumberUpdatesUseCase {
     }
 
     /// Open the subscription.
-    func execute(
-        owner: String,
-        onUpdate: @escaping @Sendable (Result<PhoneNumber, Error>) -> Void
-    ) async throws -> SubscriptionToken {
-        try await repository.subscribeToPhoneNumberUpdates(owner: owner, onUpdate: onUpdate)
+    func execute(owner: String, subscriber: PhoneNumberSubscriber) async throws -> SubscriptionToken {
+        try await repository.subscribeToPhoneNumbers(owner: owner, subscriber: subscriber)
     }
 }
 
 /// Business operation: subscribe to message events.
-final class SubscribeToPhoneMessageEventsUseCase {
+final class SubscribeToPhoneMessagesUseCase {
 
     private let repository: SubscriptionRepository
 
@@ -35,10 +32,7 @@ final class SubscribeToPhoneMessageEventsUseCase {
     }
 
     /// Open the subscription.
-    func execute(
-        owner: String,
-        onEvent: @escaping @Sendable (Result<PhoneMessageEvent, Error>) -> Void
-    ) async throws -> SubscriptionToken {
-        try await repository.subscribeToPhoneMessageEvents(owner: owner, onEvent: onEvent)
+    func execute(owner: String, subscriber: PhoneMessageSubscriber) async throws -> SubscriptionToken {
+        try await repository.subscribeToPhoneMessages(owner: owner, subscriber: subscriber)
     }
 }

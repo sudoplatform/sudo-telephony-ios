@@ -143,82 +143,78 @@ public final class DefaultSudoTelephonyClient: SudoTelephonyClient {
     // MARK: - Phone Number Management
 
     public func searchAvailablePhoneNumbers(
-        _ input: SearchAvailablePhoneNumbersInput
+        withInput input: SearchAvailablePhoneNumbersInput
     ) async throws -> PhoneNumberSearchResult {
         try await ensureSignedIn()
         return try await useCaseFactory.generateSearchAvailablePhoneNumbersUseCase().execute(input)
     }
 
-    public func provisionPhoneNumber(_ input: ProvisionPhoneNumberInput) async throws -> PhoneNumber {
+    public func provisionPhoneNumber(withInput input: ProvisionPhoneNumberInput) async throws -> PhoneNumber {
         try await ensureSignedIn()
         return try await useCaseFactory.generateProvisionPhoneNumberUseCase().execute(input)
     }
 
-    public func deprovisionPhoneNumber(id: String) async throws -> PhoneNumber {
+    public func deprovisionPhoneNumber(withId id: String) async throws -> PhoneNumber {
         try await ensureSignedIn()
         return try await useCaseFactory.generateDeprovisionPhoneNumberUseCase().execute(id: id)
     }
 
-    public func getPhoneNumber(id: String) async throws -> PhoneNumber? {
+    public func getPhoneNumber(withId id: String) async throws -> PhoneNumber? {
         try await ensureSignedIn()
         return try await useCaseFactory.generateGetPhoneNumberUseCase().execute(id: id)
     }
 
-    public func listPhoneNumbers(_ input: ListPhoneNumbersInput) async throws -> ListOutput<PhoneNumber> {
+    public func listPhoneNumbers(withInput input: ListPhoneNumbersInput) async throws -> ListOutput<PhoneNumber> {
         try await ensureSignedIn()
         return try await useCaseFactory.generateListPhoneNumbersUseCase().execute(input)
     }
 
-    public func listPhoneNumbersForSudoId(_ input: ListPhoneNumbersForSudoIdInput) async throws -> ListOutput<PhoneNumber> {
+    public func listPhoneNumbersForSudoId(withInput input: ListPhoneNumbersForSudoIdInput) async throws -> ListOutput<PhoneNumber> {
         try await ensureSignedIn()
         return try await useCaseFactory.generateListPhoneNumbersForSudoIdUseCase().execute(input)
     }
 
     // MARK: - SMS
 
-    public func getPhoneMessage(id: String) async throws -> PhoneMessage? {
+    public func getPhoneMessage(withId id: String) async throws -> PhoneMessage? {
         try await ensureSignedIn()
         return try await useCaseFactory.generateGetPhoneMessageUseCase().execute(id: id)
     }
 
     public func listPhoneMessagesForPhoneNumberId(
-        _ input: ListPhoneMessagesForPhoneNumberIdInput
+        withInput input: ListPhoneMessagesForPhoneNumberIdInput
     ) async throws -> ListAPIResult<PhoneMessage, PartialPhoneMessage> {
         try await ensureSignedIn()
         return try await useCaseFactory.generateListPhoneMessagesForPhoneNumberIdUseCase().execute(input)
     }
 
     public func listPhoneMessagesForConversationId(
-        _ input: ListPhoneMessagesForConversationIdInput
+        withInput input: ListPhoneMessagesForConversationIdInput
     ) async throws -> ListAPIResult<PhoneMessage, PartialPhoneMessage> {
         try await ensureSignedIn()
         return try await useCaseFactory.generateListPhoneMessagesForConversationIdUseCase().execute(input)
     }
 
-    public func deletePhoneMessages(ids: [String]) async throws -> PhoneMessageBatchResult {
+    public func deletePhoneMessages(withInput input: DeletePhoneMessagesInput) async throws -> PhoneMessageBatchResult {
         try await ensureSignedIn()
-        return try await useCaseFactory.generateDeletePhoneMessagesUseCase().execute(ids: ids)
+        return try await useCaseFactory.generateDeletePhoneMessagesUseCase().execute(input)
     }
 
-    public func updatePhoneMessages(ids: [String], seen: Bool) async throws -> PhoneMessageBatchResult {
+    public func updatePhoneMessages(withInput input: UpdatePhoneMessagesInput) async throws -> PhoneMessageBatchResult {
         try await ensureSignedIn()
-        return try await useCaseFactory.generateUpdatePhoneMessagesUseCase().execute(ids: ids, seen: seen)
+        return try await useCaseFactory.generateUpdatePhoneMessagesUseCase().execute(input)
     }
 
     // MARK: - Subscriptions
 
-    public func subscribeToPhoneNumberUpdates(
-        onUpdate: @escaping @Sendable (Result<PhoneNumber, Error>) -> Void
-    ) async throws -> SubscriptionToken {
-        try await useCaseFactory.generateSubscribeToPhoneNumberUpdatesUseCase()
-            .execute(owner: requireSubject(), onUpdate: onUpdate)
+    public func subscribeToPhoneNumbers(subscriber: PhoneNumberSubscriber) async throws -> SubscriptionToken {
+        try await useCaseFactory.generateSubscribeToPhoneNumbersUseCase()
+            .execute(owner: requireSubject(), subscriber: subscriber)
     }
 
-    public func subscribeToPhoneMessageEvents(
-        onEvent: @escaping @Sendable (Result<PhoneMessageEvent, Error>) -> Void
-    ) async throws -> SubscriptionToken {
-        try await useCaseFactory.generateSubscribeToPhoneMessageEventsUseCase()
-            .execute(owner: requireSubject(), onEvent: onEvent)
+    public func subscribeToPhoneMessages(subscriber: PhoneMessageSubscriber) async throws -> SubscriptionToken {
+        try await useCaseFactory.generateSubscribeToPhoneMessagesUseCase()
+            .execute(owner: requireSubject(), subscriber: subscriber)
     }
 
     // MARK: - Sign-In Delegate

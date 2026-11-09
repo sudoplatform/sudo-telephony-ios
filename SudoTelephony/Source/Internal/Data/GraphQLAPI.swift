@@ -12,8 +12,10 @@ import SudoApiClient
 
 struct GraphQL {
 
+/// The kind of phone message. MMS and VOICEMAIL come later.
 internal enum PhoneMessageType: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
   internal typealias RawValue = String
+  /// A text message.
   case sms
   /// Auto generated constant for unknown enum values
   case unknown(RawValue)
@@ -41,8 +43,10 @@ internal enum PhoneMessageType: RawRepresentable, Equatable, JSONDecodable, JSON
   }
 }
 
+/// The direction of a phone message. OUTBOUND comes with replies.
 internal enum PhoneMessageDirection: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
   internal typealias RawValue = String
+  /// Received on the user's number from the other party.
   case inbound
   /// Auto generated constant for unknown enum values
   case unknown(RawValue)
@@ -70,6 +74,7 @@ internal enum PhoneMessageDirection: RawRepresentable, Equatable, JSONDecodable,
   }
 }
 
+/// Input for listPhoneMessagesForPhoneNumberId.
 internal struct ListPhoneMessagesForPhoneNumberIdInput: GraphQLMapConvertible {
   internal var graphQLMap: GraphQLMap
 
@@ -77,6 +82,8 @@ internal struct ListPhoneMessagesForPhoneNumberIdInput: GraphQLMapConvertible {
     graphQLMap = ["limit": limit, "nextToken": nextToken, "phoneNumberId": phoneNumberId, "sortOrder": sortOrder]
   }
 
+  /// Maximum number of items per page. Defaults to 20. A limit above 100 returns
+  /// at most 100 items; a limit below 1 is rejected with InvalidArgumentError.
   internal var limit: Optional<Int?> {
     get {
       return graphQLMap["limit"] as! Optional<Int?>
@@ -86,6 +93,7 @@ internal struct ListPhoneMessagesForPhoneNumberIdInput: GraphQLMapConvertible {
     }
   }
 
+  /// The nextToken returned by the previous page. Omit for the first page.
   internal var nextToken: Optional<String?> {
     get {
       return graphQLMap["nextToken"] as! Optional<String?>
@@ -95,6 +103,7 @@ internal struct ListPhoneMessagesForPhoneNumberIdInput: GraphQLMapConvertible {
     }
   }
 
+  /// ID of the phone number whose messages to list.
   internal var phoneNumberId: GraphQLID {
     get {
       return graphQLMap["phoneNumberId"] as! GraphQLID
@@ -104,6 +113,7 @@ internal struct ListPhoneMessagesForPhoneNumberIdInput: GraphQLMapConvertible {
     }
   }
 
+  /// Order of the messages. Defaults to DESC, newest first.
   internal var sortOrder: Optional<SortOrder?> {
     get {
       return graphQLMap["sortOrder"] as! Optional<SortOrder?>
@@ -114,9 +124,12 @@ internal struct ListPhoneMessagesForPhoneNumberIdInput: GraphQLMapConvertible {
   }
 }
 
+/// The order in which a list is returned.
 internal enum SortOrder: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
   internal typealias RawValue = String
+  /// Oldest first.
   case asc
+  /// Newest first.
   case desc
   /// Auto generated constant for unknown enum values
   case unknown(RawValue)
@@ -147,6 +160,7 @@ internal enum SortOrder: RawRepresentable, Equatable, JSONDecodable, JSONEncodab
   }
 }
 
+/// Input for listPhoneMessagesForConversationId.
 internal struct ListPhoneMessagesForConversationIdInput: GraphQLMapConvertible {
   internal var graphQLMap: GraphQLMap
 
@@ -154,6 +168,8 @@ internal struct ListPhoneMessagesForConversationIdInput: GraphQLMapConvertible {
     graphQLMap = ["conversationId": conversationId, "limit": limit, "nextToken": nextToken, "sortOrder": sortOrder]
   }
 
+  /// ID of the conversation whose messages to list. A conversation belongs to one
+  /// phone number.
   internal var conversationId: GraphQLID {
     get {
       return graphQLMap["conversationId"] as! GraphQLID
@@ -163,6 +179,8 @@ internal struct ListPhoneMessagesForConversationIdInput: GraphQLMapConvertible {
     }
   }
 
+  /// Maximum number of items per page. Defaults to 20. A limit above 100 returns
+  /// at most 100 items; a limit below 1 is rejected with InvalidArgumentError.
   internal var limit: Optional<Int?> {
     get {
       return graphQLMap["limit"] as! Optional<Int?>
@@ -172,6 +190,7 @@ internal struct ListPhoneMessagesForConversationIdInput: GraphQLMapConvertible {
     }
   }
 
+  /// The nextToken returned by the previous page. Omit for the first page.
   internal var nextToken: Optional<String?> {
     get {
       return graphQLMap["nextToken"] as! Optional<String?>
@@ -181,6 +200,7 @@ internal struct ListPhoneMessagesForConversationIdInput: GraphQLMapConvertible {
     }
   }
 
+  /// Order of the messages. Defaults to DESC, newest first.
   internal var sortOrder: Optional<SortOrder?> {
     get {
       return graphQLMap["sortOrder"] as! Optional<SortOrder?>
@@ -191,6 +211,7 @@ internal struct ListPhoneMessagesForConversationIdInput: GraphQLMapConvertible {
   }
 }
 
+/// Input for deletePhoneMessages.
 internal struct DeletePhoneMessagesInput: GraphQLMapConvertible {
   internal var graphQLMap: GraphQLMap
 
@@ -198,6 +219,7 @@ internal struct DeletePhoneMessagesInput: GraphQLMapConvertible {
     graphQLMap = ["ids": ids]
   }
 
+  /// IDs of the messages to delete. At most 100.
   internal var ids: [GraphQLID] {
     get {
       return graphQLMap["ids"] as! [GraphQLID]
@@ -208,6 +230,7 @@ internal struct DeletePhoneMessagesInput: GraphQLMapConvertible {
   }
 }
 
+/// Input for updatePhoneMessages.
 internal struct UpdatePhoneMessagesInput: GraphQLMapConvertible {
   internal var graphQLMap: GraphQLMap
 
@@ -215,6 +238,7 @@ internal struct UpdatePhoneMessagesInput: GraphQLMapConvertible {
     graphQLMap = ["ids": ids, "seen": seen]
   }
 
+  /// IDs of the messages to update. At most 100.
   internal var ids: [GraphQLID] {
     get {
       return graphQLMap["ids"] as! [GraphQLID]
@@ -224,6 +248,7 @@ internal struct UpdatePhoneMessagesInput: GraphQLMapConvertible {
     }
   }
 
+  /// The read state to set.
   internal var seen: Bool {
     get {
       return graphQLMap["seen"] as! Bool
@@ -234,8 +259,10 @@ internal struct UpdatePhoneMessagesInput: GraphQLMapConvertible {
   }
 }
 
+/// The type of phone number.
 internal enum PhoneNumberType: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
   internal typealias RawValue = String
+  /// A geographic number tied to an area code.
   case local
   /// Auto generated constant for unknown enum values
   case unknown(RawValue)
@@ -263,12 +290,21 @@ internal enum PhoneNumberType: RawRepresentable, Equatable, JSONDecodable, JSONE
   }
 }
 
+/// The lifecycle state of a phone number.
+/// 
+/// PROVISIONING -> ACTIVE <-> SUSPENDED -> RELEASED, or PROVISIONING -> FAILED.
 internal enum PhoneNumberState: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
   internal typealias RawValue = String
+  /// The number is active and can send and receive messages.
   case active
+  /// Provisioning failed. failureReason says why.
   case failed
+  /// The order for the number is in progress with the telephony provider.
   case provisioning
+  /// The number has been returned to the telephony provider.
   case released
+  /// The user's entitlements no longer cover the number. The number keeps
+  /// receiving messages until the grace period ends, then it is released.
   case suspended
   /// Auto generated constant for unknown enum values
   case unknown(RawValue)
@@ -308,10 +344,16 @@ internal enum PhoneNumberState: RawRepresentable, Equatable, JSONDecodable, JSON
   }
 }
 
+/// The reason provisioning a phone number failed.
 internal enum PhoneNumberFailureReason: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
   internal typealias RawValue = String
+  /// The telephony provider or carrier rejected the order.
   case carrierError
+  /// The number is no longer available, for example because someone else took it
+  /// after the search.
   case numberUnavailable
+  /// The Sudo or user that owned the number was deleted before its order was placed.
+  case ownerDeleted
   /// Auto generated constant for unknown enum values
   case unknown(RawValue)
 
@@ -319,6 +361,7 @@ internal enum PhoneNumberFailureReason: RawRepresentable, Equatable, JSONDecodab
     switch rawValue {
       case "CARRIER_ERROR": self = .carrierError
       case "NUMBER_UNAVAILABLE": self = .numberUnavailable
+      case "OWNER_DELETED": self = .ownerDeleted
       default: self = .unknown(rawValue)
     }
   }
@@ -327,6 +370,7 @@ internal enum PhoneNumberFailureReason: RawRepresentable, Equatable, JSONDecodab
     switch self {
       case .carrierError: return "CARRIER_ERROR"
       case .numberUnavailable: return "NUMBER_UNAVAILABLE"
+      case .ownerDeleted: return "OWNER_DELETED"
       case .unknown(let value): return value
     }
   }
@@ -335,12 +379,14 @@ internal enum PhoneNumberFailureReason: RawRepresentable, Equatable, JSONDecodab
     switch (lhs, rhs) {
       case (.carrierError, .carrierError): return true
       case (.numberUnavailable, .numberUnavailable): return true
+      case (.ownerDeleted, .ownerDeleted): return true
       case (.unknown(let lhsValue), .unknown(let rhsValue)): return lhsValue == rhsValue
       default: return false
     }
   }
 }
 
+/// Input for searchAvailablePhoneNumbers.
 internal struct SearchAvailablePhoneNumbersInput: GraphQLMapConvertible {
   internal var graphQLMap: GraphQLMap
 
@@ -348,6 +394,9 @@ internal struct SearchAvailablePhoneNumbersInput: GraphQLMapConvertible {
     graphQLMap = ["areaCode": areaCode, "countryCode": countryCode, "limit": limit]
   }
 
+  /// Three-digit area code to search. Currently required: a request without one
+  /// is rejected with InvalidArgumentError, and an unknown area code with
+  /// InvalidAreaCode.
   internal var areaCode: Optional<String?> {
     get {
       return graphQLMap["areaCode"] as! Optional<String?>
@@ -357,6 +406,7 @@ internal struct SearchAvailablePhoneNumbersInput: GraphQLMapConvertible {
     }
   }
 
+  /// ISO 3166-1 alpha-2 country code to search. One of getSupportedCountriesForTelephony.
   internal var countryCode: String {
     get {
       return graphQLMap["countryCode"] as! String
@@ -366,6 +416,8 @@ internal struct SearchAvailablePhoneNumbersInput: GraphQLMapConvertible {
     }
   }
 
+  /// Maximum number of results. Defaults to 10. A limit above 20 is rejected with
+  /// LimitExceededError.
   internal var limit: Optional<Int?> {
     get {
       return graphQLMap["limit"] as! Optional<Int?>
@@ -376,6 +428,7 @@ internal struct SearchAvailablePhoneNumbersInput: GraphQLMapConvertible {
   }
 }
 
+/// Input for provisionPhoneNumber.
 internal struct ProvisionPhoneNumberInput: GraphQLMapConvertible {
   internal var graphQLMap: GraphQLMap
 
@@ -383,6 +436,9 @@ internal struct ProvisionPhoneNumberInput: GraphQLMapConvertible {
     graphQLMap = ["clientRefId": clientRefId, "key": key, "ownershipProofTokens": ownershipProofTokens, "phoneNumber": phoneNumber, "searchId": searchId]
   }
 
+  /// Client-supplied reference, returned unchanged on the phone number. Repeating
+  /// a request with the same clientRefId returns the number the first request
+  /// provisioned, without provisioning another.
   internal var clientRefId: Optional<String?> {
     get {
       return graphQLMap["clientRefId"] as! Optional<String?>
@@ -392,6 +448,8 @@ internal struct ProvisionPhoneNumberInput: GraphQLMapConvertible {
     }
   }
 
+  /// The internal key to seal the number's messages with. The service registers it
+  /// in a new key ring, whose ID is returned as keyRingId.
   internal var key: ProvisionPhoneNumberPublicKeyInput {
     get {
       return graphQLMap["key"] as! ProvisionPhoneNumberPublicKeyInput
@@ -401,6 +459,9 @@ internal struct ProvisionPhoneNumberInput: GraphQLMapConvertible {
     }
   }
 
+  /// Proofs that the caller owns the Sudo the number will belong to. Required only
+  /// in deployments that require Sudo ownership (RD_REQUIRE_SUDO_OWNERSHIP_PROOF).
+  /// When given, they must include exactly one proof issued by the Sudo service.
   internal var ownershipProofTokens: Optional<[String]?> {
     get {
       return graphQLMap["ownershipProofTokens"] as! Optional<[String]?>
@@ -410,6 +471,7 @@ internal struct ProvisionPhoneNumberInput: GraphQLMapConvertible {
     }
   }
 
+  /// The number to provision, in E.164 format. Must be one of the search's results.
   internal var phoneNumber: String {
     get {
       return graphQLMap["phoneNumber"] as! String
@@ -419,6 +481,7 @@ internal struct ProvisionPhoneNumberInput: GraphQLMapConvertible {
     }
   }
 
+  /// ID of one of the caller's searches that hasn't expired.
   internal var searchId: GraphQLID {
     get {
       return graphQLMap["searchId"] as! GraphQLID
@@ -429,6 +492,7 @@ internal struct ProvisionPhoneNumberInput: GraphQLMapConvertible {
   }
 }
 
+/// The internal key that seals the messages of a provisioned phone number.
 internal struct ProvisionPhoneNumberPublicKeyInput: GraphQLMapConvertible {
   internal var graphQLMap: GraphQLMap
 
@@ -436,6 +500,7 @@ internal struct ProvisionPhoneNumberPublicKeyInput: GraphQLMapConvertible {
     graphQLMap = ["algorithm": algorithm, "keyFormat": keyFormat, "keyId": keyId, "publicKey": publicKey]
   }
 
+  /// Algorithm of the key, for example RSAEncryptionOAEPAESCBC.
   internal var algorithm: String {
     get {
       return graphQLMap["algorithm"] as! String
@@ -445,6 +510,7 @@ internal struct ProvisionPhoneNumberPublicKeyInput: GraphQLMapConvertible {
     }
   }
 
+  /// Encoding of publicKey. Defaults to RSA_PUBLIC_KEY.
   internal var keyFormat: Optional<KeyFormat?> {
     get {
       return graphQLMap["keyFormat"] as! Optional<KeyFormat?>
@@ -454,6 +520,7 @@ internal struct ProvisionPhoneNumberPublicKeyInput: GraphQLMapConvertible {
     }
   }
 
+  /// Client-generated ID of the key.
   internal var keyId: String {
     get {
       return graphQLMap["keyId"] as! String
@@ -463,6 +530,7 @@ internal struct ProvisionPhoneNumberPublicKeyInput: GraphQLMapConvertible {
     }
   }
 
+  /// The base64-encoded internal key.
   internal var publicKey: String {
     get {
       return graphQLMap["publicKey"] as! String
@@ -473,9 +541,12 @@ internal struct ProvisionPhoneNumberPublicKeyInput: GraphQLMapConvertible {
   }
 }
 
+/// The encoding of a internal key.
 internal enum KeyFormat: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
   internal typealias RawValue = String
+  /// PKCS#1 RSA internal key.
   case rsaPublicKey
+  /// X.509 SubjectPublicKeyInfo.
   case spki
   /// Auto generated constant for unknown enum values
   case unknown(RawValue)
@@ -506,6 +577,7 @@ internal enum KeyFormat: RawRepresentable, Equatable, JSONDecodable, JSONEncodab
   }
 }
 
+/// Input for listPhoneNumbers.
 internal struct ListPhoneNumbersInput: GraphQLMapConvertible {
   internal var graphQLMap: GraphQLMap
 
@@ -513,6 +585,8 @@ internal struct ListPhoneNumbersInput: GraphQLMapConvertible {
     graphQLMap = ["limit": limit, "nextToken": nextToken]
   }
 
+  /// Maximum number of items per page. Defaults to 20. A limit above 100 returns
+  /// at most 100 items; a limit below 1 is rejected with InvalidArgumentError.
   internal var limit: Optional<Int?> {
     get {
       return graphQLMap["limit"] as! Optional<Int?>
@@ -522,6 +596,7 @@ internal struct ListPhoneNumbersInput: GraphQLMapConvertible {
     }
   }
 
+  /// The nextToken returned by the previous page. Omit for the first page.
   internal var nextToken: Optional<String?> {
     get {
       return graphQLMap["nextToken"] as! Optional<String?>
@@ -532,6 +607,7 @@ internal struct ListPhoneNumbersInput: GraphQLMapConvertible {
   }
 }
 
+/// Input for listPhoneNumbersForSudoId.
 internal struct ListPhoneNumbersForSudoIdInput: GraphQLMapConvertible {
   internal var graphQLMap: GraphQLMap
 
@@ -539,6 +615,8 @@ internal struct ListPhoneNumbersForSudoIdInput: GraphQLMapConvertible {
     graphQLMap = ["limit": limit, "nextToken": nextToken, "sudoId": sudoId]
   }
 
+  /// Maximum number of items per page. Defaults to 20. A limit above 100 returns
+  /// at most 100 items; a limit below 1 is rejected with InvalidArgumentError.
   internal var limit: Optional<Int?> {
     get {
       return graphQLMap["limit"] as! Optional<Int?>
@@ -548,6 +626,7 @@ internal struct ListPhoneNumbersForSudoIdInput: GraphQLMapConvertible {
     }
   }
 
+  /// The nextToken returned by the previous page. Omit for the first page.
   internal var nextToken: Optional<String?> {
     get {
       return graphQLMap["nextToken"] as! Optional<String?>
@@ -557,6 +636,7 @@ internal struct ListPhoneNumbersForSudoIdInput: GraphQLMapConvertible {
     }
   }
 
+  /// The Sudo whose phone numbers to list. A Sudo of another user lists nothing.
   internal var sudoId: GraphQLID {
     get {
       return graphQLMap["sudoId"] as! GraphQLID
@@ -567,10 +647,14 @@ internal struct ListPhoneNumbersForSudoIdInput: GraphQLMapConvertible {
   }
 }
 
+/// The change that a phone message event reports.
 internal enum PhoneMessageChangeType: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
   internal typealias RawValue = String
+  /// A message was deleted.
   case deleted
+  /// A new message arrived.
   case received
+  /// A message changed, for example its seen state.
   case updated
   /// Auto generated constant for unknown enum values
   case unknown(RawValue)
@@ -628,6 +712,12 @@ internal final class GetSupportedCountriesQuery: GraphQLQuery {
       self.init(snapshot: ["__typename": "Query", "getSupportedCountriesForTelephony": getSupportedCountriesForTelephony])
     }
 
+    /// Return the set of countries the telephony service supports, as ISO 3166-1
+    /// alpha-2 country codes (e.g. "US", "CA", "GB").
+    /// 
+    /// The list is sourced behind a replaceable mechanism; today it is served from a
+    /// bundled static snapshot, but the API contract is a simple array of codes so
+    /// the backing source can change without affecting consumers.
     internal var getSupportedCountriesForTelephony: [String] {
       get {
         return snapshot["getSupportedCountriesForTelephony"]! as! [String]
@@ -663,6 +753,7 @@ internal final class GetTelephonyConfigQuery: GraphQLQuery {
       self.init(snapshot: ["__typename": "Query", "getTelephonyConfig": getTelephonyConfig.snapshot])
     }
 
+    /// Returns configuration related to the telephony service configuration.
     internal var getTelephonyConfig: GetTelephonyConfig {
       get {
         return GetTelephonyConfig(snapshot: snapshot["getTelephonyConfig"]! as! Snapshot)
@@ -706,6 +797,8 @@ internal final class GetTelephonyConfigQuery: GraphQLQuery {
         }
       }
 
+      /// Whether provisionPhoneNumber requires a Sudo ownership proof. When false, a
+      /// number provisioned without a proof belongs to the user only.
       internal var sudoOwnershipProofRequired: Bool {
         get {
           return snapshot["sudoOwnershipProofRequired"]! as! Bool
@@ -715,6 +808,8 @@ internal final class GetTelephonyConfigQuery: GraphQLQuery {
         }
       }
 
+      /// The number of results searchAvailablePhoneNumbers returns when the request
+      /// sets no limit.
       internal var phoneNumberSearchDefaultLimit: Int {
         get {
           return snapshot["phoneNumberSearchDefaultLimit"]! as! Int
@@ -724,6 +819,8 @@ internal final class GetTelephonyConfigQuery: GraphQLQuery {
         }
       }
 
+      /// The largest limit searchAvailablePhoneNumbers accepts. A larger limit is
+      /// rejected with LimitExceededError.
       internal var phoneNumberSearchMaxLimit: Int {
         get {
           return snapshot["phoneNumberSearchMaxLimit"]! as! Int
@@ -733,6 +830,8 @@ internal final class GetTelephonyConfigQuery: GraphQLQuery {
         }
       }
 
+      /// How long, in milliseconds, a phone number search can be passed to
+      /// provisionPhoneNumber after it is created.
       internal var phoneNumberSearchLifetimeMs: Int {
         get {
           return snapshot["phoneNumberSearchLifetimeMs"]! as! Int
@@ -742,6 +841,7 @@ internal final class GetTelephonyConfigQuery: GraphQLQuery {
         }
       }
 
+      /// The page size of the list queries when the request sets no limit.
       internal var listDefaultLimit: Int {
         get {
           return snapshot["listDefaultLimit"]! as! Int
@@ -751,6 +851,8 @@ internal final class GetTelephonyConfigQuery: GraphQLQuery {
         }
       }
 
+      /// The largest page the list queries return. A larger limit returns this many
+      /// items at most.
       internal var listMaxLimit: Int {
         get {
           return snapshot["listMaxLimit"]! as! Int
@@ -760,6 +862,7 @@ internal final class GetTelephonyConfigQuery: GraphQLQuery {
         }
       }
 
+      /// The most message ids one deletePhoneMessages request may name.
       internal var deletePhoneMessagesLimit: Int {
         get {
           return snapshot["deletePhoneMessagesLimit"]! as! Int
@@ -769,6 +872,7 @@ internal final class GetTelephonyConfigQuery: GraphQLQuery {
         }
       }
 
+      /// The most message ids one updatePhoneMessages request may name.
       internal var updatePhoneMessagesLimit: Int {
         get {
           return snapshot["updatePhoneMessagesLimit"]! as! Int
@@ -814,6 +918,7 @@ internal final class GetPhoneMessageQuery: GraphQLQuery {
       self.init(snapshot: ["__typename": "Query", "getPhoneMessage": getPhoneMessage.flatMap { $0.snapshot }])
     }
 
+    /// Get one of the caller's phone messages. Null if not found.
     internal var getPhoneMessage: GetPhoneMessage? {
       get {
         return (snapshot["getPhoneMessage"] as? Snapshot).flatMap { GetPhoneMessage(snapshot: $0) }
@@ -867,6 +972,7 @@ internal final class GetPhoneMessageQuery: GraphQLQuery {
         }
       }
 
+      /// ID of the message.
       internal var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
@@ -876,6 +982,7 @@ internal final class GetPhoneMessageQuery: GraphQLQuery {
         }
       }
 
+      /// ID of the user who owns the message.
       internal var owner: GraphQLID {
         get {
           return snapshot["owner"]! as! GraphQLID
@@ -885,6 +992,7 @@ internal final class GetPhoneMessageQuery: GraphQLQuery {
         }
       }
 
+      /// Owners taken from the ownership proofs, which tie the message to a Sudo.
       internal var owners: [Owner] {
         get {
           return (snapshot["owners"] as! [Snapshot]).map { Owner(snapshot: $0) }
@@ -894,6 +1002,7 @@ internal final class GetPhoneMessageQuery: GraphQLQuery {
         }
       }
 
+      /// ID of the phone number that sent or received the message.
       internal var phoneNumberId: GraphQLID {
         get {
           return snapshot["phoneNumberId"]! as! GraphQLID
@@ -903,6 +1012,8 @@ internal final class GetPhoneMessageQuery: GraphQLQuery {
         }
       }
 
+      /// ID of the conversation, which groups every message between the phone number
+      /// and the other party.
       internal var conversationId: GraphQLID {
         get {
           return snapshot["conversationId"]! as! GraphQLID
@@ -912,6 +1023,7 @@ internal final class GetPhoneMessageQuery: GraphQLQuery {
         }
       }
 
+      /// The kind of message.
       internal var type: PhoneMessageType {
         get {
           return snapshot["type"]! as! PhoneMessageType
@@ -921,6 +1033,7 @@ internal final class GetPhoneMessageQuery: GraphQLQuery {
         }
       }
 
+      /// Whether the message was received or sent.
       internal var direction: PhoneMessageDirection {
         get {
           return snapshot["direction"]! as! PhoneMessageDirection
@@ -930,6 +1043,7 @@ internal final class GetPhoneMessageQuery: GraphQLQuery {
         }
       }
 
+      /// The user's number in E.164 format.
       internal var localPhoneNumber: String {
         get {
           return snapshot["localPhoneNumber"]! as! String
@@ -939,6 +1053,9 @@ internal final class GetPhoneMessageQuery: GraphQLQuery {
         }
       }
 
+      /// SEALED: The other party's number: the sender of an inbound message, the
+      /// recipient of an outbound one. E.164 or a short code. Nullable for future
+      /// voicemails from withheld numbers. Always set for SMS.
       internal var remotePhoneNumber: String? {
         get {
           return snapshot["remotePhoneNumber"] as? String
@@ -948,6 +1065,7 @@ internal final class GetPhoneMessageQuery: GraphQLQuery {
         }
       }
 
+      /// SEALED: The message text. Empty for a media-only MMS.
       internal var body: String {
         get {
           return snapshot["body"]! as! String
@@ -957,6 +1075,8 @@ internal final class GetPhoneMessageQuery: GraphQLQuery {
         }
       }
 
+      /// The number of SMS segments the message was carried in, as reported by the
+      /// telephony provider.
       internal var segmentCount: Int {
         get {
           return snapshot["segmentCount"]! as! Int
@@ -966,6 +1086,7 @@ internal final class GetPhoneMessageQuery: GraphQLQuery {
         }
       }
 
+      /// True for an inbound MMS whose media was dropped and only its text kept.
       internal var mediaOmitted: Bool {
         get {
           return snapshot["mediaOmitted"]! as! Bool
@@ -975,6 +1096,7 @@ internal final class GetPhoneMessageQuery: GraphQLQuery {
         }
       }
 
+      /// Whether the user has marked the message as read.
       internal var seen: Bool {
         get {
           return snapshot["seen"]! as! Bool
@@ -984,6 +1106,7 @@ internal final class GetPhoneMessageQuery: GraphQLQuery {
         }
       }
 
+      /// Version of this object, incremented on each update.
       internal var version: Int {
         get {
           return snapshot["version"]! as! Int
@@ -993,6 +1116,9 @@ internal final class GetPhoneMessageQuery: GraphQLQuery {
         }
       }
 
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when the service received the
+      /// message from the telephony provider. createdAtEpochMs can be later if
+      /// processing is delayed.
       internal var receivedAtEpochMs: Double {
         get {
           return snapshot["receivedAtEpochMs"]! as! Double
@@ -1002,6 +1128,7 @@ internal final class GetPhoneMessageQuery: GraphQLQuery {
         }
       }
 
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was created.
       internal var createdAtEpochMs: Double {
         get {
           return snapshot["createdAtEpochMs"]! as! Double
@@ -1011,6 +1138,7 @@ internal final class GetPhoneMessageQuery: GraphQLQuery {
         }
       }
 
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was last updated.
       internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
@@ -1070,6 +1198,7 @@ internal final class GetPhoneMessageQuery: GraphQLQuery {
           }
         }
 
+        /// ID of the owner, for example a Sudo ID.
         internal var id: String {
           get {
             return snapshot["id"]! as! String
@@ -1079,6 +1208,7 @@ internal final class GetPhoneMessageQuery: GraphQLQuery {
           }
         }
 
+        /// Issuer of the ownership proof, for example sudoplatform.sudoservice.
         internal var issuer: String {
           get {
             return snapshot["issuer"]! as! String
@@ -1125,6 +1255,9 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
       self.init(snapshot: ["__typename": "Query", "listPhoneMessagesForPhoneNumberId": listPhoneMessagesForPhoneNumberId.snapshot])
     }
 
+    /// List the caller's messages of one phone number, newest first by default. A
+    /// nextToken that the service cannot decode, or that was issued by another list
+    /// or for another phone number, is rejected with InvalidArgumentError.
     internal var listPhoneMessagesForPhoneNumberId: ListPhoneMessagesForPhoneNumberId {
       get {
         return ListPhoneMessagesForPhoneNumberId(snapshot: snapshot["listPhoneMessagesForPhoneNumberId"]! as! Snapshot)
@@ -1162,6 +1295,7 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
         }
       }
 
+      /// The phone messages on this page.
       internal var items: [Item] {
         get {
           return (snapshot["items"] as! [Snapshot]).map { Item(snapshot: $0) }
@@ -1171,6 +1305,7 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
         }
       }
 
+      /// Pass to the next request to get the next page. Null on the last page.
       internal var nextToken: String? {
         get {
           return snapshot["nextToken"] as? String
@@ -1224,6 +1359,7 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
           }
         }
 
+        /// ID of the message.
         internal var id: GraphQLID {
           get {
             return snapshot["id"]! as! GraphQLID
@@ -1233,6 +1369,7 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
           }
         }
 
+        /// ID of the user who owns the message.
         internal var owner: GraphQLID {
           get {
             return snapshot["owner"]! as! GraphQLID
@@ -1242,6 +1379,7 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
           }
         }
 
+        /// Owners taken from the ownership proofs, which tie the message to a Sudo.
         internal var owners: [Owner] {
           get {
             return (snapshot["owners"] as! [Snapshot]).map { Owner(snapshot: $0) }
@@ -1251,6 +1389,7 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
           }
         }
 
+        /// ID of the phone number that sent or received the message.
         internal var phoneNumberId: GraphQLID {
           get {
             return snapshot["phoneNumberId"]! as! GraphQLID
@@ -1260,6 +1399,8 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
           }
         }
 
+        /// ID of the conversation, which groups every message between the phone number
+        /// and the other party.
         internal var conversationId: GraphQLID {
           get {
             return snapshot["conversationId"]! as! GraphQLID
@@ -1269,6 +1410,7 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
           }
         }
 
+        /// The kind of message.
         internal var type: PhoneMessageType {
           get {
             return snapshot["type"]! as! PhoneMessageType
@@ -1278,6 +1420,7 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
           }
         }
 
+        /// Whether the message was received or sent.
         internal var direction: PhoneMessageDirection {
           get {
             return snapshot["direction"]! as! PhoneMessageDirection
@@ -1287,6 +1430,7 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
           }
         }
 
+        /// The user's number in E.164 format.
         internal var localPhoneNumber: String {
           get {
             return snapshot["localPhoneNumber"]! as! String
@@ -1296,6 +1440,9 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
           }
         }
 
+        /// SEALED: The other party's number: the sender of an inbound message, the
+        /// recipient of an outbound one. E.164 or a short code. Nullable for future
+        /// voicemails from withheld numbers. Always set for SMS.
         internal var remotePhoneNumber: String? {
           get {
             return snapshot["remotePhoneNumber"] as? String
@@ -1305,6 +1452,7 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
           }
         }
 
+        /// SEALED: The message text. Empty for a media-only MMS.
         internal var body: String {
           get {
             return snapshot["body"]! as! String
@@ -1314,6 +1462,8 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
           }
         }
 
+        /// The number of SMS segments the message was carried in, as reported by the
+        /// telephony provider.
         internal var segmentCount: Int {
           get {
             return snapshot["segmentCount"]! as! Int
@@ -1323,6 +1473,7 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
           }
         }
 
+        /// True for an inbound MMS whose media was dropped and only its text kept.
         internal var mediaOmitted: Bool {
           get {
             return snapshot["mediaOmitted"]! as! Bool
@@ -1332,6 +1483,7 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
           }
         }
 
+        /// Whether the user has marked the message as read.
         internal var seen: Bool {
           get {
             return snapshot["seen"]! as! Bool
@@ -1341,6 +1493,7 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
           }
         }
 
+        /// Version of this object, incremented on each update.
         internal var version: Int {
           get {
             return snapshot["version"]! as! Int
@@ -1350,6 +1503,9 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
           }
         }
 
+        /// Time in milliseconds since 1970-01-01T00:00:00Z when the service received the
+        /// message from the telephony provider. createdAtEpochMs can be later if
+        /// processing is delayed.
         internal var receivedAtEpochMs: Double {
           get {
             return snapshot["receivedAtEpochMs"]! as! Double
@@ -1359,6 +1515,7 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
           }
         }
 
+        /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was created.
         internal var createdAtEpochMs: Double {
           get {
             return snapshot["createdAtEpochMs"]! as! Double
@@ -1368,6 +1525,7 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
           }
         }
 
+        /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was last updated.
         internal var updatedAtEpochMs: Double {
           get {
             return snapshot["updatedAtEpochMs"]! as! Double
@@ -1427,6 +1585,7 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
             }
           }
 
+          /// ID of the owner, for example a Sudo ID.
           internal var id: String {
             get {
               return snapshot["id"]! as! String
@@ -1436,6 +1595,7 @@ internal final class ListPhoneMessagesForPhoneNumberIdQuery: GraphQLQuery {
             }
           }
 
+          /// Issuer of the ownership proof, for example sudoplatform.sudoservice.
           internal var issuer: String {
             get {
               return snapshot["issuer"]! as! String
@@ -1483,6 +1643,9 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
       self.init(snapshot: ["__typename": "Query", "listPhoneMessagesForConversationId": listPhoneMessagesForConversationId.snapshot])
     }
 
+    /// List the caller's messages of one conversation, newest first by default. A
+    /// nextToken that the service cannot decode, or that was issued by another list
+    /// or for another conversation, is rejected with InvalidArgumentError.
     internal var listPhoneMessagesForConversationId: ListPhoneMessagesForConversationId {
       get {
         return ListPhoneMessagesForConversationId(snapshot: snapshot["listPhoneMessagesForConversationId"]! as! Snapshot)
@@ -1520,6 +1683,7 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
         }
       }
 
+      /// The phone messages on this page.
       internal var items: [Item] {
         get {
           return (snapshot["items"] as! [Snapshot]).map { Item(snapshot: $0) }
@@ -1529,6 +1693,7 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
         }
       }
 
+      /// Pass to the next request to get the next page. Null on the last page.
       internal var nextToken: String? {
         get {
           return snapshot["nextToken"] as? String
@@ -1582,6 +1747,7 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
           }
         }
 
+        /// ID of the message.
         internal var id: GraphQLID {
           get {
             return snapshot["id"]! as! GraphQLID
@@ -1591,6 +1757,7 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
           }
         }
 
+        /// ID of the user who owns the message.
         internal var owner: GraphQLID {
           get {
             return snapshot["owner"]! as! GraphQLID
@@ -1600,6 +1767,7 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
           }
         }
 
+        /// Owners taken from the ownership proofs, which tie the message to a Sudo.
         internal var owners: [Owner] {
           get {
             return (snapshot["owners"] as! [Snapshot]).map { Owner(snapshot: $0) }
@@ -1609,6 +1777,7 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
           }
         }
 
+        /// ID of the phone number that sent or received the message.
         internal var phoneNumberId: GraphQLID {
           get {
             return snapshot["phoneNumberId"]! as! GraphQLID
@@ -1618,6 +1787,8 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
           }
         }
 
+        /// ID of the conversation, which groups every message between the phone number
+        /// and the other party.
         internal var conversationId: GraphQLID {
           get {
             return snapshot["conversationId"]! as! GraphQLID
@@ -1627,6 +1798,7 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
           }
         }
 
+        /// The kind of message.
         internal var type: PhoneMessageType {
           get {
             return snapshot["type"]! as! PhoneMessageType
@@ -1636,6 +1808,7 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
           }
         }
 
+        /// Whether the message was received or sent.
         internal var direction: PhoneMessageDirection {
           get {
             return snapshot["direction"]! as! PhoneMessageDirection
@@ -1645,6 +1818,7 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
           }
         }
 
+        /// The user's number in E.164 format.
         internal var localPhoneNumber: String {
           get {
             return snapshot["localPhoneNumber"]! as! String
@@ -1654,6 +1828,9 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
           }
         }
 
+        /// SEALED: The other party's number: the sender of an inbound message, the
+        /// recipient of an outbound one. E.164 or a short code. Nullable for future
+        /// voicemails from withheld numbers. Always set for SMS.
         internal var remotePhoneNumber: String? {
           get {
             return snapshot["remotePhoneNumber"] as? String
@@ -1663,6 +1840,7 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
           }
         }
 
+        /// SEALED: The message text. Empty for a media-only MMS.
         internal var body: String {
           get {
             return snapshot["body"]! as! String
@@ -1672,6 +1850,8 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
           }
         }
 
+        /// The number of SMS segments the message was carried in, as reported by the
+        /// telephony provider.
         internal var segmentCount: Int {
           get {
             return snapshot["segmentCount"]! as! Int
@@ -1681,6 +1861,7 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
           }
         }
 
+        /// True for an inbound MMS whose media was dropped and only its text kept.
         internal var mediaOmitted: Bool {
           get {
             return snapshot["mediaOmitted"]! as! Bool
@@ -1690,6 +1871,7 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
           }
         }
 
+        /// Whether the user has marked the message as read.
         internal var seen: Bool {
           get {
             return snapshot["seen"]! as! Bool
@@ -1699,6 +1881,7 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
           }
         }
 
+        /// Version of this object, incremented on each update.
         internal var version: Int {
           get {
             return snapshot["version"]! as! Int
@@ -1708,6 +1891,9 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
           }
         }
 
+        /// Time in milliseconds since 1970-01-01T00:00:00Z when the service received the
+        /// message from the telephony provider. createdAtEpochMs can be later if
+        /// processing is delayed.
         internal var receivedAtEpochMs: Double {
           get {
             return snapshot["receivedAtEpochMs"]! as! Double
@@ -1717,6 +1903,7 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
           }
         }
 
+        /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was created.
         internal var createdAtEpochMs: Double {
           get {
             return snapshot["createdAtEpochMs"]! as! Double
@@ -1726,6 +1913,7 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
           }
         }
 
+        /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was last updated.
         internal var updatedAtEpochMs: Double {
           get {
             return snapshot["updatedAtEpochMs"]! as! Double
@@ -1785,6 +1973,7 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
             }
           }
 
+          /// ID of the owner, for example a Sudo ID.
           internal var id: String {
             get {
               return snapshot["id"]! as! String
@@ -1794,6 +1983,7 @@ internal final class ListPhoneMessagesForConversationIdQuery: GraphQLQuery {
             }
           }
 
+          /// Issuer of the ownership proof, for example sudoplatform.sudoservice.
           internal var issuer: String {
             get {
               return snapshot["issuer"]! as! String
@@ -1841,6 +2031,7 @@ internal final class DeletePhoneMessagesMutation: GraphQLMutation {
       self.init(snapshot: ["__typename": "Mutation", "deletePhoneMessages": deletePhoneMessages.snapshot])
     }
 
+    /// Delete up to 100 of the caller's phone messages.
     internal var deletePhoneMessages: DeletePhoneMessage {
       get {
         return DeletePhoneMessage(snapshot: snapshot["deletePhoneMessages"]! as! Snapshot)
@@ -1879,6 +2070,7 @@ internal final class DeletePhoneMessagesMutation: GraphQLMutation {
         }
       }
 
+      /// IDs of the messages the operation applied to.
       internal var succeededIds: [GraphQLID] {
         get {
           return snapshot["succeededIds"]! as! [GraphQLID]
@@ -1888,6 +2080,7 @@ internal final class DeletePhoneMessagesMutation: GraphQLMutation {
         }
       }
 
+      /// IDs of the messages that weren't found or don't belong to the caller.
       internal var failedIds: [GraphQLID] {
         get {
           return snapshot["failedIds"]! as! [GraphQLID]
@@ -1955,6 +2148,7 @@ internal final class UpdatePhoneMessagesMutation: GraphQLMutation {
       self.init(snapshot: ["__typename": "Mutation", "updatePhoneMessages": updatePhoneMessages.snapshot])
     }
 
+    /// Set the read state of up to 100 of the caller's phone messages.
     internal var updatePhoneMessages: UpdatePhoneMessage {
       get {
         return UpdatePhoneMessage(snapshot: snapshot["updatePhoneMessages"]! as! Snapshot)
@@ -1993,6 +2187,7 @@ internal final class UpdatePhoneMessagesMutation: GraphQLMutation {
         }
       }
 
+      /// IDs of the messages the operation applied to.
       internal var succeededIds: [GraphQLID] {
         get {
           return snapshot["succeededIds"]! as! [GraphQLID]
@@ -2002,6 +2197,7 @@ internal final class UpdatePhoneMessagesMutation: GraphQLMutation {
         }
       }
 
+      /// IDs of the messages that weren't found or don't belong to the caller.
       internal var failedIds: [GraphQLID] {
         get {
           return snapshot["failedIds"]! as! [GraphQLID]
@@ -2069,6 +2265,11 @@ internal final class SearchAvailablePhoneNumbersQuery: GraphQLQuery {
       self.init(snapshot: ["__typename": "Query", "searchAvailablePhoneNumbers": searchAvailablePhoneNumbers.snapshot])
     }
 
+    /// Search for phone numbers available to provision in an area code. The search
+    /// is kept for 15 minutes; pass its id to provisionPhoneNumber.
+    /// 
+    /// Errors: UnsupportedCountry, InvalidAreaCode, InvalidArgumentError,
+    /// LimitExceededError, InsufficientEntitlementsError.
     internal var searchAvailablePhoneNumbers: SearchAvailablePhoneNumber {
       get {
         return SearchAvailablePhoneNumber(snapshot: snapshot["searchAvailablePhoneNumbers"]! as! Snapshot)
@@ -2110,6 +2311,7 @@ internal final class SearchAvailablePhoneNumbersQuery: GraphQLQuery {
         }
       }
 
+      /// ID of the search. Pass it as searchId when provisioning.
       internal var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
@@ -2119,6 +2321,7 @@ internal final class SearchAvailablePhoneNumbersQuery: GraphQLQuery {
         }
       }
 
+      /// ISO 3166-1 alpha-2 country code that was searched.
       internal var countryCode: String {
         get {
           return snapshot["countryCode"]! as! String
@@ -2128,6 +2331,7 @@ internal final class SearchAvailablePhoneNumbersQuery: GraphQLQuery {
         }
       }
 
+      /// Area code that was searched. Null for a country-wide search.
       internal var areaCode: String? {
         get {
           return snapshot["areaCode"] as? String
@@ -2137,6 +2341,7 @@ internal final class SearchAvailablePhoneNumbersQuery: GraphQLQuery {
         }
       }
 
+      /// The available numbers, without duplicates and at most the requested limit.
       internal var results: [Result] {
         get {
           return (snapshot["results"] as! [Snapshot]).map { Result(snapshot: $0) }
@@ -2146,6 +2351,9 @@ internal final class SearchAvailablePhoneNumbersQuery: GraphQLQuery {
         }
       }
 
+      /// Time in milliseconds since 1970-01-01T00:00:00Z after which provisioning
+      /// from this search is refused. The carrier doesn't reserve the numbers, so one
+      /// can be taken by someone else sooner.
       internal var expiresAtEpochMs: Double {
         get {
           return snapshot["expiresAtEpochMs"]! as! Double
@@ -2209,6 +2417,7 @@ internal final class SearchAvailablePhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// The number in E.164 format, for example +14155550123.
         internal var phoneNumber: String {
           get {
             return snapshot["phoneNumber"]! as! String
@@ -2218,6 +2427,7 @@ internal final class SearchAvailablePhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// ISO 3166-1 alpha-2 country code of the number, for example US.
         internal var countryCode: String {
           get {
             return snapshot["countryCode"]! as! String
@@ -2227,6 +2437,7 @@ internal final class SearchAvailablePhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// The kind of number.
         internal var numberType: PhoneNumberType {
           get {
             return snapshot["numberType"]! as! PhoneNumberType
@@ -2236,6 +2447,7 @@ internal final class SearchAvailablePhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// City or rate centre of the number, if the carrier reports one.
         internal var locality: String? {
           get {
             return snapshot["locality"] as? String
@@ -2245,6 +2457,7 @@ internal final class SearchAvailablePhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// State or province code of the number, for example NY or ON.
         internal var region: String? {
           get {
             return snapshot["region"] as? String
@@ -2313,6 +2526,12 @@ internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
       self.init(snapshot: ["__typename": "Mutation", "provisionPhoneNumber": provisionPhoneNumber.snapshot])
     }
 
+    /// Provision a number from one of the caller's searches. Returns the number in
+    /// PROVISIONING; onPhoneNumberUpdate reports when it becomes ACTIVE or FAILED.
+    /// 
+    /// Errors: PhoneNumberSearchExpired, PhoneNumberNotInSearch,
+    /// PhoneNumberUnavailable, IdentityContextMissing, InvalidTokenError,
+    /// InvalidArgumentError, InsufficientEntitlementsError.
     internal var provisionPhoneNumber: ProvisionPhoneNumber {
       get {
         return ProvisionPhoneNumber(snapshot: snapshot["provisionPhoneNumber"]! as! Snapshot)
@@ -2366,6 +2585,7 @@ internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// ID of the phone number.
       internal var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
@@ -2375,6 +2595,7 @@ internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// ID of the user who owns the phone number.
       internal var owner: GraphQLID {
         get {
           return snapshot["owner"]! as! GraphQLID
@@ -2384,6 +2605,7 @@ internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// Identity ID of the user who owns the phone number.
       internal var identityId: GraphQLID {
         get {
           return snapshot["identityId"]! as! GraphQLID
@@ -2393,6 +2615,7 @@ internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// The number in E.164 format, for example +14155550123.
       internal var phoneNumber: String {
         get {
           return snapshot["phoneNumber"]! as! String
@@ -2402,6 +2625,7 @@ internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// ISO 3166-1 alpha-2 country code of the number, for example US.
       internal var countryCode: String {
         get {
           return snapshot["countryCode"]! as! String
@@ -2411,6 +2635,7 @@ internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// The kind of number.
       internal var numberType: PhoneNumberType {
         get {
           return snapshot["numberType"]! as! PhoneNumberType
@@ -2420,6 +2645,7 @@ internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// Area code of the number. Null where the country has no area codes.
       internal var areaCode: String? {
         get {
           return snapshot["areaCode"] as? String
@@ -2429,6 +2655,7 @@ internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// Lifecycle state of the number.
       internal var state: PhoneNumberState {
         get {
           return snapshot["state"]! as! PhoneNumberState
@@ -2438,6 +2665,7 @@ internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// Why provisioning failed. Set only when state is FAILED.
       internal var failureReason: PhoneNumberFailureReason? {
         get {
           return snapshot["failureReason"] as? PhoneNumberFailureReason
@@ -2447,6 +2675,8 @@ internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when the number will be
+      /// released. Set only when state is SUSPENDED.
       internal var gracePeriodEndsAtEpochMs: Double? {
         get {
           return snapshot["gracePeriodEndsAtEpochMs"] as? Double
@@ -2456,6 +2686,7 @@ internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// Client-supplied reference passed when provisioning, returned unchanged.
       internal var clientRefId: String? {
         get {
           return snapshot["clientRefId"] as? String
@@ -2465,6 +2696,7 @@ internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// ID of the key ring whose keys seal the phone number's messages.
       internal var keyRingId: GraphQLID {
         get {
           return snapshot["keyRingId"]! as! GraphQLID
@@ -2474,6 +2706,7 @@ internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// IDs of the keys in the key ring.
       internal var keyIds: [String] {
         get {
           return snapshot["keyIds"]! as! [String]
@@ -2483,6 +2716,7 @@ internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// Owners taken from the ownership proofs, which tie the phone number to a Sudo.
       internal var owners: [Owner] {
         get {
           return (snapshot["owners"] as! [Snapshot]).map { Owner(snapshot: $0) }
@@ -2492,6 +2726,7 @@ internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// Version of this object, incremented on each update.
       internal var version: Int {
         get {
           return snapshot["version"]! as! Int
@@ -2501,6 +2736,7 @@ internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was created.
       internal var createdAtEpochMs: Double {
         get {
           return snapshot["createdAtEpochMs"]! as! Double
@@ -2510,6 +2746,7 @@ internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was last updated.
       internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
@@ -2569,6 +2806,7 @@ internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
           }
         }
 
+        /// ID of the owner, for example a Sudo ID.
         internal var id: String {
           get {
             return snapshot["id"]! as! String
@@ -2578,6 +2816,7 @@ internal final class ProvisionPhoneNumberMutation: GraphQLMutation {
           }
         }
 
+        /// Issuer of the ownership proof, for example sudoplatform.sudoservice.
         internal var issuer: String {
           get {
             return snapshot["issuer"]! as! String
@@ -2624,6 +2863,14 @@ internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
       self.init(snapshot: ["__typename": "Mutation", "deprovisionPhoneNumber": deprovisionPhoneNumber.snapshot])
     }
 
+    /// Release one of the caller's ACTIVE or SUSPENDED numbers. Returns the number in
+    /// RELEASED and returns the unit of the caller's phone number allowance at once;
+    /// the number is returned to the carrier in the background. Releasing a RELEASED
+    /// number returns it unchanged.
+    /// 
+    /// Errors: PhoneNumberNotFound when no number with the id belongs to the caller,
+    /// InvalidPhoneNumberState (with the current state in errorInfo) for a
+    /// PROVISIONING or FAILED number.
     internal var deprovisionPhoneNumber: DeprovisionPhoneNumber {
       get {
         return DeprovisionPhoneNumber(snapshot: snapshot["deprovisionPhoneNumber"]! as! Snapshot)
@@ -2677,6 +2924,7 @@ internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// ID of the phone number.
       internal var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
@@ -2686,6 +2934,7 @@ internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// ID of the user who owns the phone number.
       internal var owner: GraphQLID {
         get {
           return snapshot["owner"]! as! GraphQLID
@@ -2695,6 +2944,7 @@ internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// Identity ID of the user who owns the phone number.
       internal var identityId: GraphQLID {
         get {
           return snapshot["identityId"]! as! GraphQLID
@@ -2704,6 +2954,7 @@ internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// The number in E.164 format, for example +14155550123.
       internal var phoneNumber: String {
         get {
           return snapshot["phoneNumber"]! as! String
@@ -2713,6 +2964,7 @@ internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// ISO 3166-1 alpha-2 country code of the number, for example US.
       internal var countryCode: String {
         get {
           return snapshot["countryCode"]! as! String
@@ -2722,6 +2974,7 @@ internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// The kind of number.
       internal var numberType: PhoneNumberType {
         get {
           return snapshot["numberType"]! as! PhoneNumberType
@@ -2731,6 +2984,7 @@ internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// Area code of the number. Null where the country has no area codes.
       internal var areaCode: String? {
         get {
           return snapshot["areaCode"] as? String
@@ -2740,6 +2994,7 @@ internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// Lifecycle state of the number.
       internal var state: PhoneNumberState {
         get {
           return snapshot["state"]! as! PhoneNumberState
@@ -2749,6 +3004,7 @@ internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// Why provisioning failed. Set only when state is FAILED.
       internal var failureReason: PhoneNumberFailureReason? {
         get {
           return snapshot["failureReason"] as? PhoneNumberFailureReason
@@ -2758,6 +3014,8 @@ internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when the number will be
+      /// released. Set only when state is SUSPENDED.
       internal var gracePeriodEndsAtEpochMs: Double? {
         get {
           return snapshot["gracePeriodEndsAtEpochMs"] as? Double
@@ -2767,6 +3025,7 @@ internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// Client-supplied reference passed when provisioning, returned unchanged.
       internal var clientRefId: String? {
         get {
           return snapshot["clientRefId"] as? String
@@ -2776,6 +3035,7 @@ internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// ID of the key ring whose keys seal the phone number's messages.
       internal var keyRingId: GraphQLID {
         get {
           return snapshot["keyRingId"]! as! GraphQLID
@@ -2785,6 +3045,7 @@ internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// IDs of the keys in the key ring.
       internal var keyIds: [String] {
         get {
           return snapshot["keyIds"]! as! [String]
@@ -2794,6 +3055,7 @@ internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// Owners taken from the ownership proofs, which tie the phone number to a Sudo.
       internal var owners: [Owner] {
         get {
           return (snapshot["owners"] as! [Snapshot]).map { Owner(snapshot: $0) }
@@ -2803,6 +3065,7 @@ internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// Version of this object, incremented on each update.
       internal var version: Int {
         get {
           return snapshot["version"]! as! Int
@@ -2812,6 +3075,7 @@ internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was created.
       internal var createdAtEpochMs: Double {
         get {
           return snapshot["createdAtEpochMs"]! as! Double
@@ -2821,6 +3085,7 @@ internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
         }
       }
 
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was last updated.
       internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
@@ -2880,6 +3145,7 @@ internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
           }
         }
 
+        /// ID of the owner, for example a Sudo ID.
         internal var id: String {
           get {
             return snapshot["id"]! as! String
@@ -2889,6 +3155,7 @@ internal final class DeprovisionPhoneNumberMutation: GraphQLMutation {
           }
         }
 
+        /// Issuer of the ownership proof, for example sudoplatform.sudoservice.
         internal var issuer: String {
           get {
             return snapshot["issuer"]! as! String
@@ -2935,6 +3202,8 @@ internal final class GetPhoneNumberQuery: GraphQLQuery {
       self.init(snapshot: ["__typename": "Query", "getPhoneNumber": getPhoneNumber.flatMap { $0.snapshot }])
     }
 
+    /// Get one of the caller's phone numbers in any state, including RELEASED and
+    /// FAILED. Null when no number with the id belongs to the caller.
     internal var getPhoneNumber: GetPhoneNumber? {
       get {
         return (snapshot["getPhoneNumber"] as? Snapshot).flatMap { GetPhoneNumber(snapshot: $0) }
@@ -2988,6 +3257,7 @@ internal final class GetPhoneNumberQuery: GraphQLQuery {
         }
       }
 
+      /// ID of the phone number.
       internal var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
@@ -2997,6 +3267,7 @@ internal final class GetPhoneNumberQuery: GraphQLQuery {
         }
       }
 
+      /// ID of the user who owns the phone number.
       internal var owner: GraphQLID {
         get {
           return snapshot["owner"]! as! GraphQLID
@@ -3006,6 +3277,7 @@ internal final class GetPhoneNumberQuery: GraphQLQuery {
         }
       }
 
+      /// Identity ID of the user who owns the phone number.
       internal var identityId: GraphQLID {
         get {
           return snapshot["identityId"]! as! GraphQLID
@@ -3015,6 +3287,7 @@ internal final class GetPhoneNumberQuery: GraphQLQuery {
         }
       }
 
+      /// The number in E.164 format, for example +14155550123.
       internal var phoneNumber: String {
         get {
           return snapshot["phoneNumber"]! as! String
@@ -3024,6 +3297,7 @@ internal final class GetPhoneNumberQuery: GraphQLQuery {
         }
       }
 
+      /// ISO 3166-1 alpha-2 country code of the number, for example US.
       internal var countryCode: String {
         get {
           return snapshot["countryCode"]! as! String
@@ -3033,6 +3307,7 @@ internal final class GetPhoneNumberQuery: GraphQLQuery {
         }
       }
 
+      /// The kind of number.
       internal var numberType: PhoneNumberType {
         get {
           return snapshot["numberType"]! as! PhoneNumberType
@@ -3042,6 +3317,7 @@ internal final class GetPhoneNumberQuery: GraphQLQuery {
         }
       }
 
+      /// Area code of the number. Null where the country has no area codes.
       internal var areaCode: String? {
         get {
           return snapshot["areaCode"] as? String
@@ -3051,6 +3327,7 @@ internal final class GetPhoneNumberQuery: GraphQLQuery {
         }
       }
 
+      /// Lifecycle state of the number.
       internal var state: PhoneNumberState {
         get {
           return snapshot["state"]! as! PhoneNumberState
@@ -3060,6 +3337,7 @@ internal final class GetPhoneNumberQuery: GraphQLQuery {
         }
       }
 
+      /// Why provisioning failed. Set only when state is FAILED.
       internal var failureReason: PhoneNumberFailureReason? {
         get {
           return snapshot["failureReason"] as? PhoneNumberFailureReason
@@ -3069,6 +3347,8 @@ internal final class GetPhoneNumberQuery: GraphQLQuery {
         }
       }
 
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when the number will be
+      /// released. Set only when state is SUSPENDED.
       internal var gracePeriodEndsAtEpochMs: Double? {
         get {
           return snapshot["gracePeriodEndsAtEpochMs"] as? Double
@@ -3078,6 +3358,7 @@ internal final class GetPhoneNumberQuery: GraphQLQuery {
         }
       }
 
+      /// Client-supplied reference passed when provisioning, returned unchanged.
       internal var clientRefId: String? {
         get {
           return snapshot["clientRefId"] as? String
@@ -3087,6 +3368,7 @@ internal final class GetPhoneNumberQuery: GraphQLQuery {
         }
       }
 
+      /// ID of the key ring whose keys seal the phone number's messages.
       internal var keyRingId: GraphQLID {
         get {
           return snapshot["keyRingId"]! as! GraphQLID
@@ -3096,6 +3378,7 @@ internal final class GetPhoneNumberQuery: GraphQLQuery {
         }
       }
 
+      /// IDs of the keys in the key ring.
       internal var keyIds: [String] {
         get {
           return snapshot["keyIds"]! as! [String]
@@ -3105,6 +3388,7 @@ internal final class GetPhoneNumberQuery: GraphQLQuery {
         }
       }
 
+      /// Owners taken from the ownership proofs, which tie the phone number to a Sudo.
       internal var owners: [Owner] {
         get {
           return (snapshot["owners"] as! [Snapshot]).map { Owner(snapshot: $0) }
@@ -3114,6 +3398,7 @@ internal final class GetPhoneNumberQuery: GraphQLQuery {
         }
       }
 
+      /// Version of this object, incremented on each update.
       internal var version: Int {
         get {
           return snapshot["version"]! as! Int
@@ -3123,6 +3408,7 @@ internal final class GetPhoneNumberQuery: GraphQLQuery {
         }
       }
 
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was created.
       internal var createdAtEpochMs: Double {
         get {
           return snapshot["createdAtEpochMs"]! as! Double
@@ -3132,6 +3418,7 @@ internal final class GetPhoneNumberQuery: GraphQLQuery {
         }
       }
 
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was last updated.
       internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
@@ -3191,6 +3478,7 @@ internal final class GetPhoneNumberQuery: GraphQLQuery {
           }
         }
 
+        /// ID of the owner, for example a Sudo ID.
         internal var id: String {
           get {
             return snapshot["id"]! as! String
@@ -3200,6 +3488,7 @@ internal final class GetPhoneNumberQuery: GraphQLQuery {
           }
         }
 
+        /// Issuer of the ownership proof, for example sudoplatform.sudoservice.
         internal var issuer: String {
           get {
             return snapshot["issuer"]! as! String
@@ -3246,6 +3535,9 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
       self.init(snapshot: ["__typename": "Query", "listPhoneNumbers": listPhoneNumbers.snapshot])
     }
 
+    /// List the caller's PROVISIONING, ACTIVE, and SUSPENDED phone numbers, oldest
+    /// first. A nextToken that the service cannot decode, or that was issued to
+    /// another user, is rejected with InvalidArgumentError.
     internal var listPhoneNumbers: ListPhoneNumber {
       get {
         return ListPhoneNumber(snapshot: snapshot["listPhoneNumbers"]! as! Snapshot)
@@ -3283,6 +3575,7 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
         }
       }
 
+      /// The phone numbers on this page.
       internal var items: [Item] {
         get {
           return (snapshot["items"] as! [Snapshot]).map { Item(snapshot: $0) }
@@ -3292,6 +3585,7 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
         }
       }
 
+      /// Pass to the next request to get the next page. Null on the last page.
       internal var nextToken: String? {
         get {
           return snapshot["nextToken"] as? String
@@ -3345,6 +3639,7 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// ID of the phone number.
         internal var id: GraphQLID {
           get {
             return snapshot["id"]! as! GraphQLID
@@ -3354,6 +3649,7 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// ID of the user who owns the phone number.
         internal var owner: GraphQLID {
           get {
             return snapshot["owner"]! as! GraphQLID
@@ -3363,6 +3659,7 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// Identity ID of the user who owns the phone number.
         internal var identityId: GraphQLID {
           get {
             return snapshot["identityId"]! as! GraphQLID
@@ -3372,6 +3669,7 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// The number in E.164 format, for example +14155550123.
         internal var phoneNumber: String {
           get {
             return snapshot["phoneNumber"]! as! String
@@ -3381,6 +3679,7 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// ISO 3166-1 alpha-2 country code of the number, for example US.
         internal var countryCode: String {
           get {
             return snapshot["countryCode"]! as! String
@@ -3390,6 +3689,7 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// The kind of number.
         internal var numberType: PhoneNumberType {
           get {
             return snapshot["numberType"]! as! PhoneNumberType
@@ -3399,6 +3699,7 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// Area code of the number. Null where the country has no area codes.
         internal var areaCode: String? {
           get {
             return snapshot["areaCode"] as? String
@@ -3408,6 +3709,7 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// Lifecycle state of the number.
         internal var state: PhoneNumberState {
           get {
             return snapshot["state"]! as! PhoneNumberState
@@ -3417,6 +3719,7 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// Why provisioning failed. Set only when state is FAILED.
         internal var failureReason: PhoneNumberFailureReason? {
           get {
             return snapshot["failureReason"] as? PhoneNumberFailureReason
@@ -3426,6 +3729,8 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// Time in milliseconds since 1970-01-01T00:00:00Z when the number will be
+        /// released. Set only when state is SUSPENDED.
         internal var gracePeriodEndsAtEpochMs: Double? {
           get {
             return snapshot["gracePeriodEndsAtEpochMs"] as? Double
@@ -3435,6 +3740,7 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// Client-supplied reference passed when provisioning, returned unchanged.
         internal var clientRefId: String? {
           get {
             return snapshot["clientRefId"] as? String
@@ -3444,6 +3750,7 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// ID of the key ring whose keys seal the phone number's messages.
         internal var keyRingId: GraphQLID {
           get {
             return snapshot["keyRingId"]! as! GraphQLID
@@ -3453,6 +3760,7 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// IDs of the keys in the key ring.
         internal var keyIds: [String] {
           get {
             return snapshot["keyIds"]! as! [String]
@@ -3462,6 +3770,7 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// Owners taken from the ownership proofs, which tie the phone number to a Sudo.
         internal var owners: [Owner] {
           get {
             return (snapshot["owners"] as! [Snapshot]).map { Owner(snapshot: $0) }
@@ -3471,6 +3780,7 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// Version of this object, incremented on each update.
         internal var version: Int {
           get {
             return snapshot["version"]! as! Int
@@ -3480,6 +3790,7 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was created.
         internal var createdAtEpochMs: Double {
           get {
             return snapshot["createdAtEpochMs"]! as! Double
@@ -3489,6 +3800,7 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
           }
         }
 
+        /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was last updated.
         internal var updatedAtEpochMs: Double {
           get {
             return snapshot["updatedAtEpochMs"]! as! Double
@@ -3548,6 +3860,7 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
             }
           }
 
+          /// ID of the owner, for example a Sudo ID.
           internal var id: String {
             get {
               return snapshot["id"]! as! String
@@ -3557,6 +3870,7 @@ internal final class ListPhoneNumbersQuery: GraphQLQuery {
             }
           }
 
+          /// Issuer of the ownership proof, for example sudoplatform.sudoservice.
           internal var issuer: String {
             get {
               return snapshot["issuer"]! as! String
@@ -3604,6 +3918,10 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
       self.init(snapshot: ["__typename": "Query", "listPhoneNumbersForSudoId": listPhoneNumbersForSudoId.snapshot])
     }
 
+    /// List the caller's PROVISIONING, ACTIVE, and SUSPENDED phone numbers that the
+    /// Sudo owns, oldest first. An empty sudoId, or a nextToken that the service
+    /// cannot decode or that was issued to another user, Sudo, or list, is rejected
+    /// with InvalidArgumentError.
     internal var listPhoneNumbersForSudoId: ListPhoneNumbersForSudoId {
       get {
         return ListPhoneNumbersForSudoId(snapshot: snapshot["listPhoneNumbersForSudoId"]! as! Snapshot)
@@ -3641,6 +3959,7 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
         }
       }
 
+      /// The phone numbers on this page.
       internal var items: [Item] {
         get {
           return (snapshot["items"] as! [Snapshot]).map { Item(snapshot: $0) }
@@ -3650,6 +3969,7 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
         }
       }
 
+      /// Pass to the next request to get the next page. Null on the last page.
       internal var nextToken: String? {
         get {
           return snapshot["nextToken"] as? String
@@ -3703,6 +4023,7 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
           }
         }
 
+        /// ID of the phone number.
         internal var id: GraphQLID {
           get {
             return snapshot["id"]! as! GraphQLID
@@ -3712,6 +4033,7 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
           }
         }
 
+        /// ID of the user who owns the phone number.
         internal var owner: GraphQLID {
           get {
             return snapshot["owner"]! as! GraphQLID
@@ -3721,6 +4043,7 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
           }
         }
 
+        /// Identity ID of the user who owns the phone number.
         internal var identityId: GraphQLID {
           get {
             return snapshot["identityId"]! as! GraphQLID
@@ -3730,6 +4053,7 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
           }
         }
 
+        /// The number in E.164 format, for example +14155550123.
         internal var phoneNumber: String {
           get {
             return snapshot["phoneNumber"]! as! String
@@ -3739,6 +4063,7 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
           }
         }
 
+        /// ISO 3166-1 alpha-2 country code of the number, for example US.
         internal var countryCode: String {
           get {
             return snapshot["countryCode"]! as! String
@@ -3748,6 +4073,7 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
           }
         }
 
+        /// The kind of number.
         internal var numberType: PhoneNumberType {
           get {
             return snapshot["numberType"]! as! PhoneNumberType
@@ -3757,6 +4083,7 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
           }
         }
 
+        /// Area code of the number. Null where the country has no area codes.
         internal var areaCode: String? {
           get {
             return snapshot["areaCode"] as? String
@@ -3766,6 +4093,7 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
           }
         }
 
+        /// Lifecycle state of the number.
         internal var state: PhoneNumberState {
           get {
             return snapshot["state"]! as! PhoneNumberState
@@ -3775,6 +4103,7 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
           }
         }
 
+        /// Why provisioning failed. Set only when state is FAILED.
         internal var failureReason: PhoneNumberFailureReason? {
           get {
             return snapshot["failureReason"] as? PhoneNumberFailureReason
@@ -3784,6 +4113,8 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
           }
         }
 
+        /// Time in milliseconds since 1970-01-01T00:00:00Z when the number will be
+        /// released. Set only when state is SUSPENDED.
         internal var gracePeriodEndsAtEpochMs: Double? {
           get {
             return snapshot["gracePeriodEndsAtEpochMs"] as? Double
@@ -3793,6 +4124,7 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
           }
         }
 
+        /// Client-supplied reference passed when provisioning, returned unchanged.
         internal var clientRefId: String? {
           get {
             return snapshot["clientRefId"] as? String
@@ -3802,6 +4134,7 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
           }
         }
 
+        /// ID of the key ring whose keys seal the phone number's messages.
         internal var keyRingId: GraphQLID {
           get {
             return snapshot["keyRingId"]! as! GraphQLID
@@ -3811,6 +4144,7 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
           }
         }
 
+        /// IDs of the keys in the key ring.
         internal var keyIds: [String] {
           get {
             return snapshot["keyIds"]! as! [String]
@@ -3820,6 +4154,7 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
           }
         }
 
+        /// Owners taken from the ownership proofs, which tie the phone number to a Sudo.
         internal var owners: [Owner] {
           get {
             return (snapshot["owners"] as! [Snapshot]).map { Owner(snapshot: $0) }
@@ -3829,6 +4164,7 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
           }
         }
 
+        /// Version of this object, incremented on each update.
         internal var version: Int {
           get {
             return snapshot["version"]! as! Int
@@ -3838,6 +4174,7 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
           }
         }
 
+        /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was created.
         internal var createdAtEpochMs: Double {
           get {
             return snapshot["createdAtEpochMs"]! as! Double
@@ -3847,6 +4184,7 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
           }
         }
 
+        /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was last updated.
         internal var updatedAtEpochMs: Double {
           get {
             return snapshot["updatedAtEpochMs"]! as! Double
@@ -3906,6 +4244,7 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
             }
           }
 
+          /// ID of the owner, for example a Sudo ID.
           internal var id: String {
             get {
               return snapshot["id"]! as! String
@@ -3915,6 +4254,7 @@ internal final class ListPhoneNumbersForSudoIdQuery: GraphQLQuery {
             }
           }
 
+          /// Issuer of the ownership proof, for example sudoplatform.sudoservice.
           internal var issuer: String {
             get {
               return snapshot["issuer"]! as! String
@@ -3962,6 +4302,7 @@ internal final class OnPhoneNumberUpdateSubscription: GraphQLSubscription {
       self.init(snapshot: ["__typename": "Subscription", "onPhoneNumberUpdate": onPhoneNumberUpdate.flatMap { $0.snapshot }])
     }
 
+    /// Notifies the caller when one of their phone numbers changes.
     internal var onPhoneNumberUpdate: OnPhoneNumberUpdate? {
       get {
         return (snapshot["onPhoneNumberUpdate"] as? Snapshot).flatMap { OnPhoneNumberUpdate(snapshot: $0) }
@@ -4015,6 +4356,7 @@ internal final class OnPhoneNumberUpdateSubscription: GraphQLSubscription {
         }
       }
 
+      /// ID of the phone number.
       internal var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
@@ -4024,6 +4366,7 @@ internal final class OnPhoneNumberUpdateSubscription: GraphQLSubscription {
         }
       }
 
+      /// ID of the user who owns the phone number.
       internal var owner: GraphQLID {
         get {
           return snapshot["owner"]! as! GraphQLID
@@ -4033,6 +4376,7 @@ internal final class OnPhoneNumberUpdateSubscription: GraphQLSubscription {
         }
       }
 
+      /// Identity ID of the user who owns the phone number.
       internal var identityId: GraphQLID {
         get {
           return snapshot["identityId"]! as! GraphQLID
@@ -4042,6 +4386,7 @@ internal final class OnPhoneNumberUpdateSubscription: GraphQLSubscription {
         }
       }
 
+      /// The number in E.164 format, for example +14155550123.
       internal var phoneNumber: String {
         get {
           return snapshot["phoneNumber"]! as! String
@@ -4051,6 +4396,7 @@ internal final class OnPhoneNumberUpdateSubscription: GraphQLSubscription {
         }
       }
 
+      /// ISO 3166-1 alpha-2 country code of the number, for example US.
       internal var countryCode: String {
         get {
           return snapshot["countryCode"]! as! String
@@ -4060,6 +4406,7 @@ internal final class OnPhoneNumberUpdateSubscription: GraphQLSubscription {
         }
       }
 
+      /// The kind of number.
       internal var numberType: PhoneNumberType {
         get {
           return snapshot["numberType"]! as! PhoneNumberType
@@ -4069,6 +4416,7 @@ internal final class OnPhoneNumberUpdateSubscription: GraphQLSubscription {
         }
       }
 
+      /// Area code of the number. Null where the country has no area codes.
       internal var areaCode: String? {
         get {
           return snapshot["areaCode"] as? String
@@ -4078,6 +4426,7 @@ internal final class OnPhoneNumberUpdateSubscription: GraphQLSubscription {
         }
       }
 
+      /// Lifecycle state of the number.
       internal var state: PhoneNumberState {
         get {
           return snapshot["state"]! as! PhoneNumberState
@@ -4087,6 +4436,7 @@ internal final class OnPhoneNumberUpdateSubscription: GraphQLSubscription {
         }
       }
 
+      /// Why provisioning failed. Set only when state is FAILED.
       internal var failureReason: PhoneNumberFailureReason? {
         get {
           return snapshot["failureReason"] as? PhoneNumberFailureReason
@@ -4096,6 +4446,8 @@ internal final class OnPhoneNumberUpdateSubscription: GraphQLSubscription {
         }
       }
 
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when the number will be
+      /// released. Set only when state is SUSPENDED.
       internal var gracePeriodEndsAtEpochMs: Double? {
         get {
           return snapshot["gracePeriodEndsAtEpochMs"] as? Double
@@ -4105,6 +4457,7 @@ internal final class OnPhoneNumberUpdateSubscription: GraphQLSubscription {
         }
       }
 
+      /// Client-supplied reference passed when provisioning, returned unchanged.
       internal var clientRefId: String? {
         get {
           return snapshot["clientRefId"] as? String
@@ -4114,6 +4467,7 @@ internal final class OnPhoneNumberUpdateSubscription: GraphQLSubscription {
         }
       }
 
+      /// ID of the key ring whose keys seal the phone number's messages.
       internal var keyRingId: GraphQLID {
         get {
           return snapshot["keyRingId"]! as! GraphQLID
@@ -4123,6 +4477,7 @@ internal final class OnPhoneNumberUpdateSubscription: GraphQLSubscription {
         }
       }
 
+      /// IDs of the keys in the key ring.
       internal var keyIds: [String] {
         get {
           return snapshot["keyIds"]! as! [String]
@@ -4132,6 +4487,7 @@ internal final class OnPhoneNumberUpdateSubscription: GraphQLSubscription {
         }
       }
 
+      /// Owners taken from the ownership proofs, which tie the phone number to a Sudo.
       internal var owners: [Owner] {
         get {
           return (snapshot["owners"] as! [Snapshot]).map { Owner(snapshot: $0) }
@@ -4141,6 +4497,7 @@ internal final class OnPhoneNumberUpdateSubscription: GraphQLSubscription {
         }
       }
 
+      /// Version of this object, incremented on each update.
       internal var version: Int {
         get {
           return snapshot["version"]! as! Int
@@ -4150,6 +4507,7 @@ internal final class OnPhoneNumberUpdateSubscription: GraphQLSubscription {
         }
       }
 
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was created.
       internal var createdAtEpochMs: Double {
         get {
           return snapshot["createdAtEpochMs"]! as! Double
@@ -4159,6 +4517,7 @@ internal final class OnPhoneNumberUpdateSubscription: GraphQLSubscription {
         }
       }
 
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was last updated.
       internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
@@ -4218,6 +4577,7 @@ internal final class OnPhoneNumberUpdateSubscription: GraphQLSubscription {
           }
         }
 
+        /// ID of the owner, for example a Sudo ID.
         internal var id: String {
           get {
             return snapshot["id"]! as! String
@@ -4227,6 +4587,7 @@ internal final class OnPhoneNumberUpdateSubscription: GraphQLSubscription {
           }
         }
 
+        /// Issuer of the ownership proof, for example sudoplatform.sudoservice.
         internal var issuer: String {
           get {
             return snapshot["issuer"]! as! String
@@ -4271,6 +4632,7 @@ internal final class OnPhoneMessageEventSubscription: GraphQLSubscription {
       self.init(snapshot: ["__typename": "Subscription", "onPhoneMessageEvent": onPhoneMessageEvent.flatMap { $0.snapshot }])
     }
 
+    /// Notifies the caller when one of their phone messages is received, updated, or deleted.
     internal var onPhoneMessageEvent: OnPhoneMessageEvent? {
       get {
         return (snapshot["onPhoneMessageEvent"] as? Snapshot).flatMap { OnPhoneMessageEvent(snapshot: $0) }
@@ -4317,6 +4679,7 @@ internal final class OnPhoneMessageEventSubscription: GraphQLSubscription {
         }
       }
 
+      /// ID of the message.
       internal var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
@@ -4326,6 +4689,7 @@ internal final class OnPhoneMessageEventSubscription: GraphQLSubscription {
         }
       }
 
+      /// ID of the user who owns the message.
       internal var owner: GraphQLID {
         get {
           return snapshot["owner"]! as! GraphQLID
@@ -4335,6 +4699,7 @@ internal final class OnPhoneMessageEventSubscription: GraphQLSubscription {
         }
       }
 
+      /// Owners taken from the ownership proofs, which tie the phone number to a Sudo.
       internal var owners: [Owner] {
         get {
           return (snapshot["owners"] as! [Snapshot]).map { Owner(snapshot: $0) }
@@ -4344,6 +4709,7 @@ internal final class OnPhoneMessageEventSubscription: GraphQLSubscription {
         }
       }
 
+      /// ID of the phone number that sent or received the message.
       internal var phoneNumberId: GraphQLID {
         get {
           return snapshot["phoneNumberId"]! as! GraphQLID
@@ -4353,6 +4719,7 @@ internal final class OnPhoneMessageEventSubscription: GraphQLSubscription {
         }
       }
 
+      /// ID of the conversation the message belongs to.
       internal var conversationId: GraphQLID {
         get {
           return snapshot["conversationId"]! as! GraphQLID
@@ -4362,6 +4729,7 @@ internal final class OnPhoneMessageEventSubscription: GraphQLSubscription {
         }
       }
 
+      /// The kind of message.
       internal var type: PhoneMessageType {
         get {
           return snapshot["type"]! as! PhoneMessageType
@@ -4371,6 +4739,7 @@ internal final class OnPhoneMessageEventSubscription: GraphQLSubscription {
         }
       }
 
+      /// Whether the message was received or sent.
       internal var direction: PhoneMessageDirection {
         get {
           return snapshot["direction"]! as! PhoneMessageDirection
@@ -4380,6 +4749,7 @@ internal final class OnPhoneMessageEventSubscription: GraphQLSubscription {
         }
       }
 
+      /// The change being reported.
       internal var changeType: PhoneMessageChangeType {
         get {
           return snapshot["changeType"]! as! PhoneMessageChangeType
@@ -4389,6 +4759,7 @@ internal final class OnPhoneMessageEventSubscription: GraphQLSubscription {
         }
       }
 
+      /// Whether the user has marked the message as read.
       internal var seen: Bool {
         get {
           return snapshot["seen"]! as! Bool
@@ -4398,6 +4769,7 @@ internal final class OnPhoneMessageEventSubscription: GraphQLSubscription {
         }
       }
 
+      /// Version of the message after the change.
       internal var version: Int {
         get {
           return snapshot["version"]! as! Int
@@ -4407,6 +4779,7 @@ internal final class OnPhoneMessageEventSubscription: GraphQLSubscription {
         }
       }
 
+      /// Time in milliseconds since 1970-01-01T00:00:00Z when the message was last updated.
       internal var updatedAtEpochMs: Double {
         get {
           return snapshot["updatedAtEpochMs"]! as! Double
@@ -4444,6 +4817,7 @@ internal final class OnPhoneMessageEventSubscription: GraphQLSubscription {
           }
         }
 
+        /// ID of the owner, for example a Sudo ID.
         internal var id: String {
           get {
             return snapshot["id"]! as! String
@@ -4453,6 +4827,7 @@ internal final class OnPhoneMessageEventSubscription: GraphQLSubscription {
           }
         }
 
+        /// Issuer of the ownership proof, for example sudoplatform.sudoservice.
         internal var issuer: String {
           get {
             return snapshot["issuer"]! as! String
@@ -4512,6 +4887,7 @@ internal struct SealedPhoneMessageFields: GraphQLFragment {
     }
   }
 
+  /// ID of the message.
   internal var id: GraphQLID {
     get {
       return snapshot["id"]! as! GraphQLID
@@ -4521,6 +4897,7 @@ internal struct SealedPhoneMessageFields: GraphQLFragment {
     }
   }
 
+  /// ID of the user who owns the message.
   internal var owner: GraphQLID {
     get {
       return snapshot["owner"]! as! GraphQLID
@@ -4530,6 +4907,7 @@ internal struct SealedPhoneMessageFields: GraphQLFragment {
     }
   }
 
+  /// Owners taken from the ownership proofs, which tie the message to a Sudo.
   internal var owners: [Owner] {
     get {
       return (snapshot["owners"] as! [Snapshot]).map { Owner(snapshot: $0) }
@@ -4539,6 +4917,7 @@ internal struct SealedPhoneMessageFields: GraphQLFragment {
     }
   }
 
+  /// ID of the phone number that sent or received the message.
   internal var phoneNumberId: GraphQLID {
     get {
       return snapshot["phoneNumberId"]! as! GraphQLID
@@ -4548,6 +4927,8 @@ internal struct SealedPhoneMessageFields: GraphQLFragment {
     }
   }
 
+  /// ID of the conversation, which groups every message between the phone number
+  /// and the other party.
   internal var conversationId: GraphQLID {
     get {
       return snapshot["conversationId"]! as! GraphQLID
@@ -4557,6 +4938,7 @@ internal struct SealedPhoneMessageFields: GraphQLFragment {
     }
   }
 
+  /// The kind of message.
   internal var type: PhoneMessageType {
     get {
       return snapshot["type"]! as! PhoneMessageType
@@ -4566,6 +4948,7 @@ internal struct SealedPhoneMessageFields: GraphQLFragment {
     }
   }
 
+  /// Whether the message was received or sent.
   internal var direction: PhoneMessageDirection {
     get {
       return snapshot["direction"]! as! PhoneMessageDirection
@@ -4575,6 +4958,7 @@ internal struct SealedPhoneMessageFields: GraphQLFragment {
     }
   }
 
+  /// The user's number in E.164 format.
   internal var localPhoneNumber: String {
     get {
       return snapshot["localPhoneNumber"]! as! String
@@ -4584,6 +4968,9 @@ internal struct SealedPhoneMessageFields: GraphQLFragment {
     }
   }
 
+  /// SEALED: The other party's number: the sender of an inbound message, the
+  /// recipient of an outbound one. E.164 or a short code. Nullable for future
+  /// voicemails from withheld numbers. Always set for SMS.
   internal var remotePhoneNumber: String? {
     get {
       return snapshot["remotePhoneNumber"] as? String
@@ -4593,6 +4980,7 @@ internal struct SealedPhoneMessageFields: GraphQLFragment {
     }
   }
 
+  /// SEALED: The message text. Empty for a media-only MMS.
   internal var body: String {
     get {
       return snapshot["body"]! as! String
@@ -4602,6 +4990,8 @@ internal struct SealedPhoneMessageFields: GraphQLFragment {
     }
   }
 
+  /// The number of SMS segments the message was carried in, as reported by the
+  /// telephony provider.
   internal var segmentCount: Int {
     get {
       return snapshot["segmentCount"]! as! Int
@@ -4611,6 +5001,7 @@ internal struct SealedPhoneMessageFields: GraphQLFragment {
     }
   }
 
+  /// True for an inbound MMS whose media was dropped and only its text kept.
   internal var mediaOmitted: Bool {
     get {
       return snapshot["mediaOmitted"]! as! Bool
@@ -4620,6 +5011,7 @@ internal struct SealedPhoneMessageFields: GraphQLFragment {
     }
   }
 
+  /// Whether the user has marked the message as read.
   internal var seen: Bool {
     get {
       return snapshot["seen"]! as! Bool
@@ -4629,6 +5021,7 @@ internal struct SealedPhoneMessageFields: GraphQLFragment {
     }
   }
 
+  /// Version of this object, incremented on each update.
   internal var version: Int {
     get {
       return snapshot["version"]! as! Int
@@ -4638,6 +5031,9 @@ internal struct SealedPhoneMessageFields: GraphQLFragment {
     }
   }
 
+  /// Time in milliseconds since 1970-01-01T00:00:00Z when the service received the
+  /// message from the telephony provider. createdAtEpochMs can be later if
+  /// processing is delayed.
   internal var receivedAtEpochMs: Double {
     get {
       return snapshot["receivedAtEpochMs"]! as! Double
@@ -4647,6 +5043,7 @@ internal struct SealedPhoneMessageFields: GraphQLFragment {
     }
   }
 
+  /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was created.
   internal var createdAtEpochMs: Double {
     get {
       return snapshot["createdAtEpochMs"]! as! Double
@@ -4656,6 +5053,7 @@ internal struct SealedPhoneMessageFields: GraphQLFragment {
     }
   }
 
+  /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was last updated.
   internal var updatedAtEpochMs: Double {
     get {
       return snapshot["updatedAtEpochMs"]! as! Double
@@ -4693,6 +5091,7 @@ internal struct SealedPhoneMessageFields: GraphQLFragment {
       }
     }
 
+    /// ID of the owner, for example a Sudo ID.
     internal var id: String {
       get {
         return snapshot["id"]! as! String
@@ -4702,6 +5101,7 @@ internal struct SealedPhoneMessageFields: GraphQLFragment {
       }
     }
 
+    /// Issuer of the ownership proof, for example sudoplatform.sudoservice.
     internal var issuer: String {
       get {
         return snapshot["issuer"]! as! String
@@ -4744,6 +5144,7 @@ internal struct PhoneMessageBatchResultFields: GraphQLFragment {
     }
   }
 
+  /// IDs of the messages the operation applied to.
   internal var succeededIds: [GraphQLID] {
     get {
       return snapshot["succeededIds"]! as! [GraphQLID]
@@ -4753,6 +5154,7 @@ internal struct PhoneMessageBatchResultFields: GraphQLFragment {
     }
   }
 
+  /// IDs of the messages that weren't found or don't belong to the caller.
   internal var failedIds: [GraphQLID] {
     get {
       return snapshot["failedIds"]! as! [GraphQLID]
@@ -4797,6 +5199,7 @@ internal struct AvailablePhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// The number in E.164 format, for example +14155550123.
   internal var phoneNumber: String {
     get {
       return snapshot["phoneNumber"]! as! String
@@ -4806,6 +5209,7 @@ internal struct AvailablePhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// ISO 3166-1 alpha-2 country code of the number, for example US.
   internal var countryCode: String {
     get {
       return snapshot["countryCode"]! as! String
@@ -4815,6 +5219,7 @@ internal struct AvailablePhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// The kind of number.
   internal var numberType: PhoneNumberType {
     get {
       return snapshot["numberType"]! as! PhoneNumberType
@@ -4824,6 +5229,7 @@ internal struct AvailablePhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// City or rate centre of the number, if the carrier reports one.
   internal var locality: String? {
     get {
       return snapshot["locality"] as? String
@@ -4833,6 +5239,7 @@ internal struct AvailablePhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// State or province code of the number, for example NY or ON.
   internal var region: String? {
     get {
       return snapshot["region"] as? String
@@ -4877,6 +5284,7 @@ internal struct PhoneNumberSearchFields: GraphQLFragment {
     }
   }
 
+  /// ID of the search. Pass it as searchId when provisioning.
   internal var id: GraphQLID {
     get {
       return snapshot["id"]! as! GraphQLID
@@ -4886,6 +5294,7 @@ internal struct PhoneNumberSearchFields: GraphQLFragment {
     }
   }
 
+  /// ISO 3166-1 alpha-2 country code that was searched.
   internal var countryCode: String {
     get {
       return snapshot["countryCode"]! as! String
@@ -4895,6 +5304,7 @@ internal struct PhoneNumberSearchFields: GraphQLFragment {
     }
   }
 
+  /// Area code that was searched. Null for a country-wide search.
   internal var areaCode: String? {
     get {
       return snapshot["areaCode"] as? String
@@ -4904,6 +5314,7 @@ internal struct PhoneNumberSearchFields: GraphQLFragment {
     }
   }
 
+  /// The available numbers, without duplicates and at most the requested limit.
   internal var results: [Result] {
     get {
       return (snapshot["results"] as! [Snapshot]).map { Result(snapshot: $0) }
@@ -4913,6 +5324,9 @@ internal struct PhoneNumberSearchFields: GraphQLFragment {
     }
   }
 
+  /// Time in milliseconds since 1970-01-01T00:00:00Z after which provisioning
+  /// from this search is refused. The carrier doesn't reserve the numbers, so one
+  /// can be taken by someone else sooner.
   internal var expiresAtEpochMs: Double {
     get {
       return snapshot["expiresAtEpochMs"]! as! Double
@@ -4954,6 +5368,7 @@ internal struct PhoneNumberSearchFields: GraphQLFragment {
       }
     }
 
+    /// The number in E.164 format, for example +14155550123.
     internal var phoneNumber: String {
       get {
         return snapshot["phoneNumber"]! as! String
@@ -4963,6 +5378,7 @@ internal struct PhoneNumberSearchFields: GraphQLFragment {
       }
     }
 
+    /// ISO 3166-1 alpha-2 country code of the number, for example US.
     internal var countryCode: String {
       get {
         return snapshot["countryCode"]! as! String
@@ -4972,6 +5388,7 @@ internal struct PhoneNumberSearchFields: GraphQLFragment {
       }
     }
 
+    /// The kind of number.
     internal var numberType: PhoneNumberType {
       get {
         return snapshot["numberType"]! as! PhoneNumberType
@@ -4981,6 +5398,7 @@ internal struct PhoneNumberSearchFields: GraphQLFragment {
       }
     }
 
+    /// City or rate centre of the number, if the carrier reports one.
     internal var locality: String? {
       get {
         return snapshot["locality"] as? String
@@ -4990,6 +5408,7 @@ internal struct PhoneNumberSearchFields: GraphQLFragment {
       }
     }
 
+    /// State or province code of the number, for example NY or ON.
     internal var region: String? {
       get {
         return snapshot["region"] as? String
@@ -5069,6 +5488,7 @@ internal struct PhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// ID of the phone number.
   internal var id: GraphQLID {
     get {
       return snapshot["id"]! as! GraphQLID
@@ -5078,6 +5498,7 @@ internal struct PhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// ID of the user who owns the phone number.
   internal var owner: GraphQLID {
     get {
       return snapshot["owner"]! as! GraphQLID
@@ -5087,6 +5508,7 @@ internal struct PhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// Identity ID of the user who owns the phone number.
   internal var identityId: GraphQLID {
     get {
       return snapshot["identityId"]! as! GraphQLID
@@ -5096,6 +5518,7 @@ internal struct PhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// The number in E.164 format, for example +14155550123.
   internal var phoneNumber: String {
     get {
       return snapshot["phoneNumber"]! as! String
@@ -5105,6 +5528,7 @@ internal struct PhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// ISO 3166-1 alpha-2 country code of the number, for example US.
   internal var countryCode: String {
     get {
       return snapshot["countryCode"]! as! String
@@ -5114,6 +5538,7 @@ internal struct PhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// The kind of number.
   internal var numberType: PhoneNumberType {
     get {
       return snapshot["numberType"]! as! PhoneNumberType
@@ -5123,6 +5548,7 @@ internal struct PhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// Area code of the number. Null where the country has no area codes.
   internal var areaCode: String? {
     get {
       return snapshot["areaCode"] as? String
@@ -5132,6 +5558,7 @@ internal struct PhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// Lifecycle state of the number.
   internal var state: PhoneNumberState {
     get {
       return snapshot["state"]! as! PhoneNumberState
@@ -5141,6 +5568,7 @@ internal struct PhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// Why provisioning failed. Set only when state is FAILED.
   internal var failureReason: PhoneNumberFailureReason? {
     get {
       return snapshot["failureReason"] as? PhoneNumberFailureReason
@@ -5150,6 +5578,8 @@ internal struct PhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// Time in milliseconds since 1970-01-01T00:00:00Z when the number will be
+  /// released. Set only when state is SUSPENDED.
   internal var gracePeriodEndsAtEpochMs: Double? {
     get {
       return snapshot["gracePeriodEndsAtEpochMs"] as? Double
@@ -5159,6 +5589,7 @@ internal struct PhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// Client-supplied reference passed when provisioning, returned unchanged.
   internal var clientRefId: String? {
     get {
       return snapshot["clientRefId"] as? String
@@ -5168,6 +5599,7 @@ internal struct PhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// ID of the key ring whose keys seal the phone number's messages.
   internal var keyRingId: GraphQLID {
     get {
       return snapshot["keyRingId"]! as! GraphQLID
@@ -5177,6 +5609,7 @@ internal struct PhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// IDs of the keys in the key ring.
   internal var keyIds: [String] {
     get {
       return snapshot["keyIds"]! as! [String]
@@ -5186,6 +5619,7 @@ internal struct PhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// Owners taken from the ownership proofs, which tie the phone number to a Sudo.
   internal var owners: [Owner] {
     get {
       return (snapshot["owners"] as! [Snapshot]).map { Owner(snapshot: $0) }
@@ -5195,6 +5629,7 @@ internal struct PhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// Version of this object, incremented on each update.
   internal var version: Int {
     get {
       return snapshot["version"]! as! Int
@@ -5204,6 +5639,7 @@ internal struct PhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was created.
   internal var createdAtEpochMs: Double {
     get {
       return snapshot["createdAtEpochMs"]! as! Double
@@ -5213,6 +5649,7 @@ internal struct PhoneNumberFields: GraphQLFragment {
     }
   }
 
+  /// Time in milliseconds since 1970-01-01T00:00:00Z when the object was last updated.
   internal var updatedAtEpochMs: Double {
     get {
       return snapshot["updatedAtEpochMs"]! as! Double
@@ -5250,6 +5687,7 @@ internal struct PhoneNumberFields: GraphQLFragment {
       }
     }
 
+    /// ID of the owner, for example a Sudo ID.
     internal var id: String {
       get {
         return snapshot["id"]! as! String
@@ -5259,6 +5697,7 @@ internal struct PhoneNumberFields: GraphQLFragment {
       }
     }
 
+    /// Issuer of the ownership proof, for example sudoplatform.sudoservice.
     internal var issuer: String {
       get {
         return snapshot["issuer"]! as! String
