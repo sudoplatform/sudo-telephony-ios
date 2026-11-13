@@ -59,6 +59,35 @@ public protocol DeviceKeyManager: Sendable {
     /// - Throws: `SudoTelephonyError` if key generation fails.
     func generateKeyPair() throws -> RegisteredPublicKey
 
+    /// Return the singleton key pair shared by every phone number provisioned while
+    /// the client enforces one, or `nil` if this device doesn't have it.
+    ///
+    /// Never creates the key pair; see `createSingletonKeyPairIfAbsent()`.
+    ///
+    /// - Returns: The registered public key descriptor to send when provisioning, or
+    ///   `nil` if there is no singleton key pair on this device.
+    /// - Throws: `SudoTelephonyError` if the key store can't be read, or holds the
+    ///   singleton's private key without its public key.
+    func getSingletonKeyPair() throws -> RegisteredPublicKey?
+
+    /// Create the singleton key pair if this device doesn't have it.
+    ///
+    /// The singleton key's ID is recorded in the key store, so it is carried by
+    /// `exportKeys()` / `importKeys(archiveData:)` and cleared by `removeAllKeys()`.
+    ///
+    /// - Returns: Whether the key pair was created, and its ID.
+    /// - Throws: `SudoTelephonyError` if the key pair can't be read or created.
+    func createSingletonKeyPairIfAbsent() throws -> CreateSingletonKeysIfAbsentResult.KeyResult
+
+    /// Remove the key pair named by `keyId`, unless it is the singleton key pair,
+    /// which other phone numbers may still be sealed to.
+    ///
+    /// Removing a key pair that doesn't exist succeeds.
+    ///
+    /// - Parameter keyId: The key pair to remove.
+    /// - Throws: `SudoTelephonyError` if the removal fails.
+    func removeKeyPair(keyId: String) throws
+
     /// Unseal a base64 `RSAEncryptionOAEPAESGCM` envelope sealed to the key pair named
     /// by `keyId`, returning the plaintext string.
     ///
@@ -76,9 +105,7 @@ public protocol DeviceKeyManager: Sendable {
 
     /// Remove every key this SDK holds in the key store.
     ///
-    /// Used to tear down local key material when the user resets or signs out. The
-    /// SDK does not delete per-number keys on deprovision, matching the platform
-    /// convention that key lifetime is tied to the key ring, not individual objects.
+    /// Used to tear down local key material when the user resets or signs out.
     ///
     /// - Throws: `SudoTelephonyError` if the removal fails.
     func removeAllKeys() throws

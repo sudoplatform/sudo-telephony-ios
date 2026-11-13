@@ -39,7 +39,9 @@ public protocol SudoTelephonyClient: AnyObject {
     /// the key its inbound messages are sealed to.
     func provisionPhoneNumber(withInput input: ProvisionPhoneNumberInput) async throws -> PhoneNumber
 
-    /// Release a provisioned number back to the carrier.
+    /// Release a provisioned number back to the carrier. Without a singleton key pair, the
+    /// number's key pair is then removed from the device. If that fails, this throws
+    /// `SudoTelephonyError.keyPairRemovalFailed`, which carries the released number.
     func deprovisionPhoneNumber(withId id: String) async throws -> PhoneNumber
 
     /// Fetch a single provisioned number by ID (`nil` if absent or not the caller's).
@@ -120,11 +122,30 @@ public protocol SudoTelephonyClient: AnyObject {
 
     // MARK: - Lifecycle
 
+    /// Create the singleton key pair every phone number is sealed to, if this device
+    /// doesn't have it.
+    ///
+    /// Requires `SudoTelephonyClientConfig.enforceSingletonKeyPair`. Call it once the
+    /// user is signed in, before provisioning: provisioning never creates the key, and
+    /// fails with `SudoTelephonyError.singletonKeyPairNotFound` without it.
+    ///
+    /// The result says whether the key had to be created. If it was, the device's key
+    /// material has changed, so back the keys up again with `exportKeys()`. If the
+    /// user already has phone numbers, a new key also means this device doesn't have
+    /// the one they're sealed to (for example a second device, or one whose keys were
+    /// removed), so import the user's key backup with `importKeys(archiveData:)`.
+    ///
+    /// - Returns: Whether the singleton key pair was created, and its ID.
+    /// - Throws: `SudoTelephonyError.invalidConfig` if the client doesn't enforce a
+    ///   singleton key pair; otherwise `SudoTelephonyError` if the key can't be
+    ///   created.
+    func createSingletonKeysIfAbsent() async throws -> CreateSingletonKeysIfAbsentResult
+
     /// Remove all on-device key material held by the SDK.
     ///
-    /// Call when the user signs out or resets, to tear down local keys. Per-number
-    /// keys are not deleted on deprovision; key lifetime is tied to this reset, in
-    /// line with the platform convention.
+    /// Call when the user signs out or resets, to tear down local keys. This includes
+    /// the singleton key pair, so call `createSingletonKeysIfAbsent()` again before
+    /// provisioning.
     ///
     /// - Throws: `SudoTelephonyError` if the removal fails.
     func reset() throws

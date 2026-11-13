@@ -5,6 +5,7 @@
 //
 
 import Foundation
+import SudoTelephonyCommon
 
 /// The single place use cases are constructed.
 ///
@@ -19,6 +20,8 @@ final class UseCaseFactory {
     private let phoneNumberRepository: PhoneNumberRepository
     private let phoneMessageRepository: PhoneMessageRepository
     private let subscriptionRepository: SubscriptionRepository
+    private let deviceKeyManager: DeviceKeyManager
+    private let enforceSingletonKeyPair: Bool
 
     // MARK: - Lifecycle
 
@@ -27,13 +30,23 @@ final class UseCaseFactory {
         configurationRepository: ConfigurationRepository,
         phoneNumberRepository: PhoneNumberRepository,
         phoneMessageRepository: PhoneMessageRepository,
-        subscriptionRepository: SubscriptionRepository
+        subscriptionRepository: SubscriptionRepository,
+        deviceKeyManager: DeviceKeyManager,
+        enforceSingletonKeyPair: Bool
     ) {
         self.supportedCountriesRepository = supportedCountriesRepository
         self.configurationRepository = configurationRepository
         self.phoneNumberRepository = phoneNumberRepository
         self.phoneMessageRepository = phoneMessageRepository
         self.subscriptionRepository = subscriptionRepository
+        self.deviceKeyManager = deviceKeyManager
+        self.enforceSingletonKeyPair = enforceSingletonKeyPair
+    }
+
+    // MARK: - Keys
+
+    func generateCreateSingletonKeysIfAbsentUseCase() -> CreateSingletonKeysIfAbsentUseCase {
+        CreateSingletonKeysIfAbsentUseCase(deviceKeyManager: deviceKeyManager, enforceSingletonKeyPair: enforceSingletonKeyPair)
     }
 
     // MARK: - Supported Countries

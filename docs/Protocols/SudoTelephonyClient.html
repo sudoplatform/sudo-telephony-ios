@@ -51,6 +51,14 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/SudoTelephonyClientConfig.html">SudoTelephonyClientConfig</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -257,7 +265,9 @@ the key its inbound messages are sealed to.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Release a provisioned number back to the carrier.</p>
+                        <p>Release a provisioned number back to the carrier. Without a singleton key pair, the
+number&rsquo;s key pair is then removed from the device. If that fails, this throws
+<code>SudoTelephonyError.keyPairRemovalFailed</code>, which carries the released number.</p>
 
                       </div>
                       <div class="declaration">
@@ -718,6 +728,58 @@ run.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13SudoTelephony0aB6ClientP27createSingletonKeysIfAbsent0aB6Common06CreateefgH6ResultVyYaKF"></a>
+                    <a name="//apple_ref/swift/Method/createSingletonKeysIfAbsent()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB6ClientP27createSingletonKeysIfAbsent0aB6Common06CreateefgH6ResultVyYaKF">createSingletonKeysIfAbsent()</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create the singleton key pair every phone number is sealed to, if this device
+doesn&rsquo;t have it.</p>
+
+<p>Requires <code><a href="../Structs/SudoTelephonyClientConfig.html#/s:13SudoTelephony0aB12ClientConfigV23enforceSingletonKeyPairSbvp">SudoTelephonyClientConfig.enforceSingletonKeyPair</a></code>. Call it once the
+user is signed in, before provisioning: provisioning never creates the key, and
+fails with <code>SudoTelephonyError.singletonKeyPairNotFound</code> without it.</p>
+
+<p>The result says whether the key had to be created. If it was, the device&rsquo;s key
+material has changed, so back the keys up again with <code><a href="../Protocols/SudoTelephonyClient.html#/s:13SudoTelephony0aB6ClientP10exportKeys10Foundation4DataVyKF">exportKeys()</a></code>. If the
+user already has phone numbers, a new key also means this device doesn&rsquo;t have
+the one they&rsquo;re sealed to (for example a second device, or one whose keys were
+removed), so import the user&rsquo;s key backup with <code><a href="../Protocols/SudoTelephonyClient.html#/s:13SudoTelephony0aB6ClientP10importKeys11archiveDatay10Foundation0G0V_tKF">importKeys(archiveData:)</a></code>.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <code>SudoTelephonyError.invalidConfig</code> if the client doesn&rsquo;t enforce a
+singleton key pair; otherwise <code>SudoTelephonyError</code> if the key can&rsquo;t be
+created.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">createSingletonKeysIfAbsent</span><span class="p">()</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">CreateSingletonKeysIfAbsentResult</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Whether the singleton key pair was created, and its ID.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:13SudoTelephony0aB6ClientP5resetyyKF"></a>
                     <a name="//apple_ref/swift/Method/reset()" class="dashAnchor"></a>
                     <a class="token" href="#/s:13SudoTelephony0aB6ClientP5resetyyKF">reset()</a>
@@ -730,9 +792,9 @@ run.</p>
                       <div class="abstract">
                         <p>Remove all on-device key material held by the SDK.</p>
 
-<p>Call when the user signs out or resets, to tear down local keys. Per-number
-keys are not deleted on deprovision; key lifetime is tied to this reset, in
-line with the platform convention.</p>
+<p>Call when the user signs out or resets, to tear down local keys. This includes
+the singleton key pair, so call <code><a href="../Protocols/SudoTelephonyClient.html#/s:13SudoTelephony0aB6ClientP27createSingletonKeysIfAbsent0aB6Common06CreateefgH6ResultVyYaKF">createSingletonKeysIfAbsent()</a></code> again before
+provisioning.</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
     <code>SudoTelephonyError</code> if the removal fails.
@@ -849,7 +911,7 @@ returned data contains private key material and must be stored securely.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-11-09)</p>
+          <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-11-13)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

@@ -18,8 +18,10 @@ public enum SudoTelephonyError: Error, Equatable, LocalizedError, Sendable {
     /// human-readable explanation.
     case invalidArgument(_ msg: String?)
 
-    /// The SDK could not locate its service configuration (the service stanza in
-    /// `sudoplatformconfig.json`).
+    /// The SDK's configuration is missing or doesn't support the operation: either
+    /// there is no service stanza in `sudoplatformconfig.json`, or the client's
+    /// `SudoTelephonyClientConfig` doesn't allow the call (for example
+    /// `createSingletonKeysIfAbsent()` without `enforceSingletonKeyPair`).
     case invalidConfig
 
     /// No user is currently signed in.
@@ -89,6 +91,19 @@ public enum SudoTelephonyError: Error, Equatable, LocalizedError, Sendable {
     /// fixes this. The associated value carries an optional underlying cause.
     case unsealingFailed(_ cause: String?)
 
+    /// The client enforces a singleton key pair, but this device doesn't have it.
+    /// Call `createSingletonKeysIfAbsent()` to create it, or import a key archive that
+    /// contains it (for example on a second device, before provisioning).
+    case singletonKeyPairNotFound
+
+    /// The phone number was deprovisioned, but this device couldn't remove its key pair.
+    /// The number is released, so treat it as gone: `deprovisioned` is the released
+    /// number, as a successful deprovision would have returned it. The key pair stays on
+    /// the device. Removing a key that is already absent succeeds, so this means the
+    /// keychain itself failed, and other key operations are likely to fail too. The
+    /// associated `cause` carries the underlying error.
+    case keyPairRemovalFailed(deprovisioned: PhoneNumber, cause: String?)
+
     /// The service response was missing data the SDK required to build a result.
     case noResultError
 
@@ -103,7 +118,7 @@ public enum SudoTelephonyError: Error, Equatable, LocalizedError, Sendable {
         case .invalidArgument(let msg):
             return msg ?? "An invalid argument was supplied."
         case .invalidConfig:
-            return "The telephony service configuration could not be found."
+            return "The telephony configuration is missing or doesn't support this operation."
         case .notSignedIn:
             return "No user is currently signed in."
         case .notAuthorized:
@@ -138,6 +153,10 @@ public enum SudoTelephonyError: Error, Equatable, LocalizedError, Sendable {
             return "The telephony service returned an error."
         case .unsealingFailed:
             return "The content couldn't be decrypted on this device."
+        case .singletonKeyPairNotFound:
+            return "This device doesn't have the shared key pair. Create it, or import a key backup that contains it."
+        case .keyPairRemovalFailed:
+            return "The phone number was released, but its key couldn't be removed from this device."
         case .noResultError:
             return "The service response did not contain the expected data."
         case .internalError(let cause):

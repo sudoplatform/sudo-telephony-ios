@@ -30,6 +30,25 @@ public final class DefaultSudoTelephonyClient: SudoTelephonyClient {
     // MARK: - Lifecycle
 
     /// Create the client for the signed-in user of `userClient`, using the
+    /// `telephonyService` section of `sudoplatformconfig.json`, with the default
+    /// `SudoTelephonyClientConfig`.
+    ///
+    /// - Parameters: As for `init(keyNamespace:userClient:keyManager:config:)`.
+    /// - Throws: As for `init(keyNamespace:userClient:keyManager:config:)`.
+    public convenience init(
+        keyNamespace: String = Constants.defaultKeyNamespace,
+        userClient: SudoUserClient,
+        keyManager: SudoKeyManager? = nil
+    ) throws {
+        try self.init(
+            keyNamespace: keyNamespace,
+            userClient: userClient,
+            keyManager: keyManager,
+            config: SudoTelephonyClientConfig()
+        )
+    }
+
+    /// Create the client for the signed-in user of `userClient`, using the
     /// `telephonyService` section of `sudoplatformconfig.json`.
     ///
     /// - Parameters:
@@ -48,12 +67,15 @@ public final class DefaultSudoTelephonyClient: SudoTelephonyClient {
     ///       manager is opt-in for callers who need to control the keychain
     ///       configuration (service name, key tag, access group); the default path
     ///       remains unchanged for everyone else.
+    ///   - config: Options for the client's behaviour, such as whether every phone
+    ///     number shares one key pair.
     /// - Throws: `SudoTelephonyError.invalidConfig` if the configuration has no
     ///   `telephonyService` section.
     public convenience init(
         keyNamespace: String = Constants.defaultKeyNamespace,
         userClient: SudoUserClient,
-        keyManager: SudoKeyManager? = nil
+        keyManager: SudoKeyManager? = nil,
+        config: SudoTelephonyClientConfig
     ) throws {
         let sudoApiClient: SudoApiClient?
         do {
@@ -65,24 +87,51 @@ public final class DefaultSudoTelephonyClient: SudoTelephonyClient {
         guard let sudoApiClient else {
             throw SudoTelephonyError.invalidConfig
         }
-        self.init(sudoApiClient: sudoApiClient, userClient: userClient, keyNamespace: keyNamespace, keyManager: keyManager)
+        self.init(
+            sudoApiClient: sudoApiClient,
+            userClient: userClient,
+            keyNamespace: keyNamespace,
+            keyManager: keyManager,
+            config: config
+        )
+    }
+
+    /// Create the client with an already configured `SudoApiClient` and the default
+    /// `SudoTelephonyClientConfig`.
+    ///
+    /// - Parameters: As for `init(sudoApiClient:userClient:keyNamespace:keyManager:config:)`.
+    public convenience init(
+        sudoApiClient: SudoApiClient,
+        userClient: SudoUserClient,
+        keyNamespace: String = Constants.defaultKeyNamespace,
+        keyManager: SudoKeyManager? = nil
+    ) {
+        self.init(
+            sudoApiClient: sudoApiClient,
+            userClient: userClient,
+            keyNamespace: keyNamespace,
+            keyManager: keyManager,
+            config: SudoTelephonyClientConfig()
+        )
     }
 
     /// Create the client with an already configured `SudoApiClient`, for apps that
     /// build their own, for example to point at a different endpoint. Most apps use
-    /// `init(keyNamespace:userClient:keyManager:)`.
+    /// `init(keyNamespace:userClient:keyManager:config:)`.
     ///
     /// - Parameters:
     ///   - sudoApiClient: The client used to reach the telephony service's AppSync
     ///     GraphQL endpoint.
     ///   - userClient: The user client the app signs in with.
-    ///   - keyNamespace: As for `init(keyNamespace:userClient:keyManager:)`.
-    ///   - keyManager: As for `init(keyNamespace:userClient:keyManager:)`.
+    ///   - keyNamespace: As for `init(keyNamespace:userClient:keyManager:config:)`.
+    ///   - keyManager: As for `init(keyNamespace:userClient:keyManager:config:)`.
+    ///   - config: As for `init(keyNamespace:userClient:keyManager:config:)`.
     public init(
         sudoApiClient: SudoApiClient,
         userClient: SudoUserClient,
         keyNamespace: String = Constants.defaultKeyNamespace,
-        keyManager: SudoKeyManager? = nil
+        keyManager: SudoKeyManager? = nil,
+        config: SudoTelephonyClientConfig
     ) {
         let deviceKeyManager: DeviceKeyManager = keyManager.map(DefaultDeviceKeyManager.init(keyManager:))
             ?? DefaultDeviceKeyManager(keyNamespace: keyNamespace)
@@ -90,7 +139,8 @@ public final class DefaultSudoTelephonyClient: SudoTelephonyClient {
         let configurationRepository = DefaultConfigurationRepository(sudoApiClient: sudoApiClient)
         let phoneNumberRepository = DefaultPhoneNumberRepository(
             sudoApiClient: sudoApiClient,
-            deviceKeyManager: deviceKeyManager
+            deviceKeyManager: deviceKeyManager,
+            enforceSingletonKeyPair: config.enforceSingletonKeyPair
         )
         let phoneMessageRepository = DefaultPhoneMessageRepository(
             sudoApiClient: sudoApiClient,
@@ -106,7 +156,9 @@ public final class DefaultSudoTelephonyClient: SudoTelephonyClient {
             configurationRepository: configurationRepository,
             phoneNumberRepository: phoneNumberRepository,
             phoneMessageRepository: phoneMessageRepository,
-            subscriptionRepository: subscriptionRepository
+            subscriptionRepository: subscriptionRepository,
+            deviceKeyManager: deviceKeyManager,
+            enforceSingletonKeyPair: config.enforceSingletonKeyPair
         )
     }
 
@@ -224,6 +276,10 @@ public final class DefaultSudoTelephonyClient: SudoTelephonyClient {
     }
 
     // MARK: - Lifecycle
+
+    public func createSingletonKeysIfAbsent() async throws -> CreateSingletonKeysIfAbsentResult {
+        try await useCaseFactory.generateCreateSingletonKeysIfAbsentUseCase().execute()
+    }
 
     public func reset() throws {
         try deviceKeyManager.removeAllKeys()

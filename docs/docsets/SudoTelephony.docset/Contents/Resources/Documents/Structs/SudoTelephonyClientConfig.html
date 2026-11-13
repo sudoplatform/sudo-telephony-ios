@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SudoTelephonyClientConfig Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/SudoTelephonyClientConfig" class="dashAnchor"></a>
+    <a title="SudoTelephonyClientConfig Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">SudoTelephony Docs</a> (100% documented)</p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">SudoTelephony Reference</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        SudoTelephonyClientConfig Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/DefaultSudoTelephonyClient.html">DefaultSudoTelephonyClient</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/SudoTelephonyClient.html">SudoTelephonyClient</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/SudoTelephonyClientConfig.html">SudoTelephonyClientConfig</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>SudoTelephonyClientConfig</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SudoTelephonyClientConfig</span> <span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Sendable</span></code></pre>
+
+                </div>
+              </div>
+            <p>Options that change how a <code><a href="../Classes/DefaultSudoTelephonyClient.html">DefaultSudoTelephonyClient</a></code> behaves.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Properties"></a>
+                <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Properties"></a>
+                  <h3 class="section-name"><span>Properties</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB12ClientConfigV23enforceSingletonKeyPairSbvp"></a>
+                    <a name="//apple_ref/swift/Property/enforceSingletonKeyPair" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB12ClientConfigV23enforceSingletonKeyPairSbvp">enforceSingletonKeyPair</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether every phone number is provisioned with one shared key pair instead of
+a key pair of its own.</p>
+
+<p>When <code>true</code>, every number is registered with a single key pair, which the app
+creates by calling <code>createSingletonKeysIfAbsent()</code> before provisioning. The
+client never creates it itself: provisioning without it throws
+<code>SudoTelephonyError.singletonKeyPairNotFound</code>. It is never removed when a
+number is deprovisioned or fails to provision; only <code>reset()</code> removes it.</p>
+
+<p>Messages are still sealed, but every number&rsquo;s messages are sealed to the same
+key, so all numbers can be read with that one key. Apps that don&rsquo;t need
+numbers kept cryptographically separate from one another can use this to keep
+key management and key export / import simple.</p>
+
+<p>When <code>false</code> (the default), each number gets its own key pair, which is
+removed from the device when the number is deprovisioned or when the service
+rejects its provisioning.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">enforceSingletonKeyPair</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Lifecycle"></a>
+                <a name="//apple_ref/swift/Section/Lifecycle" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Lifecycle"></a>
+                  <h3 class="section-name"><span>Lifecycle</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13SudoTelephony0aB12ClientConfigV23enforceSingletonKeyPairACSb_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(enforceSingletonKeyPair:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13SudoTelephony0aB12ClientConfigV23enforceSingletonKeyPairACSb_tcfc">init(enforceSingletonKeyPair:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create a client configuration.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">enforceSingletonKeyPair</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>enforceSingletonKeyPair</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Whether every phone number shares one
+key pair. Defaults to <code>false</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-11-13)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>

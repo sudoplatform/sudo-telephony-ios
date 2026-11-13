@@ -39,6 +39,31 @@ extension SudoApiGraphQLExecutor {
         }
     }
 
+    /// Execute a mutation, translating any failure into a `SudoTelephonyError`, and
+    /// first calling `onDefinitiveRejection` if the failure proves the service didn't
+    /// carry the mutation out.
+    ///
+    /// The rejection is decided from the raw error, before it is mapped; see
+    /// `SudoTelephonyError.isDefinitiveRejection(_:)`.
+    ///
+    /// - Parameters:
+    ///   - mutation: The mutation to perform.
+    ///   - onDefinitiveRejection: Undoes local work done for the mutation, such as a
+    ///     key generated for it, when the service definitely didn't act on it.
+    func perform<Mutation: GraphQLMutation>(
+        _ mutation: Mutation,
+        onDefinitiveRejection: () -> Void
+    ) async throws -> Mutation.Data {
+        do {
+            return try await sudoApiClient.perform(mutation: mutation)
+        } catch {
+            if SudoTelephonyError.isDefinitiveRejection(error) {
+                onDefinitiveRejection()
+            }
+            throw SudoTelephonyError.fromApiOperationError(error)
+        }
+    }
+
     /// Encode a GraphQL input object to a compact, deterministic JSON string.
     ///
     /// Retained for inputs that are still passed as JSON; generated input types that

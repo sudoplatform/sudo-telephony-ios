@@ -122,7 +122,7 @@ extension SudoTelephonyError {
     }
 
     /// The service's error type from a GraphQL error cause, if any.
-    private static func serviceErrorType(from cause: Error) -> String? {
+    static func serviceErrorType(from cause: Error) -> String? {
         (cause as? GraphQLError)?.extensions?["errorType"]?.stringValue
     }
 

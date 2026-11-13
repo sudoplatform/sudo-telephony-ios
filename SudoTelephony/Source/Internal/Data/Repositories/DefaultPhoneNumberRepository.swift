@@ -6,6 +6,7 @@
 
 import Foundation
 import SudoApiClient
+import SudoLogging
 import SudoTelephonyCommon
 
 /// GraphQL-backed implementation of `PhoneNumberRepository`.
@@ -19,12 +20,21 @@ final class DefaultPhoneNumberRepository: PhoneNumberRepository, SudoApiGraphQLE
 
     let sudoApiClient: SudoApiClient
     private let deviceKeyManager: DeviceKeyManager
+    private let enforceSingletonKeyPair: Bool
+    private let logger: Logger
 
     // MARK: - Lifecycle
 
-    init(sudoApiClient: SudoApiClient, deviceKeyManager: DeviceKeyManager) {
+    init(
+        sudoApiClient: SudoApiClient,
+        deviceKeyManager: DeviceKeyManager,
+        enforceSingletonKeyPair: Bool = false,
+        logger: Logger = .telephonySDKLogger
+    ) {
         self.sudoApiClient = sudoApiClient
         self.deviceKeyManager = deviceKeyManager
+        self.enforceSingletonKeyPair = enforceSingletonKeyPair
+        self.logger = logger
     }
 
     // MARK: - PhoneNumberRepository
@@ -44,9 +54,9 @@ final class DefaultPhoneNumberRepository: PhoneNumberRepository, SudoApiGraphQLE
     }
 
     func provisionPhoneNumber(_ input: ProvisionPhoneNumberInput) async throws -> PhoneNumber {
-        // Generate the key pair the number's inbound messages will be sealed to and
-        // register its public half. The private half stays on device for unsealing.
-        let key = try deviceKeyManager.generateKeyPair()
+        // Get the key pair the number's inbound messages will be sealed to and register
+        // its public half. The private half stays on device for unsealing.
+        let key = try enforceSingletonKeyPair ? requireSingletonKeyPair() : deviceKeyManager.generateKeyPair()
         let mutation = GraphQL.ProvisionPhoneNumberMutation(
             input: GraphQL.ProvisionPhoneNumberInput(
                 clientRefId: input.clientRefId,
@@ -62,14 +72,28 @@ final class DefaultPhoneNumberRepository: PhoneNumberRepository, SudoApiGraphQLE
                 searchId: input.searchId
             )
         )
-        let data = try await perform(mutation)
+        // Remove a per-number key only when the service definitely didn't register it.
+        // After any other failure the number may exist, and its key is the only way to
+        // read its messages. `removeKeyPair` would skip the singleton key anyway.
+        let data = try await perform(mutation, onDefinitiveRejection: {
+            guard !enforceSingletonKeyPair else { return }
+            // Best effort: the provisioning error is the one to report.
+            removeKeyPair(keyId: key.keyId, after: "a rejected provision")
+        })
         return try PhoneNumberTransformer.transform(data.provisionPhoneNumber.fragments.phoneNumberFields)
     }
 
     func deprovisionPhoneNumber(id: String) async throws -> PhoneNumber {
         let mutation = GraphQL.DeprovisionPhoneNumberMutation(id: id)
         let data = try await perform(mutation)
-        return try PhoneNumberTransformer.transform(data.deprovisionPhoneNumber.fragments.phoneNumberFields)
+        let fields = data.deprovisionPhoneNumber.fragments.phoneNumberFields
+        let number = try PhoneNumberTransformer.transform(fields)
+        if !enforceSingletonKeyPair {
+            // `removeKeyPair` skips the singleton key in case the app changed modes with
+            // numbers live.
+            try removeKeyPairs(fields.keyIds, ofDeprovisioned: number)
+        }
+        return number
     }
 
     func getPhoneNumber(id: String) async throws -> PhoneNumber? {
@@ -99,6 +123,43 @@ final class DefaultPhoneNumberRepository: PhoneNumberRepository, SudoApiGraphQLE
             items: data.listPhoneNumbersForSudoId.items.map(\.fragments.phoneNumberFields),
             nextToken: data.listPhoneNumbersForSudoId.nextToken
         )
+    }
+
+    /// The singleton key pair, which `createSingletonKeysIfAbsent()` creates. Provisioning never
+    /// creates it, so the app always knows when the device's key material changes.
+    private func requireSingletonKeyPair() throws -> RegisteredPublicKey {
+        guard let key = try deviceKeyManager.getSingletonKeyPair() else {
+            throw SudoTelephonyError.singletonKeyPairNotFound
+        }
+        return key
+    }
+
+    /// Removes a key pair that is no longer needed, logging rather than throwing if
+    /// that fails, since the operation that made it unneeded has already completed.
+    private func removeKeyPair(keyId: String, after operation: String) {
+        do {
+            try deviceKeyManager.removeKeyPair(keyId: keyId)
+        } catch {
+            logger.warning("Couldn't remove key pair \(keyId) after \(operation); it stays on this device: \(error)")
+        }
+    }
+
+    /// Removes a deprovisioned number's key pairs. Every key is attempted, then the first
+    /// failure is thrown as `keyPairRemovalFailed` carrying the released number, so the
+    /// caller learns the keychain failed without being told the number still exists.
+    private func removeKeyPairs(_ keyIds: [String], ofDeprovisioned number: PhoneNumber) throws {
+        var firstError: Error?
+        for keyId in keyIds {
+            do {
+                try deviceKeyManager.removeKeyPair(keyId: keyId)
+            } catch {
+                logger.error("Couldn't remove key pair \(keyId) after deprovisioning phone number \(number.id); it stays on this device: \(error)")
+                firstError = firstError ?? error
+            }
+        }
+        if let firstError {
+            throw SudoTelephonyError.keyPairRemovalFailed(deprovisioned: number, cause: firstError.localizedDescription)
+        }
     }
 
     func sealingKeyId(forPhoneNumberId phoneNumberId: String) async throws -> String? {
