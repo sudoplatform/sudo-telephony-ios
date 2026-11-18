@@ -32,6 +32,12 @@ let package = Package(
         .library(
             name: "SudoTelephonyCommon",
             targets: ["SudoTelephonyCommon"]
+        ),
+        // Linked by an app's Notification Service Extension. Keep its dependencies free of
+        // Amplify and AWS: extensions run under a tight memory limit.
+        .library(
+            name: "SudoTelephonyNotificationExtension",
+            targets: ["SudoTelephonyNotificationExtension"]
         )
     ],
     dependencies: [
@@ -40,6 +46,7 @@ let package = Package(
         .package(url: "https://github.com/sudoplatform/sudo-user-ios", from: "19.0.0"),
         .package(url: "https://github.com/sudoplatform/sudo-logging-ios", from: "3.0.0"),
         .package(url: "https://github.com/sudoplatform/sudo-key-manager-ios", from: "5.0.0"),
+        .package(url: "https://github.com/sudoplatform/sudo-notification-ios", from: "6.0.0"),
         // Pinned to match the reference SDKs' resolved graph (sudo-privacy-interaction
         // v2.1). Newer Amplify / AWS-SDK / Apple releases transitively pull package
         // versions that require a Swift 6.2+ toolchain; CI runs Swift 6.1, so these
@@ -74,9 +81,20 @@ let package = Package(
                 .product(name: "SudoConfigManager", package: "sudo-config-manager-ios"),
                 .product(name: "SudoUser", package: "sudo-user-ios"),
                 .product(name: "SudoLogging", package: "sudo-logging-ios"),
-                .product(name: "SudoKeyManager", package: "sudo-key-manager-ios")
+                .product(name: "SudoKeyManager", package: "sudo-key-manager-ios"),
+                .product(name: "SudoNotification", package: "sudo-notification-ios")
             ],
             path: "SudoTelephony/Source",
+            swiftSettings: [.swiftLanguageMode(.v5)]
+        ),
+        .target(
+            name: "SudoTelephonyNotificationExtension",
+            dependencies: [
+                "SudoTelephonyCommon",
+                .product(name: "SudoLogging", package: "sudo-logging-ios"),
+                .product(name: "SudoNotificationExtension", package: "sudo-notification-ios")
+            ],
+            path: "SudoTelephonyNotificationExtension/Source",
             swiftSettings: [.swiftLanguageMode(.v5)]
         )
         // The unit tests are internal: they run through SudoTelephony.xcodeproj and aren't published.

@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>NotificationConfiguration Extension Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Extension/NotificationConfiguration" class="dashAnchor"></a>
+    <a title="NotificationConfiguration Extension Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">SudoTelephony Docs</a> (100% documented)</p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">SudoTelephony Reference</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        NotificationConfiguration Extension Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/DefaultSudoTelephonyClient.html">DefaultSudoTelephonyClient</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DefaultSudoTelephonyNotificationFilterClient.html">DefaultSudoTelephonyNotificationFilterClient</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/NotificationConfiguration.html">NotificationConfiguration</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/SudoTelephonyClient.html">SudoTelephonyClient</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/SudoTelephonyClientConfig.html">SudoTelephonyClientConfig</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>NotificationConfiguration</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">NotificationConfiguration</span></code></pre>
+
+                </div>
+              </div>
+            
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Methods"></a>
+                <a name="//apple_ref/swift/Section/Methods" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Methods"></a>
+                  <h3 class="section-name"><span>Methods</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoNotification0B13ConfigurationV0A9TelephonyE04initD13NotificationsACyF"></a>
+                    <a name="//apple_ref/swift/Method/initTelephonyNotifications()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoNotification0B13ConfigurationV0A9TelephonyE04initD13NotificationsACyF">initTelephonyNotifications()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return a copy of this configuration set up to receive telephony service notifications.</p>
+
+<p>The returned configuration keeps every other service&rsquo;s rules first, in their current order. They are
+followed by a rule that disables telephony notification types the SDK doesn&rsquo;t recognise, then any
+existing telephony rules in their current order, then a catch-all rule that enables every other
+telephony notification. Calling it again on its own result returns an equal configuration.</p>
+
+<p>Once every Sudo Platform SDK has updated the configuration, pass it to
+<code>SudoNotificationClient.setNotificationConfiguration</code> to apply it.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">initTelephonyNotifications</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">NotificationConfiguration</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new configuration with the telephony default rules in place.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoNotification0B13ConfigurationV0A9TelephonyE03setD13Notifications16forPhoneNumberId7enabledACSS_SbtF"></a>
+                    <a name="//apple_ref/swift/Method/setTelephonyNotifications(forPhoneNumberId:enabled:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoNotification0B13ConfigurationV0A9TelephonyE03setD13Notifications16forPhoneNumberId7enabledACSS_SbtF">setTelephonyNotifications(forPhoneNumberId:<wbr>enabled:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return a copy of this configuration with telephony service notifications enabled or disabled for one
+phone number.</p>
+
+<p>Any existing rule for this phone number ID is removed. When <code>enabled</code> is <code>false</code>, a rule disabling
+notifications for the phone number is added after the other telephony rules and before the catch-all
+rule that enables everything else. Other services&rsquo; rules, and telephony rules for other IDs, are kept
+in their current order, and the telephony default rules are put in place as by
+<code><a href="../Extensions/NotificationConfiguration.html#/s:16SudoNotification0B13ConfigurationV0A9TelephonyE04initD13NotificationsACyF">initTelephonyNotifications()</a></code>. Enabling a phone number that isn&rsquo;t disabled changes nothing.</p>
+
+<p>Once every Sudo Platform SDK has updated the configuration, pass it to
+<code>SudoNotificationClient.setNotificationConfiguration</code> to apply it.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">setTelephonyNotifications</span><span class="p">(</span><span class="n">forPhoneNumberId</span> <span class="nv">phoneNumberId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">enabled</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NotificationConfiguration</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>phoneNumberId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the phone number to enable or disable notifications for.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>enabled</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Whether notifications for the phone number are enabled.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new configuration with the updated rules.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoNotification0B13ConfigurationV0A9TelephonyE03setD13Notifications03forA2Id7enabledACSS_SbtF"></a>
+                    <a name="//apple_ref/swift/Method/setTelephonyNotifications(forSudoId:enabled:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoNotification0B13ConfigurationV0A9TelephonyE03setD13Notifications03forA2Id7enabledACSS_SbtF">setTelephonyNotifications(forSudoId:<wbr>enabled:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return a copy of this configuration with telephony service notifications enabled or disabled for every
+phone number one Sudo owns.</p>
+
+<p>Any existing rule for this Sudo ID is removed. When <code>enabled</code> is <code>false</code>, a rule disabling
+notifications for the Sudo is added after the other telephony rules and before the catch-all rule that
+enables everything else. Other services&rsquo; rules, and telephony rules for other IDs, are kept in their
+current order, and the telephony default rules are put in place as by <code><a href="../Extensions/NotificationConfiguration.html#/s:16SudoNotification0B13ConfigurationV0A9TelephonyE04initD13NotificationsACyF">initTelephonyNotifications()</a></code>.
+Enabling a Sudo that isn&rsquo;t disabled changes nothing.</p>
+
+<p>Once every Sudo Platform SDK has updated the configuration, pass it to
+<code>SudoNotificationClient.setNotificationConfiguration</code> to apply it.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">setTelephonyNotifications</span><span class="p">(</span><span class="n">forSudoId</span> <span class="nv">sudoId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">enabled</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NotificationConfiguration</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sudoId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the Sudo to enable or disable notifications for.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>enabled</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Whether notifications for the Sudo are enabled.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new configuration with the updated rules.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoNotification0B13ConfigurationV0A9TelephonyE03setD13Notifications17forConversationId7enabledACSS_SbtF"></a>
+                    <a name="//apple_ref/swift/Method/setTelephonyNotifications(forConversationId:enabled:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoNotification0B13ConfigurationV0A9TelephonyE03setD13Notifications17forConversationId7enabledACSS_SbtF">setTelephonyNotifications(forConversationId:<wbr>enabled:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return a copy of this configuration with telephony service notifications enabled or disabled for one
+conversation.</p>
+
+<p>Any existing rule for this conversation ID is removed. When <code>enabled</code> is <code>false</code>, a rule disabling
+notifications for the conversation is added after the other telephony rules and before the catch-all
+rule that enables everything else. Other services&rsquo; rules, and telephony rules for other IDs, are kept
+in their current order, and the telephony default rules are put in place as by
+<code><a href="../Extensions/NotificationConfiguration.html#/s:16SudoNotification0B13ConfigurationV0A9TelephonyE04initD13NotificationsACyF">initTelephonyNotifications()</a></code>. Enabling a conversation that isn&rsquo;t disabled changes nothing.</p>
+
+<p>Once every Sudo Platform SDK has updated the configuration, pass it to
+<code>SudoNotificationClient.setNotificationConfiguration</code> to apply it.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">setTelephonyNotifications</span><span class="p">(</span><span class="n">forConversationId</span> <span class="nv">conversationId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">enabled</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NotificationConfiguration</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>conversationId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the conversation to enable or disable notifications for.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>enabled</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Whether notifications for the conversation are enabled.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new configuration with the updated rules.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoNotification0B13ConfigurationV0A9TelephonyE03areD20NotificationsEnabled20forPhoneNumberWithIdSbSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/areTelephonyNotificationsEnabled(forPhoneNumberWithId:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoNotification0B13ConfigurationV0A9TelephonyE03areD20NotificationsEnabled20forPhoneNumberWithIdSbSS_tF">areTelephonyNotificationsEnabled(forPhoneNumberWithId:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether telephony service notifications are enabled for a phone number.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">areTelephonyNotificationsEnabled</span><span class="p">(</span><span class="n">forPhoneNumberWithId</span> <span class="nv">phoneNumberId</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>phoneNumberId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the phone number to check.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><code>false</code> if the configuration has a telephony rule disabling notifications for the phone
+number, otherwise <code>true</code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoNotification0B13ConfigurationV0A9TelephonyE03areD20NotificationsEnabled03forA6WithIdSbSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/areTelephonyNotificationsEnabled(forSudoWithId:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoNotification0B13ConfigurationV0A9TelephonyE03areD20NotificationsEnabled03forA6WithIdSbSS_tF">areTelephonyNotificationsEnabled(forSudoWithId:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether telephony service notifications are enabled for a Sudo.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">areTelephonyNotificationsEnabled</span><span class="p">(</span><span class="n">forSudoWithId</span> <span class="nv">sudoId</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sudoId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the Sudo to check.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><code>false</code> if the configuration has a telephony rule disabling notifications for the Sudo,
+otherwise <code>true</code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoNotification0B13ConfigurationV0A9TelephonyE03areD20NotificationsEnabled21forConversationWithIdSbSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/areTelephonyNotificationsEnabled(forConversationWithId:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoNotification0B13ConfigurationV0A9TelephonyE03areD20NotificationsEnabled21forConversationWithIdSbSS_tF">areTelephonyNotificationsEnabled(forConversationWithId:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether telephony service notifications are enabled for a conversation.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">areTelephonyNotificationsEnabled</span><span class="p">(</span><span class="n">forConversationWithId</span> <span class="nv">conversationId</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>conversationId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the conversation to check.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><code>false</code> if the configuration has a telephony rule disabling notifications for the
+conversation, otherwise <code>true</code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-11-18)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>

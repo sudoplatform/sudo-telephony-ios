@@ -2,7 +2,7 @@
 
 ## Overview
 
-Give your users phone numbers for their Sudos. They can provision numbers, receive text messages, and get real-time updates, with message content sealed to keys held on their device.
+Give your users phone numbers for their Sudos. They can provision numbers, receive text messages, get real-time updates and push notifications, with message content sealed to keys held on their device.
 
 Please see the [Sudo Platform Developer Docs](https://sudoplatform.com/docs) for an overview of Telephony in the Sudo Platform.
 

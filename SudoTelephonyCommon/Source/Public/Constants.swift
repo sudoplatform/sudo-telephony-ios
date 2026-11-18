@@ -18,4 +18,8 @@ public enum Constants {
 
     /// The issuer of an `Owner` that is a Sudo. Its `id` is the Sudo's ID.
     public static let sudoOwnerIssuer = "sudoplatform.sudoservice"
+
+    /// The name the telephony service sends push notifications under. It is also the name of the
+    /// service's section in `sudoplatformconfig.json`, which must set `"notifiable": true`.
+    public static let serviceName = "telephonyService"
 }

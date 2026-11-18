@@ -1,5 +1,5 @@
 {
-  "originHash" : "c5db3a07bc154451be6ca5f29f600ae44606aebdd735bf15be3a296a46ea014a",
+  "originHash" : "8c81930d85c9726704c826bbbe3415531a8a52361d1a06979b4d3640e9944493",
   "pins" : [
     {
       "identity" : "amplify-swift",
@@ -119,6 +119,15 @@
       }
     },
     {
+      "identity" : "sudo-notification-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sudoplatform/sudo-notification-ios",
+      "state" : {
+        "revision" : "1e67f3c7b5a568a0aeb5b09e79d5a5fd14b889df",
+        "version" : "6.0.0"
+      }
+    },
+    {
       "identity" : "sudo-user-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sudoplatform/sudo-user-ios",
@@ -188,6 +197,15 @@
       "state" : {
         "revision" : "a0cb0954ecb21e4e31b0070e6ed5674e8556685a",
         "version" : "1.6.0"
+      }
+    },
+    {
+      "identity" : "swift-configuration",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-configuration.git",
+      "state" : {
+        "revision" : "5aa8bdb1ddd11de51cb30b0ba575f4b05a9a169d",
+        "version" : "1.4.0"
       }
     },
     {
