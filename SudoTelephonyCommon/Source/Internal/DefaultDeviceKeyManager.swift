@@ -220,18 +220,20 @@ public final class DefaultDeviceKeyManager: DeviceKeyManager, @unchecked Sendabl
     }
 
     public func importKeys(archiveData: Data) throws {
+        // Read and check the archive before removing anything, so an archive that can't be imported leaves this
+        // device's keys in place.
+        let archive = try unarchive(archiveData)
+        guard !archive.keys.isEmpty else {
+            // For example, exported by a user with no provisioned numbers. There's nothing to restore.
+            logger.info("The key archive contains no keys, so nothing was imported")
+            return
+        }
+        try checkEveryKeyIsImportable(archive.keys)
+
         // Import replaces the singleton key ID's record along with every key.
         try withSingletonLock {
             do {
                 try keyManager.removeAllKeys()
-                guard let archive = SecureKeyArchiveImpl(
-                    archiveData: archiveData,
-                    keyManager: keyManager,
-                    zip: true
-                ) else {
-                    throw SudoTelephonyError.internalError("Invalid key archive")
-                }
-                try archive.unarchive(nil)
                 try archive.saveKeys()
                 try restoreSingletonPublicKey()
             } catch let error as SudoTelephonyError {
@@ -243,6 +245,46 @@ public final class DefaultDeviceKeyManager: DeviceKeyManager, @unchecked Sendabl
     }
 
     // MARK: - Private
+
+    /// The archive's keys, read without touching the key store.
+    private func unarchive(_ archiveData: Data) throws -> SecureKeyArchiveImpl {
+        guard let archive = SecureKeyArchiveImpl(archiveData: archiveData, keyManager: keyManager, zip: true) else {
+            throw SudoTelephonyError.internalError("Invalid key archive")
+        }
+        do {
+            try archive.unarchive(nil)
+        } catch {
+            throw SudoTelephonyError.internalError("Importing keys failed: \(error)")
+        }
+        return archive
+    }
+
+    /// Throws `keyArchiveNotImportable` if the key store would skip any of `keys`.
+    ///
+    /// `SudoKeyManager.importKeys` skips, without an error, any key that isn't in its namespace, has no name, has a
+    /// type it doesn't know, or has data that isn't base64. An import that skipped keys would report success while
+    /// leaving this device without them, so it's refused before the existing keys are removed.
+    private func checkEveryKeyIsImportable(_ keys: [[KeyAttributeName: AnyObject]]) throws {
+        let namespace = keyManager.namespace
+        let unimportable = keys.filter { key in
+            guard
+                key[.namespace] as? String == namespace,
+                key[.name] is String,
+                let type = key[.type] as? String,
+                KeyType(rawValue: type) != .unknown,
+                let data = key[.data] as? String,
+                Data(base64Encoded: data) != nil
+            else { return true }
+            return false
+        }
+        guard !unimportable.isEmpty else { return }
+
+        let namespaces = Set(unimportable.map { ($0[.namespace] as? String).map { "\"\($0)\"" } ?? "none" })
+        throw SudoTelephonyError.keyArchiveNotImportable(
+            "\(unimportable.count) of \(keys.count) keys can't be imported into key namespace \"\(namespace)\". "
+                + "Their namespaces: \(namespaces.sorted().joined(separator: ", "))."
+        )
+    }
 
     /// Runs `body` while holding the singleton lock. The body is synchronous, so the
     /// lock can never be held across a suspension point.

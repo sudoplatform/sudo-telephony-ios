@@ -162,9 +162,18 @@ public protocol SudoTelephonyClient: AnyObject {
 
     /// Import cryptographic keys from an archive produced by `exportKeys()`.
     ///
-    /// Existing on-device keys are removed before the archive is restored.
+    /// The archive replaces the on-device keys. It's read and checked first, so an archive that is invalid or that
+    /// this client can't import leaves the existing keys in place. An archive with no keys imports nothing and leaves
+    /// the existing keys in place.
+    ///
+    /// The archive's keys must be in this client's key namespace (`keyNamespace` when the client was created).
     ///
     /// - Parameter archiveData: The key archive to import.
-    /// - Throws: `SudoTelephonyError` if the archive is invalid or the import fails.
+    /// - Throws:
+    ///   - `SudoTelephonyError.keyArchiveNotImportable` if the archive contains keys this client can't import, for
+    ///     example keys exported under a different key namespace. The existing keys are unchanged.
+    ///   - Another `SudoTelephonyError` if the archive is invalid, with the existing keys unchanged, or if saving the
+    ///     keys fails. Saving happens after the existing keys are removed, so in that case restore them from the
+    ///     app's own copy, such as an archive exported before the import.
     func importKeys(archiveData: Data) throws
 }

@@ -123,9 +123,12 @@ public protocol DeviceKeyManager: Sendable {
 
     /// Import cryptographic keys from a key archive produced by `exportKeys()`.
     ///
-    /// Existing keys are removed before the archive is restored.
+    /// The archive replaces the existing keys. An archive that is invalid, or contains keys outside this key
+    /// manager's namespace or that the key store would otherwise skip, is refused before anything is removed. An
+    /// archive with no keys imports nothing.
     ///
     /// - Parameter archiveData: The key archive to import.
-    /// - Throws: `SudoTelephonyError` if the archive is invalid or the import fails.
+    /// - Throws: `SudoTelephonyError.keyArchiveNotImportable` if the archive contains keys that can't be imported;
+    ///   another `SudoTelephonyError` if the archive is invalid or saving the keys fails.
     func importKeys(archiveData: Data) throws
 }

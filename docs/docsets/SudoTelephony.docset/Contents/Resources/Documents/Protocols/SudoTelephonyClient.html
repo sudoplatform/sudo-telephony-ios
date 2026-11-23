@@ -129,7 +129,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getSupportedCountries</span><span class="p">()</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getSupportedCountries</span><span class="p">()</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -177,7 +177,7 @@ requires a Sudo ownership proof, and the search and list limits.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getConfigurationData</span><span class="p">()</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">TelephonyConfigurationData</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getConfigurationData</span><span class="p">()</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">TelephonyConfigurationData</span></code></pre>
 
                         </div>
                       </div>
@@ -222,7 +222,7 @@ requires a Sudo ownership proof, and the search and list limits.</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">searchAvailablePhoneNumbers</span><span class="p">(</span>
     <span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">SearchAvailablePhoneNumbersInput</span>
-<span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneNumberSearchResult</span></code></pre>
+<span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneNumberSearchResult</span></code></pre>
 
                         </div>
                       </div>
@@ -253,7 +253,7 @@ the key its inbound messages are sealed to.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">provisionPhoneNumber</span><span class="p">(</span><span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ProvisionPhoneNumberInput</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneNumber</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">provisionPhoneNumber</span><span class="p">(</span><span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ProvisionPhoneNumberInput</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneNumber</span></code></pre>
 
                         </div>
                       </div>
@@ -285,7 +285,7 @@ number&rsquo;s key pair is then removed from the device. If that fails, this thr
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">deprovisionPhoneNumber</span><span class="p">(</span><span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneNumber</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">deprovisionPhoneNumber</span><span class="p">(</span><span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneNumber</span></code></pre>
 
                         </div>
                       </div>
@@ -315,7 +315,7 @@ number&rsquo;s key pair is then removed from the device. If that fails, this thr
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getPhoneNumber</span><span class="p">(</span><span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneNumber</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getPhoneNumber</span><span class="p">(</span><span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneNumber</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -346,7 +346,7 @@ Use <code>PhoneNumber.sudoId</code> to find a Sudo&rsquo;s numbers.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listPhoneNumbers</span><span class="p">(</span><span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ListPhoneNumbersInput</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">ListOutput</span><span class="o">&lt;</span><span class="kt">PhoneNumber</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listPhoneNumbers</span><span class="p">(</span><span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ListPhoneNumbersInput</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">ListOutput</span><span class="o">&lt;</span><span class="kt">PhoneNumber</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -377,7 +377,7 @@ and another user&rsquo;s Sudo lists nothing.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listPhoneNumbersForSudoId</span><span class="p">(</span><span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ListPhoneNumbersForSudoIdInput</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">ListOutput</span><span class="o">&lt;</span><span class="kt">PhoneNumber</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listPhoneNumbersForSudoId</span><span class="p">(</span><span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ListPhoneNumbersForSudoIdInput</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">ListOutput</span><span class="o">&lt;</span><span class="kt">PhoneNumber</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -420,7 +420,7 @@ and another user&rsquo;s Sudo lists nothing.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getPhoneMessage</span><span class="p">(</span><span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneMessage</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getPhoneMessage</span><span class="p">(</span><span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneMessage</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -452,7 +452,7 @@ and another user&rsquo;s Sudo lists nothing.</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listPhoneMessagesForPhoneNumberId</span><span class="p">(</span>
     <span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ListPhoneMessagesForPhoneNumberIdInput</span>
-<span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">ListAPIResult</span><span class="o">&lt;</span><span class="kt">PhoneMessage</span><span class="p">,</span> <span class="kt">PartialPhoneMessage</span><span class="o">&gt;</span></code></pre>
+<span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">ListAPIResult</span><span class="o">&lt;</span><span class="kt">PhoneMessage</span><span class="p">,</span> <span class="kt">PartialPhoneMessage</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -492,7 +492,7 @@ with partial results as for <code><a href="../Protocols/SudoTelephonyClient.html
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listPhoneMessagesForConversationId</span><span class="p">(</span>
     <span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">ListPhoneMessagesForConversationIdInput</span>
-<span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">ListAPIResult</span><span class="o">&lt;</span><span class="kt">PhoneMessage</span><span class="p">,</span> <span class="kt">PartialPhoneMessage</span><span class="o">&gt;</span></code></pre>
+<span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">ListAPIResult</span><span class="o">&lt;</span><span class="kt">PhoneMessage</span><span class="p">,</span> <span class="kt">PartialPhoneMessage</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -523,7 +523,7 @@ with partial results as for <code><a href="../Protocols/SudoTelephonyClient.html
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">deletePhoneMessages</span><span class="p">(</span><span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">DeletePhoneMessagesInput</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneMessageBatchResult</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">deletePhoneMessages</span><span class="p">(</span><span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">DeletePhoneMessagesInput</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneMessageBatchResult</span></code></pre>
 
                         </div>
                       </div>
@@ -554,7 +554,7 @@ with partial results as for <code><a href="../Protocols/SudoTelephonyClient.html
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">updatePhoneMessages</span><span class="p">(</span><span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">UpdatePhoneMessagesInput</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneMessageBatchResult</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">updatePhoneMessages</span><span class="p">(</span><span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">UpdatePhoneMessagesInput</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PhoneMessageBatchResult</span></code></pre>
 
                         </div>
                       </div>
@@ -608,7 +608,7 @@ stop. The subscriber is held weakly.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">subscribeToPhoneNumbers</span><span class="p">(</span><span class="nv">subscriber</span><span class="p">:</span> <span class="kt">PhoneNumberSubscriber</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">SubscriptionToken</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">subscribeToPhoneNumbers</span><span class="p">(</span><span class="nv">subscriber</span><span class="p">:</span> <span class="kt">PhoneNumberSubscriber</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">SubscriptionToken</span></code></pre>
 
                         </div>
                       </div>
@@ -647,7 +647,7 @@ deleted. An event carries no message content; fetch the message with
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">subscribeToPhoneMessages</span><span class="p">(</span><span class="nv">subscriber</span><span class="p">:</span> <span class="kt">PhoneMessageSubscriber</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">SubscriptionToken</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">subscribeToPhoneMessages</span><span class="p">(</span><span class="nv">subscriber</span><span class="p">:</span> <span class="kt">PhoneMessageSubscriber</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">SubscriptionToken</span></code></pre>
 
                         </div>
                       </div>
@@ -697,7 +697,7 @@ run.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">setSignInDelegate</span><span class="p">(</span><span class="n">_</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt">SudoPlatformSignInDelegate</span><span class="p">?)</span> <span class="k">async</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">setSignInDelegate</span><span class="p">(</span><span class="n">_</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt">SudoPlatformSignInDelegate</span><span class="p">?)</span> <span class="n">async</span></code></pre>
 
                         </div>
                       </div>
@@ -777,7 +777,7 @@ created.
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">createSingletonKeysIfAbsent</span><span class="p">()</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">CreateSingletonKeysIfAbsentResult</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">createSingletonKeysIfAbsent</span><span class="p">()</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">CreateSingletonKeysIfAbsentResult</span></code></pre>
 
                         </div>
                       </div>
@@ -879,10 +879,20 @@ returned data contains private key material and must be stored securely.</p>
                       <div class="abstract">
                         <p>Import cryptographic keys from an archive produced by <code><a href="../Protocols/SudoTelephonyClient.html#/s:13SudoTelephony0aB6ClientP10exportKeys10Foundation4DataVyKF">exportKeys()</a></code>.</p>
 
-<p>Existing on-device keys are removed before the archive is restored.</p>
+<p>The archive replaces the on-device keys. It&rsquo;s read and checked first, so an archive that is invalid or that
+this client can&rsquo;t import leaves the existing keys in place. An archive with no keys imports nothing and leaves
+the existing keys in place.</p>
+
+<p>The archive&rsquo;s keys must be in this client&rsquo;s key namespace (<code>keyNamespace</code> when the client was created).</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <code>SudoTelephonyError</code> if the archive is invalid or the import fails.
+    <ul>
+<li><code>SudoTelephonyError.keyArchiveNotImportable</code> if the archive contains keys this client can&rsquo;t import, for
+example keys exported under a different key namespace. The existing keys are unchanged.</li>
+<li>Another <code>SudoTelephonyError</code> if the archive is invalid, with the existing keys unchanged, or if saving the
+keys fails. Saving happens after the existing keys are removed, so in that case restore them from the
+app&rsquo;s own copy, such as an archive exported before the import.</li>
+</ul>
 
 </div>
 
@@ -922,7 +932,7 @@ returned data contains private key material and must be stored securely.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-11-18)</p>
+          <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-11-23)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

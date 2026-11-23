@@ -9,7 +9,8 @@ import Foundation
 /// Values apps need when working with the telephony SDK.
 public enum Constants {
 
-    /// The keychain namespace the SDK stores its keys under unless the app chooses another.
+    /// The keychain namespace the SDK stores its keys under unless overridden by caller. A consistent namespace is required for interoperation
+    /// of import/export files across platforms.
     public static let defaultKeyNamespace = "sudo-telephony"
 
     /// The audience to request a Sudo ownership proof with, e.g. from SudoProfiles' `getOwnershipProof(sudoId:audience:)`,

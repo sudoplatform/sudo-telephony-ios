@@ -104,6 +104,11 @@ public enum SudoTelephonyError: Error, Equatable, LocalizedError, Sendable {
     /// associated `cause` carries the underlying error.
     case keyPairRemovalFailed(deprovisioned: PhoneNumber, cause: String?)
 
+    /// The key archive contains keys this client can't import, usually because they were exported under a different
+    /// key namespace, for example by another app or platform. Nothing was imported and the device's keys are
+    /// unchanged. The associated value describes the keys that couldn't be imported.
+    case keyArchiveNotImportable(_ cause: String?)
+
     /// The service response was missing data the SDK required to build a result.
     case noResultError
 
@@ -157,6 +162,8 @@ public enum SudoTelephonyError: Error, Equatable, LocalizedError, Sendable {
             return "This device doesn't have the shared key pair. Create it, or import a key backup that contains it."
         case .keyPairRemovalFailed:
             return "The phone number was released, but its key couldn't be removed from this device."
+        case .keyArchiveNotImportable:
+            return "The key backup contains keys this app can't import. No keys were changed."
         case .noResultError:
             return "The service response did not contain the expected data."
         case .internalError(let cause):
